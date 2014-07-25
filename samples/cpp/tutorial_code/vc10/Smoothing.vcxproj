@@ -12,6 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ImgProc\Smoothing.cpp" />
+    <ClCompile Include="utility\timerC.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="utility\timerC.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B741B4ED-995C-4B03-8D1F-3CBED3B7565C}</ProjectGuid>
@@ -71,7 +75,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(OCVDIR)/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OCVDIR)/include;./utility</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
