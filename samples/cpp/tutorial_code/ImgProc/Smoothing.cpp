@@ -37,7 +37,7 @@ int main( void )
   namedWindow( window_name, CV_WINDOW_AUTOSIZE );
 
   /// Load the source image
-  src = imread( "../images/lena.jpg", 1 );
+  src = imread( "../images/lena.jpg", 1 );	//	define in loadsave.cpp
 
   if( display_caption( "Original Image" ) != 0 ) { return 0; }
 
@@ -73,7 +73,7 @@ int main( void )
 		timeTest.start();
 #endif
 		printf(" \n\nfilter window size = %d \n",3);
-		medianBlur ( src, dst, 3 );//	2.8 ms (450,340,3); 1.8 ms (520,540,3)
+		medianBlur ( src, dst, 3 );//	1.8 ms (450,340,3); 2.8 ms (520,540,3)
 
 #if ENABLE_TIME_STEP	// xx ms
 		timeTest.stop();
