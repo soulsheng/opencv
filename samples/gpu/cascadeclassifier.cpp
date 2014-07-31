@@ -112,8 +112,8 @@ int main(int argc, const char *argv[])
     cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
     string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
-    string inputName;
-    bool isInputImage = false;
+    string inputName = "../../images/lena.jpg";
+    bool isInputImage = true;
     bool isInputVideo = false;
     bool isInputCamera = false;
 
@@ -253,7 +253,7 @@ int main(int argc, const char *argv[])
 
         //print detections to console
         cout << setfill(' ') << setprecision(2);
-        cout << setw(6) << fixed << fps << " FPS, " << detections_num << " det";
+        cout << setw(6) << fixed << fps << " FPS, " << detections_num << " det, " << detectionTime << "ms detectionTime";
         if ((filterRects || findLargestObject) && detections_num > 0)
         {
             Rect *faceRects = useGPU ? faces_downloaded.ptr<Rect>() : &facesBuf_cpu[0];
