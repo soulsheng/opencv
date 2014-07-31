@@ -12,3 +12,5 @@ tags
 /samples/cpp/tutorial_code/vc10/Release
 /samples/cpp/tutorial_code/vc10/*.suo
 /samples/cpp/tutorial_code/vc10/ipch
+/samples/vc10/*.suo
+/samples/vc10/*.sdf
