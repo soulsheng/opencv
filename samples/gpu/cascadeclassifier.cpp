@@ -101,7 +101,7 @@ int main(int argc, const char *argv[])
     if (argc == 1)
     {
         help();
-        return -1;
+        //return -1;
     }
 
     if (getCudaEnabledDeviceCount() == 0)
@@ -111,7 +111,7 @@ int main(int argc, const char *argv[])
 
     cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
-    string cascadeName;
+    string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
     string inputName;
     bool isInputImage = false;
     bool isInputVideo = false;
