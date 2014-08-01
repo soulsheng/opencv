@@ -7,6 +7,9 @@ using namespace cv;
 using namespace std;
 
 #define TEST_IMAGE_FILE	"../../images/pic1.png"
+//#define TEST_IMAGE_FILE	"../../images/car.bmp"
+
+
 static void help()
 {
     cout << "\nThis program demonstrates line finding with the Hough transform.\n"

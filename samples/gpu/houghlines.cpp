@@ -10,6 +10,10 @@ using namespace std;
 using namespace cv;
 using namespace cv::gpu;
 
+#define TEST_IMAGE_FILE	"../../images/pic1.png"
+//#define TEST_IMAGE_FILE	"../../images/car.bmp"
+
+
 static void help()
 {
     cout << "This program demonstrates line finding with the Hough transform." << endl;
@@ -19,7 +23,7 @@ static void help()
 
 int main(int argc, const char* argv[])
 {
-    const string filename = argc >= 2 ? argv[1] : "../../images/pic1.png";
+    const string filename = argc >= 2 ? argv[1] : TEST_IMAGE_FILE;
 
     Mat src = imread(filename, IMREAD_GRAYSCALE);
     if (src.empty())
