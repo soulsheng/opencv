@@ -17,3 +17,10 @@ tags
 /samples/vc10/*.opensdf
 /samples/vc10/Debug
 /samples/vc10/ipch
+/samples/vc10/faceDetect/Debug
+/samples/vc10/faceDetect/Release
+/samples/vc10/faceDetectGPU/Debug
+/samples/vc10/faceDetectOCL/Debug
+/samples/vc10/houghLine/Debug
+/samples/vc10/houghLineGPU/Debug
+/samples/vc10/Release
