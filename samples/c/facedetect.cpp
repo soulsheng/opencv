@@ -150,7 +150,20 @@ _cleanup_:
         cout << "In image read" << endl;
         if( !image.empty() )
         {
-            detectAndDraw( image, cascade, nestedCascade, scale, tryflip );
+			char * bufferIn =  new char[image.rows * image.cols * 3];
+			memcpy( bufferIn, image.ptr(), image.rows * image.cols * 3 ) ;
+
+			cv::Mat src( image.rows, image.cols, CV_8UC3, bufferIn );
+
+
+			detectAndDraw( src, cascade, nestedCascade, scale, tryflip );
+
+			char * bufferOut =  new char[image.rows * image.cols * 3];
+			memcpy( bufferOut, src.ptr(), image.rows * image.cols * 3 ) ;
+
+			delete [] bufferIn;
+			delete [] bufferOut;
+
             waitKey(0);
         }
         else if( !inputName.empty() )
