@@ -6,6 +6,7 @@
 using namespace cv;
 using namespace std;
 
+#define TEST_IMAGE_FILE	"../../images/pic1.png"
 static void help()
 {
     cout << "\nThis program demonstrates line finding with the Hough transform.\n"
@@ -15,7 +16,7 @@ static void help()
 
 int main(int argc, char** argv)
 {
-    const char* filename = argc >= 2 ? argv[1] : "../../images/pic1.png";
+    const char* filename = argc >= 2 ? argv[1] : TEST_IMAGE_FILE;
 
     Mat src = imread(filename, 0);
     if(src.empty())
