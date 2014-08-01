@@ -25,3 +25,4 @@ tags
 /samples/vc10/houghLineGPU/Debug
 /samples/vc10/Release
 /samples/vc10/faceDetectGPU/Release
+/samples/vc10/houghLineGPU/Release
