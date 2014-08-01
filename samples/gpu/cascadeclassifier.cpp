@@ -263,13 +263,25 @@ int main(int argc, const char *argv[])
                      << ", " << setw(4) << faceRects[i].y
                      << ", " << setw(4) << faceRects[i].width
                      << ", " << setw(4) << faceRects[i].height << "]";
+				
+				Point center;
+				int radius;
+
+				center.x = cvRound((faceRects[i].x + faceRects[i].width*0.5) );
+				center.y = cvRound((faceRects[i].y + faceRects[i].height*0.5) );
+				radius = cvRound((faceRects[i].width + faceRects[i].height)*0.25 );
+				circle( image, center, radius, CV_RGB(0,255,0), 3, 8, 0 );
             }
         }
         cout << endl;
 
+#if 0
         cvtColor(resized_cpu, frameDisp, CV_GRAY2BGR);
         displayState(frameDisp, helpScreen, useGPU, findLargestObject, filterRects, fps);
         imshow("result", frameDisp);
+#else
+		imshow("result", image );
+#endif
 
         char key = (char)waitKey(5);
         if (key == 27)
