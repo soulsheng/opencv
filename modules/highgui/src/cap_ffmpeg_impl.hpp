@@ -49,6 +49,10 @@
 #pragma warning( disable: 4244 4510 4512 4610 )
 #endif
 
+#ifdef __GNUC__
+#  pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -142,6 +146,14 @@ extern "C" {
 
 #ifndef AVERROR_EOF
 #define AVERROR_EOF (-MKTAG( 'E','O','F',' '))
+#endif
+
+#if LIBAVCODEC_BUILD >= CALC_FFMPEG_VERSION(54,25,0)
+#  define CV_CODEC_ID AVCodecID
+#  define CV_CODEC(name) AV_##name
+#else
+#  define CV_CODEC_ID CodecID
+#  define CV_CODEC(name) name
 #endif
 
 static int get_number_of_cpus(void)
@@ -328,28 +340,195 @@ void CvCapture_FFMPEG::close()
 #define AVSEEK_FLAG_ANY 1
 #endif
 
-static void icvInitFFMPEG_internal()
+class ImplMutex
 {
-    static volatile bool initialized = false;
-    if( !initialized )
+public:
+    ImplMutex() { init(); }
+    ~ImplMutex() { destroy(); }
+
+    void init();
+    void destroy();
+
+    void lock();
+    bool trylock();
+    void unlock();
+
+    struct Impl;
+protected:
+    Impl* impl;
+
+private:
+    ImplMutex(const ImplMutex&);
+    ImplMutex& operator = (const ImplMutex& m);
+};
+
+#if defined WIN32 || defined _WIN32 || defined WINCE
+
+struct ImplMutex::Impl
+{
+    void init()
     {
+#if (_WIN32_WINNT >= 0x0600)
+        ::InitializeCriticalSectionEx(&cs, 1000, 0);
+#else
+        ::InitializeCriticalSection(&cs);
+#endif
+        refcount = 1;
+    }
+    void destroy() { DeleteCriticalSection(&cs); }
+
+    void lock() { EnterCriticalSection(&cs); }
+    bool trylock() { return TryEnterCriticalSection(&cs) != 0; }
+    void unlock() { LeaveCriticalSection(&cs); }
+
+    CRITICAL_SECTION cs;
+    int refcount;
+};
+
+#ifndef __GNUC__
+static int _interlockedExchangeAdd(int* addr, int delta)
+{
+#if defined _MSC_VER && _MSC_VER >= 1500
+    return (int)_InterlockedExchangeAdd((long volatile*)addr, delta);
+#else
+    return (int)InterlockedExchangeAdd((long volatile*)addr, delta);
+#endif
+}
+#endif // __GNUC__
+
+#elif defined __APPLE__
+
+#include <libkern/OSAtomic.h>
+
+struct ImplMutex::Impl
+{
+    void init() { sl = OS_SPINLOCK_INIT; refcount = 1; }
+    void destroy() { }
+
+    void lock() { OSSpinLockLock(&sl); }
+    bool trylock() { return OSSpinLockTry(&sl); }
+    void unlock() { OSSpinLockUnlock(&sl); }
+
+    OSSpinLock sl;
+    int refcount;
+};
+
+#elif defined __linux__ && !defined ANDROID
+
+struct ImplMutex::Impl
+{
+    void init() { pthread_spin_init(&sl, 0); refcount = 1; }
+    void destroy() { pthread_spin_destroy(&sl); }
+
+    void lock() { pthread_spin_lock(&sl); }
+    bool trylock() { return pthread_spin_trylock(&sl) == 0; }
+    void unlock() { pthread_spin_unlock(&sl); }
+
+    pthread_spinlock_t sl;
+    int refcount;
+};
+
+#else
+
+struct ImplMutex::Impl
+{
+    void init() { pthread_mutex_init(&sl, 0); refcount = 1; }
+    void destroy() { pthread_mutex_destroy(&sl); }
+
+    void lock() { pthread_mutex_lock(&sl); }
+    bool trylock() { return pthread_mutex_trylock(&sl) == 0; }
+    void unlock() { pthread_mutex_unlock(&sl); }
+
+    pthread_mutex_t sl;
+    int refcount;
+};
+
+#endif
+
+void ImplMutex::init()
+{
+    impl = (Impl*)malloc(sizeof(Impl));
+    impl->init();
+}
+void ImplMutex::destroy()
+{
+    impl->destroy();
+    free(impl);
+    impl = NULL;
+}
+void ImplMutex::lock() { impl->lock(); }
+void ImplMutex::unlock() { impl->unlock(); }
+bool ImplMutex::trylock() { return impl->trylock(); }
+
+static int LockCallBack(void **mutex, AVLockOp op)
+{
+    ImplMutex* localMutex = reinterpret_cast<ImplMutex*>(*mutex);
+    switch (op)
+    {
+        case AV_LOCK_CREATE:
+            localMutex = reinterpret_cast<ImplMutex*>(malloc(sizeof(ImplMutex)));
+            localMutex->init();
+            *mutex = localMutex;
+            if (!*mutex)
+                return 1;
+        break;
+
+        case AV_LOCK_OBTAIN:
+            localMutex->lock();
+        break;
+
+        case AV_LOCK_RELEASE:
+            localMutex->unlock();
+        break;
+
+        case AV_LOCK_DESTROY:
+            localMutex->destroy();
+            free(localMutex);
+            localMutex = NULL;
+        break;
+    }
+    return 0;
+}
+
+static ImplMutex _mutex;
+static bool _initialized = false;
+
+class InternalFFMpegRegister
+{
+public:
+    InternalFFMpegRegister()
+    {
+        _mutex.lock();
+        if (!_initialized)
+        {
     #if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 13, 0)
-        avformat_network_init();
+            avformat_network_init();
     #endif
 
-        /* register all codecs, demux and protocols */
-        av_register_all();
+            /* register all codecs, demux and protocols */
+            av_register_all();
 
-        av_log_set_level(AV_LOG_ERROR);
+            /* register a callback function for synchronization */
+            av_lockmgr_register(&LockCallBack);
 
-        initialized = true;
+            av_log_set_level(AV_LOG_ERROR);
+
+            _initialized = true;
+        }
+        _mutex.unlock();
     }
-}
+
+    ~InternalFFMpegRegister()
+    {
+        _initialized = false;
+        av_lockmgr_register(NULL);
+    }
+};
+
+static InternalFFMpegRegister _init;
 
 bool CvCapture_FFMPEG::open( const char* _filename )
 {
-    icvInitFFMPEG_internal();
-
     unsigned i;
     bool valid = false;
 
@@ -361,17 +540,19 @@ bool CvCapture_FFMPEG::open( const char* _filename )
     int err = av_open_input_file(&ic, _filename, NULL, 0, NULL);
 #endif
 
-    if (err < 0) {
+    if (err < 0)
+    {
         CV_WARN("Error opening file");
         goto exit_func;
     }
     err =
-#if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 3, 0)
+#if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 6, 0)
     avformat_find_stream_info(ic, NULL);
 #else
     av_find_stream_info(ic);
 #endif
-    if (err < 0) {
+    if (err < 0)
+    {
         CV_WARN("Could not find codec parameters");
         goto exit_func;
     }
@@ -383,17 +564,22 @@ bool CvCapture_FFMPEG::open( const char* _filename )
         AVCodecContext *enc = &ic->streams[i]->codec;
 #endif
 
-#ifdef FF_API_THREAD_INIT
-        avcodec_thread_init(enc, get_number_of_cpus());
-#else
+//#ifdef FF_API_THREAD_INIT
+//        avcodec_thread_init(enc, get_number_of_cpus());
+//#else
         enc->thread_count = get_number_of_cpus();
-#endif
+//#endif
 
 #if LIBAVFORMAT_BUILD < CALC_FFMPEG_VERSION(53, 2, 0)
 #define AVMEDIA_TYPE_VIDEO CODEC_TYPE_VIDEO
 #endif
 
-        if( AVMEDIA_TYPE_VIDEO == enc->codec_type && video_stream < 0) {
+        if( AVMEDIA_TYPE_VIDEO == enc->codec_type && video_stream < 0)
+        {
+            // backup encoder' width/height
+            int enc_width = enc->width;
+            int enc_height = enc->height;
+
             AVCodec *codec = avcodec_find_decoder(enc->codec_id);
             if (!codec ||
 #if LIBAVCODEC_VERSION_INT >= ((53<<16)+(8<<8)+0)
@@ -401,7 +587,12 @@ bool CvCapture_FFMPEG::open( const char* _filename )
 #else
                 avcodec_open(enc, codec)
 #endif
-                < 0) goto exit_func;
+                < 0)
+                goto exit_func;
+
+            // checking width/height (since decoder can sometimes alter it, eg. vp6f)
+            if (enc_width && (enc->width != enc_width)) { enc->width = enc_width; }
+            if (enc_height && (enc->height != enc_height)) { enc->height = enc_height; }
 
             video_stream = i;
             video_st = ic->streams[i];
@@ -846,7 +1037,7 @@ static const char * icvFFMPEGErrStr(int err)
 
 /* function internal to FFMPEG (libavformat/riff.c) to lookup codec id by fourcc tag*/
 extern "C" {
-    enum CodecID codec_get_bmp_id(unsigned int tag);
+    enum CV_CODEC_ID codec_get_bmp_id(unsigned int tag);
 }
 
 void CvVideoWriter_FFMPEG::init()
@@ -898,7 +1089,7 @@ static AVFrame * icv_alloc_picture_FFMPEG(int pix_fmt, int width, int height, bo
 
 /* add a video output stream to the container */
 static AVStream *icv_add_video_stream_FFMPEG(AVFormatContext *oc,
-                                             CodecID codec_id,
+                                             CV_CODEC_ID codec_id,
                                              int w, int h, int bitrate,
                                              double fps, int pixel_format)
 {
@@ -930,7 +1121,7 @@ static AVStream *icv_add_video_stream_FFMPEG(AVFormatContext *oc,
     c->codec_id = oc->oformat->video_codec;
 #endif
 
-    if(codec_id != CODEC_ID_NONE){
+    if(codec_id != CV_CODEC(CODEC_ID_NONE)){
         c->codec_id = codec_id;
     }
 
@@ -991,10 +1182,10 @@ static AVStream *icv_add_video_stream_FFMPEG(AVFormatContext *oc,
     c->gop_size = 12; /* emit one intra frame every twelve frames at most */
     c->pix_fmt = (PixelFormat) pixel_format;
 
-    if (c->codec_id == CODEC_ID_MPEG2VIDEO) {
+    if (c->codec_id == CV_CODEC(CODEC_ID_MPEG2VIDEO)) {
         c->max_b_frames = 2;
     }
-    if (c->codec_id == CODEC_ID_MPEG1VIDEO || c->codec_id == CODEC_ID_MSMPEG4V3){
+    if (c->codec_id == CV_CODEC(CODEC_ID_MPEG1VIDEO) || c->codec_id == CV_CODEC(CODEC_ID_MSMPEG4V3)){
         /* needed to avoid using macroblocks in which some coeffs overflow
            this doesnt happen with normal video, it just happens here as the
            motion of the chroma plane doesnt match the luma plane */
@@ -1088,7 +1279,7 @@ bool CvVideoWriter_FFMPEG::writeFrame( const unsigned char* data, int step, int 
 
 #if LIBAVFORMAT_BUILD < 5231
     // It is not needed in the latest versions of the ffmpeg
-    if( c->codec_id == CODEC_ID_RAWVIDEO && origin != 1 )
+    if( c->codec_id == CV_CODEC(CODEC_ID_RAWVIDEO) && origin != 1 )
     {
         if( !temp_image.data )
         {
@@ -1179,8 +1370,6 @@ bool CvVideoWriter_FFMPEG::writeFrame( const unsigned char* data, int step, int 
 /// close video output stream and free associated memory
 void CvVideoWriter_FFMPEG::close()
 {
-    unsigned i;
-
     // nothing to do if already released
     if ( !picture )
         return;
@@ -1236,13 +1425,6 @@ void CvVideoWriter_FFMPEG::close()
 
     av_free(outbuf);
 
-    /* free the streams */
-    for(i = 0; i < oc->nb_streams; i++)
-    {
-        av_freep(&oc->streams[i]->codec);
-        av_freep(&oc->streams[i]);
-    }
-
     if (!(fmt->flags & AVFMT_NOFILE))
     {
         /* close the output file */
@@ -1260,7 +1442,7 @@ void CvVideoWriter_FFMPEG::close()
     }
 
     /* free the stream */
-    av_free(oc);
+    avformat_free_context(oc);
 
     if( temp_image.data )
     {
@@ -1275,9 +1457,7 @@ void CvVideoWriter_FFMPEG::close()
 bool CvVideoWriter_FFMPEG::open( const char * filename, int fourcc,
                                  double fps, int width, int height, bool is_color )
 {
-    icvInitFFMPEG_internal();
-
-    CodecID codec_id = CODEC_ID_NONE;
+    CV_CODEC_ID codec_id = CV_CODEC(CODEC_ID_NONE);
     int err, codec_pix_fmt;
     double bitrate_scale = 1;
 
@@ -1318,11 +1498,11 @@ bool CvVideoWriter_FFMPEG::open( const char * filename, int fourcc,
 
     /* Lookup codec_id for given fourcc */
 #if LIBAVCODEC_VERSION_INT<((51<<16)+(49<<8)+0)
-    if( (codec_id = codec_get_bmp_id( fourcc )) == CODEC_ID_NONE )
+    if( (codec_id = codec_get_bmp_id( fourcc )) == CV_CODEC(CODEC_ID_NONE) )
         return false;
 #else
     const struct AVCodecTag * tags[] = { codec_bmp_tags, NULL};
-    if( (codec_id = av_codec_get_id(tags, fourcc)) == CODEC_ID_NONE )
+    if( (codec_id = av_codec_get_id(tags, fourcc)) == CV_CODEC(CODEC_ID_NONE) )
         return false;
 #endif
 
@@ -1344,20 +1524,20 @@ bool CvVideoWriter_FFMPEG::open( const char * filename, int fourcc,
     // set a few optimal pixel formats for lossless codecs of interest..
     switch (codec_id) {
 #if LIBAVCODEC_VERSION_INT>((50<<16)+(1<<8)+0)
-    case CODEC_ID_JPEGLS:
+    case CV_CODEC(CODEC_ID_JPEGLS):
         // BGR24 or GRAY8 depending on is_color...
         codec_pix_fmt = input_pix_fmt;
         break;
 #endif
-    case CODEC_ID_HUFFYUV:
+    case CV_CODEC(CODEC_ID_HUFFYUV):
         codec_pix_fmt = PIX_FMT_YUV422P;
         break;
-    case CODEC_ID_MJPEG:
-    case CODEC_ID_LJPEG:
+    case CV_CODEC(CODEC_ID_MJPEG):
+    case CV_CODEC(CODEC_ID_LJPEG):
         codec_pix_fmt = PIX_FMT_YUVJ420P;
         bitrate_scale = 3;
         break;
-    case CODEC_ID_RAWVIDEO:
+    case CV_CODEC(CODEC_ID_RAWVIDEO):
         codec_pix_fmt = input_pix_fmt == PIX_FMT_GRAY8 ||
                         input_pix_fmt == PIX_FMT_GRAY16LE ||
                         input_pix_fmt == PIX_FMT_GRAY16BE ? input_pix_fmt : PIX_FMT_YUV420P;
@@ -1495,6 +1675,7 @@ bool CvVideoWriter_FFMPEG::open( const char * filename, int fourcc,
     frame_width = width;
     frame_height = height;
     ok = true;
+
     return true;
 }
 
@@ -1506,6 +1687,7 @@ CvCapture_FFMPEG* cvCreateFileCapture_FFMPEG( const char* filename )
     capture->init();
     if( capture->open( filename ))
         return capture;
+
     capture->close();
     free(capture);
     return 0;
@@ -1554,7 +1736,6 @@ CvVideoWriter_FFMPEG* cvCreateVideoWriter_FFMPEG( const char* filename, int four
     return 0;
 }
 
-
 void cvReleaseVideoWriter_FFMPEG( CvVideoWriter_FFMPEG** writer )
 {
     if( writer && *writer )
@@ -1587,7 +1768,7 @@ struct OutputMediaStream_FFMPEG
     void write(unsigned char* data, int size, int keyFrame);
 
     // add a video output stream to the container
-    static AVStream* addVideoStream(AVFormatContext *oc, CodecID codec_id, int w, int h, int bitrate, double fps, PixelFormat pixel_format);
+    static AVStream* addVideoStream(AVFormatContext *oc, CV_CODEC_ID codec_id, int w, int h, int bitrate, double fps, PixelFormat pixel_format);
 
     AVOutputFormat* fmt_;
     AVFormatContext* oc_;
@@ -1634,7 +1815,7 @@ void OutputMediaStream_FFMPEG::close()
     }
 }
 
-AVStream* OutputMediaStream_FFMPEG::addVideoStream(AVFormatContext *oc, CodecID codec_id, int w, int h, int bitrate, double fps, PixelFormat pixel_format)
+AVStream* OutputMediaStream_FFMPEG::addVideoStream(AVFormatContext *oc, CV_CODEC_ID codec_id, int w, int h, int bitrate, double fps, PixelFormat pixel_format)
 {
     #if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 10, 0)
         AVStream* st = avformat_new_stream(oc, 0);
@@ -1714,10 +1895,10 @@ AVStream* OutputMediaStream_FFMPEG::addVideoStream(AVFormatContext *oc, CodecID 
     c->gop_size = 12; // emit one intra frame every twelve frames at most
     c->pix_fmt = pixel_format;
 
-    if (c->codec_id == CODEC_ID_MPEG2VIDEO)
+    if (c->codec_id == CV_CODEC(CODEC_ID_MPEG2VIDEO))
         c->max_b_frames = 2;
 
-    if (c->codec_id == CODEC_ID_MPEG1VIDEO || c->codec_id == CODEC_ID_MSMPEG4V3)
+    if (c->codec_id == CV_CODEC(CODEC_ID_MPEG1VIDEO) || c->codec_id == CV_CODEC(CODEC_ID_MSMPEG4V3))
     {
         // needed to avoid using macroblocks in which some coeffs overflow
         // this doesnt happen with normal video, it just happens here as the
@@ -1745,11 +1926,6 @@ bool OutputMediaStream_FFMPEG::open(const char* fileName, int width, int height,
     oc_ = 0;
     video_st_ = 0;
 
-    // tell FFMPEG to register codecs
-    av_register_all();
-
-    av_log_set_level(AV_LOG_ERROR);
-
     // auto detect the output format from the name and fourcc code
     #if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 2, 0)
         fmt_ = av_guess_format(NULL, fileName, NULL);
@@ -1759,7 +1935,7 @@ bool OutputMediaStream_FFMPEG::open(const char* fileName, int width, int height,
     if (!fmt_)
         return false;
 
-    CodecID codec_id = CODEC_ID_H264;
+    CV_CODEC_ID codec_id = CV_CODEC(CODEC_ID_H264);
 
     // alloc memory for context
     #if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 2, 0)
@@ -1930,11 +2106,6 @@ bool InputMediaStream_FFMPEG::open(const char* fileName, int* codec, int* chroma
         avformat_network_init();
     #endif
 
-    // register all codecs, demux and protocols
-    av_register_all();
-
-    av_log_set_level(AV_LOG_ERROR);
-
     #if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 6, 0)
         err = avformat_open_input(&ctx_, fileName, 0, 0);
     #else
@@ -1943,7 +2114,7 @@ bool InputMediaStream_FFMPEG::open(const char* fileName, int* codec, int* chroma
     if (err < 0)
         return false;
 
-    #if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 3, 0)
+    #if LIBAVFORMAT_BUILD >= CALC_FFMPEG_VERSION(53, 6, 0)
         err = avformat_find_stream_info(ctx_, 0);
     #else
         err = av_find_stream_info(ctx_);
@@ -1965,23 +2136,23 @@ bool InputMediaStream_FFMPEG::open(const char* fileName, int* codec, int* chroma
 
             switch (enc->codec_id)
             {
-            case CODEC_ID_MPEG1VIDEO:
+            case CV_CODEC(CODEC_ID_MPEG1VIDEO):
                 *codec = ::VideoCodec_MPEG1;
                 break;
 
-            case CODEC_ID_MPEG2VIDEO:
+            case CV_CODEC(CODEC_ID_MPEG2VIDEO):
                 *codec = ::VideoCodec_MPEG2;
                 break;
 
-            case CODEC_ID_MPEG4:
+            case CV_CODEC(CODEC_ID_MPEG4):
                 *codec = ::VideoCodec_MPEG4;
                 break;
 
-            case CODEC_ID_VC1:
+            case CV_CODEC(CODEC_ID_VC1):
                 *codec = ::VideoCodec_VC1;
                 break;
 
-            case CODEC_ID_H264:
+            case CV_CODEC(CODEC_ID_H264):
                 *codec = ::VideoCodec_H264;
                 break;
 
@@ -2054,7 +2225,7 @@ bool InputMediaStream_FFMPEG::read(unsigned char** data, int* size, int* endOfFi
 
         if (ret < 0)
         {
-            if (ret == AVERROR_EOF)
+            if (ret == (int)AVERROR_EOF)
                 *endOfFile = true;
             return false;
         }

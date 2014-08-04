@@ -114,8 +114,11 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
 {
     int  domains[] =
     {
-#ifdef HAVE_VIDEOINPUT
+#ifdef HAVE_DSHOW
         CV_CAP_DSHOW,
+#endif
+#ifdef HAVE_MSMF
+        CV_CAP_MSMF,
 #endif
 #if 1
         CV_CAP_IEEE1394,   // identical to CV_CAP_DC1394
@@ -132,7 +135,7 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
 #ifdef HAVE_MIL
         CV_CAP_MIL,
 #endif
-#ifdef HAVE_QUICKTIME
+#if defined(HAVE_QUICKTIME) || defined(HAVE_QTKIT)
         CV_CAP_QT,
 #endif
 #ifdef HAVE_UNICAP
@@ -153,6 +156,9 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
 #ifdef HAVE_GIGE_API
         CV_CAP_GIGANETIX,
 #endif
+#ifdef HAVE_INTELPERC
+        CV_CAP_INTELPERC,
+#endif
         -1
     };
 
@@ -168,17 +174,21 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
     // try every possibly installed camera API
     for (int i = 0; domains[i] >= 0; i++)
     {
-#if defined(HAVE_VIDEOINPUT)   || \
+#if defined(HAVE_DSHOW)        || \
+    defined(HAVE_MSMF)         || \
     defined(HAVE_TYZX)         || \
     defined(HAVE_VFW)          || \
     defined(HAVE_LIBV4L)       || \
-    (defined(HAVE_CAMV4L) && defined(HAVE_CAMV4L2)) || \
+    defined(HAVE_CAMV4L)       || \
+    defined(HAVE_CAMV4L2)      || \
+    defined(HAVE_VIDEOIO)      || \
     defined(HAVE_GSTREAMER)    || \
     defined(HAVE_DC1394_2)     || \
     defined(HAVE_DC1394)       || \
     defined(HAVE_CMU1394)      || \
     defined(HAVE_MIL)          || \
     defined(HAVE_QUICKTIME)    || \
+    defined(HAVE_QTKIT)        || \
     defined(HAVE_UNICAP)       || \
     defined(HAVE_PVAPI)        || \
     defined(HAVE_OPENNI)       || \
@@ -186,6 +196,7 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
     defined(HAVE_AVFOUNDATION) || \
     defined(HAVE_ANDROID_NATIVE_CAMERA) || \
     defined(HAVE_GIGE_API) || \
+    defined(HAVE_INTELPERC)    || \
     (0)
         // local variable to memorize the captured device
         CvCapture *capture;
@@ -193,14 +204,20 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
 
         switch (domains[i])
         {
-#ifdef HAVE_VIDEOINPUT
+#ifdef HAVE_DSHOW
         case CV_CAP_DSHOW:
-            capture = cvCreateCameraCapture_DShow (index);
-            if (capture)
-                return capture;
+             capture = cvCreateCameraCapture_DShow (index);
+             if (capture)
+                 return capture;
             break;
 #endif
-
+#ifdef HAVE_MSMF
+        case CV_CAP_MSMF:
+             capture = cvCreateCameraCapture_MSMF (index);
+             if (capture)
+                 return capture;
+            break;
+#endif
 #ifdef HAVE_TYZX
         case CV_CAP_STEREO:
             capture = cvCreateCameraCapture_TYZX (index);
@@ -208,15 +225,13 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
                 return capture;
             break;
 #endif
-
         case CV_CAP_VFW:
 #ifdef HAVE_VFW
             capture = cvCreateCameraCapture_VFW (index);
             if (capture)
                 return capture;
 #endif
-
-#if defined HAVE_LIBV4L || (defined (HAVE_CAMV4L) && defined (HAVE_CAMV4L2))
+#if defined HAVE_LIBV4L || defined HAVE_CAMV4L || defined HAVE_CAMV4L2 || defined HAVE_VIDEOIO
             capture = cvCreateCameraCapture_V4L (index);
             if (capture)
                 return capture;
@@ -267,7 +282,7 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
             break;
 #endif
 
-#ifdef HAVE_QUICKTIME
+#if defined(HAVE_QUICKTIME) || defined(HAVE_QTKIT)
         case CV_CAP_QT:
             capture = cvCreateCameraCapture_QT (index);
             if (capture)
@@ -330,6 +345,14 @@ CV_IMPL CvCapture * cvCreateCameraCapture (int index)
                 return capture;
         break; // CV_CAP_GIGANETIX
 #endif
+
+#ifdef HAVE_INTELPERC
+        case CV_CAP_INTELPERC:
+            capture = cvCreateCameraCapture_IntelPerC(index);
+            if (capture)
+                return capture;
+        break; // CV_CAP_INTEL_PERC
+#endif
         }
     }
 
@@ -348,6 +371,16 @@ CV_IMPL CvCapture * cvCreateFileCapture (const char * filename)
     if (! result)
         result = cvCreateFileCapture_FFMPEG_proxy (filename);
 
+#ifdef HAVE_VFW
+    if (! result)
+        result = cvCreateFileCapture_VFW (filename);
+#endif
+
+#ifdef HAVE_MSMF
+    if (! result)
+        result = cvCreateFileCapture_MSMF (filename);
+#endif
+
 #ifdef HAVE_XINE
     if (! result)
         result = cvCreateFileCapture_XINE (filename);
@@ -358,7 +391,7 @@ CV_IMPL CvCapture * cvCreateFileCapture (const char * filename)
         result = cvCreateCapture_GStreamer (CV_CAP_GSTREAMER_FILE, filename);
 #endif
 
-#ifdef HAVE_QUICKTIME
+#if defined(HAVE_QUICKTIME) || defined(HAVE_QTKIT)
     if (! result)
         result = cvCreateFileCapture_QT (filename);
 #endif
@@ -396,6 +429,16 @@ CV_IMPL CvVideoWriter* cvCreateVideoWriter( const char* filename, int fourcc,
     if(!result)
         result = cvCreateVideoWriter_FFMPEG_proxy (filename, fourcc, fps, frameSize, is_color);
 
+#ifdef HAVE_VFW
+    if(!result)
+        result = cvCreateVideoWriter_VFW(filename, fourcc, fps, frameSize, is_color);
+#endif
+
+#ifdef HAVE_MSMF
+    if (!result)
+        result = cvCreateVideoWriter_MSMF(filename, fourcc, fps, frameSize, is_color);
+#endif
+
 /*  #ifdef HAVE_XINE
     if(!result)
         result = cvCreateVideoWriter_XINE(filename, fourcc, fps, frameSize, is_color);
@@ -406,7 +449,7 @@ CV_IMPL CvVideoWriter* cvCreateVideoWriter( const char* filename, int fourcc,
         result = cvCreateVideoWriter_AVFoundation(filename, fourcc, fps, frameSize, is_color);
 #endif
 
-#ifdef HAVE_QUICKTIME
+#if defined(HAVE_QUICKTIME) || defined(HAVE_QTKIT)
     if(!result)
         result = cvCreateVideoWriter_QT(filename, fourcc, fps, frameSize, is_color);
 #endif
@@ -424,7 +467,6 @@ CV_IMPL CvVideoWriter* cvCreateVideoWriter( const char* filename, int fourcc,
 
 CV_IMPL int cvWriteFrame( CvVideoWriter* writer, const IplImage* image )
 {
-
     return writer ? writer->writeFrame(image) : 0;
 }
 
@@ -460,14 +502,14 @@ VideoCapture::~VideoCapture()
 
 bool VideoCapture::open(const string& filename)
 {
-    if (!isOpened())
+    if (isOpened()) release();
     cap = cvCreateFileCapture(filename.c_str());
     return isOpened();
 }
 
 bool VideoCapture::open(int device)
 {
-    if (!isOpened())
+    if (isOpened()) release();
     cap = cvCreateCameraCapture(device);
     return isOpened();
 }
@@ -493,7 +535,7 @@ bool VideoCapture::retrieve(Mat& image, int channel)
         return false;
     }
     if(_img->origin == IPL_ORIGIN_TL)
-        image = Mat(_img);
+        Mat(_img).copyTo(image);
     else
     {
         Mat temp(_img);

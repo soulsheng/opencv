@@ -41,7 +41,7 @@
 
 #include "precomp.hpp"
 
-#if (defined WIN32 || defined _WIN32) && defined HAVE_VIDEOINPUT
+#if (defined WIN32 || defined _WIN32) && defined HAVE_DSHOW
 
 /*
    DirectShow-based Video Capturing module is based on
@@ -1203,7 +1203,7 @@ bool videoInput::setupDevice(int deviceNumber, int w, int h){
 bool videoInput::setupDeviceFourcc(int deviceNumber, int w, int h,int fourcc){
     if(deviceNumber >= VI_MAX_CAMERAS || VDList[deviceNumber]->readyToCapture) return false;
 
-    if ( fourcc > 0 ) {
+    if ( fourcc != -1 ) {
         GUID *mediaType = getMediaSubtypeFromFourcc(fourcc);
         if ( mediaType ) {
             setAttemptCaptureSize(deviceNumber,w,h,*mediaType);
@@ -2193,7 +2193,7 @@ int videoInput::getFourccFromMediaSubtype(GUID type) {
 GUID *videoInput::getMediaSubtypeFromFourcc(int fourcc){
 
     for (int i=0;i<VI_NUM_TYPES;i++) {
-        if ( (unsigned long)fourcc == mediaSubtypes[i].Data1 ) {
+        if ( (unsigned long)(unsigned)fourcc == mediaSubtypes[i].Data1 ) {
             return &mediaSubtypes[i];
         }
     }
@@ -3100,6 +3100,7 @@ HRESULT videoInput::routeCrossbar(ICaptureGraphBuilder2 **ppBuild, IBaseFilter *
     return hr;
 }
 
+
 /********************* Capturing video from camera via DirectShow *********************/
 
 class CvCaptureCAM_DShow : public CvCapture
@@ -3120,6 +3121,7 @@ protected:
     void init();
 
     int index, width, height,fourcc;
+    int widthSet, heightSet;
     IplImage* frame;
     static videoInput VI;
 };
@@ -3138,6 +3140,7 @@ CvCaptureCAM_DShow::CvCaptureCAM_DShow()
     index = -1;
     frame = 0;
     width = height = fourcc = -1;
+    widthSet = heightSet = -1;
     CoInitialize(0);
 }
 
@@ -3155,24 +3158,24 @@ void CvCaptureCAM_DShow::close()
         index = -1;
         cvReleaseImage(&frame);
     }
-    width = height = -1;
+    widthSet = heightSet = width = height = -1;
 }
 
 // Initialize camera input
 bool CvCaptureCAM_DShow::open( int _index )
 {
-    int try_index = _index;
     int devices = 0;
 
     close();
     devices = VI.listDevices(true);
     if (devices == 0)
         return false;
-    try_index = try_index < 0 ? 0 : (try_index > devices-1 ? devices-1 : try_index);
-    VI.setupDevice(try_index);
-    if( !VI.isDeviceSetup(try_index) )
+    if (_index < 0 || _index > devices-1)
         return false;
-    index = try_index;
+    VI.setupDevice(_index);
+    if( !VI.isDeviceSetup(_index) )
+        return false;
+    index = _index;
     return true;
 }
 
@@ -3192,8 +3195,10 @@ IplImage* CvCaptureCAM_DShow::retrieveFrame(int)
         frame = cvCreateImage( cvSize(w,h), 8, 3 );
     }
 
-    VI.getPixels( index, (uchar*)frame->imageData, false, true );
-    return frame;
+    if (VI.getPixels( index, (uchar*)frame->imageData, false, true ))
+        return frame;
+    else
+        return NULL;
 }
 
 double CvCaptureCAM_DShow::getProperty( int property_id )
@@ -3268,8 +3273,8 @@ bool CvCaptureCAM_DShow::setProperty( int property_id, double value )
         break;
 
     case CV_CAP_PROP_FOURCC:
-        fourcc = cvRound(value);
-        if ( fourcc < 0 ) {
+        fourcc = (int)(unsigned long)(value);
+        if ( fourcc == -1 ) {
             // following cvCreateVideo usage will pop up caprturepindialog here if fourcc=-1
             // TODO - how to create a capture pin dialog
         }
@@ -3282,9 +3287,12 @@ bool CvCaptureCAM_DShow::setProperty( int property_id, double value )
         {
             VI.stopDevice(index);
             VI.setIdealFramerate(index,fps);
-            VI.setupDevice(index);
+            if (widthSet > 0 && heightSet > 0)
+                VI.setupDevice(index, widthSet, heightSet);
+            else
+                VI.setupDevice(index);
         }
-        break;
+        return VI.isDeviceSetup(index);
 
     }
 
@@ -3299,8 +3307,15 @@ bool CvCaptureCAM_DShow::setProperty( int property_id, double value )
                 VI.setIdealFramerate(index, fps);
                 VI.setupDeviceFourcc(index, width, height, fourcc);
             }
-            width = height = fourcc = -1;
-            return VI.isDeviceSetup(index);
+
+            bool success = VI.isDeviceSetup(index);
+            if (success)
+            {
+                widthSet = width;
+                heightSet = height;
+                width = height = fourcc = -1;
+            }
+            return success;
         }
         return true;
     }

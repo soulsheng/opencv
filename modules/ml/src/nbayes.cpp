@@ -210,6 +210,8 @@ bool CvNormalBayesClassifier::train( const CvMat* _train_data, const CvMat* _res
                 prod_data[c2] += train_vec[c2]*val1;
         }
     }
+    cvReleaseMat( &responses );
+    responses = 0;
 
     /* calculate avg, covariance matrix, c */
     for( cls = 0; cls < nclasses; cls++ )
@@ -277,7 +279,7 @@ bool CvNormalBayesClassifier::train( const CvMat* _train_data, const CvMat* _res
     return result;
 }
 
-struct predict_body {
+struct predict_body : cv::ParallelLoopBody {
   predict_body(CvMat* _c, CvMat** _cov_rotate_mats, CvMat** _inv_eigen_values, CvMat** _avg,
      const CvMat* _samples, const int* _vidx, CvMat* _cls_labels,
      CvMat* _results, float* _value, int _var_count1
@@ -307,7 +309,7 @@ struct predict_body {
   float* value;
   int var_count1;
 
-  void operator()( const cv::BlockedRange& range ) const
+  void operator()( const cv::Range& range ) const
   {
 
     int cls = -1;
@@ -324,7 +326,7 @@ struct predict_body {
     cv::AutoBuffer<double> buffer(nclasses + var_count1);
     CvMat diff = cvMat( 1, var_count1, CV_64FC1, &buffer[0] );
 
-    for(int k = range.begin(); k < range.end(); k += 1 )
+    for(int k = range.start; k < range.end; k += 1 )
     {
         int ival;
         double opt = FLT_MAX;
@@ -397,9 +399,9 @@ float CvNormalBayesClassifier::predict( const CvMat* samples, CvMat* results ) c
 
     const int* vidx = var_idx ? var_idx->data.i : 0;
 
-    cv::parallel_for(cv::BlockedRange(0, samples->rows), predict_body(c, cov_rotate_mats, inv_eigen_values, avg, samples,
-                                                                      vidx, cls_labels, results, &value, var_count
-    ));
+    cv::parallel_for_(cv::Range(0, samples->rows),
+                      predict_body(c, cov_rotate_mats, inv_eigen_values, avg, samples,
+                                   vidx, cls_labels, results, &value, var_count));
 
     return value;
 }
@@ -623,4 +625,3 @@ float CvNormalBayesClassifier::predict( const Mat& _samples, Mat* _results ) con
 }
 
 /* End of file. */
-

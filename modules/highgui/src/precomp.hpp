@@ -103,14 +103,6 @@ struct CvVideoWriter
     virtual bool writeFrame(const IplImage*) { return false; }
 };
 
-#if defined WIN32 || defined _WIN32
-#define HAVE_VFW 1
-
-/* uncomment to enable CMUCamera1394 fireware camera module */
-//#define HAVE_CMU1394 1
-#endif
-
-
 CvCapture * cvCreateCameraCapture_V4L( int index );
 CvCapture * cvCreateCameraCapture_DC1394( int index );
 CvCapture * cvCreateCameraCapture_DC1394_2( int index );
@@ -126,11 +118,16 @@ CvVideoWriter* cvCreateVideoWriter_Win32( const char* filename, int fourcc,
 CvVideoWriter* cvCreateVideoWriter_VFW( const char* filename, int fourcc,
                                         double fps, CvSize frameSize, int is_color );
 CvCapture* cvCreateCameraCapture_DShow( int index );
+CvCapture* cvCreateCameraCapture_MSMF( int index );
+CvCapture* cvCreateFileCapture_MSMF (const char* filename);
+CvVideoWriter* cvCreateVideoWriter_MSMF( const char* filename, int fourcc,
+                                        double fps, CvSize frameSize, int is_color );
 CvCapture* cvCreateCameraCapture_OpenNI( int index );
 CvCapture* cvCreateFileCapture_OpenNI( const char* filename );
 CvCapture* cvCreateCameraCapture_Android( int index );
 CvCapture* cvCreateCameraCapture_XIMEA( int index );
 CvCapture* cvCreateCameraCapture_AVFoundation(int index);
+CvCapture* cvCreateCameraCapture_IntelPerC(int index);
 
 
 CVAPI(int) cvHaveImageReader(const char* filename);
@@ -206,9 +203,6 @@ void cvSetRatioWindow_QT(const char* name,double prop_value);
 double cvGetOpenGlProp_QT(const char* name);
 #endif
 
-// OpenGL
-typedef void (CV_CDECL *CvOpenGlCleanCallback)(void* userdata);
-void icvSetOpenGlCleanCallback(const char* window_name, CvOpenGlCleanCallback callback, void* userdata);
 
 
 /*namespace cv

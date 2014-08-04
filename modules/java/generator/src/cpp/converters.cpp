@@ -1,12 +1,5 @@
-#include "converters.h"
-
-#if defined DEBUG && defined ANDROID
-#include <android/log.h>
-#define MODULE_LOG_TAG "OpenCV.converters"
-#define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, MODULE_LOG_TAG, __VA_ARGS__))
-#else //DEBUG
-#define LOGD(...)
-#endif //DEBUG
+#define LOG_TAG "org.opencv.utils.Converters"
+#include "common.h"
 
 using namespace cv;
 
@@ -219,7 +212,7 @@ void Mat_to_vector_Mat(cv::Mat& mat, std::vector<cv::Mat>& v_mat)
         for(int i=0; i<mat.rows; i++)
         {
             Vec<int, 2> a = mat.at< Vec<int, 2> >(i, 0);
-            long long addr = (((long long)a[0])<<32) | a[1];
+            long long addr = (((long long)a[0])<<32) | (a[1]&0xffffffff);
             Mat& m = *( (Mat*) addr );
             v_mat.push_back(m);
         }

@@ -16,7 +16,7 @@ PERF_TEST_P(Size_MatType_ROp, reduceR,
             testing::Combine(
                 testing::Values(TYPICAL_MAT_SIZES),
                 testing::Values(TYPICAL_MAT_TYPES),
-                testing::ValuesIn(ROp::all())
+                ROp::all()
                 )
             )
 {
@@ -32,8 +32,10 @@ PERF_TEST_P(Size_MatType_ROp, reduceR,
     Mat vec(1, sz.width, ddepth < 0 ? matType : ddepth);
 
     declare.in(src, WARMUP_RNG).out(vec);
+    declare.time(100);
 
-    TEST_CYCLE() reduce(src, vec, 0, reduceOp, ddepth);
+    int runs = 15;
+    TEST_CYCLE_MULTIRUN(runs) reduce(src, vec, 0, reduceOp, ddepth);
 
     SANITY_CHECK(vec, 1);
 }
@@ -42,7 +44,7 @@ PERF_TEST_P(Size_MatType_ROp, reduceC,
             testing::Combine(
                 testing::Values(TYPICAL_MAT_SIZES),
                 testing::Values(TYPICAL_MAT_TYPES),
-                testing::ValuesIn(ROp::all())
+                ROp::all()
                 )
             )
 {
@@ -58,9 +60,9 @@ PERF_TEST_P(Size_MatType_ROp, reduceC,
     Mat vec(sz.height, 1, ddepth < 0 ? matType : ddepth);
 
     declare.in(src, WARMUP_RNG).out(vec);
+    declare.time(100);
 
     TEST_CYCLE() reduce(src, vec, 1, reduceOp, ddepth);
 
     SANITY_CHECK(vec, 1);
 }
-

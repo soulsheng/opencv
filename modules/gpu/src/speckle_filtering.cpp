@@ -7,7 +7,7 @@
 //  copy or use the software.
 //
 //
-//                          License Agreement
+//                           License Agreement
 //                For Open Source Computer Vision Library
 //
 // Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
@@ -165,4 +165,3 @@ void cv::filterSpeckles( Mat& img, uchar newVal, int maxSpeckleSize, uchar maxDi
         }
     }
 }
-

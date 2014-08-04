@@ -18,7 +18,7 @@ typedef perf::TestBaseWithParam<File_Type_t> fast;
 
 PERF_TEST_P(fast, detect, testing::Combine(
                             testing::Values(FAST_IMAGES),
-                            testing::ValuesIn(FastType::all())
+                            FastType::all()
                           ))
 {
     String filename = getDataPath(get<0>(GetParam()));
@@ -30,7 +30,7 @@ PERF_TEST_P(fast, detect, testing::Combine(
 
     declare.in(frame);
 
-    Ptr<FeatureDetector> fd = Algorithm::create<FeatureDetector>("Feature2D.FAST");
+    Ptr<FeatureDetector> fd = Algorithm::create<FeatureDetector>("Feature2D.FASTX");
     ASSERT_FALSE( fd == 0 );
     fd->set("threshold", 20);
     fd->set("nonmaxSuppression", true);
@@ -41,4 +41,3 @@ PERF_TEST_P(fast, detect, testing::Combine(
 
     SANITY_CHECK_KEYPOINTS(points);
 }
-

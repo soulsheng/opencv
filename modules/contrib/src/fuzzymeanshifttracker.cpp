@@ -79,9 +79,7 @@ void CvFuzzyCurve::clear()
 
 void CvFuzzyCurve::addPoint(double x, double y)
 {
-    CvFuzzyPoint *point;
-    point = new CvFuzzyPoint(x, y);
-    points.push_back(*point);
+    points.push_back(CvFuzzyPoint(x, y));
 };
 
 double CvFuzzyCurve::calcValue(double param)
@@ -380,6 +378,7 @@ void CvFuzzyMeanShiftTracker::SearchWindow::initDepthValues(IplImage *maskImage,
                 {
                     if (*depthData)
                     {
+                        d = *depthData;
                         m1 += d;
                         if (d < mind)
                             mind = d;
@@ -719,4 +718,3 @@ void CvFuzzyMeanShiftTracker::track(IplImage *maskImage, IplImage *depthMap, int
                 searchMode = tsTracking;
     }
 };
-

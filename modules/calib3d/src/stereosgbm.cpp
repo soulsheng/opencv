@@ -114,7 +114,7 @@ static void calcPixelCostBT( const Mat& img1, const Mat& img2, int y,
                             int tabOfs, int )
 {
     int x, c, width = img1.cols, cn = img1.channels();
-    int minX1 = max(maxD, 0), maxX1 = width + min(minD, 0);
+    int minX1 = max(-maxD, 0), maxX1 = width + min(minD, 0);
     int minX2 = max(minX1 - maxD, 0), maxX2 = min(maxX1 - minD, width);
     int D = maxD - minD, width1 = maxX1 - minX1, width2 = maxX2 - minX2;
     const PixType *row1 = img1.ptr<PixType>(y), *row2 = img2.ptr<PixType>(y);
@@ -329,7 +329,7 @@ static void computeDisparitySGBM( const Mat& img1, const Mat& img2,
     int disp12MaxDiff = params.disp12MaxDiff > 0 ? params.disp12MaxDiff : 1;
     int P1 = params.P1 > 0 ? params.P1 : 2, P2 = max(params.P2 > 0 ? params.P2 : 5, P1+1);
     int k, width = disp1.cols, height = disp1.rows;
-    int minX1 = max(maxD, 0), maxX1 = width + min(minD, 0);
+    int minX1 = max(-maxD, 0), maxX1 = width + min(minD, 0);
     int D = maxD - minD, width1 = maxX1 - minX1;
     int INVALID_DISP = minD - 1, INVALID_DISP_SCALED = INVALID_DISP*DISP_SCALE;
     int SW2 = SADWindowSize.width/2, SH2 = SADWindowSize.height/2;
@@ -857,105 +857,120 @@ Rect getValidDisparityROI( Rect roi1, Rect roi2,
 
 }
 
+namespace
+{
+    template <typename T>
+    void filterSpecklesImpl(cv::Mat& img, int newVal, int maxSpeckleSize, int maxDiff, cv::Mat& _buf)
+    {
+        using namespace cv;
+
+        int width = img.cols, height = img.rows, npixels = width*height;
+        size_t bufSize = npixels*(int)(sizeof(Point2s) + sizeof(int) + sizeof(uchar));
+        if( !_buf.isContinuous() || !_buf.data || _buf.cols*_buf.rows*_buf.elemSize() < bufSize )
+            _buf.create(1, (int)bufSize, CV_8U);
+
+        uchar* buf = _buf.data;
+        int i, j, dstep = (int)(img.step/sizeof(T));
+        int* labels = (int*)buf;
+        buf += npixels*sizeof(labels[0]);
+        Point2s* wbuf = (Point2s*)buf;
+        buf += npixels*sizeof(wbuf[0]);
+        uchar* rtype = (uchar*)buf;
+        int curlabel = 0;
+
+        // clear out label assignments
+        memset(labels, 0, npixels*sizeof(labels[0]));
+
+        for( i = 0; i < height; i++ )
+        {
+            T* ds = img.ptr<T>(i);
+            int* ls = labels + width*i;
+
+            for( j = 0; j < width; j++ )
+            {
+                if( ds[j] != newVal )   // not a bad disparity
+                {
+                    if( ls[j] )     // has a label, check for bad label
+                    {
+                        if( rtype[ls[j]] ) // small region, zero out disparity
+                            ds[j] = (T)newVal;
+                    }
+                    // no label, assign and propagate
+                    else
+                    {
+                        Point2s* ws = wbuf; // initialize wavefront
+                        Point2s p((short)j, (short)i);  // current pixel
+                        curlabel++; // next label
+                        int count = 0;  // current region size
+                        ls[j] = curlabel;
+
+                        // wavefront propagation
+                        while( ws >= wbuf ) // wavefront not empty
+                        {
+                            count++;
+                            // put neighbors onto wavefront
+                            T* dpp = &img.at<T>(p.y, p.x);
+                            T dp = *dpp;
+                            int* lpp = labels + width*p.y + p.x;
+
+                            if( p.x < width-1 && !lpp[+1] && dpp[+1] != newVal && std::abs(dp - dpp[+1]) <= maxDiff )
+                            {
+                                lpp[+1] = curlabel;
+                                *ws++ = Point2s(p.x+1, p.y);
+                            }
+
+                            if( p.x > 0 && !lpp[-1] && dpp[-1] != newVal && std::abs(dp - dpp[-1]) <= maxDiff )
+                            {
+                                lpp[-1] = curlabel;
+                                *ws++ = Point2s(p.x-1, p.y);
+                            }
+
+                            if( p.y < height-1 && !lpp[+width] && dpp[+dstep] != newVal && std::abs(dp - dpp[+dstep]) <= maxDiff )
+                            {
+                                lpp[+width] = curlabel;
+                                *ws++ = Point2s(p.x, p.y+1);
+                            }
+
+                            if( p.y > 0 && !lpp[-width] && dpp[-dstep] != newVal && std::abs(dp - dpp[-dstep]) <= maxDiff )
+                            {
+                                lpp[-width] = curlabel;
+                                *ws++ = Point2s(p.x, p.y-1);
+                            }
+
+                            // pop most recent and propagate
+                            // NB: could try least recent, maybe better convergence
+                            p = *--ws;
+                        }
+
+                        // assign label type
+                        if( count <= maxSpeckleSize )   // speckle region
+                        {
+                            rtype[ls[j]] = 1;   // small region label
+                            ds[j] = (T)newVal;
+                        }
+                        else
+                            rtype[ls[j]] = 0;   // large region label
+                    }
+                }
+            }
+        }
+    }
+}
+
 void cv::filterSpeckles( InputOutputArray _img, double _newval, int maxSpeckleSize,
                          double _maxDiff, InputOutputArray __buf )
 {
     Mat img = _img.getMat();
     Mat temp, &_buf = __buf.needed() ? __buf.getMatRef() : temp;
-    CV_Assert( img.type() == CV_16SC1 );
+    CV_Assert( img.type() == CV_8UC1 || img.type() == CV_16SC1 );
 
     int newVal = cvRound(_newval);
     int maxDiff = cvRound(_maxDiff);
-    int width = img.cols, height = img.rows, npixels = width*height;
-    size_t bufSize = npixels*(int)(sizeof(Point2s) + sizeof(int) + sizeof(uchar));
-    if( !_buf.isContinuous() || !_buf.data || _buf.cols*_buf.rows*_buf.elemSize() < bufSize )
-        _buf.create(1, (int)bufSize, CV_8U);
 
-    uchar* buf = _buf.data;
-    int i, j, dstep = (int)(img.step/sizeof(short));
-    int* labels = (int*)buf;
-    buf += npixels*sizeof(labels[0]);
-    Point2s* wbuf = (Point2s*)buf;
-    buf += npixels*sizeof(wbuf[0]);
-    uchar* rtype = (uchar*)buf;
-    int curlabel = 0;
-
-    // clear out label assignments
-    memset(labels, 0, npixels*sizeof(labels[0]));
-
-    for( i = 0; i < height; i++ )
-    {
-        short* ds = img.ptr<short>(i);
-        int* ls = labels + width*i;
-
-        for( j = 0; j < width; j++ )
-        {
-            if( ds[j] != newVal )   // not a bad disparity
-            {
-                if( ls[j] )     // has a label, check for bad label
-                {
-                    if( rtype[ls[j]] ) // small region, zero out disparity
-                        ds[j] = (short)newVal;
-                }
-                // no label, assign and propagate
-                else
-                {
-                    Point2s* ws = wbuf; // initialize wavefront
-                    Point2s p((short)j, (short)i);  // current pixel
-                    curlabel++; // next label
-                    int count = 0;  // current region size
-                    ls[j] = curlabel;
-
-                    // wavefront propagation
-                    while( ws >= wbuf ) // wavefront not empty
-                    {
-                        count++;
-                        // put neighbors onto wavefront
-                        short* dpp = &img.at<short>(p.y, p.x);
-                        short dp = *dpp;
-                        int* lpp = labels + width*p.y + p.x;
-
-                        if( p.x < width-1 && !lpp[+1] && dpp[+1] != newVal && std::abs(dp - dpp[+1]) <= maxDiff )
-                        {
-                            lpp[+1] = curlabel;
-                            *ws++ = Point2s(p.x+1, p.y);
-                        }
-
-                        if( p.x > 0 && !lpp[-1] && dpp[-1] != newVal && std::abs(dp - dpp[-1]) <= maxDiff )
-                        {
-                            lpp[-1] = curlabel;
-                            *ws++ = Point2s(p.x-1, p.y);
-                        }
-
-                        if( p.y < height-1 && !lpp[+width] && dpp[+dstep] != newVal && std::abs(dp - dpp[+dstep]) <= maxDiff )
-                        {
-                            lpp[+width] = curlabel;
-                            *ws++ = Point2s(p.x, p.y+1);
-                        }
-
-                        if( p.y > 0 && !lpp[-width] && dpp[-dstep] != newVal && std::abs(dp - dpp[-dstep]) <= maxDiff )
-                        {
-                            lpp[-width] = curlabel;
-                            *ws++ = Point2s(p.x, p.y-1);
-                        }
-
-                        // pop most recent and propagate
-                        // NB: could try least recent, maybe better convergence
-                        p = *--ws;
-                    }
-
-                    // assign label type
-                    if( count <= maxSpeckleSize )   // speckle region
-                    {
-                        rtype[ls[j]] = 1;   // small region label
-                        ds[j] = (short)newVal;
-                    }
-                    else
-                        rtype[ls[j]] = 0;   // large region label
-                }
-            }
-        }
-    }
+    if (img.type() == CV_8UC1)
+        filterSpecklesImpl<uchar>(img, newVal, maxSpeckleSize, maxDiff, _buf);
+    else
+        filterSpecklesImpl<short>(img, newVal, maxSpeckleSize, maxDiff, _buf);
 }
 
 void cv::validateDisparity( InputOutputArray _disp, InputArray _cost, int minDisparity,

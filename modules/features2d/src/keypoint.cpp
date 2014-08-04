@@ -192,7 +192,7 @@ struct KeypointResponseGreater
 void KeyPointsFilter::retainBest(vector<KeyPoint>& keypoints, int n_points)
 {
     //this is only necessary if the keypoints size is greater than the number of desired points.
-    if( n_points > 0 && keypoints.size() > (size_t)n_points )
+    if( n_points >= 0 && keypoints.size() > (size_t)n_points )
     {
         if (n_points==0)
         {
@@ -232,7 +232,7 @@ void KeyPointsFilter::runByImageBorder( vector<KeyPoint>& keypoints, Size imageS
         if (imageSize.height <= borderSize * 2 || imageSize.width <= borderSize * 2)
             keypoints.clear();
         else
-            keypoints.erase( remove_if(keypoints.begin(), keypoints.end(),
+            keypoints.erase( std::remove_if(keypoints.begin(), keypoints.end(),
                                        RoiPredicate(Rect(Point(borderSize, borderSize),
                                                          Point(imageSize.width - borderSize, imageSize.height - borderSize)))),
                              keypoints.end() );
@@ -259,7 +259,7 @@ void KeyPointsFilter::runByKeypointSize( vector<KeyPoint>& keypoints, float minS
     CV_Assert( maxSize >= 0);
     CV_Assert( minSize <= maxSize );
 
-    keypoints.erase( remove_if(keypoints.begin(), keypoints.end(), SizePredicate(minSize, maxSize)),
+    keypoints.erase( std::remove_if(keypoints.begin(), keypoints.end(), SizePredicate(minSize, maxSize)),
                      keypoints.end() );
 }
 
@@ -282,7 +282,7 @@ void KeyPointsFilter::runByPixelsMask( vector<KeyPoint>& keypoints, const Mat& m
     if( mask.empty() )
         return;
 
-    keypoints.erase(remove_if(keypoints.begin(), keypoints.end(), MaskPredicate(mask)), keypoints.end());
+    keypoints.erase(std::remove_if(keypoints.begin(), keypoints.end(), MaskPredicate(mask)), keypoints.end());
 }
 
 struct KeyPoint_LessThan

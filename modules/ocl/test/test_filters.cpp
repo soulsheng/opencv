@@ -12,6 +12,7 @@
 //
 // Copyright (C) 2010-2012, Institute Of Software Chinese Academy Of Science, all rights reserved.
 // Copyright (C) 2010-2012, Advanced Micro Devices, Inc., all rights reserved.
+// Copyright (C) 2010-2012, Multicoreware, Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // @Authors
@@ -19,6 +20,7 @@
 //    Jia Haipeng, jiahaipeng95@gmail.com
 //    Zero Lin, Zero.Lin@amd.com
 //    Zhang Ying, zhangying913@gmail.com
+//    Yao Wang, bitwangyaoyao@gmail.com
 //
 // Redistribution and use in source and binary forms, with or without modification,
 // are permitted provided that the following conditions are met:
@@ -28,7 +30,7 @@
 //
 //   * Redistribution's in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
-//     and/or other oclMaterials provided with the distribution.
+//     and/or other materials provided with the distribution.
 //
 //   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
@@ -46,814 +48,429 @@
 //
 //M*/
 
-#include "precomp.hpp"
+#include "test_precomp.hpp"
 
 #ifdef HAVE_OPENCL
 
-using namespace cvtest;
 using namespace testing;
 using namespace std;
+using namespace cv;
 
-
-PARAM_TEST_CASE(FilterTestBase, MatType, bool)
+PARAM_TEST_CASE(FilterTestBase, MatType,
+                int, // kernel size
+                Size, // dx, dy
+                int, // border type
+                double, // optional parameter
+                bool) // roi or not
 {
-    int type;
-    cv::Scalar val;
+    bool isFP;
 
-    //src mat
-    cv::Mat mat1;
-    cv::Mat mat2;
-    cv::Mat mask;
-    cv::Mat dst;
-    cv::Mat dst1; //bak, for two outputs
+    int type, borderType, ksize;
+    Size size;
+    double param;
+    bool useRoi;
 
-    // set up roi
-    int roicols;
-    int roirows;
-    int src1x;
-    int src1y;
-    int src2x;
-    int src2y;
-    int dstx;
-    int dsty;
-    int maskx;
-    int masky;
-
-    //src mat with roi
-    cv::Mat mat1_roi;
-    cv::Mat mat2_roi;
-    cv::Mat mask_roi;
-    cv::Mat dst_roi;
-    cv::Mat dst1_roi; //bak
-    //std::vector<cv::ocl::Info> oclinfo;
-    //ocl dst mat for testing
-    cv::ocl::oclMat gdst_whole;
-    cv::ocl::oclMat gdst1_whole; //bak
-
-    //ocl mat with roi
-    cv::ocl::oclMat gmat1;
-    cv::ocl::oclMat gmat2;
-    cv::ocl::oclMat gdst;
-    cv::ocl::oclMat gdst1;   //bak
-    cv::ocl::oclMat gmask;
+    Mat src, dst_whole, src_roi, dst_roi;
+    ocl::oclMat gsrc_whole, gsrc_roi, gdst_whole, gdst_roi;
 
     virtual void SetUp()
     {
         type = GET_PARAM(0);
+        ksize = GET_PARAM(1);
+        size = GET_PARAM(2);
+        borderType = GET_PARAM(3);
+        param = GET_PARAM(4);
+        useRoi = GET_PARAM(5);
 
-        cv::RNG &rng = TS::ptr()->get_rng();
-        cv::Size size(MWIDTH, MHEIGHT);
-
-        mat1 = randomMat(rng, size, type, 5, 16, false);
-        mat2 = randomMat(rng, size, type, 5, 16, false);
-        dst  = randomMat(rng, size, type, 5, 16, false);
-        dst1  = randomMat(rng, size, type, 5, 16, false);
-        mask = randomMat(rng, size, CV_8UC1, 0, 2,  false);
-
-        cv::threshold(mask, mask, 0.5, 255., CV_8UC1);
-
-        val = cv::Scalar(rng.uniform(-10.0, 10.0), rng.uniform(-10.0, 10.0), rng.uniform(-10.0, 10.0), rng.uniform(-10.0, 10.0));
+        isFP = (CV_MAT_DEPTH(type) == CV_32F || CV_MAT_DEPTH(type) == CV_64F);
     }
 
-    void random_roi()
+    void random_roi(int minSize = 1)
     {
-#ifdef RANDOMROI
-        //randomize ROI
-        cv::RNG &rng = TS::ptr()->get_rng();
-        roicols = rng.uniform(1, mat1.cols);
-        roirows = rng.uniform(1, mat1.rows);
-        src1x   = rng.uniform(0, mat1.cols - roicols);
-        src1y   = rng.uniform(0, mat1.rows - roirows);
-        src2x   = rng.uniform(0, mat2.cols - roicols);
-        src2y   = rng.uniform(0, mat2.rows - roirows);
-        dstx    = rng.uniform(0, dst.cols  - roicols);
-        dsty    = rng.uniform(0, dst.rows  - roirows);
-        maskx   = rng.uniform(0, mask.cols - roicols);
-        masky   = rng.uniform(0, mask.rows - roirows);
-#else
-        roicols = mat1.cols;
-        roirows = mat1.rows;
-        src1x = 0;
-        src1y = 0;
-        src2x = 0;
-        src2y = 0;
-        dstx = 0;
-        dsty = 0;
-        maskx = 0;
-        masky = 0;
-#endif
-        mat1_roi = mat1(Rect(src1x, src1y, roicols, roirows));
-        mat2_roi = mat2(Rect(src2x, src2y, roicols, roirows));
-        mask_roi = mask(Rect(maskx, masky, roicols, roirows));
-        dst_roi  = dst(Rect(dstx, dsty, roicols, roirows));
-        dst1_roi = dst1(Rect(dstx, dsty, roicols, roirows));
+        if (minSize == 0)
+            minSize = ksize;
+        Size roiSize = randomSize(minSize, MAX_VALUE);
+        Border srcBorder = randomBorder(0, useRoi ? MAX_VALUE : 0);
+        randomSubMat(src, src_roi, roiSize, srcBorder, type, isFP ? 0 : 5, isFP ? 1 : 256);
 
-        gdst_whole = dst;
-        gdst = gdst_whole(Rect(dstx, dsty, roicols, roirows));
+        Border dstBorder = randomBorder(0, useRoi ? MAX_VALUE : 0);
+        randomSubMat(dst_whole, dst_roi, roiSize, dstBorder, type, isFP ? 0.20 : 60, isFP ? 0.25 : 70);
 
-        gdst1_whole = dst1;
-        gdst1 = gdst1_whole(Rect(dstx, dsty, roicols, roirows));
-
-        gmat1 = mat1_roi;
-        gmat2 = mat2_roi;
-        gmask = mask_roi;
+        generateOclMat(gsrc_whole, gsrc_roi, src, roiSize, srcBorder);
+        generateOclMat(gdst_whole, gdst_roi, dst_whole, roiSize, dstBorder);
     }
 
+    void Near()
+    {
+        if (isFP)
+            Near(1e-6, true);
+        else
+            Near(1, false);
+    }
+
+    void Near(double threshold, bool relative)
+    {
+        Mat roi, whole;
+        gdst_whole.download(whole);
+        gdst_roi.download(roi);
+
+        if (relative)
+        {
+            EXPECT_MAT_NEAR_RELATIVE(dst_whole, whole, threshold);
+            EXPECT_MAT_NEAR_RELATIVE(dst_roi, roi, threshold);
+        }
+        else
+        {
+            EXPECT_MAT_NEAR(dst_whole, whole, threshold);
+            EXPECT_MAT_NEAR(dst_roi, roi, threshold);
+        }
+    }
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // blur
 
-PARAM_TEST_CASE(Blur, MatType, cv::Size, int)
-{
-    int type;
-    cv::Size ksize;
-    int bordertype;
+typedef FilterTestBase Blur;
 
-    //src mat
-    cv::Mat mat1;
-    cv::Mat dst;
-
-    // set up roi
-    int roicols;
-    int roirows;
-    int src1x;
-    int src1y;
-    int dstx;
-    int dsty;
-
-    //src mat with roi
-    cv::Mat mat1_roi;
-    cv::Mat dst_roi;
-    //std::vector<cv::ocl::Info> oclinfo;
-    //ocl dst mat for testing
-    cv::ocl::oclMat gdst_whole;
-
-    //ocl mat with roi
-    cv::ocl::oclMat gmat1;
-    cv::ocl::oclMat gdst;
-
-    virtual void SetUp()
-    {
-        type = GET_PARAM(0);
-        ksize = GET_PARAM(1);
-        bordertype = GET_PARAM(2);
-
-        cv::RNG &rng = TS::ptr()->get_rng();
-        cv::Size size(MWIDTH, MHEIGHT);
-
-        mat1 = randomMat(rng, size, type, 5, 16, false);
-        dst  = randomMat(rng, size, type, 5, 16, false);
-        //int devnums = getDevice(oclinfo, OPENCV_DEFAULT_OPENCL_DEVICE);
-        //CV_Assert(devnums > 0);
-        ////if you want to use undefault device, set it here
-        ////setDevice(oclinfo[0]);
-    }
-
-    void random_roi()
-    {
-#ifdef RANDOMROI
-        //randomize ROI
-        cv::RNG &rng = TS::ptr()->get_rng();
-        roicols = rng.uniform(2, mat1.cols);
-        roirows = rng.uniform(2, mat1.rows);
-        src1x   = rng.uniform(0, mat1.cols - roicols);
-        src1y   = rng.uniform(0, mat1.rows - roirows);
-        dstx    = rng.uniform(0, dst.cols  - roicols);
-        dsty    = rng.uniform(0, dst.rows  - roirows);
+#ifdef ANDROID
+OCL_TEST_P(Blur, DISABLED_Mat)
 #else
-        roicols = mat1.cols;
-        roirows = mat1.rows;
-        src1x = 0;
-        src1y = 0;
-        dstx = 0;
-        dsty = 0;
+OCL_TEST_P(Blur, Mat)
 #endif
-
-        mat1_roi = mat1(Rect(src1x, src1y, roicols, roirows));
-        dst_roi  = dst(Rect(dstx, dsty, roicols, roirows));
-
-        gdst_whole = dst;
-        gdst = gdst_whole(Rect(dstx, dsty, roicols, roirows));
-
-
-        gmat1 = mat1_roi;
-    }
-
-};
-
-TEST_P(Blur, Mat)
 {
-    for(int j = 0; j < LOOP_TIMES; j++)
+    Size kernelSize(ksize, ksize);
+
+    for (int j = 0; j < LOOP_TIMES; j++)
     {
-        random_roi();
+        random_roi(0); // TODO NOTE: min value for size is kernel size (temporary bypass border issues in CPU implementation)
 
-        cv::blur(mat1_roi, dst_roi, ksize, Point(-1, -1), bordertype);
-        cv::ocl::blur(gmat1, gdst, ksize, Point(-1, -1), bordertype);
+        blur(src_roi, dst_roi, kernelSize, Point(-1, -1), borderType);
+        ocl::blur(gsrc_roi, gdst_roi, kernelSize, Point(-1, -1), borderType); // TODO anchor
 
-        cv::Mat cpu_dst;
-        gdst_whole.download(cpu_dst);
-        char sss[1024];
-        sprintf(sss, "roicols=%d,roirows=%d,src1x=%d,src1y=%d,dstx=%d,dsty=%d", roicols, roirows, src1x, src1y, dstx, dsty);
-        EXPECT_MAT_NEAR(dst, cpu_dst, 1.0, sss);
+        Near();
     }
-
 }
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-//Laplacian
+// Laplacian
 
-PARAM_TEST_CASE(LaplacianTestBase, MatType, int)
+typedef FilterTestBase LaplacianTest;
+
+OCL_TEST_P(LaplacianTest, Accuracy)
 {
-    int type;
-    int ksize;
+    double scale = param;
 
-    //src mat
-    cv::Mat mat;
-    cv::Mat dst;
-
-    // set up roi
-    int roicols;
-    int roirows;
-    int srcx;
-    int srcy;
-    int dstx;
-    int dsty;
-
-    //src mat with roi
-    cv::Mat mat_roi;
-    cv::Mat dst_roi;
-    //std::vector<cv::ocl::Info> oclinfo;
-    //ocl dst mat for testing
-    cv::ocl::oclMat gdst_whole;
-
-    //ocl mat with roi
-    cv::ocl::oclMat gmat;
-    cv::ocl::oclMat gdst;
-
-    virtual void SetUp()
-    {
-        type = GET_PARAM(0);
-        ksize = GET_PARAM(1);
-
-        cv::RNG &rng = TS::ptr()->get_rng();
-        cv::Size size(MWIDTH, MHEIGHT);
-
-        mat  = randomMat(rng, size, type, 5, 16, false);
-        dst  = randomMat(rng, size, type, 5, 16, false);
-
-        //int devnums = getDevice(oclinfo, OPENCV_DEFAULT_OPENCL_DEVICE);
-        //CV_Assert(devnums > 0);
-        ////if you want to use undefault device, set it here
-        ////setDevice(oclinfo[0]);
-    }
-
-    void random_roi()
-    {
-#ifdef RANDOMROI
-        //randomize ROI
-        cv::RNG &rng = TS::ptr()->get_rng();
-        roicols = rng.uniform(2, mat.cols);
-        roirows = rng.uniform(2, mat.rows);
-        srcx   = rng.uniform(0, mat.cols - roicols);
-        srcy   = rng.uniform(0, mat.rows - roirows);
-        dstx    = rng.uniform(0, dst.cols  - roicols);
-        dsty    = rng.uniform(0, dst.rows  - roirows);
-#else
-        roicols = mat.cols;
-        roirows = mat.rows;
-        srcx = 0;
-        srcy = 0;
-        dstx = 0;
-        dsty = 0;
-#endif
-
-        mat_roi  = mat(Rect(srcx, srcy, roicols, roirows));
-        dst_roi  = dst(Rect(dstx, dsty, roicols, roirows));
-
-        gdst_whole = dst;
-        gdst = gdst_whole(Rect(dstx, dsty, roicols, roirows));
-
-        gmat = mat_roi;
-    }
-};
-
-struct Laplacian : LaplacianTestBase {};
-
-TEST_P(Laplacian, Accuracy)
-{
-    for(int j = 0; j < LOOP_TIMES; j++)
+    for (int j = 0; j < LOOP_TIMES; j++)
     {
         random_roi();
 
-        cv::Laplacian(mat_roi, dst_roi, -1, ksize, 1);
-        cv::ocl::Laplacian(gmat, gdst, -1, ksize, 1);
+        Laplacian(src_roi, dst_roi, -1, ksize, scale, 0, borderType);
+        ocl::Laplacian(gsrc_roi, gdst_roi, -1, ksize, scale, 0, borderType);
 
-        cv::Mat cpu_dst;
-        gdst_whole.download(cpu_dst);
-        char sss[1024];
-        sprintf(sss, "roicols=%d,roirows=%d,src1x=%d,src1y=%d,dstx=%d,dsty=%d", roicols, roirows, srcx, srcy, dstx, dsty);
-
-        EXPECT_MAT_NEAR(dst, cpu_dst, 1e-5, sss);
+        Near();
     }
 }
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // erode & dilate
 
-PARAM_TEST_CASE(ErodeDilateBase, MatType, bool)
+typedef FilterTestBase Erode;
+
+OCL_TEST_P(Erode, Mat)
 {
-    int type;
-    //int iterations;
+    // erode or dilate kernel
+    Size kernelSize(ksize, ksize);
+    Mat kernel;
+    int iterations = (int)param;
 
-    //erode or dilate kernel
-    cv::Mat kernel;
-
-    //src mat
-    cv::Mat mat1;
-    cv::Mat dst;
-
-    // set up roi
-    int roicols;
-    int roirows;
-    int src1x;
-    int src1y;
-    int dstx;
-    int dsty;
-
-    //src mat with roi
-    cv::Mat mat1_roi;
-    cv::Mat dst_roi;
-    //std::vector<cv::ocl::Info> oclinfo;
-    //ocl dst mat for testing
-    cv::ocl::oclMat gdst_whole;
-
-    //ocl mat with roi
-    cv::ocl::oclMat gmat1;
-    cv::ocl::oclMat gdst;
-
-    virtual void SetUp()
-    {
-        type = GET_PARAM(0);
-        //  iterations = GET_PARAM(1);
-
-        cv::RNG &rng = TS::ptr()->get_rng();
-        cv::Size size(MWIDTH, MHEIGHT);
-
-        mat1 = randomMat(rng, size, type, 5, 16, false);
-        dst  = randomMat(rng, size, type, 5, 16, false);
-        //		rng.fill(kernel, cv::RNG::UNIFORM, cv::Scalar::all(0), cv::Scalar::all(3));
-        kernel = randomMat(rng, Size(3, 3), CV_8UC1, 0, 3, false);
-
-        //int devnums = getDevice(oclinfo, OPENCV_DEFAULT_OPENCL_DEVICE);
-        //CV_Assert(devnums > 0);
-        ////if you want to use undefault device, set it here
-        ////setDevice(oclinfo[0]);
-    }
-
-    void random_roi()
-    {
-#ifdef RANDOMROI
-        //randomize ROI
-        cv::RNG &rng = TS::ptr()->get_rng();
-        roicols = rng.uniform(2, mat1.cols);
-        roirows = rng.uniform(2, mat1.rows);
-        src1x   = rng.uniform(0, mat1.cols - roicols);
-        src1y   = rng.uniform(0, mat1.rows - roirows);
-        dstx    = rng.uniform(0, dst.cols  - roicols);
-        dsty    = rng.uniform(0, dst.rows  - roirows);
-#else
-        roicols = mat1.cols;
-        roirows = mat1.rows;
-        src1x = 0;
-        src1y = 0;
-        dstx = 0;
-        dsty = 0;
-#endif
-
-        mat1_roi = mat1(Rect(src1x, src1y, roicols, roirows));
-        dst_roi  = dst(Rect(dstx, dsty, roicols, roirows));
-
-        gdst_whole = dst;
-        gdst = gdst_whole(Rect(dstx, dsty, roicols, roirows));
-
-
-        gmat1 = mat1_roi;
-    }
-
-};
-
-// erode
-
-struct Erode : ErodeDilateBase {};
-
-TEST_P(Erode, Mat)
-{
-    for(int j = 0; j < LOOP_TIMES; j++)
+    for (int j = 0; j < LOOP_TIMES; j++)
     {
         random_roi();
-        //int iterations =3;
-        //cv::erode(mat1_roi, dst_roi, kernel, Point(-1, -1), iterations);
-        //cv::ocl::erode(gmat1, gdst, kernel, Point(-1, -1), iterations);
 
-        cv::erode(mat1_roi, dst_roi, kernel);
-        cv::ocl::erode(gmat1, gdst, kernel);
+        kernel = randomMat(kernelSize, CV_8UC1, 0, 3);
 
-        cv::Mat cpu_dst;
-        gdst_whole.download(cpu_dst);
-        char sss[1024];
-        sprintf(sss, "roicols=%d,roirows=%d,src1x=%d,src1y=%d,dstx=%d,dsty=%d", roicols, roirows, src1x, src1y, dstx, dsty);
+        cv::erode(src_roi, dst_roi, kernel, Point(-1, -1), iterations);//, borderType);
+        ocl::erode(gsrc_roi, gdst_roi, kernel, Point(-1, -1), iterations);//, borderType);
 
-        EXPECT_MAT_NEAR(dst, cpu_dst, 1e-5, sss);
+        Near();
     }
-
 }
 
+typedef FilterTestBase Dilate;
 
-
-
-
-// dilate
-
-struct Dilate : ErodeDilateBase {};
-
-TEST_P(Dilate, Mat)
+OCL_TEST_P(Dilate, Mat)
 {
-    for(int j = 0; j < LOOP_TIMES; j++)
+    // erode or dilate kernel
+    Mat kernel;
+    int iterations = (int)param;
+
+    for (int j = 0; j < LOOP_TIMES; j++)
     {
+        kernel = randomMat(Size(3, 3), CV_8UC1, 0, 3);
+
         random_roi();
-        //int iterations =3;
-        //      cv::erode(mat1_roi, dst_roi, kernel, Point(-1, -1), iterations);
-        //      cv::ocl::erode(gmat1, gdst, kernel, Point(-1, -1), iterations);
 
-        cv::dilate(mat1_roi, dst_roi, kernel);
-        cv::ocl::dilate(gmat1, gdst, kernel);
+        cv::dilate(src_roi, dst_roi, kernel, Point(-1, -1), iterations);
+        ocl::dilate(gsrc_roi, gdst_roi, kernel, Point(-1, -1), iterations); // TODO iterations, borderType
 
-        cv::Mat cpu_dst;
-        gdst_whole.download(cpu_dst);
-        char sss[1024];
-        sprintf(sss, "roicols=%d,roirows=%d,src1x=%d,src1y=%d,dstx=%d,dsty=%d", roicols, roirows, src1x, src1y, dstx, dsty);
-
-        EXPECT_MAT_NEAR(dst, cpu_dst, 1e-5, sss);
+        Near();
     }
-
 }
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Sobel
 
-PARAM_TEST_CASE(Sobel, MatType, int, int, int, int)
+typedef FilterTestBase SobelTest;
+
+OCL_TEST_P(SobelTest, Mat)
 {
-    int type;
-    int dx, dy, ksize, bordertype;
+    int dx = size.width, dy = size.height;
+    double scale = param;
 
-    //src mat
-    cv::Mat mat1;
-    cv::Mat dst;
-
-    // set up roi
-    int roicols;
-    int roirows;
-    int src1x;
-    int src1y;
-    int dstx;
-    int dsty;
-
-    //src mat with roi
-    cv::Mat mat1_roi;
-    cv::Mat dst_roi;
-    //std::vector<cv::ocl::Info> oclinfo;
-    //ocl dst mat for testing
-    cv::ocl::oclMat gdst_whole;
-
-    //ocl mat with roi
-    cv::ocl::oclMat gmat1;
-    cv::ocl::oclMat gdst;
-
-    virtual void SetUp()
-    {
-        type = GET_PARAM(0);
-        dx = GET_PARAM(1);
-        dy = GET_PARAM(2);
-        ksize = GET_PARAM(3);
-        bordertype = GET_PARAM(4);
-
-
-        cv::RNG &rng = TS::ptr()->get_rng();
-        cv::Size size(MWIDTH, MHEIGHT);
-
-        mat1 = randomMat(rng, size, type, 5, 16, false);
-        dst  = randomMat(rng, size, type, 5, 16, false);
-
-        //int devnums = getDevice(oclinfo, OPENCV_DEFAULT_OPENCL_DEVICE);
-        //CV_Assert(devnums > 0);
-        ////if you want to use undefault device, set it here
-        ////setDevice(oclinfo[0]);
-    }
-
-    void random_roi()
-    {
-#ifdef RANDOMROI
-        //randomize ROI
-        cv::RNG &rng = TS::ptr()->get_rng();
-        roicols = rng.uniform(2, mat1.cols);
-        roirows = rng.uniform(2, mat1.rows);
-        src1x   = rng.uniform(0, mat1.cols - roicols);
-        src1y   = rng.uniform(0, mat1.rows - roirows);
-        dstx    = rng.uniform(0, dst.cols  - roicols);
-        dsty    = rng.uniform(0, dst.rows  - roirows);
-#else
-        roicols = mat1.cols;
-        roirows = mat1.rows;
-        src1x = 0;
-        src1y = 0;
-        dstx = 0;
-        dsty = 0;
-#endif
-
-        mat1_roi = mat1(Rect(src1x, src1y, roicols, roirows));
-        dst_roi  = dst(Rect(dstx, dsty, roicols, roirows));
-
-        gdst_whole = dst;
-        gdst = gdst_whole(Rect(dstx, dsty, roicols, roirows));
-
-
-        gmat1 = mat1_roi;
-    }
-
-};
-
-TEST_P(Sobel, Mat)
-{
-    for(int j = 0; j < LOOP_TIMES; j++)
+    for (int j = 0; j < LOOP_TIMES; j++)
     {
         random_roi();
 
-        cv::Sobel(mat1_roi, dst_roi, -1, dx, dy, ksize, /*scale*/0.00001,/*delta*/0, bordertype);
-        cv::ocl::Sobel(gmat1, gdst, -1, dx, dy, ksize,/*scale*/0.00001,/*delta*/0, bordertype);
+        Sobel(src_roi, dst_roi, -1, dx, dy, ksize, scale, /* delta */0, borderType);
+        ocl::Sobel(gsrc_roi, gdst_roi, -1, dx, dy, ksize, scale, /* delta */0, borderType);
 
-        cv::Mat cpu_dst;
-        gdst_whole.download(cpu_dst);
-        char sss[1024];
-        sprintf(sss, "roicols=%d,roirows=%d,src1x=%d,src1y=%d,dstx=%d,dsty=%d", roicols, roirows, src1x, src1y, dstx, dsty);
-
-        EXPECT_MAT_NEAR(dst, cpu_dst, 1, sss);
+        Near();
     }
-
 }
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Scharr
 
-PARAM_TEST_CASE(Scharr, MatType, int, int, int)
+typedef FilterTestBase ScharrTest;
+
+OCL_TEST_P(ScharrTest, Mat)
 {
-    int type;
-    int dx, dy, bordertype;
+    int dx = size.width, dy = size.height;
+    double scale = param;
 
-    //src mat
-    cv::Mat mat1;
-    cv::Mat dst;
-
-    // set up roi
-    int roicols;
-    int roirows;
-    int src1x;
-    int src1y;
-    int dstx;
-    int dsty;
-
-    //src mat with roi
-    cv::Mat mat1_roi;
-    cv::Mat dst_roi;
-    //std::vector<cv::ocl::Info> oclinfo;
-    //ocl dst mat for testing
-    cv::ocl::oclMat gdst_whole;
-
-    //ocl mat with roi
-    cv::ocl::oclMat gmat1;
-    cv::ocl::oclMat gdst;
-
-    virtual void SetUp()
-    {
-        type = GET_PARAM(0);
-        dx = GET_PARAM(1);
-        dy = GET_PARAM(2);
-        bordertype = GET_PARAM(3);
-        dx = 1;
-        dy = 0;
-
-        cv::RNG &rng = TS::ptr()->get_rng();
-        cv::Size size(MWIDTH, MHEIGHT);
-
-        mat1 = randomMat(rng, size, type, 5, 16, false);
-        dst  = randomMat(rng, size, type, 5, 16, false);
-
-        //int devnums = getDevice(oclinfo, OPENCV_DEFAULT_OPENCL_DEVICE);
-        //CV_Assert(devnums > 0);
-        ////if you want to use undefault device, set it here
-        ////setDevice(oclinfo[0]);
-    }
-
-    void random_roi()
-    {
-#ifdef RANDOMROI
-        //randomize ROI
-        cv::RNG &rng = TS::ptr()->get_rng();
-        roicols = rng.uniform(2, mat1.cols);
-        roirows = rng.uniform(2, mat1.rows);
-        src1x   = rng.uniform(0, mat1.cols - roicols);
-        src1y   = rng.uniform(0, mat1.rows - roirows);
-        dstx    = rng.uniform(0, dst.cols  - roicols);
-        dsty    = rng.uniform(0, dst.rows  - roirows);
-#else
-        roicols = mat1.cols;
-        roirows = mat1.rows;
-        src1x = 0;
-        src1y = 0;
-        dstx = 0;
-        dsty = 0;
-#endif
-
-        mat1_roi = mat1(Rect(src1x, src1y, roicols, roirows));
-        dst_roi  = dst(Rect(dstx, dsty, roicols, roirows));
-
-        gdst_whole = dst;
-        gdst = gdst_whole(Rect(dstx, dsty, roicols, roirows));
-
-
-        gmat1 = mat1_roi;
-    }
-
-};
-
-TEST_P(Scharr, Mat)
-{
-    for(int j = 0; j < LOOP_TIMES; j++)
+    for (int j = 0; j < LOOP_TIMES; j++)
     {
         random_roi();
 
-        cv::Scharr(mat1_roi, dst_roi, -1, dx, dy, /*scale*/1,/*delta*/0, bordertype);
-        cv::ocl::Scharr(gmat1, gdst, -1, dx, dy,/*scale*/1,/*delta*/0, bordertype);
+        Scharr(src_roi, dst_roi, -1, dx, dy, scale, /* delta */ 0, borderType);
+        ocl::Scharr(gsrc_roi, gdst_roi, -1, dx, dy, scale, /* delta */ 0, borderType);
 
-        cv::Mat cpu_dst;
-        gdst_whole.download(cpu_dst);
-        char sss[1024];
-        sprintf(sss, "roicols=%d,roirows=%d,src1x=%d,src1y=%d,dstx=%d,dsty=%d", roicols, roirows, src1x, src1y, dstx, dsty);
-
-        EXPECT_MAT_NEAR(dst, cpu_dst, 1, sss);
+        Near();
     }
-
 }
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // GaussianBlur
 
-PARAM_TEST_CASE(GaussianBlur, MatType, cv::Size, int)
+typedef FilterTestBase GaussianBlurTest;
+
+OCL_TEST_P(GaussianBlurTest, Mat)
 {
-    int type;
-    cv::Size ksize;
-    int bordertype;
-
-    double sigma1, sigma2;
-
-    //src mat
-    cv::Mat mat1;
-    cv::Mat dst;
-
-    // set up roi
-    int roicols;
-    int roirows;
-    int src1x;
-    int src1y;
-    int dstx;
-    int dsty;
-
-    //src mat with roi
-    cv::Mat mat1_roi;
-    cv::Mat dst_roi;
-    //std::vector<cv::ocl::Info> oclinfo;
-    //ocl dst mat for testing
-    cv::ocl::oclMat gdst_whole;
-
-    //ocl mat with roi
-    cv::ocl::oclMat gmat1;
-    cv::ocl::oclMat gdst;
-
-    virtual void SetUp()
-    {
-        type = GET_PARAM(0);
-        ksize = GET_PARAM(1);
-        bordertype = GET_PARAM(2);
-
-        cv::RNG &rng = TS::ptr()->get_rng();
-        cv::Size size(MWIDTH, MHEIGHT);
-
-        sigma1 = rng.uniform(0.1, 1.0);
-        sigma2 = rng.uniform(0.1, 1.0);
-
-        mat1 = randomMat(rng, size, type, 5, 16, false);
-        dst  = randomMat(rng, size, type, 5, 16, false);
-
-        //int devnums = getDevice(oclinfo, OPENCV_DEFAULT_OPENCL_DEVICE);
-        //CV_Assert(devnums > 0);
-        ////if you want to use undefault device, set it here
-        ////setDevice(oclinfo[0]);
-    }
-
-    void random_roi()
-    {
-#ifdef RANDOMROI
-        //randomize ROI
-        cv::RNG &rng = TS::ptr()->get_rng();
-        roicols = rng.uniform(2, mat1.cols);
-        roirows = rng.uniform(2, mat1.rows);
-        src1x   = rng.uniform(0, mat1.cols - roicols);
-        src1y   = rng.uniform(0, mat1.rows - roirows);
-        dstx    = rng.uniform(0, dst.cols  - roicols);
-        dsty    = rng.uniform(0, dst.rows  - roirows);
-#else
-        roicols = mat1.cols;
-        roirows = mat1.rows;
-        src1x = 0;
-        src1y = 0;
-        dstx = 0;
-        dsty = 0;
-#endif
-
-        mat1_roi = mat1(Rect(src1x, src1y, roicols, roirows));
-        dst_roi  = dst(Rect(dstx, dsty, roicols, roirows));
-
-        gdst_whole = dst;
-        gdst = gdst_whole(Rect(dstx, dsty, roicols, roirows));
-
-
-        gmat1 = mat1_roi;
-    }
-
-};
-
-TEST_P(GaussianBlur, Mat)
-{
-    for(int j = 0; j < LOOP_TIMES; j++)
+    for (int j = 0; j < LOOP_TIMES; j++)
     {
         random_roi();
 
-        cv::GaussianBlur(mat1_roi, dst_roi, ksize, sigma1, sigma2, bordertype);
-        cv::ocl::GaussianBlur(gmat1, gdst, ksize, sigma1, sigma2, bordertype);
+        double sigma1 = rng.uniform(0.1, 1.0);
+        double sigma2 = rng.uniform(0.1, 1.0);
 
-        cv::Mat cpu_dst;
-        gdst_whole.download(cpu_dst);
-        char sss[1024];
-        sprintf(sss, "roicols=%d,roirows=%d,src1x=%d,src1y=%d,dstx=%d,dsty=%d", roicols, roirows, src1x, src1y, dstx, dsty);
+        GaussianBlur(src_roi, dst_roi, Size(ksize, ksize), sigma1, sigma2, borderType);
+        ocl::GaussianBlur(gsrc_roi, gdst_roi, Size(ksize, ksize), sigma1, sigma2, borderType);
 
-        EXPECT_MAT_NEAR(dst, cpu_dst, 1.0, sss);
+        Near(CV_MAT_DEPTH(type) == CV_8U ? 3 : 5e-5, false);
     }
-
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Filter2D
 
+typedef FilterTestBase Filter2D;
 
-INSTANTIATE_TEST_CASE_P(Filter, Blur, Combine(Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC4),
-                        Values(cv::Size(3, 3), cv::Size(5, 5), cv::Size(7, 7)),
-                        Values((MatType)cv::BORDER_CONSTANT, (MatType)cv::BORDER_REPLICATE, (MatType)cv::BORDER_REFLECT, (MatType)cv::BORDER_REFLECT_101)));
+OCL_TEST_P(Filter2D, Mat)
+{
+    for (int j = 0; j < LOOP_TIMES; j++)
+    {
+        random_roi();
 
+        Point anchor(-1, -1);
+        if (size.width >= 0)
+            anchor.x = size.width % ksize;
+        if (size.height >= 0)
+            anchor.y = size.height % ksize;
 
-INSTANTIATE_TEST_CASE_P(Filters, Laplacian, Combine(
+        const Size kernelSize(ksize, ksize);
+        Mat kernel = randomMat(kernelSize, CV_32FC1, 0, 1.0);
+        kernel *= 1.0 / (double)(ksize * ksize);
+
+        cv::filter2D(src_roi, dst_roi, -1, kernel, anchor, 0.0, borderType);
+        ocl::filter2D(gsrc_roi, gdst_roi, -1, kernel, anchor, 0.0, borderType);
+
+        Near();
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Bilateral
+
+typedef FilterTestBase Bilateral;
+
+OCL_TEST_P(Bilateral, Mat)
+{
+    for (int j = 0; j < LOOP_TIMES; j++)
+    {
+        random_roi();
+
+        double sigmacolor = rng.uniform(20, 100);
+        double sigmaspace = rng.uniform(10, 40);
+
+        cv::bilateralFilter(src_roi, dst_roi, ksize, sigmacolor, sigmaspace, borderType);
+        ocl::bilateralFilter(gsrc_roi, gdst_roi, ksize, sigmacolor, sigmaspace, borderType);
+
+        Near();
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// AdaptiveBilateral
+
+typedef FilterTestBase AdaptiveBilateral;
+
+OCL_TEST_P(AdaptiveBilateral, Mat)
+{
+    const Size kernelSize(ksize, ksize);
+
+    for (int j = 0; j < LOOP_TIMES; j++)
+    {
+        random_roi();
+
+        adaptiveBilateralFilter(src_roi, dst_roi, kernelSize, 5, 1, Point(-1, -1), borderType); // TODO anchor
+        ocl::adaptiveBilateralFilter(gsrc_roi, gdst_roi, kernelSize, 5, 1, Point(-1, -1), borderType);
+
+        Near();
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// MedianFilter
+
+typedef FilterTestBase MedianFilter;
+
+OCL_TEST_P(MedianFilter, Mat)
+{
+    for (int i = 0; i < LOOP_TIMES; ++i)
+    {
+        random_roi();
+
+        medianBlur(src_roi, dst_roi, ksize);
+        ocl::medianFilter(gsrc_roi, gdst_roi, ksize);
+
+        Near();
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#define FILTER_BORDER_SET_NO_ISOLATED \
+    Values((int)BORDER_CONSTANT, (int)BORDER_REPLICATE, (int)BORDER_REFLECT, (int)BORDER_WRAP, (int)BORDER_REFLECT_101/*, \
+            (int)BORDER_CONSTANT|BORDER_ISOLATED, (int)BORDER_REPLICATE|BORDER_ISOLATED, \
+            (int)BORDER_REFLECT|BORDER_ISOLATED, (int)BORDER_WRAP|BORDER_ISOLATED, \
+            (int)BORDER_REFLECT_101|BORDER_ISOLATED*/) // WRAP and ISOLATED are not supported by cv:: version
+
+#define FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED \
+    Values((int)BORDER_CONSTANT, (int)BORDER_REPLICATE, (int)BORDER_REFLECT, /*(int)BORDER_WRAP,*/ (int)BORDER_REFLECT_101/*, \
+            (int)BORDER_CONSTANT|BORDER_ISOLATED, (int)BORDER_REPLICATE|BORDER_ISOLATED, \
+            (int)BORDER_REFLECT|BORDER_ISOLATED, (int)BORDER_WRAP|BORDER_ISOLATED, \
+            (int)BORDER_REFLECT_101|BORDER_ISOLATED*/) // WRAP and ISOLATED are not supported by cv:: version
+
+#define FILTER_DATATYPES Values(CV_8UC1, CV_8UC2, CV_8UC3, CV_8UC4, \
+                                CV_32FC1, CV_32FC3, CV_32FC4, \
+                                CV_64FC1, CV_64FC3, CV_64FC4)
+
+INSTANTIATE_TEST_CASE_P(Filter, Blur, Combine(
+                            FILTER_DATATYPES,
+                            Values(3, 5, 7),
+                            Values(Size(0, 0)), // not used
+                            FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED,
+                            Values(0.0), // not used
+                            Bool()));
+
+INSTANTIATE_TEST_CASE_P(Filter, LaplacianTest, Combine(
+                            FILTER_DATATYPES,
+                            Values(1, 3),
+                            Values(Size(0, 0)), // not used
+                            FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED,
+                            Values(1.0, 0.2, 3.0), // scalar
+                            Bool()));
+
+INSTANTIATE_TEST_CASE_P(Filter, Erode, Combine(
                             Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC3, CV_32FC4),
-                            Values(1, 3)));
+                            Values(3, 5, 7),
+                            Values(Size(0, 0)), // not used
+                            Values(0), // not used
+                            Values(1.0, 2.0, 3.0),
+                            Bool()));
 
-//INSTANTIATE_TEST_CASE_P(Filter, ErodeDilate, Combine(Values(CV_8UC1, CV_8UC4, CV_32FC1, CV_32FC4), Values(1, 2, 3)));
+INSTANTIATE_TEST_CASE_P(Filter, Dilate, Combine(
+                            Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC3, CV_32FC4),
+                            Values(3, 5, 7),
+                            Values(Size(0, 0)), // not used
+                            Values(0), // not used
+                            Values(1.0, 2.0, 3.0),
+                            Bool()));
 
-INSTANTIATE_TEST_CASE_P(Filter, Erode, Combine(Values(CV_8UC1, CV_8UC1), Values(false)));
+INSTANTIATE_TEST_CASE_P(Filter, SobelTest, Combine(
+                            Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC3, CV_32FC4),
+                            Values(3, 5),
+                            Values(Size(1, 0), Size(1, 1), Size(2, 0), Size(2, 1)), // dx, dy
+                            FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED,
+                            Values(0.0), // not used
+                            Bool()));
 
-//INSTANTIATE_TEST_CASE_P(Filter, ErodeDilate, Combine(Values(CV_8UC1, CV_8UC4, CV_32FC1, CV_32FC4), Values(1, 2, 3)));
+INSTANTIATE_TEST_CASE_P(Filter, ScharrTest, Combine(
+                            Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC3, CV_32FC4),
+                            Values(1),
+                            Values(Size(0, 1), Size(1, 0)), // dx, dy
+                            FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED,
+                            Values(1.0, 0.2), // scalar
+                            Bool()));
 
-INSTANTIATE_TEST_CASE_P(Filter, Dilate, Combine(Values(CV_8UC1, CV_8UC1), Values(false)));
-
-
-INSTANTIATE_TEST_CASE_P(Filter, Sobel, Combine(Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC3, CV_32FC4),
-                        Values(1, 2), Values(0, 1), Values(3, 5), Values((MatType)cv::BORDER_CONSTANT,
-                                (MatType)cv::BORDER_REPLICATE)));
-
-
-INSTANTIATE_TEST_CASE_P(Filter, Scharr, Combine(
-                            Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC4), Values(0, 1), Values(0, 1),
-                            Values((MatType)cv::BORDER_CONSTANT, (MatType)cv::BORDER_REPLICATE)));
-
-INSTANTIATE_TEST_CASE_P(Filter, GaussianBlur, Combine(
+INSTANTIATE_TEST_CASE_P(Filter, GaussianBlurTest, Combine(
                             Values(CV_8UC1, CV_8UC3, CV_8UC4, CV_32FC1, CV_32FC4),
-                            Values(cv::Size(3, 3), cv::Size(5, 5)),
-                            Values((MatType)cv::BORDER_CONSTANT, (MatType)cv::BORDER_REPLICATE)));
+                            Values(3, 5),
+                            Values(Size(0, 0)), // not used
+                            FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED,
+                            Values(0.0), // not used
+                            Bool()));
 
+INSTANTIATE_TEST_CASE_P(Filter, Filter2D, testing::Combine(
+                            FILTER_DATATYPES,
+                            Values(3, 15), // TODO 25: CPU implementation has some issues
+                            Values(Size(-1, -1), Size(0, 0), Size(2, 1)), // anchor
+                            FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED,
+                            Values(0.0), // not used
+                            Bool()));
 
+INSTANTIATE_TEST_CASE_P(Filter, Bilateral, Combine(
+                            Values(CV_8UC1, CV_8UC3),
+                            Values(5, 9),
+                            Values(Size(0, 0)), // not used
+                            FILTER_BORDER_SET_NO_ISOLATED,
+                            Values(0.0), // not used
+                            Bool()));
+
+INSTANTIATE_TEST_CASE_P(Filter, AdaptiveBilateral, Combine(
+                            Values(CV_8UC1, CV_8UC3),
+                            Values(5, 9),
+                            Values(Size(0, 0)), // not used
+                            FILTER_BORDER_SET_NO_WRAP_NO_ISOLATED,
+                            Values(0.0), // not used
+                            Bool()));
+
+INSTANTIATE_TEST_CASE_P(Filter, MedianFilter, Combine(
+                            Values(CV_8UC1, CV_8UC4, CV_32FC1, CV_32FC4),
+                            Values(3, 5),
+                            Values(Size(0, 0)), // not used
+                            Values(0), // not used
+                            Values(0.0), // not used
+                            Bool()));
 
 #endif // HAVE_OPENCL

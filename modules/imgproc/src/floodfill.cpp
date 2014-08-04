@@ -41,6 +41,10 @@
 
 #include "precomp.hpp"
 
+#if (__GNUC__ == 4) && (__GNUC_MINOR__ == 8)
+# pragma GCC diagnostic ignored "-Warray-bounds"
+#endif
+
 typedef struct CvFFillSegment
 {
     ushort y;
@@ -93,7 +97,6 @@ icvFloodFill_CnIR( uchar* pImage, int step, CvSize roi, CvPoint seed,
                    _Tp newVal, CvConnectedComp* region, int flags,
                    std::vector<CvFFillSegment>* buffer )
 {
-    typedef typename cv::DataType<_Tp>::channel_type _CTp;
     _Tp* img = (_Tp*)(pImage + step * seed.y);
     int i, L, R;
     int area = 0;
@@ -252,7 +255,6 @@ icvFloodFillGrad_CnIR( uchar* pImage, int step, uchar* pMask, int maskStep,
                        CvConnectedComp* region, int flags,
                        std::vector<CvFFillSegment>* buffer )
 {
-    typedef typename cv::DataType<_Tp>::channel_type _CTp;
     _Tp* img = (_Tp*)(pImage + step*seed.y);
     uchar* mask = (pMask += maskStep + 1) + maskStep*seed.y;
     int i, L, R;

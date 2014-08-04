@@ -2348,99 +2348,6 @@ void Core_SolvePolyTest::run( int )
     }
 }
 
-class Core_PhaseTest : public cvtest::BaseTest
-{
-public:
-    Core_PhaseTest() {}
-    ~Core_PhaseTest() {}
-protected:
-    virtual void run(int)
-    {
-        const float maxAngleDiff = 0.5; //in degrees
-        const int axisCount = 8;
-        const int dim = theRNG().uniform(1,10);
-        const float scale = theRNG().uniform(1.f, 100.f);
-        Mat x(axisCount + 1, dim, CV_32FC1),
-            y(axisCount + 1, dim, CV_32FC1);
-        Mat anglesInDegrees(axisCount + 1, dim, CV_32FC1);
-
-        // fill the data
-        x.row(0).setTo(Scalar(0));
-        y.row(0).setTo(Scalar(0));
-        anglesInDegrees.row(0).setTo(Scalar(0));
-
-        x.row(1).setTo(Scalar(scale));
-        y.row(1).setTo(Scalar(0));
-        anglesInDegrees.row(1).setTo(Scalar(0));
-
-        x.row(2).setTo(Scalar(scale));
-        y.row(2).setTo(Scalar(scale));
-        anglesInDegrees.row(2).setTo(Scalar(45));
-
-        x.row(3).setTo(Scalar(0));
-        y.row(3).setTo(Scalar(scale));
-        anglesInDegrees.row(3).setTo(Scalar(90));
-
-        x.row(4).setTo(Scalar(-scale));
-        y.row(4).setTo(Scalar(scale));
-        anglesInDegrees.row(4).setTo(Scalar(135));
-
-        x.row(5).setTo(Scalar(-scale));
-        y.row(5).setTo(Scalar(0));
-        anglesInDegrees.row(5).setTo(Scalar(180));
-
-        x.row(6).setTo(Scalar(-scale));
-        y.row(6).setTo(Scalar(-scale));
-        anglesInDegrees.row(6).setTo(Scalar(225));
-
-        x.row(7).setTo(Scalar(0));
-        y.row(7).setTo(Scalar(-scale));
-        anglesInDegrees.row(7).setTo(Scalar(270));
-
-        x.row(8).setTo(Scalar(scale));
-        y.row(8).setTo(Scalar(-scale));
-        anglesInDegrees.row(8).setTo(Scalar(315));
-
-        Mat resInRad, resInDeg;
-        phase(x, y, resInRad, false);
-        phase(x, y, resInDeg, true);
-
-        CV_Assert(resInRad.size() == x.size());
-        CV_Assert(resInRad.type() == x.type());
-
-        CV_Assert(resInDeg.size() == x.size());
-        CV_Assert(resInDeg.type() == x.type());
-
-        // check the result
-        int outOfRangeCount = countNonZero((resInDeg > 360) | (resInDeg < 0));
-        if(outOfRangeCount > 0)
-        {
-            ts->printf(cvtest::TS::LOG, "There are result angles that are out of range [0, 360] (part of them is %f)\n",
-                       static_cast<float>(outOfRangeCount)/resInDeg.total());
-            ts->set_failed_test_info(cvtest::TS::FAIL_INVALID_OUTPUT);
-        }
-
-        Mat diff = abs(anglesInDegrees - resInDeg);
-        size_t errDegCount = diff.total() - countNonZero((diff < maxAngleDiff) | ((360 - diff) < maxAngleDiff));
-        if(errDegCount > 0)
-        {
-            ts->printf(cvtest::TS::LOG, "There are incorrect result angles (in degrees) (part of them is %f)\n",
-                       static_cast<float>(errDegCount)/resInDeg.total());
-            ts->set_failed_test_info(cvtest::TS::FAIL_INVALID_OUTPUT);
-        }
-
-        Mat convertedRes = resInRad * 180. / CV_PI;
-        double normDiff = norm(convertedRes - resInDeg);
-        if(normDiff > FLT_EPSILON)
-        {
-            ts->printf(cvtest::TS::LOG, "There are incorrect result angles (in radians)\n");
-            ts->set_failed_test_info(cvtest::TS::FAIL_INVALID_OUTPUT);
-        }
-
-        ts->set_failed_test_info(cvtest::TS::OK);
-    }
-};
-
 class Core_CheckRange_Empty : public cvtest::BaseTest
 {
 public:
@@ -2579,7 +2486,35 @@ TEST(Core_SVD, accuracy) { Core_SVDTest test; test.safe_run(); }
 TEST(Core_SVBkSb, accuracy) { Core_SVBkSbTest test; test.safe_run(); }
 TEST(Core_Trace, accuracy) { Core_TraceTest test; test.safe_run(); }
 TEST(Core_SolvePoly, accuracy) { Core_SolvePolyTest test; test.safe_run(); }
-TEST(Core_Phase, accuracy) { Core_PhaseTest test; test.safe_run(); }
+
+
+TEST(Core_SVD, flt)
+{
+    float a[] = {
+    1.23377746e+011f, -7.05490125e+010f, -4.18380882e+010f, -11693456.f,
+    -39091328.f, 77492224.f, -7.05490125e+010f, 2.36211143e+011f,
+    -3.51093473e+010f, 70773408.f, -4.83386156e+005f, -129560368.f,
+    -4.18380882e+010f, -3.51093473e+010f, 9.25311222e+010f, -49052424.f,
+    43922752.f, 12176842.f, -11693456.f, 70773408.f, -49052424.f, 8.40836094e+004f,
+    5.17475293e+003f, -1.16122949e+004f, -39091328.f, -4.83386156e+005f,
+    43922752.f, 5.17475293e+003f, 5.16047969e+004f, 5.68887842e+003f, 77492224.f,
+    -129560368.f, 12176842.f, -1.16122949e+004f, 5.68887842e+003f,
+    1.28060578e+005f
+    };
+
+    float b[] = {
+    283751232.f, 2.61604198e+009f, -745033216.f, 2.31125625e+005f,
+    -4.52429188e+005f, -1.37596525e+006f
+    };
+
+    Mat A(6, 6, CV_32F, a);
+    Mat B(6, 1, CV_32F, b);
+    Mat X, B1;
+    solve(A, B, X, DECOMP_SVD);
+    B1 = A*X;
+    EXPECT_LE(norm(B1, B, NORM_L2 + NORM_RELATIVE), FLT_EPSILON*10);
+}
+
 
 // TODO: eigenvv, invsqrt, cbrt, fastarctan, (round, floor, ceil(?)),
 
@@ -2708,4 +2643,3 @@ TEST(CovariationMatrixVectorOfMatWithMean, accuracy)
 }
 
 /* End of file. */
-

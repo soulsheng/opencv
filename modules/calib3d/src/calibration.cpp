@@ -412,7 +412,7 @@ CV_IMPL void cvComposeRT( const CvMat* _rvec1, const CvMat* _tvec1,
     cvRodrigues2( &r1, &R1, &dR1dr1 );
     cvRodrigues2( &r2, &R2, &dR2dr2 );
 
-    if( _rvec3 || dr3dr1 || dr3dr1 )
+    if( _rvec3 || dr3dr1 || dr3dr2 )
     {
         double _r3[3], _R3[9], _dR3dR1[9*9], _dR3dR2[9*9], _dr3dR3[9*3];
         double _W1[9*3], _W2[3*3];
@@ -1391,8 +1391,8 @@ CV_IMPL void cvInitIntrinsicParams2D( const CvMat* objectPoints,
 
     matA = cvCreateMat( 2*nimages, 2, CV_64F );
     _b = cvCreateMat( 2*nimages, 1, CV_64F );
-    a[2] = (imageSize.width - 1)*0.5;
-    a[5] = (imageSize.height - 1)*0.5;
+    a[2] = (!imageSize.width) ? 0.5 : (imageSize.width - 1)*0.5;
+    a[5] = (!imageSize.height) ? 0.5 : (imageSize.height - 1)*0.5;
     _allH = cvCreateMat( nimages, 9, CV_64F );
 
     // extract vanishing points in order to obtain initial value for the focal length
@@ -2778,17 +2778,13 @@ CV_IMPL int cvStereoRectifyUncalibrated(
     cvPerspectiveTransform( _m1, _m1, &H0 );
     cvPerspectiveTransform( _m2, _m2, &H2 );
     CvMat A = cvMat( 1, npoints, CV_64FC3, lines1 ), BxBy, B;
-    double a[9], atb[3], x[3];
-    CvMat AtA = cvMat( 3, 3, CV_64F, a );
-    CvMat AtB = cvMat( 3, 1, CV_64F, atb );
+    double x[3];
     CvMat X = cvMat( 3, 1, CV_64F, x );
     cvConvertPointsHomogeneous( _m1, &A );
     cvReshape( &A, &A, 1, npoints );
     cvReshape( _m2, &BxBy, 1, npoints );
     cvGetCol( &BxBy, &B, 0 );
-    cvGEMM( &A, &A, 1, 0, 0, &AtA, CV_GEMM_A_T );
-    cvGEMM( &A, &B, 1, 0, 0, &AtB, CV_GEMM_A_T );
-    cvSolve( &AtA, &AtB, &X, CV_SVD_SYM );
+    cvSolve( &A, &B, &X, CV_SVD );
 
     double ha[] =
     {
@@ -3364,7 +3360,11 @@ void cv::projectPoints( InputArray _opoints,
     CvMat c_cameraMatrix = cameraMatrix;
     CvMat c_rvec = rvec, c_tvec = tvec;
 
+    double dc0buf[5]={0};
+    Mat dc0(5,1,CV_64F,dc0buf);
     Mat distCoeffs = _distCoeffs.getMat();
+    if( distCoeffs.empty() )
+        distCoeffs = dc0;
     CvMat c_distCoeffs = distCoeffs;
     int ndistCoeffs = distCoeffs.rows + distCoeffs.cols - 1;
 
@@ -3379,8 +3379,7 @@ void cv::projectPoints( InputArray _opoints,
         pdpddist = &(dpddist = jacobian.colRange(10, 10+ndistCoeffs));
     }
 
-    cvProjectPoints2( &c_objectPoints, &c_rvec, &c_tvec, &c_cameraMatrix,
-                      (distCoeffs.empty())? 0: &c_distCoeffs,
+    cvProjectPoints2( &c_objectPoints, &c_rvec, &c_tvec, &c_cameraMatrix, &c_distCoeffs,
                       &c_imagePoints, pdpdrot, pdpdt, pdpdf, pdpdc, pdpddist, aspectRatio );
 }
 
@@ -3739,13 +3738,13 @@ float cv::rectify3Collinear( InputArray _cameraMatrix1, InputArray _distCoeffs1,
                    OutputArray _Rmat1, OutputArray _Rmat2, OutputArray _Rmat3,
                    OutputArray _Pmat1, OutputArray _Pmat2, OutputArray _Pmat3,
                    OutputArray _Qmat,
-                   double alpha, Size /*newImgSize*/,
+                   double alpha, Size newImgSize,
                    Rect* roi1, Rect* roi2, int flags )
 {
     // first, rectify the 1-2 stereo pair
     stereoRectify( _cameraMatrix1, _distCoeffs1, _cameraMatrix2, _distCoeffs2,
                    imageSize, _Rmat12, _Tmat12, _Rmat1, _Rmat2, _Pmat1, _Pmat2, _Qmat,
-                   flags, alpha, imageSize, roi1, roi2 );
+                   flags, alpha, newImgSize, roi1, roi2 );
 
     Mat R12 = _Rmat12.getMat(), R13 = _Rmat13.getMat(), T12 = _Tmat12.getMat(), T13 = _Tmat13.getMat();
 

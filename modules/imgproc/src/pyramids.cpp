@@ -191,6 +191,7 @@ pyrDown_( const Mat& _src, Mat& _dst, int borderType )
     typedef typename CastOp::type1 WT;
     typedef typename CastOp::rtype T;
 
+    CV_Assert( !_src.empty() );
     Size ssize = _src.size(), dsize = _dst.size();
     int cn = _src.channels();
     int bufstep = (int)alignSize(dsize.width*cn, 16);
@@ -327,11 +328,10 @@ pyrUp_( const Mat& _src, Mat& _dst, int)
 
     CV_Assert( std::abs(dsize.width - ssize.width*2) == dsize.width % 2 &&
                std::abs(dsize.height - ssize.height*2) == dsize.height % 2);
-    int k, x, sy0 = -PU_SZ/2, sy = sy0, width0 = ssize.width - 1;
+    int k, x, sy0 = -PU_SZ/2, sy = sy0;
 
     ssize.width *= cn;
     dsize.width *= cn;
-    width0 *= cn;
 
     for( x = 0; x < ssize.width; x++ )
         dtab[x] = (x/cn)*2*cn + x % cn;

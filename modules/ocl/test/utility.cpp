@@ -39,14 +39,14 @@
 //
 //M*/
 
-#include "precomp.hpp"
+#include "test_precomp.hpp"
 #define VARNAME(A) #A
 using namespace std;
 using namespace cv;
 using namespace cv::gpu;
 using namespace cvtest;
 
-
+namespace cvtest {
 //std::string generateVarList(int first,...)
 //{
 //	vector<std::string> varname;
@@ -73,122 +73,44 @@ using namespace cvtest;
 //	return ss.str();
 //};
 
-int randomInt(int minVal, int maxVal)
+cv::ocl::oclMat createMat_ocl(cv::RNG& rng, Size size, int type, bool useRoi)
 {
-    RNG &rng = TS::ptr()->get_rng();
-    return rng.uniform(minVal, maxVal);
-}
+    Size size0 = size;
 
-double randomDouble(double minVal, double maxVal)
-{
-    RNG &rng = TS::ptr()->get_rng();
-    return rng.uniform(minVal, maxVal);
-}
-
-Size randomSize(int minVal, int maxVal)
-{
-    return cv::Size(randomInt(minVal, maxVal), randomInt(minVal, maxVal));
-}
-
-Scalar randomScalar(double minVal, double maxVal)
-{
-    return Scalar(randomDouble(minVal, maxVal), randomDouble(minVal, maxVal), randomDouble(minVal, maxVal), randomDouble(minVal, maxVal));
-}
-
-Mat randomMat(Size size, int type, double minVal, double maxVal)
-{
-    return randomMat(TS::ptr()->get_rng(), size, type, minVal, maxVal, false);
-}
-
-
-
-
-
-
-
-/*
-void showDiff(InputArray gold_, InputArray actual_, double eps)
-{
-    Mat gold;
-    if (gold_.kind() == _InputArray::MAT)
-        gold = gold_.getMat();
-    else
-        gold_.getGpuMat().download(gold);
-
-    Mat actual;
-    if (actual_.kind() == _InputArray::MAT)
-        actual = actual_.getMat();
-    else
-        actual_.getGpuMat().download(actual);
-
-    Mat diff;
-    absdiff(gold, actual, diff);
-    threshold(diff, diff, eps, 255.0, cv::THRESH_BINARY);
-
-    namedWindow("gold", WINDOW_NORMAL);
-    namedWindow("actual", WINDOW_NORMAL);
-    namedWindow("diff", WINDOW_NORMAL);
-
-    imshow("gold", gold);
-    imshow("actual", actual);
-    imshow("diff", diff);
-
-    waitKey();
-}
-*/
-
-/*
-bool supportFeature(const DeviceInfo& info, FeatureSet feature)
-{
-    return TargetArchs::builtWith(feature) && info.supports(feature);
-}
-
-const vector<DeviceInfo>& devices()
-{
-    static vector<DeviceInfo> devs;
-    static bool first = true;
-
-    if (first)
+    if (useRoi)
     {
-        int deviceCount = getCudaEnabledDeviceCount();
-
-        devs.reserve(deviceCount);
-
-        for (int i = 0; i < deviceCount; ++i)
-        {
-            DeviceInfo info(i);
-            if (info.isCompatible())
-                devs.push_back(info);
-        }
-
-        first = false;
+        size0.width += rng.uniform(5, 15);
+        size0.height += rng.uniform(5, 15);
     }
 
-    return devs;
+    cv::ocl::oclMat d_m(size0, type);
+
+    if (size0 != size)
+        d_m = d_m(Rect((size0.width - size.width) / 2, (size0.height - size.height) / 2, size.width, size.height));
+
+    return d_m;
 }
 
-vector<DeviceInfo> devices(FeatureSet feature)
+cv::ocl::oclMat loadMat_ocl(cv::RNG& rng, const Mat& m, bool useRoi)
 {
-    const vector<DeviceInfo>& d = devices();
+    CV_Assert(m.type() == CV_8UC1 || m.type() == CV_8UC3);
+    cv::ocl::oclMat d_m;
+    d_m = createMat_ocl(rng, m.size(), m.type(), useRoi);
 
-    vector<DeviceInfo> devs_filtered;
+    Size ls;
+    Point pt;
 
-    if (TargetArchs::builtWith(feature))
-    {
-        devs_filtered.reserve(d.size());
+    d_m.locateROI(ls, pt);
 
-        for (size_t i = 0, size = d.size(); i < size; ++i)
-        {
-            const DeviceInfo& info = d[i];
+    Rect roi(pt.x, pt.y, d_m.size().width, d_m.size().height);
 
-            if (info.supports(feature))
-                devs_filtered.push_back(info);
-        }
-    }
+    cv::ocl::oclMat m_ocl(m);
 
-    return devs_filtered;
+    cv::ocl::oclMat d_m_roi(d_m, roi);
+
+    m_ocl.copyTo(d_m);
+    return d_m;
 }
-*/
 
 vector<MatType> types(int depth_start, int depth_end, int cn_start, int cn_end)
 {
@@ -264,3 +186,78 @@ void PrintTo(const Inverse &inverse, std::ostream *os)
         (*os) << "direct";
 }
 
+double checkRectSimilarity(Size sz, std::vector<Rect>& ob1, std::vector<Rect>& ob2)
+{
+    double final_test_result = 0.0;
+    size_t sz1 = ob1.size();
+    size_t sz2 = ob2.size();
+
+    if(sz1 != sz2)
+    {
+        return sz1 > sz2 ? (double)(sz1 - sz2) : (double)(sz2 - sz1);
+    }
+    else
+    {
+        if(sz1==0 && sz2==0)
+            return 0;
+        cv::Mat cpu_result(sz, CV_8UC1);
+        cpu_result.setTo(0);
+
+        for(vector<Rect>::const_iterator r = ob1.begin(); r != ob1.end(); r++)
+        {
+            cv::Mat cpu_result_roi(cpu_result, *r);
+            cpu_result_roi.setTo(1);
+            cpu_result.copyTo(cpu_result);
+        }
+        int cpu_area = cv::countNonZero(cpu_result > 0);
+
+        cv::Mat gpu_result(sz, CV_8UC1);
+        gpu_result.setTo(0);
+        for(vector<Rect>::const_iterator r2 = ob2.begin(); r2 != ob2.end(); r2++)
+        {
+            cv::Mat gpu_result_roi(gpu_result, *r2);
+            gpu_result_roi.setTo(1);
+            gpu_result.copyTo(gpu_result);
+        }
+
+        cv::Mat result_;
+        multiply(cpu_result, gpu_result, result_);
+        int result = cv::countNonZero(result_ > 0);
+        if(cpu_area!=0 && result!=0)
+            final_test_result = 1.0 - (double)result/(double)cpu_area;
+        else if(cpu_area==0 && result!=0)
+            final_test_result = -1;
+    }
+    return final_test_result;
+}
+
+void showDiff(const Mat& src, const Mat& gold, const Mat& actual, double eps, bool alwaysShow)
+{
+    Mat diff, diff_thresh;
+    absdiff(gold, actual, diff);
+    diff.convertTo(diff, CV_32F);
+    threshold(diff, diff_thresh, eps, 255.0, cv::THRESH_BINARY);
+
+    if (alwaysShow || cv::countNonZero(diff_thresh.reshape(1)) > 0)
+    {
+#if 0
+        std::cout << "Src: " << std::endl << src << std::endl;
+        std::cout << "Reference: " << std::endl << gold << std::endl;
+        std::cout << "OpenCL: " << std::endl << actual << std::endl;
+#endif
+
+        namedWindow("src", WINDOW_NORMAL);
+        namedWindow("gold", WINDOW_NORMAL);
+        namedWindow("actual", WINDOW_NORMAL);
+        namedWindow("diff", WINDOW_NORMAL);
+
+        imshow("src", src);
+        imshow("gold", gold);
+        imshow("actual", actual);
+        imshow("diff", diff);
+
+        waitKey();
+    }
+}
+
+} // namespace cvtest

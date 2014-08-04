@@ -510,7 +510,11 @@ static void arrayinterface_common(PyArrayInterface *s, int mtype)
     assert(0);
   }
 
+#ifdef NPY_1_7_API_VERSION
+  s->flags = NPY_ARRAY_WRITEABLE | NPY_ARRAY_NOTSWAPPED;
+#else
   s->flags = NPY_WRITEABLE | NPY_NOTSWAPPED;
+#endif
 }
 
 static PyObject *cvmat_array_struct(cvmat_t *cva)
@@ -1158,7 +1162,7 @@ static PyObject* cvseq_map_getitem(PyObject *o, PyObject *item)
     if (i < 0)
       i += (int)cvseq_seq_length(o);
     return cvseq_seq_getitem(o, i);
-  } else if (PySlice_Check(item)) {
+  } else if (!!PySlice_Check(item)) {
     Py_ssize_t start, stop, step, slicelength, cur, i;
     PyObject* result;
 
@@ -1975,7 +1979,7 @@ struct dims
 
 static int convert_to_dim(PyObject *item, int i, dims *dst, CvArr *cva, const char *name = "no_name")
 {
-  if (PySlice_Check(item)) {
+  if (!!PySlice_Check(item)) {
     Py_ssize_t start, stop, step, slicelength;
     PySlice_GetIndicesEx((PySliceObject*)item, cvGetDimSize(cva, i), &start, &stop, &step, &slicelength);
     dst->i[i] = (int)start;
@@ -4050,4 +4054,3 @@ static PyObject* init_cv()
 
   return m;
 }
-

@@ -7,10 +7,11 @@
 //  copy or use the software.
 //
 //
-//                        Intel License Agreement
+//                           License Agreement
 //                For Open Source Computer Vision Library
 //
-// Copyright (C) 2000, Intel Corporation, all rights reserved.
+// Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
+// Copyright (C) 2009, Willow Garage Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -23,7 +24,7 @@
 //     this list of conditions and the following disclaimer in the documentation
 //     and/or other materials provided with the distribution.
 //
-//   * The name of Intel Corporation may not be used to endorse or promote products
+//   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
 //
 // This software is provided by the copyright holders and contributors "as is" and
@@ -42,6 +43,8 @@
 #include "test_precomp.hpp"
 
 #ifdef HAVE_CUDA
+
+using namespace cvtest;
 
 ///////////////////////////////////////////////////////////////////
 // Gold implementation
@@ -136,7 +139,7 @@ PARAM_TEST_CASE(Resize, cv::gpu::DeviceInfo, cv::Size, MatType, double, Interpol
     }
 };
 
-TEST_P(Resize, Accuracy)
+GPU_TEST_P(Resize, Accuracy)
 {
     cv::Mat src = randomMat(size, type);
 
@@ -152,13 +155,13 @@ TEST_P(Resize, Accuracy)
 INSTANTIATE_TEST_CASE_P(GPU_ImgProc, Resize, testing::Combine(
     ALL_DEVICES,
     DIFFERENT_SIZES,
-    testing::Values(MatType(CV_8UC3), MatType(CV_16UC1), MatType(CV_16UC3), MatType(CV_16UC4), MatType(CV_32FC1), MatType(CV_32FC3), MatType(CV_32FC4)),
+    testing::Values(MatType(CV_8UC1), MatType(CV_8UC3), MatType(CV_8UC4), MatType(CV_16UC1), MatType(CV_16UC3), MatType(CV_16UC4), MatType(CV_32FC1), MatType(CV_32FC3), MatType(CV_32FC4)),
     testing::Values(0.3, 0.5, 1.5, 2.0),
     testing::Values(Interpolation(cv::INTER_NEAREST), Interpolation(cv::INTER_LINEAR), Interpolation(cv::INTER_CUBIC)),
     WHOLE_SUBMAT));
 
-
 /////////////////
+
 PARAM_TEST_CASE(ResizeSameAsHost, cv::gpu::DeviceInfo, cv::Size, MatType, double, Interpolation, UseRoi)
 {
     cv::gpu::DeviceInfo devInfo;
@@ -182,7 +185,7 @@ PARAM_TEST_CASE(ResizeSameAsHost, cv::gpu::DeviceInfo, cv::Size, MatType, double
 };
 
 // downscaling only: used for classifiers
-TEST_P(ResizeSameAsHost, Accuracy)
+GPU_TEST_P(ResizeSameAsHost, Accuracy)
 {
     cv::Mat src = randomMat(size, type);
 
@@ -198,50 +201,9 @@ TEST_P(ResizeSameAsHost, Accuracy)
 INSTANTIATE_TEST_CASE_P(GPU_ImgProc, ResizeSameAsHost, testing::Combine(
     ALL_DEVICES,
     DIFFERENT_SIZES,
-    testing::Values(MatType(CV_8UC3), MatType(CV_16UC1), MatType(CV_16UC3), MatType(CV_16UC4), MatType(CV_32FC1), MatType(CV_32FC3), MatType(CV_32FC4)),
+    testing::Values(MatType(CV_8UC1), MatType(CV_8UC3), MatType(CV_8UC4), MatType(CV_16UC1), MatType(CV_16UC3), MatType(CV_16UC4), MatType(CV_32FC1), MatType(CV_32FC3), MatType(CV_32FC4)),
     testing::Values(0.3, 0.5),
-    testing::Values(Interpolation(cv::INTER_AREA), Interpolation(cv::INTER_NEAREST)),  //, Interpolation(cv::INTER_LINEAR), Interpolation(cv::INTER_CUBIC)
+    testing::Values(Interpolation(cv::INTER_NEAREST), Interpolation(cv::INTER_AREA)),
     WHOLE_SUBMAT));
-
-///////////////////////////////////////////////////////////////////
-// Test NPP
-
-PARAM_TEST_CASE(ResizeNPP, cv::gpu::DeviceInfo, MatType, double, Interpolation)
-{
-    cv::gpu::DeviceInfo devInfo;
-    double coeff;
-    int interpolation;
-    int type;
-
-    virtual void SetUp()
-    {
-        devInfo = GET_PARAM(0);
-        type = GET_PARAM(1);
-        coeff = GET_PARAM(2);
-        interpolation = GET_PARAM(3);
-
-        cv::gpu::setDevice(devInfo.deviceID());
-    }
-};
-
-TEST_P(ResizeNPP, Accuracy)
-{
-    cv::Mat src = readImageType("stereobp/aloe-L.png", type);
-    ASSERT_FALSE(src.empty());
-
-    cv::gpu::GpuMat dst;
-    cv::gpu::resize(loadMat(src), dst, cv::Size(), coeff, coeff, interpolation);
-
-    cv::Mat dst_gold;
-    resizeGold(src, dst_gold, coeff, coeff, interpolation);
-
-    EXPECT_MAT_SIMILAR(dst_gold, dst, 1e-1);
-}
-
-INSTANTIATE_TEST_CASE_P(GPU_ImgProc, ResizeNPP, testing::Combine(
-    ALL_DEVICES,
-    testing::Values(MatType(CV_8UC1), MatType(CV_8UC4)),
-    testing::Values(0.3, 0.5, 1.5, 2.0),
-    testing::Values(Interpolation(cv::INTER_NEAREST), Interpolation(cv::INTER_LINEAR))));
 
 #endif // HAVE_CUDA

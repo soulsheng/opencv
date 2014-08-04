@@ -25,7 +25,7 @@
 //
 //   * Redistribution's in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
-//     and/or other oclMaterials provided with the distribution.
+//     and/or other materials provided with the distribution.
 //
 //   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
@@ -43,34 +43,68 @@
 //
 //M*/
 
-#include <iomanip>
 #include "precomp.hpp"
 
-#ifdef HAVE_CLAMDBLAS
+namespace cv { namespace ocl {
 
-#include "clAmdBlas.h"
+// used for clAmdBlas library to avoid redundant setup/teardown
+void clBlasSetup();
+void clBlasTeardown();
 
-#if !defined HAVE_OPENCL
-void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
-                   const oclMat &src3, double beta, oclMat &dst, int flags)
+}} /* namespace cv { namespace ocl */
+
+
+#if !defined HAVE_CLAMDBLAS
+void cv::ocl::gemm(const oclMat&, const oclMat&, double,
+                   const oclMat&, double, oclMat&, int)
 {
-    throw_nogpu();
+    CV_Error(CV_OpenCLNoAMDBlasFft, "OpenCL BLAS is not implemented");
 }
-#elif !defined HAVE_CLAMDBLAS
-void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
-                   const oclMat &src3, double beta, oclMat &dst, int flags)
+
+void cv::ocl::clBlasSetup()
 {
-    CV_Error(CV_StsNotImplemented, "OpenCL BLAS is not implemented");
+    CV_Error(CV_OpenCLNoAMDBlasFft, "OpenCL BLAS is not implemented");
 }
+
+void cv::ocl::clBlasTeardown()
+{
+    //intentionally do nothing
+}
+
 #else
-
+#include "opencv2/ocl/cl_runtime/clamdblas_runtime.hpp"
 using namespace cv;
+
+static bool clBlasInitialized = false;
+
+void cv::ocl::clBlasSetup()
+{
+    if(!clBlasInitialized)
+    {
+        AutoLock lock(getInitializationMutex());
+        if(!clBlasInitialized)
+        {
+            openCLSafeCall(clAmdBlasSetup());
+            clBlasInitialized = true;
+        }
+    }
+}
+
+void cv::ocl::clBlasTeardown()
+{
+    AutoLock lock(getInitializationMutex());
+    if(clBlasInitialized)
+    {
+        clAmdBlasTeardown();
+        clBlasInitialized = false;
+    }
+}
 
 void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
                    const oclMat &src3, double beta, oclMat &dst, int flags)
 {
     CV_Assert(src1.cols == src2.rows &&
-              (src3.empty() || src1.rows == src3.rows && src2.cols == src3.cols));
+              (src3.empty() || (src1.rows == src3.rows && src2.cols == src3.cols)));
     CV_Assert(!(cv::GEMM_3_T & flags)); // cv::GEMM_3_T is not supported
     if(!src3.empty())
     {
@@ -81,7 +115,8 @@ void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
         dst.create(src1.rows, src2.cols, src1.type());
         dst.setTo(Scalar::all(0));
     }
-    openCLSafeCall( clAmdBlasSetup() );
+
+    clBlasSetup();
 
     const clAmdBlasTranspose transA = (cv::GEMM_1_T & flags) ? clAmdBlasTrans : clAmdBlasNoTrans;
     const clAmdBlasTranspose transB = (cv::GEMM_2_T & flags) ? clAmdBlasTrans : clAmdBlasNoTrans;
@@ -97,7 +132,7 @@ void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
     int offb    = src2.offset;
     int offc    = dst.offset;
 
-
+    cl_command_queue clq = *(cl_command_queue*)src1.clCxt->getOpenCLCommandQueuePtr();
     switch(src1.type())
     {
     case CV_32FC1:
@@ -107,11 +142,12 @@ void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
         offa /= sizeof(float);
         offb /= sizeof(float);
         offc /= sizeof(float);
+
         openCLSafeCall
         (
             clAmdBlasSgemmEx(order, transA, transB, M, N, K,
                              alpha, (const cl_mem)src1.data, offa, lda, (const cl_mem)src2.data, offb, ldb,
-                             beta, (cl_mem)dst.data, offc, ldc, 1, &src1.clCxt->impl->clCmdQueue, 0, NULL, NULL)
+                             beta, (cl_mem)dst.data, offc, ldc, 1, &clq, 0, NULL, NULL)
         );
         break;
     case CV_64FC1:
@@ -125,7 +161,7 @@ void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
         (
             clAmdBlasDgemmEx(order, transA, transB, M, N, K,
                              alpha, (const cl_mem)src1.data, offa, lda, (const cl_mem)src2.data, offb, ldb,
-                             beta, (cl_mem)dst.data, offc, ldc, 1, &src1.clCxt->impl->clCmdQueue, 0, NULL, NULL)
+                             beta, (cl_mem)dst.data, offc, ldc, 1, &clq, 0, NULL, NULL)
         );
         break;
     case CV_32FC2:
@@ -142,7 +178,7 @@ void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
         (
             clAmdBlasCgemmEx(order, transA, transB, M, N, K,
                              alpha_2, (const cl_mem)src1.data, offa, lda, (const cl_mem)src2.data, offb, ldb,
-                             beta_2, (cl_mem)dst.data, offc, ldc, 1, &src1.clCxt->impl->clCmdQueue, 0, NULL, NULL)
+                             beta_2, (cl_mem)dst.data, offc, ldc, 1, &clq, 0, NULL, NULL)
         );
     }
     break;
@@ -160,12 +196,10 @@ void cv::ocl::gemm(const oclMat &src1, const oclMat &src2, double alpha,
         (
             clAmdBlasZgemmEx(order, transA, transB, M, N, K,
                              alpha_2, (const cl_mem)src1.data, offa, lda, (const cl_mem)src2.data, offb, ldb,
-                             beta_2, (cl_mem)dst.data, offc, ldc, 1, &src1.clCxt->impl->clCmdQueue, 0, NULL, NULL)
+                             beta_2, (cl_mem)dst.data, offc, ldc, 1, &clq, 0, NULL, NULL)
         );
     }
     break;
     }
-    clAmdBlasTeardown();
 }
-#endif
 #endif

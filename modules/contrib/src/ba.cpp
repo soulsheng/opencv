@@ -744,7 +744,7 @@ static void fjac(int /*i*/, int /*j*/, CvMat *point_params, CvMat* cam_params, C
   CvMat* _mp = cvCreateMat(1, 1, CV_64FC2 ); //projection of the point
 
   //split camera params into different matrices
-  CvMat _ri, _ti, _k;
+  CvMat _ri, _ti, _k = cvMat(0, 0, CV_64F, NULL); // dummy initialization to fix warning of cl.exe
   cvGetRows( cam_params, &_ri, 0, 3 );
   cvGetRows( cam_params, &_ti, 3, 6 );
 
@@ -1105,7 +1105,7 @@ void LevMarqSparse::bundleAdjust( vector<Point3d>& points, //positions of points
     Mat rot_vec = Mat(levmar.P).rowRange(i*num_cam_param, i*num_cam_param+3);
     Rodrigues( rot_vec, R[i] );
     //translation
-    T[i] = Mat(levmar.P).rowRange(i*num_cam_param + 3, i*num_cam_param+6);
+    Mat(levmar.P).rowRange(i*num_cam_param + 3, i*num_cam_param+6).copyTo(T[i]);
 
     //intrinsic camera matrix
     double* intr_data = (double*)cameraMatrix[i].data;

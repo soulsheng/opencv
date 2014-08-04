@@ -12,6 +12,7 @@
 //
 // Copyright (C) 2010-2012, Institute Of Software Chinese Academy Of Science, all rights reserved.
 // Copyright (C) 2010-2012, Advanced Micro Devices, Inc., all rights reserved.
+// Copyright (C) 2010-2012, Multicoreware, Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -22,7 +23,7 @@
 //
 //   * Redistribution's in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
-//     and/or other oclMaterials provided with the distribution.
+//     and/or other materials provided with the distribution.
 //
 //   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
@@ -40,17 +41,42 @@
 //
 //M*/
 
-#ifndef __OPENCV_GPU_MATRIX_OPERATIONS_HPP__
-#define __OPENCV_GPU_MATRIX_OPERATIONS_HPP__
+#ifndef __OPENCV_OCL_MATRIX_OPERATIONS_HPP__
+#define __OPENCV_OCL_MATRIX_OPERATIONS_HPP__
+
+#include "opencv2/ocl/ocl.hpp"
 
 namespace cv
 {
 
     namespace ocl
     {
-        ////////////////////////////////////OpenCL kernel strings//////////////////////////
-        //extern const char *convertC3C4;
 
+        enum
+        {
+            MAT_ADD = 1,
+            MAT_SUB,
+            MAT_MUL,
+            MAT_DIV,
+            MAT_NOT,
+            MAT_AND,
+            MAT_OR,
+            MAT_XOR
+        };
+
+        class CV_EXPORTS oclMatExpr
+        {
+            public:
+                oclMatExpr() : a(oclMat()), b(oclMat()), op(0) {}
+                oclMatExpr(const oclMat& _a, const oclMat& _b, int _op)
+                    : a(_a), b(_b), op(_op) {}
+                operator oclMat() const;
+                void assign(oclMat& m) const;
+
+            protected:
+                oclMat a, b;
+                int op;
+        };
         ////////////////////////////////////////////////////////////////////////
         //////////////////////////////// oclMat ////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
@@ -141,7 +167,7 @@ namespace cv
         }
 
 
-        inline oclMat::oclMat(const oclMat &m, const Range &rowRange, const Range &colRange)
+        inline oclMat::oclMat(const oclMat &m, const Range &rRange, const Range &cRange)
         {
             flags = m.flags;
             step = m.step;
@@ -149,25 +175,26 @@ namespace cv
             data = m.data;
             datastart = m.datastart;
             dataend = m.dataend;
+            clCxt = m.clCxt;
             wholerows = m.wholerows;
             wholecols = m.wholecols;
             offset = m.offset;
-            if( rowRange == Range::all() )
+            if( rRange == Range::all() )
                 rows = m.rows;
             else
             {
-                CV_Assert( 0 <= rowRange.start && rowRange.start <= rowRange.end && rowRange.end <= m.rows );
-                rows = rowRange.size();
-                offset += step * rowRange.start;
+                CV_Assert( 0 <= rRange.start && rRange.start <= rRange.end && rRange.end <= m.rows );
+                rows = rRange.size();
+                offset += step * rRange.start;
             }
 
-            if( colRange == Range::all() )
+            if( cRange == Range::all() )
                 cols = m.cols;
             else
             {
-                CV_Assert( 0 <= colRange.start && colRange.start <= colRange.end && colRange.end <= m.cols );
-                cols = colRange.size();
-                offset += colRange.start * elemSize();
+                CV_Assert( 0 <= cRange.start && cRange.start <= cRange.end && cRange.end <= m.cols );
+                cols = cRange.size();
+                offset += cRange.start * elemSize();
                 flags &= cols < m.cols ? ~Mat::CONTINUOUS_FLAG : -1;
             }
 
@@ -187,8 +214,8 @@ namespace cv
         {
             flags &= roi.width < m.cols ? ~Mat::CONTINUOUS_FLAG : -1;
             offset += roi.y * step + roi.x * elemSize();
-            CV_Assert( 0 <= roi.x && 0 <= roi.width && roi.x + roi.width <= m.cols &&
-                       0 <= roi.y && 0 <= roi.height && roi.y + roi.height <= m.rows );
+            CV_Assert( 0 <= roi.x && 0 <= roi.width && roi.x + roi.width <= m.wholecols &&
+                       0 <= roi.y && 0 <= roi.height && roi.y + roi.height <= m.wholerows );
             if( refcount )
                 CV_XADD(refcount, 1);
             if( rows <= 0 || cols <= 0 )
@@ -234,6 +261,12 @@ namespace cv
         {
             //clCxt = Context::getContext();
             upload(m);
+            return *this;
+        }
+
+        inline oclMat& oclMat::operator = (const oclMatExpr& expr)
+        {
+            expr.assign(*this);
             return *this;
         }
 
@@ -296,12 +329,12 @@ namespace cv
         //CPP void oclMat::copyTo( oclMat& m, const oclMat& mask  ) const;
         //CPP void oclMat::convertTo( oclMat& m, int rtype, double alpha=1, double beta=0 ) const;
 
-        inline void oclMat::assignTo( oclMat &m, int type ) const
+        inline void oclMat::assignTo( oclMat &m, int mtype ) const
         {
-            if( type < 0 )
+            if( mtype < 0 )
                 m = *this;
             else
-                convertTo(m, type);
+                convertTo(m, mtype);
         }
 
         //CPP oclMat& oclMat::operator = (const Scalar& s);
@@ -370,9 +403,9 @@ namespace cv
             return *this;
         }
 
-        inline oclMat oclMat::operator()( Range rowRange, Range colRange ) const
+        inline oclMat oclMat::operator()( Range rRange, Range cRange ) const
         {
-            return oclMat(*this, rowRange, colRange);
+            return oclMat(*this, rRange, cRange);
         }
         inline oclMat oclMat::operator()( const Rect &roi ) const
         {
@@ -424,36 +457,6 @@ namespace cv
             return data == 0;
         }
 
-
-
-        inline uchar *oclMat::ptr(int y)
-        {
-            CV_DbgAssert( (unsigned)y < (unsigned)rows );
-            CV_Error(CV_GpuNotSupported, "This function hasn't been supported yet.\n");
-            return data + step * y;
-        }
-
-        inline const uchar *oclMat::ptr(int y) const
-        {
-            CV_DbgAssert( (unsigned)y < (unsigned)rows );
-            CV_Error(CV_GpuNotSupported, "This function hasn't been supported yet.\n");
-            return data + step * y;
-        }
-
-        template<typename _Tp> inline _Tp *oclMat::ptr(int y)
-        {
-            CV_DbgAssert( (unsigned)y < (unsigned)rows );
-            CV_Error(CV_GpuNotSupported, "This function hasn't been supported yet.\n");
-            return (_Tp *)(data + step * y);
-        }
-
-        template<typename _Tp> inline const _Tp *oclMat::ptr(int y) const
-        {
-            CV_DbgAssert( (unsigned)y < (unsigned)rows );
-            CV_Error(CV_GpuNotSupported, "This function hasn't been supported yet.\n");
-            return (const _Tp *)(data + step * y);
-        }
-
         inline oclMat oclMat::t() const
         {
             oclMat tmp;
@@ -484,4 +487,4 @@ namespace cv
 
 } /* end of namespace cv */
 
-#endif /* __OPENCV_GPU_MATRIX_OPERATIONS_HPP__ */
+#endif /* __OPENCV_OCL_MATRIX_OPERATIONS_HPP__ */

@@ -1123,7 +1123,7 @@ struct MeanOp : public BaseElemWiseOp
     }
     double getMaxErr(int)
     {
-        return 1e-6;
+        return 1e-5;
     }
 };
 
@@ -1530,4 +1530,37 @@ TEST(Multiply, FloatingPointRounding)
     cv::multiply(src, s, dst, 1, CV_16U);
     // with CV_32F this produce result 16202
     ASSERT_EQ(dst.at<ushort>(0,0), 16201);
+}
+
+TEST(Core_Add, AddToColumnWhen3Rows)
+{
+    cv::Mat m1 = (cv::Mat_<double>(3, 2) << 1, 2, 3, 4, 5, 6);
+    m1.col(1) += 10;
+
+    cv::Mat m2 = (cv::Mat_<double>(3, 2) << 1, 12, 3, 14, 5, 16);
+
+    ASSERT_EQ(0, countNonZero(m1 - m2));
+}
+
+TEST(Core_Add, AddToColumnWhen4Rows)
+{
+    cv::Mat m1 = (cv::Mat_<double>(4, 2) << 1, 2, 3, 4, 5, 6, 7, 8);
+    m1.col(1) += 10;
+
+    cv::Mat m2 = (cv::Mat_<double>(4, 2) << 1, 12, 3, 14, 5, 16, 7, 18);
+
+    ASSERT_EQ(0, countNonZero(m1 - m2));
+}
+
+TEST(Core_round, CvRound)
+{
+    ASSERT_EQ(2, cvRound(2.0));
+    ASSERT_EQ(2, cvRound(2.1));
+    ASSERT_EQ(-2, cvRound(-2.1));
+    ASSERT_EQ(3, cvRound(2.8));
+    ASSERT_EQ(-3, cvRound(-2.8));
+    ASSERT_EQ(2, cvRound(2.5));
+    ASSERT_EQ(4, cvRound(3.5));
+    ASSERT_EQ(-2, cvRound(-2.5));
+    ASSERT_EQ(-4, cvRound(-3.5));
 }

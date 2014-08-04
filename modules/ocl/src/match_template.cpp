@@ -25,7 +25,7 @@
 //
 //   * Redistribution's in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
-//     and/or other oclMaterials provided with the distribution.
+//     and/or other materials provided with the distribution.
 //
 //   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
@@ -44,28 +44,11 @@
 //M*/
 
 
-#include <iomanip>
 #include "precomp.hpp"
+#include "opencl_kernels.hpp"
 
 using namespace cv;
 using namespace cv::ocl;
-using namespace std;
-
-#if !defined (HAVE_OPENCL)
-void cv::ocl::matchTemplate(const oclMat &, const oclMat &, oclMat &)
-{
-    throw_nogpu();
-}
-#else
-//helper routines
-namespace cv
-{
-    namespace ocl
-    {
-        ///////////////////////////OpenCL kernel strings///////////////////////////
-        extern const char *match_template;
-    }
-}
 
 namespace cv
 {
@@ -75,6 +58,9 @@ namespace cv
             const oclMat &image, const oclMat &templ, oclMat &result, MatchTemplateBuf &buf);
 
         void matchTemplate_SQDIFF_NORMED(
+            const oclMat &image, const oclMat &templ, oclMat &result, MatchTemplateBuf &buf);
+
+        void convolve_32F(
             const oclMat &image, const oclMat &templ, oclMat &result, MatchTemplateBuf &buf);
 
         void matchTemplate_CCORR(
@@ -96,41 +82,65 @@ namespace cv
         void matchTemplateNaive_CCORR(
             const oclMat &image, const oclMat &templ, oclMat &result, int cn);
 
+        void extractFirstChannel_32F(
+            const oclMat &image, oclMat &result);
+
         // Evaluates optimal template's area threshold. If
         // template's area is less  than the threshold, we use naive match
         // template version, otherwise FFT-based (if available)
-        int getTemplateThreshold(int method, int depth)
+        static bool useNaive(int , int , Size )
         {
-            switch (method)
-            {
-            case CV_TM_CCORR:
-                if (depth == CV_32F) return 250;
-                if (depth == CV_8U) return 300;
-                break;
-            case CV_TM_SQDIFF:
-                if (depth == CV_32F) return 0x7fffffff; // do naive SQDIFF for CV_32F
-                if (depth == CV_8U) return 300;
-                break;
-            }
-            CV_Error(CV_StsBadArg, "getTemplateThreshold: unsupported match template mode");
-            return 0;
+            // FIXME!
+            //   always use naive until convolve is imported
+            return true;
         }
 
         //////////////////////////////////////////////////////////////////////
         // SQDIFF
         void matchTemplate_SQDIFF(
-            const oclMat &image, const oclMat &templ, oclMat &result, MatchTemplateBuf &)
+            const oclMat &image, const oclMat &templ, oclMat &result, MatchTemplateBuf & buf)
         {
             result.create(image.rows - templ.rows + 1, image.cols - templ.cols + 1, CV_32F);
-            if (templ.size().area() < getTemplateThreshold(CV_TM_SQDIFF, image.depth()))
+            if (useNaive(CV_TM_SQDIFF, image.depth(), templ.size()))
             {
                 matchTemplateNaive_SQDIFF(image, templ, result, image.oclchannels());
                 return;
             }
             else
             {
-                // TODO
-                CV_Error(CV_StsBadArg, "Not supported yet for this size template");
+                buf.image_sqsums.resize(1);
+
+                // TODO, add double support for ocl::integral
+                // use CPU integral temporarily
+                Mat sums, sqsums;
+                cv::integral(Mat(image.reshape(1)), sums, sqsums);
+                buf.image_sqsums[0] = sqsums;
+
+                unsigned long long templ_sqsum = (unsigned long long)sqrSum(templ.reshape(1))[0];
+                matchTemplate_CCORR(image, templ, result, buf);
+
+                //port CUDA's matchTemplatePrepared_SQDIFF_8U
+                Context *clCxt = image.clCxt;
+                string kernelName = "matchTemplate_Prepared_SQDIFF";
+                vector< pair<size_t, const void *> > args;
+
+                args.push_back( make_pair( sizeof(cl_mem), (void *)&buf.image_sqsums[0].data));
+                args.push_back( make_pair( sizeof(cl_mem), (void *)&result.data));
+                args.push_back( make_pair( sizeof(cl_ulong), (void *)&templ_sqsum));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&result.rows));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&result.cols));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&templ.rows));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&templ.cols));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&buf.image_sqsums[0].offset));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&buf.image_sqsums[0].step));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&result.offset));
+                args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
+
+                size_t globalThreads[3] = {result.cols, result.rows, 1};
+                size_t localThreads[3]  = {16, 16, 1};
+
+                const char * build_opt = image.oclchannels() == 4 ? "-D CN4" : "";
+                openCLExecuteKernel(clCxt, &match_template, kernelName, globalThreads, localThreads, args, 1, CV_8U, build_opt);
             }
         }
 
@@ -139,7 +149,6 @@ namespace cv
         {
             matchTemplate_CCORR(image, templ, result, buf);
             buf.image_sums.resize(1);
-
 
             integral(image.reshape(1), buf.image_sums[0]);
 
@@ -162,7 +171,7 @@ namespace cv
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
 
             size_t globalThreads[3] = {result.cols, result.rows, 1};
-            size_t localThreads[3]  = {32, 8, 1};
+            size_t localThreads[3]  = {16, 16, 1};
             openCLExecuteKernel(clCxt, &match_template, kernelName, globalThreads, localThreads, args, 1, CV_8U);
         }
 
@@ -197,45 +206,54 @@ namespace cv
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
 
             size_t globalThreads[3] = {result.cols, result.rows, 1};
-            size_t localThreads[3]  = {32, 8, 1};
+            size_t localThreads[3]  = {16, 16, 1};
             openCLExecuteKernel(clCxt, &match_template, kernelName, globalThreads, localThreads, args, image.oclchannels(), image.depth());
         }
 
         //////////////////////////////////////////////////////////////////////
         // CCORR
+        void convolve_32F(
+            const oclMat &, const oclMat &, oclMat &, MatchTemplateBuf &)
+        {
+            CV_Error(-1, "convolve is not fully implemented yet");
+        }
+
         void matchTemplate_CCORR(
             const oclMat &image, const oclMat &templ, oclMat &result, MatchTemplateBuf &buf)
         {
             result.create(image.rows - templ.rows + 1, image.cols - templ.cols + 1, CV_32F);
-            if (templ.size().area() < getTemplateThreshold(CV_TM_SQDIFF, image.depth()))
+            if (useNaive(CV_TM_CCORR, image.depth(), templ.size()))
             {
                 matchTemplateNaive_CCORR(image, templ, result, image.oclchannels());
                 return;
             }
             else
             {
-                CV_Error(CV_StsBadArg, "Not supported yet for this size template");
                 if(image.depth() == CV_8U && templ.depth() == CV_8U)
                 {
                     image.convertTo(buf.imagef, CV_32F);
                     templ.convertTo(buf.templf, CV_32F);
+                    convolve_32F(buf.imagef, buf.templf, result, buf);
                 }
-                CV_Assert(image.oclchannels() == 1);
-                oclMat o_result(image.size(), CV_MAKETYPE(CV_32F, image.oclchannels()));
-                filter2D(buf.imagef, o_result, CV_32F, buf.templf, Point(0, 0));
-                result = o_result(Rect(0, 0, image.rows - templ.rows + 1, image.cols - templ.cols + 1));
+                else
+                {
+                    convolve_32F(image, templ, result, buf);
+                }
             }
         }
 
         void matchTemplate_CCORR_NORMED(
             const oclMat &image, const oclMat &templ, oclMat &result, MatchTemplateBuf &buf)
         {
+            cv::ocl::oclMat temp;
             matchTemplate_CCORR(image, templ, result, buf);
             buf.image_sums.resize(1);
             buf.image_sqsums.resize(1);
-
-            integral(image.reshape(1), buf.image_sums[0], buf.image_sqsums[0]);
-
+            integral(image.reshape(1), buf.image_sums[0], temp);
+            if(temp.depth() == CV_64F)
+                temp.convertTo(buf.image_sqsums[0], CV_32FC1);
+            else
+                buf.image_sqsums[0] = temp;
             unsigned long long templ_sqsum = (unsigned long long)sqrSum(templ.reshape(1))[0];
 
             Context *clCxt = image.clCxt;
@@ -255,7 +273,7 @@ namespace cv
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
 
             size_t globalThreads[3] = {result.cols, result.rows, 1};
-            size_t localThreads[3]  = {32, 8, 1};
+            size_t localThreads[3]  = {16, 16, 1};
             openCLExecuteKernel(clCxt, &match_template, kernelName, globalThreads, localThreads, args, 1, CV_8U);
         }
 
@@ -290,7 +308,7 @@ namespace cv
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
 
             size_t globalThreads[3] = {result.cols, result.rows, 1};
-            size_t localThreads[3]  = {32, 8, 1};
+            size_t localThreads[3]  = {16, 16, 1};
             openCLExecuteKernel(clCxt, &match_template, kernelName, globalThreads, localThreads, args, image.oclchannels(), image.depth());
         }
         //////////////////////////////////////////////////////////////////////
@@ -307,7 +325,7 @@ namespace cv
 
             kernelName = "matchTemplate_Prepared_CCOFF";
             size_t globalThreads[3] = {result.cols, result.rows, 1};
-            size_t localThreads[3]  = {32, 8, 1};
+            size_t localThreads[3]  = {16, 16, 1};
 
             vector< pair<size_t, const void *> > args;
             args.push_back( make_pair( sizeof(cl_mem), (void *)&result.data) );
@@ -319,22 +337,22 @@ namespace cv
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.cols) );
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.offset));
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
+            Vec4f templ_sum = Vec4f::all(0);
             // to be continued in the following section
             if(image.oclchannels() == 1)
             {
                 buf.image_sums.resize(1);
                 integral(image, buf.image_sums[0]);
 
-                float templ_sum = 0;
-                templ_sum = (float)sum(templ)[0] / templ.size().area();
+                templ_sum[0] = (float)sum(templ)[0] / templ.size().area();
                 args.push_back( make_pair( sizeof(cl_mem),  (void *)&buf.image_sums[0].data) );
                 args.push_back( make_pair( sizeof(cl_int),  (void *)&buf.image_sums[0].offset) );
                 args.push_back( make_pair( sizeof(cl_int),  (void *)&buf.image_sums[0].step) );
-                args.push_back( make_pair( sizeof(cl_float), (void *)&templ_sum) );
+                args.push_back( make_pair( sizeof(cl_float), (void *)&templ_sum[0]) );
             }
             else
             {
-                Vec4f templ_sum = Vec4f::all(0);
+
                 split(image, buf.images);
                 templ_sum = sum(templ) / templ.size().area();
                 buf.image_sums.resize(buf.images.size());
@@ -380,7 +398,7 @@ namespace cv
 
             kernelName = "matchTemplate_Prepared_CCOFF_NORMED";
             size_t globalThreads[3] = {result.cols, result.rows, 1};
-            size_t localThreads[3]  = {32, 8, 1};
+            size_t localThreads[3]  = {16, 16, 1};
 
             vector< pair<size_t, const void *> > args;
             args.push_back( make_pair( sizeof(cl_mem), (void *)&result.data) );
@@ -393,20 +411,27 @@ namespace cv
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.offset));
             args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
             args.push_back( make_pair( sizeof(cl_float), (void *)&scale) );
+
+            Vec4f templ_sum   = Vec4f::all(0);
+            Vec4f templ_sqsum = Vec4f::all(0);
             // to be continued in the following section
             if(image.oclchannels() == 1)
             {
                 buf.image_sums.resize(1);
                 buf.image_sqsums.resize(1);
-                integral(image, buf.image_sums[0], buf.image_sqsums[0]);
-                float templ_sum = 0;
-                float templ_sqsum = 0;
-                templ_sum   = (float)sum(templ)[0];
+                cv::ocl::oclMat temp;
+                integral(image, buf.image_sums[0], temp);
+                if(temp.depth() == CV_64F)
+                    temp.convertTo(buf.image_sqsums[0], CV_32FC1);
+                else
+                    buf.image_sqsums[0] = temp;
 
-                templ_sqsum = sqrSum(templ)[0];
+                templ_sum[0]   = (float)sum(templ)[0];
 
-                templ_sqsum -= scale * templ_sum * templ_sum;
-                templ_sum   *= scale;
+                templ_sqsum[0] = sqrSum(templ)[0];
+
+                templ_sqsum[0] -= scale * templ_sum[0] * templ_sum[0];
+                templ_sum[0]   *= scale;
 
                 args.push_back( make_pair( sizeof(cl_mem),  (void *)&buf.image_sums[0].data) );
                 args.push_back( make_pair( sizeof(cl_int),  (void *)&buf.image_sums[0].offset) );
@@ -414,13 +439,11 @@ namespace cv
                 args.push_back( make_pair( sizeof(cl_mem),  (void *)&buf.image_sqsums[0].data) );
                 args.push_back( make_pair( sizeof(cl_int),  (void *)&buf.image_sqsums[0].offset) );
                 args.push_back( make_pair( sizeof(cl_int),  (void *)&buf.image_sqsums[0].step) );
-                args.push_back( make_pair( sizeof(cl_float), (void *)&templ_sum) );
-                args.push_back( make_pair( sizeof(cl_float), (void *)&templ_sqsum) );
+                args.push_back( make_pair( sizeof(cl_float), (void *)&templ_sum[0]) );
+                args.push_back( make_pair( sizeof(cl_float), (void *)&templ_sqsum[0]) );
             }
             else
             {
-                Vec4f templ_sum   = Vec4f::all(0);
-                Vec4f templ_sqsum = Vec4f::all(0);
 
                 split(image, buf.images);
                 templ_sum   = sum(templ);
@@ -437,10 +460,14 @@ namespace cv
                 templ_sum   *= scale;
                 buf.image_sums.resize(buf.images.size());
                 buf.image_sqsums.resize(buf.images.size());
-
+                cv::ocl::oclMat temp;
                 for(int i = 0; i < image.oclchannels(); i ++)
                 {
-                    integral(buf.images[i], buf.image_sums[i], buf.image_sqsums[i]);
+                    integral(buf.images[i], buf.image_sums[i], temp);
+                    if(temp.depth() == CV_64F)
+                        temp.convertTo(buf.image_sqsums[i], CV_32FC1);
+                    else
+                        buf.image_sqsums[i] = temp;
                 }
 
                 switch(image.oclchannels())
@@ -471,7 +498,27 @@ namespace cv
             }
             openCLExecuteKernel(clCxt, &match_template, kernelName, globalThreads, localThreads, args, image.oclchannels(), image.depth());
         }
+        void extractFirstChannel_32F(const oclMat &image, oclMat &result)
+        {
+            Context *clCxt = image.clCxt;
+            string kernelName;
 
+            kernelName = "extractFirstChannel";
+            size_t globalThreads[3] = {result.cols, result.rows, 1};
+            size_t localThreads[3]  = {16, 16, 1};
+
+            vector< pair<size_t, const void *> > args;
+            args.push_back( make_pair( sizeof(cl_mem), (void *)&image.data) );
+            args.push_back( make_pair( sizeof(cl_mem), (void *)&result.data) );
+            args.push_back( make_pair( sizeof(cl_int), (void *)&result.rows) );
+            args.push_back( make_pair( sizeof(cl_int), (void *)&result.cols) );
+            args.push_back( make_pair( sizeof(cl_int), (void *)&image.offset));
+            args.push_back( make_pair( sizeof(cl_int), (void *)&result.offset));
+            args.push_back( make_pair( sizeof(cl_int), (void *)&image.step));
+            args.push_back( make_pair( sizeof(cl_int), (void *)&result.step));
+
+            openCLExecuteKernel(clCxt, &match_template, kernelName, globalThreads, localThreads, args, -1, -1);
+        }
     }/*ocl*/
 } /*cv*/
 
@@ -498,4 +545,3 @@ void cv::ocl::matchTemplate(const oclMat &image, const oclMat &templ, oclMat &re
     CV_Assert(caller);
     caller(image, templ, result, buf);
 }
-#endif //

@@ -235,7 +235,7 @@ void CvCalibFilter::SetCameraCount( int count )
             cvReleaseMat( &rectMap[i][1] );
         }
 
-        memset( latestCounts, 0, sizeof(latestPoints) );
+        memset( latestCounts, 0, sizeof(latestCounts) );
         maxPoints = 0;
         cameraCount = count;
     }
@@ -919,5 +919,3 @@ bool CvCalibFilter::Undistort( CvMat** srcarr, CvMat** dstarr )
 
     return true;
 }
-
-

@@ -75,8 +75,8 @@ void CV_FastTest::run( int )
 
     vector<KeyPoint> keypoints1;
     vector<KeyPoint> keypoints2;
-    FAST(gray1, keypoints1, 30, true, type);
-    FAST(gray2, keypoints2, (type > 0 ? 30 : 20), true, type);
+    FASTX(gray1, keypoints1, 30, true, type);
+    FASTX(gray2, keypoints2, (type > 0 ? 30 : 20), true, type);
 
     for(size_t i = 0; i < keypoints1.size(); ++i)
     {
@@ -134,4 +134,3 @@ void CV_FastTest::run( int )
 }
 
 TEST(Features2d_FAST, regression) { CV_FastTest test; test.safe_run(); }
-

@@ -1117,9 +1117,9 @@ bool CvBoost::train( CvMLData* _data,
 }
 
 void
-CvBoost::update_weights( CvBoostTree* tree )
+CvBoost::update_weights_impl( CvBoostTree* tree, double initial_weights[2] )
 {
-    CV_FUNCNAME( "CvBoost::update_weights" );
+    CV_FUNCNAME( "CvBoost::update_weights_impl" );
 
     __BEGIN__;
 
@@ -1130,13 +1130,13 @@ CvBoost::update_weights( CvBoostTree* tree )
     int *sample_idx_buf;
     const int* sample_idx = 0;
     cv::AutoBuffer<uchar> inn_buf;
-    size_t _buf_size = (params.boost_type == LOGIT) || (params.boost_type == GENTLE) ? data->sample_count*sizeof(int) : 0;
+    size_t _buf_size = (params.boost_type == LOGIT) || (params.boost_type == GENTLE) ? (size_t)(data->sample_count)*sizeof(int) : 0;
     if( !tree )
         _buf_size += n*sizeof(int);
     else
     {
         if( have_subsample )
-            _buf_size += data->buf->cols*(sizeof(float)+sizeof(uchar));
+            _buf_size += data->get_length_subbuf()*(sizeof(float)+sizeof(uchar));
     }
     inn_buf.allocate(_buf_size);
     uchar* cur_buf_pos = (uchar*)inn_buf;
@@ -1151,6 +1151,7 @@ CvBoost::update_weights( CvBoostTree* tree )
         sample_idx = data->get_sample_indices( data->data_root, sample_idx_buf );
     }
     CvMat* dtree_data_buf = data->buf;
+    size_t length_buf_row = data->get_length_subbuf();
     if( !tree ) // before training the first tree, initialize weights and other parameters
     {
         int* class_labels_buf = (int*)cur_buf_pos;
@@ -1160,7 +1161,7 @@ CvBoost::update_weights( CvBoostTree* tree )
         // so we need to convert class labels to floating-point values
 
         double w0 = 1./n;
-        double p[2] = { 1, 1 };
+        double p[2] = { initial_weights[0], initial_weights[1] };
 
         cvReleaseMat( &orig_response );
         cvReleaseMat( &sum_response );
@@ -1189,7 +1190,7 @@ CvBoost::update_weights( CvBoostTree* tree )
 
         if (data->is_buf_16u)
         {
-            unsigned short* labels = (unsigned short*)(dtree_data_buf->data.s + data->data_root->buf_idx*dtree_data_buf->cols +
+            unsigned short* labels = (unsigned short*)(dtree_data_buf->data.s + data->data_root->buf_idx*length_buf_row +
                 data->data_root->offset + (data->work_var_count-1)*data->sample_count);
             for( i = 0; i < n; i++ )
             {
@@ -1207,7 +1208,7 @@ CvBoost::update_weights( CvBoostTree* tree )
         }
         else
         {
-            int* labels = dtree_data_buf->data.i + data->data_root->buf_idx*dtree_data_buf->cols +
+            int* labels = dtree_data_buf->data.i + data->data_root->buf_idx*length_buf_row +
                 data->data_root->offset + (data->work_var_count-1)*data->sample_count;
 
             for( i = 0; i < n; i++ )
@@ -1254,9 +1255,10 @@ CvBoost::update_weights( CvBoostTree* tree )
         if( have_subsample )
         {
             float* values = (float*)cur_buf_pos;
-            cur_buf_pos = (uchar*)(values + data->buf->cols);
+            cur_buf_pos = (uchar*)(values + data->get_length_subbuf());
             uchar* missing = cur_buf_pos;
-            cur_buf_pos = missing + data->buf->step;
+            cur_buf_pos = missing + data->get_length_subbuf() * (size_t)CV_ELEM_SIZE(data->buf->type);
+
             CvMat _sample, _mask;
 
             // invert the subsample mask
@@ -1412,6 +1414,11 @@ CvBoost::update_weights( CvBoostTree* tree )
     __END__;
 }
 
+void
+CvBoost::update_weights( CvBoostTree* tree ) {
+  double initial_weights[2] = { 1, 1 };
+  update_weights_impl( tree, initial_weights );
+}
 
 static CV_IMPLEMENT_QSORT_EX( icvSort_64f, double, CV_LT, int )
 
@@ -1598,7 +1605,6 @@ CvBoost::predict( const CvMat* _sample, const CvMat* _missing,
 {
     float value = -FLT_MAX;
 
-    CvMat sample, missing;
     CvSeqReader reader;
     double sum = 0;
     int wstep = 0;
@@ -1648,10 +1654,15 @@ CvBoost::predict( const CvMat* _sample, const CvMat* _missing,
     const int* cmap = data->cat_map->data.i;
     const int* cofs = data->cat_ofs->data.i;
 
+    cv::Mat sample = _sample;
+    cv::Mat missing;
+    if(!_missing)
+        missing = _missing;
+
     // if need, preprocess the input vector
     if( !raw_mode )
     {
-        int step, mstep = 0;
+        int sstep, mstep = 0;
         const float* src_sample;
         const uchar* src_mask = 0;
         float* dst_sample;
@@ -1660,12 +1671,14 @@ CvBoost::predict( const CvMat* _sample, const CvMat* _missing,
         const int* vidx_abs = active_vars_abs->data.i;
         bool have_mask = _missing != 0;
 
-        cv::AutoBuffer<float> buf(var_count + (var_count+3)/4);
-        dst_sample = &buf[0];
-        dst_mask = (uchar*)&buf[var_count];
+        sample = cv::Mat(1, var_count, CV_32FC1);
+        missing = cv::Mat(1, var_count, CV_8UC1);
+
+        dst_sample = sample.ptr<float>();
+        dst_mask = missing.ptr<uchar>();
 
         src_sample = _sample->data.fl;
-        step = CV_IS_MAT_CONT(_sample->type) ? 1 : _sample->step/sizeof(src_sample[0]);
+        sstep = CV_IS_MAT_CONT(_sample->type) ? 1 : _sample->step/sizeof(src_sample[0]);
 
         if( _missing )
         {
@@ -1676,7 +1689,7 @@ CvBoost::predict( const CvMat* _sample, const CvMat* _missing,
         for( i = 0; i < var_count; i++ )
         {
             int idx = vidx[i], idx_abs = vidx_abs[i];
-            float val = src_sample[idx_abs*step];
+            float val = src_sample[idx_abs*sstep];
             int ci = vtype[idx];
             uchar m = src_mask ? src_mask[idx_abs*mstep] : (uchar)0;
 
@@ -1715,14 +1728,8 @@ CvBoost::predict( const CvMat* _sample, const CvMat* _missing,
             dst_mask[i] = m;
         }
 
-        sample = cvMat( 1, var_count, CV_32F, dst_sample );
-        _sample = &sample;
-
-        if( have_mask )
-        {
-            missing = cvMat( 1, var_count, CV_8UC1, dst_mask );
-            _missing = &missing;
-        }
+        if( !have_mask )
+            missing.release();
     }
     else
     {
@@ -1733,9 +1740,9 @@ CvBoost::predict( const CvMat* _sample, const CvMat* _missing,
     cvStartReadSeq( weak, &reader );
     cvSetSeqReaderPos( &reader, slice.start_index );
 
-    sample_data = _sample->data.fl;
+    sample_data = sample.ptr<float>();
 
-    if( !have_active_cat_vars && !_missing && !weak_responses )
+    if( !have_active_cat_vars && missing.empty() && !weak_responses )
     {
         for( i = 0; i < weak_count; i++ )
         {
@@ -1760,7 +1767,7 @@ CvBoost::predict( const CvMat* _sample, const CvMat* _missing,
     else
     {
         const int* avars = active_vars->data.i;
-        const uchar* m = _missing ? _missing->data.ptr : 0;
+        const uchar* m = !missing.empty() ? missing.ptr<uchar>() : 0;
 
         // full-featured version
         for( i = 0; i < weak_count; i++ )
@@ -2147,5 +2154,3 @@ CvBoost::predict( const Mat& _sample, const Mat& _missing,
 }
 
 /* End of file. */
-
-

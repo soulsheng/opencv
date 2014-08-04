@@ -14,7 +14,9 @@ It has been tested with the motempl sample program
 First Patch:  August 24, 2004 Travis Wood   TravisOCV@tkwood.com
 For Release:  OpenCV-Linux Beta4  opencv-0.9.6
 Tested On:    LMLBT44 with 8 video inputs
-Problems?     Post problems/fixes to OpenCV group on groups.yahoo.com
+Problems?     Post your questions at answers.opencv.org,
+              Report bugs at code.opencv.org,
+              Submit your fixes at https://github.com/Itseez/opencv/
 Patched Comments:
 
 TW: The cv cam utils that came with the initial release of OpenCV for LINUX Beta4
@@ -346,7 +348,11 @@ static int numCameras = 0;
 static int indexList = 0;
 
 // IOCTL handling for V4L2
+#ifdef HAVE_IOCTL_ULONG
+static int xioctl( int fd, unsigned long request, void *arg)
+#else
 static int xioctl( int fd, int request, void *arg)
+#endif
 {
 
   int r;
@@ -850,8 +856,7 @@ static int _capture_V4L (CvCaptureCAM_V4L *capture, char *deviceName)
 
    detect_v4l = try_init_v4l(capture, deviceName);
 
-   if ((detect_v4l == -1)
-       )
+   if (detect_v4l == -1)
    {
      fprintf (stderr, "HIGHGUI ERROR: V4L"
               ": device %s: Unable to open for READ ONLY\n", deviceName);
@@ -859,8 +864,7 @@ static int _capture_V4L (CvCaptureCAM_V4L *capture, char *deviceName)
      return -1;
    }
 
-   if ((detect_v4l <= 0)
-       )
+   if (detect_v4l <= 0)
    {
      fprintf (stderr, "HIGHGUI ERROR: V4L"
               ": device %s: Unable to query number of channels\n", deviceName);
@@ -1008,10 +1012,6 @@ static CvCaptureCAM_V4L * icvCaptureFromCAM_V4L (int index)
       return NULL;
    }
 
-   /* set the default size */
-   capture->width  = DEFAULT_V4L_WIDTH;
-   capture->height = DEFAULT_V4L_HEIGHT;
-
 #ifdef USE_TEMP_BUFFER
    capture->buffers[MAX_V4L_BUFFERS].start = NULL;
 #endif
@@ -1035,6 +1035,9 @@ static CvCaptureCAM_V4L * icvCaptureFromCAM_V4L (int index)
       the standard set of cv calls promoting transparency.  "Vector Table" insertion. */
    capture->FirstCapture = 1;
 
+   /* set the default size */
+   capture->width  = DEFAULT_V4L_WIDTH;
+   capture->height = DEFAULT_V4L_HEIGHT;
 
    if (_capture_V4L2 (capture, deviceName) == -1) {
        icvCloseCAM_V4L(capture);
@@ -1662,6 +1665,17 @@ static int icvSetPropertyCAM_V4L(CvCaptureCAM_V4L* capture, int property_id, dou
             width = height = 0;
         }
         break;
+    case CV_CAP_PROP_FPS:
+        struct v4l2_streamparm setfps;
+        memset (&setfps, 0, sizeof(struct v4l2_streamparm));
+        setfps.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+        setfps.parm.capture.timeperframe.numerator = 1;
+        setfps.parm.capture.timeperframe.denominator = value;
+        if (xioctl (capture->deviceHandle, VIDIOC_S_PARM, &setfps) < 0){
+            fprintf(stderr, "HIGHGUI ERROR: V4L: Unable to set camera FPS\n");
+            retval=0;
+        }
+        break;
     default:
         retval = icvSetControl(capture, property_id, value);
     }
@@ -1711,6 +1725,7 @@ static void icvCloseCAM_V4L( CvCaptureCAM_V4L* capture ){
 #endif
 
      free(capture->deviceName);
+     capture->deviceName = NULL;
      //v4l2_free_ranges(capture);
      //cvFree((void **)capture);
    }

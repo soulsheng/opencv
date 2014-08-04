@@ -121,7 +121,7 @@ private:
   float scale_;
   float offset_;
   // agast
-  cv::Ptr<cv::FastFeatureDetector> fast_9_16_;
+  cv::Ptr<cv::FastFeatureDetector2> fast_9_16_;
   int pixel_5_8_[25];
   int pixel_9_16_[25];
 };
@@ -309,10 +309,9 @@ BRISK::generateKernel(std::vector<float> &radiusList, std::vector<int> &numberLi
   {
     indexChange.resize(points_ * (points_ - 1) / 2);
     indSize = (unsigned int)indexChange.size();
-  }
-  for (unsigned int i = 0; i < indSize; i++)
-  {
-    indexChange[i] = i;
+
+    for (unsigned int i = 0; i < indSize; i++)
+      indexChange[i] = i;
   }
   const float dMin_sq = dMin_ * dMin_;
   const float dMax_sq = dMax_ * dMax_;
@@ -526,7 +525,11 @@ BRISK::operator()( InputArray _image, InputArray _mask, vector<KeyPoint>& keypoi
   bool doOrientation=true;
   if (useProvidedKeypoints)
     doOrientation = false;
-  computeDescriptorsAndOrOrientation(_image, _mask, keypoints, _descriptors, true, doOrientation,
+
+  // If the user specified cv::noArray(), this will yield false. Otherwise it will return true.
+  bool doDescriptors = _descriptors.needed();
+
+  computeDescriptorsAndOrOrientation(_image, _mask, keypoints, _descriptors, doDescriptors, doOrientation,
                                        useProvidedKeypoints);
 }
 
@@ -2000,7 +2003,7 @@ BriskLayer::BriskLayer(const cv::Mat& img_in, float scale_in, float offset_in)
   scale_ = scale_in;
   offset_ = offset_in;
   // create an agast detector
-  fast_9_16_ = new FastFeatureDetector(1, true, FastFeatureDetector::TYPE_9_16);
+  fast_9_16_ = new FastFeatureDetector2(1, true, FastFeatureDetector::TYPE_9_16);
   makeOffsets(pixel_5_8_, (int)img_.step, 8);
   makeOffsets(pixel_9_16_, (int)img_.step, 16);
 }
@@ -2022,7 +2025,7 @@ BriskLayer::BriskLayer(const BriskLayer& layer, int mode)
     offset_ = 0.5f * scale_ - 0.5f;
   }
   scores_ = cv::Mat::zeros(img_.rows, img_.cols, CV_8U);
-  fast_9_16_ = new FastFeatureDetector(1, false, FastFeatureDetector::TYPE_9_16);
+  fast_9_16_ = new FastFeatureDetector2(1, false, FastFeatureDetector::TYPE_9_16);
   makeOffsets(pixel_5_8_, (int)img_.step, 8);
   makeOffsets(pixel_9_16_, (int)img_.step, 16);
 }

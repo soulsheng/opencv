@@ -287,7 +287,7 @@ static Mat upscaleOpticalFlow(int new_rows,
 static Mat calcIrregularityMat(const Mat& flow, int radius) {
   const int rows = flow.rows;
   const int cols = flow.cols;
-  Mat irregularity(rows, cols, CV_32F);
+  Mat irregularity = Mat::zeros(rows, cols, CV_32F);
   for (int r = 0; r < rows; ++r) {
     const int start_row = max(0, r - radius);
     const int end_row = min(rows - 1, r + radius);
@@ -409,7 +409,7 @@ static void extrapolateFlow(Mat& flow,
                             const Mat& speed_up) {
   const int rows = flow.rows;
   const int cols = flow.cols;
-  Mat done(rows, cols, CV_8U);
+  Mat done = Mat::zeros(rows, cols, CV_8U);
   for (int r = 0; r < rows; ++r) {
     for (int c = 0; c < cols; ++c) {
       if (!done.at<uchar>(r, c) && speed_up.at<uchar>(r, c) > 1) {
@@ -447,7 +447,7 @@ static void extrapolateFlow(Mat& flow,
   }
 }
 
-static void buildPyramidWithResizeMethod(const Mat& src,
+static void buildPyramidWithResizeMethod(Mat& src,
                                   vector<Mat>& pyramid,
                                   int layers,
                                   int interpolation_type) {
@@ -464,9 +464,9 @@ static void buildPyramidWithResizeMethod(const Mat& src,
   }
 }
 
-CV_EXPORTS_W void calcOpticalFlowSF(InputArray _from,
-                                    InputArray _to,
-                                    OutputArray _resulted_flow,
+CV_EXPORTS_W void calcOpticalFlowSF(Mat& from,
+                                    Mat& to,
+                                    Mat& resulted_flow,
                                     int layers,
                                     int averaging_radius,
                                     int max_flow,
@@ -479,11 +479,7 @@ CV_EXPORTS_W void calcOpticalFlowSF(InputArray _from,
                                     int upscale_averaging_radius,
                                     double upscale_sigma_dist,
                                     double upscale_sigma_color,
-                                    double speed_up_thr) 
-{
-  Mat from = _from.getMat();
-  Mat to = _to.getMat();
-
+                                    double speed_up_thr) {
   vector<Mat> pyr_from_images;
   vector<Mat> pyr_to_images;
 
@@ -508,8 +504,8 @@ CV_EXPORTS_W void calcOpticalFlowSF(InputArray _from,
   Mat mask = Mat::ones(curr_from.size(), CV_8U);
   Mat mask_inv = Mat::ones(curr_from.size(), CV_8U);
 
-  Mat flow(curr_from.size(), CV_32FC2);
-  Mat flow_inv(curr_to.size(), CV_32FC2);
+  Mat flow = Mat::zeros(curr_from.size(), CV_32FC2);
+  Mat flow_inv = Mat::zeros(curr_to.size(), CV_32FC2);
 
   Mat confidence;
   Mat confidence_inv;
@@ -636,15 +632,14 @@ CV_EXPORTS_W void calcOpticalFlowSF(InputArray _from,
 
   GaussianBlur(flow, flow, Size(3, 3), 5);
 
-  _resulted_flow.create(flow.size(), CV_32FC2);
-  Mat resulted_flow = _resulted_flow.getMat();
+  resulted_flow = Mat(flow.size(), CV_32FC2);
   int from_to[] = {0,1 , 1,0};
   mixChannels(&flow, 1, &resulted_flow, 1, from_to, 2);
 }
 
-CV_EXPORTS_W void calcOpticalFlowSF(InputArray from,
-                                    InputArray to,
-                                    OutputArray flow,
+CV_EXPORTS_W void calcOpticalFlowSF(Mat& from,
+                                    Mat& to,
+                                    Mat& flow,
                                     int layers,
                                     int averaging_block_size,
                                     int max_flow) {
@@ -653,4 +648,3 @@ CV_EXPORTS_W void calcOpticalFlowSF(InputArray from,
 }
 
 }
-

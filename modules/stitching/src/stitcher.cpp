@@ -58,10 +58,10 @@ Stitcher Stitcher::createDefault(bool try_use_gpu)
     stitcher.setFeaturesMatcher(new detail::BestOf2NearestMatcher(try_use_gpu));
     stitcher.setBundleAdjuster(new detail::BundleAdjusterRay());
 
-#ifdef HAVE_OPENCV_GPU
+#if defined(HAVE_OPENCV_GPU) && !defined(ANDROID)
     if (try_use_gpu && gpu::getCudaEnabledDeviceCount() > 0)
     {
-#ifdef HAVE_OPENCV_NONFREE
+#if defined(HAVE_OPENCV_NONFREE)
         stitcher.setFeaturesFinder(new detail::SurfFeaturesFinderGpu());
 #else
         stitcher.setFeaturesFinder(new detail::OrbFeaturesFinder());
@@ -468,7 +468,7 @@ void Stitcher::estimateCameraParams()
         focals.push_back(cameras_[i].focal);
     }
 
-    sort(focals.begin(), focals.end());
+    std::sort(focals.begin(), focals.end());
     if (focals.size() % 2 == 1)
         warped_image_scale_ = static_cast<float>(focals[focals.size() / 2]);
     else

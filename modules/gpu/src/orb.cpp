@@ -22,13 +22,13 @@
 //
 //   * Redistribution's in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
-//     and/or other GpuMaterials provided with the distribution.
+//     and/or other materials provided with the distribution.
 //
 //   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
 //
 // This software is provided by the copyright holders and contributors "as is" and
-// any express or bpied warranties, including, but not limited to, the bpied
+// any express or implied warranties, including, but not limited to, the implied
 // warranties of merchantability and fitness for a particular purpose are disclaimed.
 // In no event shall the Intel Corporation or contributors be liable for any direct,
 // indirect, incidental, special, exemplary, or consequential damages
@@ -53,8 +53,8 @@ void cv::gpu::ORB_GPU::operator()(const GpuMat&, const GpuMat&, std::vector<KeyP
 void cv::gpu::ORB_GPU::operator()(const GpuMat&, const GpuMat&, GpuMat&) { throw_nogpu(); }
 void cv::gpu::ORB_GPU::operator()(const GpuMat&, const GpuMat&, std::vector<KeyPoint>&, GpuMat&) { throw_nogpu(); }
 void cv::gpu::ORB_GPU::operator()(const GpuMat&, const GpuMat&, GpuMat&, GpuMat&) { throw_nogpu(); }
-void cv::gpu::ORB_GPU::downloadKeyPoints(const GpuMat&, std::vector<KeyPoint>&) { throw_nogpu(); }
-void cv::gpu::ORB_GPU::convertKeyPoints(const Mat&, std::vector<KeyPoint>&) { throw_nogpu(); }
+void cv::gpu::ORB_GPU::downloadKeyPoints(GpuMat&, std::vector<KeyPoint>&) { throw_nogpu(); }
+void cv::gpu::ORB_GPU::convertKeyPoints(Mat&, std::vector<KeyPoint>&) { throw_nogpu(); }
 void cv::gpu::ORB_GPU::release() { throw_nogpu(); }
 void cv::gpu::ORB_GPU::buildScalePyramids(const GpuMat&, const GpuMat&) { throw_nogpu(); }
 void cv::gpu::ORB_GPU::computeKeyPointsPyramid() { throw_nogpu(); }
@@ -685,7 +685,7 @@ void cv::gpu::ORB_GPU::mergeKeyPoints(GpuMat& keypoints)
     }
 }
 
-void cv::gpu::ORB_GPU::downloadKeyPoints(const GpuMat &d_keypoints, std::vector<KeyPoint>& keypoints)
+void cv::gpu::ORB_GPU::downloadKeyPoints(GpuMat &d_keypoints, std::vector<KeyPoint>& keypoints)
 {
     if (d_keypoints.empty())
     {
@@ -698,7 +698,7 @@ void cv::gpu::ORB_GPU::downloadKeyPoints(const GpuMat &d_keypoints, std::vector<
     convertKeyPoints(h_keypoints, keypoints);
 }
 
-void cv::gpu::ORB_GPU::convertKeyPoints(const Mat &d_keypoints, std::vector<KeyPoint>& keypoints)
+void cv::gpu::ORB_GPU::convertKeyPoints(Mat &d_keypoints, std::vector<KeyPoint>& keypoints)
 {
     if (d_keypoints.empty())
     {

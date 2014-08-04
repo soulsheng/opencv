@@ -7,7 +7,7 @@
 //  copy or use the software.
 //
 //
-//                          License Agreement
+//                           License Agreement
 //                For Open Source Computer Vision Library
 //
 // Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
@@ -42,7 +42,7 @@
 
 #include "precomp.hpp"
 
-#if !defined HAVE_CUDA || defined(CUDA_DISABLER) || defined(__APPLE__)
+#if !defined(HAVE_CUDA) || defined(CUDA_DISABLER) || !defined(HAVE_NVCUVID)
 
 class cv::gpu::VideoReader_GPU::Impl
 {

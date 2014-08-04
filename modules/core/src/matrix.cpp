@@ -43,6 +43,7 @@
 #include "precomp.hpp"
 #include "opencv2/core/gpumat.hpp"
 #include "opencv2/core/opengl_interop.hpp"
+#include "opencv2/core/opengl_interop_deprecated.hpp"
 
 /****************************************************************************************\
 *                           [scaled] Identity matrix initialization                      *
@@ -183,7 +184,7 @@ static void finalizeHdr(Mat& m)
 void Mat::create(int d, const int* _sizes, int _type)
 {
     int i;
-    CV_Assert(0 <= d && _sizes && d <= CV_MAX_DIM && _sizes);
+    CV_Assert(0 <= d && d <= CV_MAX_DIM && _sizes);
     _type = CV_MAT_TYPE(_type);
 
     if( data && (d == dims || (d == 1 && dims <= 2)) && _type == type() )
@@ -830,7 +831,8 @@ int Mat::checkVector(int _elemChannels, int _depth, bool _requireContinuous) con
 {
     return (depth() == _depth || _depth <= 0) &&
         (isContinuous() || !_requireContinuous) &&
-        ((dims == 2 && (((rows == 1 || cols == 1) && channels() == _elemChannels) || (cols == _elemChannels))) ||
+        ((dims == 2 && (((rows == 1 || cols == 1) && channels() == _elemChannels) ||
+                        (cols == _elemChannels && channels() == 1))) ||
         (dims == 3 && channels() == 1 && size.p[2] == _elemChannels && (size.p[0] == 1 || size.p[1] == 1) &&
          (isContinuous() || step.p[1] == step.p[2]*size.p[2])))
     ? (int)(total()*channels()/_elemChannels) : -1;
@@ -917,14 +919,20 @@ void scalarToRawData(const Scalar& s, void* _buf, int type, int unroll_to)
 \*************************************************************************************************/
 
 _InputArray::_InputArray() : flags(0), obj(0) {}
+#ifdef OPENCV_CAN_BREAK_BINARY_COMPATIBILITY
 _InputArray::~_InputArray() {}
+#endif
 _InputArray::_InputArray(const Mat& m) : flags(MAT), obj((void*)&m) {}
 _InputArray::_InputArray(const vector<Mat>& vec) : flags(STD_VECTOR_MAT), obj((void*)&vec) {}
 _InputArray::_InputArray(const double& val) : flags(FIXED_TYPE + FIXED_SIZE + MATX + CV_64F), obj((void*)&val), sz(Size(1,1)) {}
 _InputArray::_InputArray(const MatExpr& expr) : flags(FIXED_TYPE + FIXED_SIZE + EXPR), obj((void*)&expr) {}
-_InputArray::_InputArray(const GlBuffer& buf) : flags(FIXED_TYPE + FIXED_SIZE + OPENGL_BUFFER), obj((void*)&buf) {}
-_InputArray::_InputArray(const GlTexture& tex) : flags(FIXED_TYPE + FIXED_SIZE + OPENGL_TEXTURE), obj((void*)&tex) {}
+// < Deprecated
+_InputArray::_InputArray(const GlBuffer&) : flags(0), obj(0) {}
+_InputArray::_InputArray(const GlTexture&) : flags(0), obj(0) {}
+// >
 _InputArray::_InputArray(const gpu::GpuMat& d_mat) : flags(GPU_MAT), obj((void*)&d_mat) {}
+_InputArray::_InputArray(const ogl::Buffer& buf) : flags(OPENGL_BUFFER), obj((void*)&buf) {}
+_InputArray::_InputArray(const ogl::Texture2D& tex) : flags(OPENGL_TEXTURE), obj((void*)&tex) {}
 
 Mat _InputArray::getMat(int i) const
 {
@@ -970,6 +978,11 @@ Mat _InputArray::getMat(int i) const
         const vector<uchar>& v = vv[i];
 
         return !v.empty() ? Mat(size(i), t, (void*)&v[0]) : Mat();
+    }
+
+    if( k == OCL_MAT )
+    {
+        CV_Error(CV_StsNotImplemented, "This method is not implemented for oclMat yet");
     }
 
     CV_Assert( k == STD_VECTOR_MAT );
@@ -1054,6 +1067,11 @@ void _InputArray::getMatVector(vector<Mat>& mv) const
         return;
     }
 
+    if( k == OCL_MAT )
+    {
+        CV_Error(CV_StsNotImplemented, "This method is not implemented for oclMat yet");
+    }
+
     CV_Assert( k == STD_VECTOR_MAT );
     //if( k == STD_VECTOR_MAT )
     {
@@ -1066,26 +1084,14 @@ void _InputArray::getMatVector(vector<Mat>& mv) const
 
 GlBuffer _InputArray::getGlBuffer() const
 {
-    int k = kind();
-
-    CV_Assert(k == OPENGL_BUFFER);
-    //if( k == OPENGL_BUFFER )
-    {
-        const GlBuffer* buf = (const GlBuffer*)obj;
-        return *buf;
-    }
+    CV_Error(CV_StsNotImplemented, "This function in deprecated, do not use it");
+    return GlBuffer(GlBuffer::ARRAY_BUFFER);
 }
 
 GlTexture _InputArray::getGlTexture() const
 {
-    int k = kind();
-
-    CV_Assert(k == OPENGL_TEXTURE);
-    //if( k == OPENGL_TEXTURE )
-    {
-        const GlTexture* tex = (const GlTexture*)obj;
-        return *tex;
-    }
+    CV_Error(CV_StsNotImplemented, "This function in deprecated, do not use it");
+    return GlTexture();
 }
 
 gpu::GpuMat _InputArray::getGpuMat() const
@@ -1093,11 +1099,29 @@ gpu::GpuMat _InputArray::getGpuMat() const
     int k = kind();
 
     CV_Assert(k == GPU_MAT);
-    //if( k == GPU_MAT )
-    {
-        const gpu::GpuMat* d_mat = (const gpu::GpuMat*)obj;
-        return *d_mat;
-    }
+
+    const gpu::GpuMat* d_mat = (const gpu::GpuMat*)obj;
+    return *d_mat;
+}
+
+ogl::Buffer _InputArray::getOGlBuffer() const
+{
+    int k = kind();
+
+    CV_Assert(k == OPENGL_BUFFER);
+
+    const ogl::Buffer* gl_buf = (const ogl::Buffer*)obj;
+    return *gl_buf;
+}
+
+ogl::Texture2D _InputArray::getOGlTexture2D() const
+{
+    int k = kind();
+
+    CV_Assert(k == OPENGL_TEXTURE);
+
+    const ogl::Texture2D* gl_tex = (const ogl::Texture2D*)obj;
+    return *gl_tex;
 }
 
 int _InputArray::kind() const
@@ -1164,15 +1188,20 @@ Size _InputArray::size(int i) const
     if( k == OPENGL_BUFFER )
     {
         CV_Assert( i < 0 );
-        const GlBuffer* buf = (const GlBuffer*)obj;
+        const ogl::Buffer* buf = (const ogl::Buffer*)obj;
         return buf->size();
     }
 
     if( k == OPENGL_TEXTURE )
     {
         CV_Assert( i < 0 );
-        const GlTexture* tex = (const GlTexture*)obj;
+        const ogl::Texture2D* tex = (const ogl::Texture2D*)obj;
         return tex->size();
+    }
+
+    if( k == OCL_MAT )
+    {
+        CV_Error(CV_StsNotImplemented, "This method is not implemented for oclMat yet");
     }
 
     CV_Assert( k == GPU_MAT );
@@ -1186,6 +1215,24 @@ Size _InputArray::size(int i) const
 
 size_t _InputArray::total(int i) const
 {
+    int k = kind();
+
+    if( k == MAT )
+    {
+        CV_Assert( i < 0 );
+        return ((const Mat*)obj)->total();
+    }
+
+    if( k == STD_VECTOR_MAT )
+    {
+        const vector<Mat>& vv = *(const vector<Mat>*)obj;
+        if( i < 0 )
+            return vv.size();
+
+        CV_Assert( i < (int)vv.size() );
+        return vv[i].total();
+    }
+
     return size(i).area();
 }
 
@@ -1214,10 +1261,7 @@ int _InputArray::type(int i) const
     }
 
     if( k == OPENGL_BUFFER )
-        return ((const GlBuffer*)obj)->type();
-
-    if( k == OPENGL_TEXTURE )
-        return ((const GlTexture*)obj)->type();
+        return ((const ogl::Buffer*)obj)->type();
 
     CV_Assert( k == GPU_MAT );
     //if( k == GPU_MAT )
@@ -1269,10 +1313,15 @@ bool _InputArray::empty() const
     }
 
     if( k == OPENGL_BUFFER )
-        return ((const GlBuffer*)obj)->empty();
+        return ((const ogl::Buffer*)obj)->empty();
 
     if( k == OPENGL_TEXTURE )
-        return ((const GlTexture*)obj)->empty();
+        return ((const ogl::Texture2D*)obj)->empty();
+
+    if( k == OCL_MAT )
+    {
+        CV_Error(CV_StsNotImplemented, "This method is not implemented for oclMat yet");
+    }
 
     CV_Assert( k == GPU_MAT );
     //if( k == GPU_MAT )
@@ -1281,14 +1330,20 @@ bool _InputArray::empty() const
 
 
 _OutputArray::_OutputArray() {}
+#ifdef OPENCV_CAN_BREAK_BINARY_COMPATIBILITY
 _OutputArray::~_OutputArray() {}
+#endif
 _OutputArray::_OutputArray(Mat& m) : _InputArray(m) {}
 _OutputArray::_OutputArray(vector<Mat>& vec) : _InputArray(vec) {}
 _OutputArray::_OutputArray(gpu::GpuMat& d_mat) : _InputArray(d_mat) {}
+_OutputArray::_OutputArray(ogl::Buffer& buf) : _InputArray(buf) {}
+_OutputArray::_OutputArray(ogl::Texture2D& tex) : _InputArray(tex) {}
 
 _OutputArray::_OutputArray(const Mat& m) : _InputArray(m) {flags |= FIXED_SIZE|FIXED_TYPE;}
 _OutputArray::_OutputArray(const vector<Mat>& vec) : _InputArray(vec) {flags |= FIXED_SIZE;}
 _OutputArray::_OutputArray(const gpu::GpuMat& d_mat) : _InputArray(d_mat) {flags |= FIXED_SIZE|FIXED_TYPE;}
+_OutputArray::_OutputArray(const ogl::Buffer& buf) : _InputArray(buf) {flags |= FIXED_SIZE|FIXED_TYPE;}
+_OutputArray::_OutputArray(const ogl::Texture2D& tex) : _InputArray(tex) {flags |= FIXED_SIZE|FIXED_TYPE;}
 
 
 bool _OutputArray::fixedSize() const
@@ -1318,6 +1373,13 @@ void _OutputArray::create(Size _sz, int mtype, int i, bool allowTransposed, int 
         ((gpu::GpuMat*)obj)->create(_sz, mtype);
         return;
     }
+    if( k == OPENGL_BUFFER && i < 0 && !allowTransposed && fixedDepthMask == 0 )
+    {
+        CV_Assert(!fixedSize() || ((ogl::Buffer*)obj)->size() == _sz);
+        CV_Assert(!fixedType() || ((ogl::Buffer*)obj)->type() == mtype);
+        ((ogl::Buffer*)obj)->create(_sz, mtype);
+        return;
+    }
     int sizes[] = {_sz.height, _sz.width};
     create(2, sizes, mtype, i, allowTransposed, fixedDepthMask);
 }
@@ -1337,6 +1399,13 @@ void _OutputArray::create(int rows, int cols, int mtype, int i, bool allowTransp
         CV_Assert(!fixedSize() || ((gpu::GpuMat*)obj)->size() == Size(cols, rows));
         CV_Assert(!fixedType() || ((gpu::GpuMat*)obj)->type() == mtype);
         ((gpu::GpuMat*)obj)->create(rows, cols, mtype);
+        return;
+    }
+    if( k == OPENGL_BUFFER && i < 0 && !allowTransposed && fixedDepthMask == 0 )
+    {
+        CV_Assert(!fixedSize() || ((ogl::Buffer*)obj)->size() == Size(cols, rows));
+        CV_Assert(!fixedType() || ((ogl::Buffer*)obj)->type() == mtype);
+        ((ogl::Buffer*)obj)->create(rows, cols, mtype);
         return;
     }
     int sizes[] = {rows, cols};
@@ -1474,6 +1543,11 @@ void _OutputArray::create(int dims, const int* sizes, int mtype, int i, bool all
         return;
     }
 
+    if( k == OCL_MAT )
+    {
+        CV_Error(CV_StsNotImplemented, "This method is not implemented for oclMat yet");
+    }
+
     if( k == NONE )
     {
         CV_Error(CV_StsNullPtr, "create() called for the missing output array" );
@@ -1497,10 +1571,10 @@ void _OutputArray::create(int dims, const int* sizes, int mtype, int i, bool all
                 int _type = CV_MAT_TYPE(flags);
                 for( size_t j = len0; j < len; j++ )
                 {
-                    if( v[i].type() == _type )
+                    if( v[j].type() == _type )
                         continue;
-                    CV_Assert( v[i].empty() );
-                    v[i].flags = (v[i].flags & ~CV_MAT_TYPE_MASK) | _type;
+                    CV_Assert( v[j].empty() );
+                    v[j].flags = (v[j].flags & ~CV_MAT_TYPE_MASK) | _type;
                 }
             }
             return;
@@ -1558,6 +1632,18 @@ void _OutputArray::release() const
         return;
     }
 
+    if( k == OPENGL_BUFFER )
+    {
+        ((ogl::Buffer*)obj)->release();
+        return;
+    }
+
+    if( k == OPENGL_TEXTURE )
+    {
+        ((ogl::Texture2D*)obj)->release();
+        return;
+    }
+
     if( k == NONE )
         return;
 
@@ -1571,6 +1657,11 @@ void _OutputArray::release() const
     {
         ((vector<vector<uchar> >*)obj)->clear();
         return;
+    }
+
+    if( k == OCL_MAT )
+    {
+        CV_Error(CV_StsNotImplemented, "This method is not implemented for oclMat yet");
     }
 
     CV_Assert( k == STD_VECTOR_MAT );
@@ -1621,6 +1712,20 @@ gpu::GpuMat& _OutputArray::getGpuMatRef() const
     int k = kind();
     CV_Assert( k == GPU_MAT );
     return *(gpu::GpuMat*)obj;
+}
+
+ogl::Buffer& _OutputArray::getOGlBufferRef() const
+{
+    int k = kind();
+    CV_Assert( k == OPENGL_BUFFER );
+    return *(ogl::Buffer*)obj;
+}
+
+ogl::Texture2D& _OutputArray::getOGlTexture2DRef() const
+{
+    int k = kind();
+    CV_Assert( k == OPENGL_TEXTURE );
+    return *(ogl::Texture2D*)obj;
 }
 
 static _OutputArray _none;
@@ -1904,6 +2009,14 @@ void cv::transpose( InputArray _src, OutputArray _dst )
     _dst.create(src.cols, src.rows, src.type());
     Mat dst = _dst.getMat();
 
+    // handle the case of single-column/single-row matrices, stored in STL vectors.
+    if( src.rows != dst.cols || src.cols != dst.rows )
+    {
+        CV_Assert( src.size() == dst.size() && (src.cols == 1 || src.rows == 1) );
+        src.copyTo(dst);
+        return;
+    }
+
     if( dst.data == src.data )
     {
         TransposeInplaceFunc func = transposeInplaceTab[esz];
@@ -1919,39 +2032,24 @@ void cv::transpose( InputArray _src, OutputArray _dst )
 }
 
 
+////////////////////////////////////// completeSymm /////////////////////////////////////////
+
 void cv::completeSymm( InputOutputArray _m, bool LtoR )
 {
     Mat m = _m.getMat();
-    CV_Assert( m.dims <= 2 );
+    size_t step = m.step, esz = m.elemSize();
+    CV_Assert( m.dims <= 2 && m.rows == m.cols );
 
-    int i, j, nrows = m.rows, type = m.type();
-    int j0 = 0, j1 = nrows;
-    CV_Assert( m.rows == m.cols );
+    int rows = m.rows;
+    int j0 = 0, j1 = rows;
 
-    if( type == CV_32FC1 || type == CV_32SC1 )
+    uchar* data = m.data;
+    for( int i = 0; i < rows; i++ )
     {
-        int* data = (int*)m.data;
-        size_t step = m.step/sizeof(data[0]);
-        for( i = 0; i < nrows; i++ )
-        {
-            if( !LtoR ) j1 = i; else j0 = i+1;
-            for( j = j0; j < j1; j++ )
-                data[i*step + j] = data[j*step + i];
-        }
+        if( !LtoR ) j1 = i; else j0 = i+1;
+        for( int j = j0; j < j1; j++ )
+            memcpy(data + (i*step + j*esz), data + (j*step + i*esz), esz);
     }
-    else if( type == CV_64FC1 )
-    {
-        double* data = (double*)m.data;
-        size_t step = m.step/sizeof(data[0]);
-        for( i = 0; i < nrows; i++ )
-        {
-            if( !LtoR ) j1 = i; else j0 = i+1;
-            for( j = j0; j < j1; j++ )
-                data[i*step + j] = data[j*step + i];
-        }
-    }
-    else
-        CV_Error( CV_StsUnsupportedFormat, "" );
 }
 
 
@@ -2428,7 +2526,7 @@ static void generateRandomCenter(const vector<Vec2f>& box, float* center, RNG& r
         center[j] = ((float)rng*(1.f+margin*2.f)-margin)*(box[j][1] - box[j][0]) + box[j][0];
 }
 
-class KMeansPPDistanceComputer
+class KMeansPPDistanceComputer : public ParallelLoopBody
 {
 public:
     KMeansPPDistanceComputer( float *_tdist2,
@@ -2444,10 +2542,10 @@ public:
           step(_step),
           stepci(_stepci) { }
 
-    void operator()( const cv::BlockedRange& range ) const
+    void operator()( const cv::Range& range ) const
     {
-        const int begin = range.begin();
-        const int end = range.end();
+        const int begin = range.start;
+        const int end = range.end;
 
         for ( int i = begin; i<end; i++ )
         {
@@ -2503,7 +2601,7 @@ static void generateCentersPP(const Mat& _data, Mat& _out_centers,
                     break;
             int ci = i;
 
-            parallel_for(BlockedRange(0, N),
+            parallel_for_(Range(0, N),
                          KMeansPPDistanceComputer(tdist2, data, dist, dims, step, step*ci));
             for( i = 0; i < N; i++ )
             {
@@ -2531,7 +2629,7 @@ static void generateCentersPP(const Mat& _data, Mat& _out_centers,
     }
 }
 
-class KMeansDistanceComputer
+class KMeansDistanceComputer : public ParallelLoopBody
 {
 public:
     KMeansDistanceComputer( double *_distances,
@@ -2545,10 +2643,10 @@ public:
     {
     }
 
-    void operator()( const BlockedRange& range ) const
+    void operator()( const Range& range ) const
     {
-        const int begin = range.begin();
-        const int end = range.end();
+        const int begin = range.start;
+        const int end = range.end;
         const int K = centers.rows;
         const int dims = centers.cols;
 
@@ -2805,7 +2903,7 @@ double cv::kmeans( InputArray _data, int K,
             // assign labels
             Mat dists(1, N, CV_64F);
             double* dist = dists.ptr<double>(0);
-            parallel_for(BlockedRange(0, N),
+            parallel_for_(Range(0, N),
                          KMeansDistanceComputer(dist, labels, data, centers));
             compactness = 0;
             for( i = 0; i < N; i++ )
@@ -3465,7 +3563,7 @@ enum { HASH_SIZE0 = 8 };
 static inline void copyElem(const uchar* from, uchar* to, size_t elemSize)
 {
     size_t i;
-    for( i = 0; (int)i <= (int)(elemSize - sizeof(int)); i += sizeof(int) )
+    for( i = 0; i + sizeof(int) <= elemSize; i += sizeof(int) )
         *(int*)(to + i) = *(const int*)(from + i);
     for( ; i < elemSize; i++ )
         to[i] = from[i];
@@ -3474,7 +3572,7 @@ static inline void copyElem(const uchar* from, uchar* to, size_t elemSize)
 static inline bool isZeroElem(const uchar* data, size_t elemSize)
 {
     size_t i;
-    for( i = 0; i <= elemSize - sizeof(int); i += sizeof(int) )
+    for( i = 0; i + sizeof(int) <= elemSize; i += sizeof(int) )
         if( *(int*)(data + i) != 0 )
             return false;
     for( ; i < elemSize; i++ )

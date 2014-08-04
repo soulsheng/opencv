@@ -1,6 +1,6 @@
 /*M///////////////////////////////////////////////////////////////////////////////////////
 //
-// IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+//  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
 //
 //  By downloading, copying, installing or using the software you agree to this license.
 //  If you do not agree to this license, do not download, install,
@@ -10,7 +10,8 @@
 //                           License Agreement
 //                For Open Source Computer Vision Library
 //
-// Copyright (C) 2009-2010, NVIDIA Corporation, all rights reserved.
+// Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
+// Copyright (C) 2009, Willow Garage Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -39,13 +40,10 @@
 //
 //M*/
 
-
 #include <iostream>
 #include <string>
 #include <vector>
 #include "NCV.hpp"
-
-using namespace std;
 
 
 //==============================================================================
@@ -55,16 +53,16 @@ using namespace std;
 //==============================================================================
 
 
-static void stdDebugOutput(const string &msg)
+static void stdDebugOutput(const std::string &msg)
 {
-    cout << msg;
+    std::cout << msg;
 }
 
 
 static NCVDebugOutputHandler *debugOutputHandler = stdDebugOutput;
 
 
-void ncvDebugOutput(const string &msg)
+void ncvDebugOutput(const std::string &msg)
 {
     debugOutputHandler(msg);
 }

@@ -48,7 +48,7 @@ PERF_TEST_P(Size_MatType_BorderType3x3, gaussianBlur3x3,
             testing::Combine(
                 testing::Values(szODD, szQVGA, szVGA, sz720p),
                 testing::Values(CV_8UC1, CV_8UC4, CV_16UC1, CV_16SC1, CV_32FC1),
-                testing::ValuesIn(BorderType3x3::all())
+                BorderType3x3::all()
                 )
             )
 {
@@ -63,18 +63,14 @@ PERF_TEST_P(Size_MatType_BorderType3x3, gaussianBlur3x3,
 
     TEST_CYCLE() GaussianBlur(src, dst, Size(3,3), 0, 0, btype);
 
-#if CV_SSE2
     SANITY_CHECK(dst, 1);
-#else
-    SANITY_CHECK(dst);
-#endif
 }
 
 PERF_TEST_P(Size_MatType_BorderType3x3, blur3x3,
             testing::Combine(
                 testing::Values(szODD, szQVGA, szVGA, sz720p),
                 testing::Values(CV_8UC1, CV_8UC4, CV_16UC1, CV_16SC1, CV_32FC1),
-                testing::ValuesIn(BorderType3x3::all())
+                BorderType3x3::all()
                 )
             )
 {
@@ -89,14 +85,14 @@ PERF_TEST_P(Size_MatType_BorderType3x3, blur3x3,
 
     TEST_CYCLE() blur(src, dst, Size(3,3), Point(-1,-1), btype);
 
-    SANITY_CHECK(dst, 1e-3);
+    SANITY_CHECK(dst, 1);
 }
 
 PERF_TEST_P(Size_MatType_BorderType, blur16x16,
             testing::Combine(
-                testing::Values(szODD, szQVGA, szVGA, sz720p),
+                testing::Values(szVGA, sz720p),
                 testing::Values(CV_8UC1, CV_8UC4, CV_16UC1, CV_16SC1, CV_32FC1),
-                testing::ValuesIn(BorderType::all())
+                BorderType::all()
                 )
             )
 {
@@ -118,7 +114,7 @@ PERF_TEST_P(Size_MatType_BorderType3x3, box3x3,
             testing::Combine(
                 testing::Values(szODD, szQVGA, szVGA, sz720p),
                 testing::Values(CV_8UC1, CV_16SC1, CV_32SC1, CV_32FC1, CV_32FC3),
-                testing::ValuesIn(BorderType3x3::all())
+                BorderType3x3::all()
                 )
             )
 {
@@ -140,7 +136,7 @@ PERF_TEST_P(Size_MatType_BorderType3x3, box3x3_inplace,
             testing::Combine(
                 testing::Values(szODD, szQVGA, szVGA, sz720p),
                 testing::Values(CV_8UC1, CV_16SC1, CV_32SC1, CV_32FC1, CV_32FC3),
-                testing::ValuesIn(BorderType3x3::all())
+                BorderType3x3::all()
                 )
             )
 {
@@ -168,7 +164,7 @@ PERF_TEST_P(Size_MatType_BorderType, gaussianBlur5x5,
             testing::Combine(
                 testing::Values(szODD, szQVGA, szVGA, sz720p),
                 testing::Values(CV_8UC1, CV_8UC4, CV_16UC1, CV_16SC1, CV_32FC1),
-                testing::ValuesIn(BorderType::all())
+                BorderType::all()
                 )
             )
 {
@@ -183,14 +179,14 @@ PERF_TEST_P(Size_MatType_BorderType, gaussianBlur5x5,
 
     TEST_CYCLE() GaussianBlur(src, dst, Size(5,5), 0, 0, btype);
 
-    SANITY_CHECK(dst);
+    SANITY_CHECK(dst, 1e-3);
 }
 
 PERF_TEST_P(Size_MatType_BorderType, blur5x5,
             testing::Combine(
-                testing::Values(szODD, szQVGA, szVGA, sz720p),
+                testing::Values(szVGA, sz720p),
                 testing::Values(CV_8UC1, CV_8UC4, CV_16UC1, CV_16SC1, CV_32FC1, CV_32FC3),
-                testing::ValuesIn(BorderType::all())
+                BorderType::all()
                 )
             )
 {
@@ -205,5 +201,5 @@ PERF_TEST_P(Size_MatType_BorderType, blur5x5,
 
     TEST_CYCLE() blur(src, dst, Size(5,5), Point(-1,-1), btype);
 
-    SANITY_CHECK(dst, 1e-3);
+    SANITY_CHECK(dst, 1);
 }

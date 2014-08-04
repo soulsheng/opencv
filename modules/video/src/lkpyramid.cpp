@@ -156,7 +156,7 @@ cv::detail::LKTrackerInvoker::LKTrackerInvoker(
     minEigThreshold = _minEigThreshold;
 }
 
-void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
+void cv::detail::LKTrackerInvoker::operator()(const Range& range) const
 {
     Point2f halfWin((winSize.width-1)*0.5f, (winSize.height-1)*0.5f);
     const Mat& I = *prevImg;
@@ -170,7 +170,7 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
     Mat IWinBuf(winSize, CV_MAKETYPE(derivDepth, cn), (deriv_type*)_buf);
     Mat derivIWinBuf(winSize, CV_MAKETYPE(derivDepth, cn2), (deriv_type*)_buf + winSize.area()*cn);
 
-    for( int ptidx = range.begin(); ptidx < range.end(); ptidx++ )
+    for( int ptidx = range.start; ptidx < range.end; ptidx++ )
     {
         Point2f prevPt = prevPts[ptidx]*(float)(1./(1 << level));
         Point2f nextPt;
@@ -213,8 +213,8 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
         int iw11 = (1 << W_BITS) - iw00 - iw01 - iw10;
 
         int dstep = (int)(derivI.step/derivI.elemSize1());
-        int step = (int)(I.step/I.elemSize1());
-        CV_Assert( step == (int)(J.step/J.elemSize1()) );
+        int stepI = (int)(I.step/I.elemSize1());
+        int stepJ = (int)(J.step/J.elemSize1());
         float A11 = 0, A12 = 0, A22 = 0;
 
 #if CV_SSE2
@@ -230,7 +230,7 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
         int x, y;
         for( y = 0; y < winSize.height; y++ )
         {
-            const uchar* src = (const uchar*)I.data + (y + iprevPt.y)*step + iprevPt.x*cn;
+            const uchar* src = (const uchar*)I.data + (y + iprevPt.y)*stepI + iprevPt.x*cn;
             const deriv_type* dsrc = (const deriv_type*)derivI.data + (y + iprevPt.y)*dstep + iprevPt.x*cn2;
 
             deriv_type* Iptr = (deriv_type*)(IWinBuf.data + y*IWinBuf.step);
@@ -245,8 +245,8 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
 
                 v00 = _mm_unpacklo_epi8(_mm_cvtsi32_si128(*(const int*)(src + x)), z);
                 v01 = _mm_unpacklo_epi8(_mm_cvtsi32_si128(*(const int*)(src + x + cn)), z);
-                v10 = _mm_unpacklo_epi8(_mm_cvtsi32_si128(*(const int*)(src + x + step)), z);
-                v11 = _mm_unpacklo_epi8(_mm_cvtsi32_si128(*(const int*)(src + x + step + cn)), z);
+                v10 = _mm_unpacklo_epi8(_mm_cvtsi32_si128(*(const int*)(src + x + stepI)), z);
+                v11 = _mm_unpacklo_epi8(_mm_cvtsi32_si128(*(const int*)(src + x + stepI + cn)), z);
 
                 t0 = _mm_add_epi32(_mm_madd_epi16(_mm_unpacklo_epi16(v00, v01), qw0),
                                    _mm_madd_epi16(_mm_unpacklo_epi16(v10, v11), qw1));
@@ -282,7 +282,7 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
             for( ; x < winSize.width*cn; x++, dsrc += 2, dIptr += 2 )
             {
                 int ival = CV_DESCALE(src[x]*iw00 + src[x+cn]*iw01 +
-                                      src[x+step]*iw10 + src[x+step+cn]*iw11, W_BITS1-5);
+                                      src[x+stepI]*iw10 + src[x+stepI+cn]*iw11, W_BITS1-5);
                 int ixval = CV_DESCALE(dsrc[0]*iw00 + dsrc[cn2]*iw01 +
                                        dsrc[dstep]*iw10 + dsrc[dstep+cn2]*iw11, W_BITS1);
                 int iyval = CV_DESCALE(dsrc[1]*iw00 + dsrc[cn2+1]*iw01 + dsrc[dstep+1]*iw10 +
@@ -359,7 +359,7 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
 
             for( y = 0; y < winSize.height; y++ )
             {
-                const uchar* Jptr = (const uchar*)J.data + (y + inextPt.y)*step + inextPt.x*cn;
+                const uchar* Jptr = (const uchar*)J.data + (y + inextPt.y)*stepJ + inextPt.x*cn;
                 const deriv_type* Iptr = (const deriv_type*)(IWinBuf.data + y*IWinBuf.step);
                 const deriv_type* dIptr = (const deriv_type*)(derivIWinBuf.data + y*derivIWinBuf.step);
 
@@ -371,8 +371,8 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
                     __m128i diff0 = _mm_loadu_si128((const __m128i*)(Iptr + x)), diff1;
                     __m128i v00 = _mm_unpacklo_epi8(_mm_loadl_epi64((const __m128i*)(Jptr + x)), z);
                     __m128i v01 = _mm_unpacklo_epi8(_mm_loadl_epi64((const __m128i*)(Jptr + x + cn)), z);
-                    __m128i v10 = _mm_unpacklo_epi8(_mm_loadl_epi64((const __m128i*)(Jptr + x + step)), z);
-                    __m128i v11 = _mm_unpacklo_epi8(_mm_loadl_epi64((const __m128i*)(Jptr + x + step + cn)), z);
+                    __m128i v10 = _mm_unpacklo_epi8(_mm_loadl_epi64((const __m128i*)(Jptr + x + stepJ)), z);
+                    __m128i v11 = _mm_unpacklo_epi8(_mm_loadl_epi64((const __m128i*)(Jptr + x + stepJ + cn)), z);
 
                     __m128i t0 = _mm_add_epi32(_mm_madd_epi16(_mm_unpacklo_epi16(v00, v01), qw0),
                                                _mm_madd_epi16(_mm_unpacklo_epi16(v10, v11), qw1));
@@ -403,7 +403,7 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
                 for( ; x < winSize.width*cn; x++, dIptr += 2 )
                 {
                     int diff = CV_DESCALE(Jptr[x]*iw00 + Jptr[x+cn]*iw01 +
-                                          Jptr[x+step]*iw10 + Jptr[x+step+cn]*iw11,
+                                          Jptr[x+stepJ]*iw10 + Jptr[x+stepJ+cn]*iw11,
                                           W_BITS1-5) - Iptr[x];
                     b1 += (float)(diff*dIptr[0]);
                     b2 += (float)(diff*dIptr[1]);
@@ -465,13 +465,13 @@ void cv::detail::LKTrackerInvoker::operator()(const BlockedRange& range) const
 
             for( y = 0; y < winSize.height; y++ )
             {
-                const uchar* Jptr = (const uchar*)J.data + (y + inextPoint.y)*step + inextPoint.x*cn;
+                const uchar* Jptr = (const uchar*)J.data + (y + inextPoint.y)*stepJ + inextPoint.x*cn;
                 const deriv_type* Iptr = (const deriv_type*)(IWinBuf.data + y*IWinBuf.step);
 
                 for( x = 0; x < winSize.width*cn; x++ )
                 {
                     int diff = CV_DESCALE(Jptr[x]*iw00 + Jptr[x+cn]*iw01 +
-                                          Jptr[x+step]*iw10 + Jptr[x+step+cn]*iw11,
+                                          Jptr[x+stepJ]*iw10 + Jptr[x+stepJ+cn]*iw11,
                                           W_BITS1-5) - Iptr[x];
                     errval += std::abs((float)diff);
                 }
@@ -733,11 +733,11 @@ void cv::calcOpticalFlowPyrLK( InputArray _prevImg, InputArray _nextImg,
         typedef cv::detail::LKTrackerInvoker LKTrackerInvoker;
 #endif
 
-        parallel_for(BlockedRange(0, npoints), LKTrackerInvoker(prevPyr[level * lvlStep1], derivI,
-                                                                nextPyr[level * lvlStep2], prevPts, nextPts,
-                                                                status, err,
-                                                                winSize, criteria, level, maxLevel,
-                                                                flags, (float)minEigThreshold));
+        parallel_for_(Range(0, npoints), LKTrackerInvoker(prevPyr[level * lvlStep1], derivI,
+                                                          nextPyr[level * lvlStep2], prevPts, nextPts,
+                                                          status, err,
+                                                          winSize, criteria, level, maxLevel,
+                                                          flags, (float)minEigThreshold));
     }
 }
 
@@ -1194,8 +1194,8 @@ cvCalcOpticalFlowPyrLK( const void* arrA, const void* arrB,
         st = cv::Mat(count, 1, CV_8U, (void*)status);
     if( error )
         err = cv::Mat(count, 1, CV_32F, (void*)error);
-    cv::calcOpticalFlowPyrLK( A, B, ptA, ptB, status ? cv::_OutputArray(st) : cv::_OutputArray(),
-                              error ? cv::_OutputArray(err) : cv::_OutputArray(),
+    cv::calcOpticalFlowPyrLK( A, B, ptA, ptB, st,
+                              error ? cv::_OutputArray(err) : cv::noArray(),
                               winSize, level, criteria, flags);
 }
 
@@ -1911,8 +1911,11 @@ cv::Mat cv::estimateRigidTransform( InputArray src1,
 {
     Mat M(2, 3, CV_64F), A = src1.getMat(), B = src2.getMat();
     CvMat matA = A, matB = B, matM = M;
-    cvEstimateRigidTransform(&matA, &matB, &matM, fullAffine);
-    return M;
+    int err = cvEstimateRigidTransform(&matA, &matB, &matM, fullAffine);
+    if (err == 1)
+        return M;
+    else
+        return Mat();
 }
 
 /* End of file. */

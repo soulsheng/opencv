@@ -7,10 +7,11 @@
 //  copy or use the software.
 //
 //
-//                        Intel License Agreement
+//                           License Agreement
 //                For Open Source Computer Vision Library
 //
-// Copyright (C) 2000, Intel Corporation, all rights reserved.
+// Copyright (C) 2010-2012, Multicoreware, Inc., all rights reserved.
+// Copyright (C) 2010-2012, Advanced Micro Devices, Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -23,10 +24,10 @@
 //     this list of conditions and the following disclaimer in the documentation
 //     and/or other materials provided with the distribution.
 //
-//   * The name of Intel Corporation may not be used to endorse or promote products
+//   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
 //
-// This software is provided by the copyright holders and contributors "as is" and
+// This software is provided by the copyright holders and contributors as is and
 // any express or implied warranties, including, but not limited to, the implied
 // warranties of merchantability and fitness for a particular purpose are disclaimed.
 // In no event shall the Intel Corporation or contributors be liable for any direct,
@@ -39,101 +40,37 @@
 //
 //M*/
 
-#include "precomp.hpp"
+#include "perf_precomp.hpp"
 
-#ifdef HAVE_OPENCL
+#define DUMP_PROPERTY_XML(propertyName, propertyValue) \
+    do { \
+        std::stringstream ssName, ssValue;\
+        ssName << propertyName;\
+        ssValue << propertyValue; \
+        ::testing::Test::RecordProperty(ssName.str(), ssValue.str()); \
+    } while (false)
 
-using namespace std;
-using namespace cv;
-using namespace cv::ocl;
-using namespace cvtest;
-using namespace testing;
+#define DUMP_MESSAGE_STDOUT(msg) \
+    do { \
+        std::cout << msg << std::endl; \
+    } while (false)
 
-void print_info()
+
+#include "opencv2/ocl/private/opencl_dumpinfo.hpp"
+
+static const char * impls[] =
 {
-    printf("\n");
-#if defined _WIN32
-#   if defined _WIN64
-    puts("OS: Windows 64");
-#   else
-    puts("OS: Windows 32");
-#   endif
-#elif defined linux
-#   if defined _LP64
-    puts("OS: Linux 64");
-#   else
-    puts("OS: Linux 32");
-#   endif
-#elif defined __APPLE__
-#   if defined _LP64
-    puts("OS: Apple 64");
-#   else
-    puts("OS: Apple 32");
-#   endif
+    IMPL_OCL,
+    IMPL_PLAIN,
+#ifdef HAVE_OPENCV_GPU
+    IMPL_GPU
 #endif
+};
 
-}
-std::string workdir;
-int main(int argc, char **argv)
+
+int main(int argc, char ** argv)
 {
-    TS::ptr()->init("ocl");
-    InitGoogleTest(&argc, argv);
-    const char *keys =
-        "{ h | false              | print help message }"
-		"{ w | ../../../samples/c/| set working directory i.e. -w=C:\\}"
-        "{ t | gpu                | set device type:i.e. -t=cpu or gpu}"
-        "{ p | 0                  | set platform id i.e. -p=0}"
-        "{ d | 0                  | set device id i.e. -d=0}";
+    ::perf::TestBase::setPerformanceStrategy(::perf::PERF_STRATEGY_SIMPLE);
 
-    CommandLineParser cmd(argc, argv, keys);
-    if (cmd.get<string>("h")=="true")
-    {
-        cout << "Avaible options besides goole test option:" << endl;
-        cmd.printMessage();
-        return 0;
-    }
-    workdir = cmd.get<string>("w");
-    string type = cmd.get<string>("t");
-    unsigned int pid = cmd.get<unsigned int>("p");
-    int device = cmd.get<int>("d");
-    print_info();
-    int flag = CVCL_DEVICE_TYPE_GPU;
-
-    if(type == "cpu")
-    {
-        flag = CVCL_DEVICE_TYPE_CPU;
-    }
-    std::vector<cv::ocl::Info> oclinfo;
-    int devnums = getDevice(oclinfo);
-    if(devnums <= device || device < 0)
-    {
-        std::cout << "device invalid\n";
-        return -1;
-    }
-
-    if(pid >= oclinfo.size())
-    {
-        std::cout << "platform invalid\n";
-        return -1;
-    }
-
-    if(pid != 0 || device != 0)
-    {
-        setDevice(oclinfo[pid], device);
-    }
-
-    cout << "Device type:" << type << endl << "Device name:" << oclinfo[pid].DeviceName[device] << endl;
-    setBinpath(CLBINPATH);
-    return RUN_ALL_TESTS();
+    CV_PERF_TEST_MAIN_INTERNALS(ocl, impls, dumpOpenCLDevice())
 }
-
-#else // DON'T HAVE_OPENCL
-
-int main()
-{
-    printf("OpenCV was built without OpenCL support\n");
-    return 0;
-}
-
-
-#endif // HAVE_OPENCL

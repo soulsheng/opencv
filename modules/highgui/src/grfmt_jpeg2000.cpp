@@ -53,12 +53,6 @@
 #endif
 #endif
 
-#undef PACKAGE
-#undef PACKAGE_BUGREPORT
-#undef PACKAGE_NAME
-#undef PACKAGE_STRING
-#undef PACKAGE_TARNAME
-#undef PACKAGE_VERSION
 #undef VERSION
 
 #include <jasper/jasper.h>
@@ -212,7 +206,7 @@ bool  Jpeg2KDecoder::readData( Mat& img )
                 cmptlut[0] = jas_image_getcmptbytype( image, JAS_IMAGE_CT_RGB_B );
                 cmptlut[1] = jas_image_getcmptbytype( image, JAS_IMAGE_CT_RGB_G );
                 cmptlut[2] = jas_image_getcmptbytype( image, JAS_IMAGE_CT_RGB_R );
-                if( cmptlut[0] < 0 || cmptlut[1] < 0 || cmptlut[0] < 0 )
+                if( cmptlut[0] < 0 || cmptlut[1] < 0 || cmptlut[2] < 0 )
                     result = false;
                 ncmpts = 3;
             }

@@ -2,6 +2,10 @@
 #include <float.h>
 #include <limits.h>
 
+#ifdef HAVE_TEGRA_OPTIMIZATION
+#include "tegra.hpp"
+#endif
+
 using namespace cv;
 
 namespace cvtest
@@ -112,7 +116,7 @@ Mat randomMat(RNG& rng, Size size, int type, double minVal, double maxVal, bool 
 
     Mat m(size0, type);
 
-    rng.fill(m, RNG::UNIFORM, Scalar::all(minVal), Scalar::all(maxVal));
+    rng.fill(m, RNG::UNIFORM, minVal, maxVal);
     if( size0 == size )
         return m;
     return m(Rect((size0.width-size.width)/2, (size0.height-size.height)/2, size.width, size.height));
@@ -138,7 +142,7 @@ Mat randomMat(RNG& rng, const vector<int>& size, int type, double minVal, double
 
     Mat m(dims, &size0[0], type);
 
-    rng.fill(m, RNG::UNIFORM, Scalar::all(minVal), Scalar::all(maxVal));
+    rng.fill(m, RNG::UNIFORM, minVal, maxVal);
     if( eqsize )
         return m;
     return m(&r[0]);
@@ -1934,6 +1938,10 @@ int check( const Mat& a, double fmin, double fmax, vector<int>* _idx )
     return idx == 0 ? 0 : -1;
 }
 
+#define CMP_EPS_OK 0
+#define CMP_EPS_BIG_DIFF -1
+#define CMP_EPS_INVALID_TEST_DATA -2 // there is NaN or Inf value in test data
+#define CMP_EPS_INVALID_REF_DATA -3 // there is NaN or Inf value in reference data
 
 // compares two arrays. max_diff is the maximum actual difference,
 // success_err_level is maximum allowed difference, idx is the index of the first
@@ -1946,7 +1954,7 @@ int cmpEps( const Mat& arr, const Mat& refarr, double* _realmaxdiff,
     CV_Assert( arr.type() == refarr.type() && arr.size == refarr.size );
 
     int ilevel = refarr.depth() <= CV_32S ? cvFloor(success_err_level) : 0;
-    int result = 0;
+    int result = CMP_EPS_OK;
 
     const Mat *arrays[]={&arr, &refarr, 0};
     Mat planes[2];
@@ -1998,13 +2006,13 @@ int cmpEps( const Mat& arr, const Mat& refarr, double* _realmaxdiff,
                     continue;
                 if( cvIsNaN(a_val) || cvIsInf(a_val) )
                 {
-                    result = -2;
+                    result = CMP_EPS_INVALID_TEST_DATA;
                     idx = startidx + j;
                     break;
                 }
                 if( cvIsNaN(b_val) || cvIsInf(b_val) )
                 {
-                    result = -3;
+                    result = CMP_EPS_INVALID_REF_DATA;
                     idx = startidx + j;
                     break;
                 }
@@ -2029,13 +2037,13 @@ int cmpEps( const Mat& arr, const Mat& refarr, double* _realmaxdiff,
                     continue;
                 if( cvIsNaN(a_val) || cvIsInf(a_val) )
                 {
-                    result = -2;
+                    result = CMP_EPS_INVALID_TEST_DATA;
                     idx = startidx + j;
                     break;
                 }
                 if( cvIsNaN(b_val) || cvIsInf(b_val) )
                 {
-                    result = -3;
+                    result = CMP_EPS_INVALID_REF_DATA;
                     idx = startidx + j;
                     break;
                 }
@@ -2051,7 +2059,7 @@ int cmpEps( const Mat& arr, const Mat& refarr, double* _realmaxdiff,
             break;
         default:
             assert(0);
-            return -1;
+            return CMP_EPS_BIG_DIFF;
         }
         if(_realmaxdiff)
             *_realmaxdiff = MAX(*_realmaxdiff, realmaxdiff);
@@ -2060,7 +2068,7 @@ int cmpEps( const Mat& arr, const Mat& refarr, double* _realmaxdiff,
     }
 
     if( result == 0 && idx != 0 )
-        result = -1;
+        result = CMP_EPS_BIG_DIFF;
 
     if( result < -1 && _realmaxdiff )
         *_realmaxdiff = exp(1000.);
@@ -2081,15 +2089,15 @@ int cmpEps2( TS* ts, const Mat& a, const Mat& b, double success_err_level,
 
     switch( code )
     {
-    case -1:
+    case CMP_EPS_BIG_DIFF:
         sprintf( msg, "%s: Too big difference (=%g)", desc, diff );
         code = TS::FAIL_BAD_ACCURACY;
         break;
-    case -2:
+    case CMP_EPS_INVALID_TEST_DATA:
         sprintf( msg, "%s: Invalid output", desc );
         code = TS::FAIL_INVALID_OUTPUT;
         break;
-    case -3:
+    case CMP_EPS_INVALID_REF_DATA:
         sprintf( msg, "%s: Invalid reference output", desc );
         code = TS::FAIL_INVALID_OUTPUT;
         break;
@@ -2930,7 +2938,90 @@ MatComparator::operator()(const char* expr1, const char* expr2,
     << "'" << expr2 << "': " << MatPart(m2part, border > 0 ? &loc : 0) << ".\n";
 }
 
+void printVersionInfo(bool useStdOut)
+{
+    ::testing::Test::RecordProperty("cv_version", CV_VERSION);
+    if(useStdOut) std::cout << "OpenCV version: " << CV_VERSION << std::endl;
+
+    std::string buildInfo( cv::getBuildInformation() );
+
+    size_t pos1 = buildInfo.find("Version control");
+    size_t pos2 = buildInfo.find('\n', pos1);
+    if(pos1 != std::string::npos && pos2 != std::string::npos)
+    {
+        size_t value_start = buildInfo.rfind(' ', pos2) + 1;
+        std::string ver( buildInfo.substr(value_start, pos2 - value_start) );
+        ::testing::Test::RecordProperty("cv_vcs_version", ver);
+        if (useStdOut) std::cout << "OpenCV VCS version: " << ver << std::endl;
+    }
+
+    pos1 = buildInfo.find("inner version");
+    pos2 = buildInfo.find('\n', pos1);
+    if(pos1 != std::string::npos && pos2 != std::string::npos)
+    {
+        size_t value_start = buildInfo.rfind(' ', pos2) + 1;
+        std::string ver( buildInfo.substr(value_start, pos2 - value_start) );
+        ::testing::Test::RecordProperty("cv_inner_vcs_version", ver);
+        if(useStdOut) std::cout << "Inner VCS version: " << ver << std::endl;
+    }
+
+    const char * build_type =
+#ifdef _DEBUG
+        "debug";
+#else
+        "release";
+#endif
+
+    ::testing::Test::RecordProperty("cv_build_type", build_type);
+    if (useStdOut) std::cout << "Build type: " << build_type << std::endl;
+
+    const char* parallel_framework = currentParallelFramework();
+
+    if (parallel_framework) {
+        ::testing::Test::RecordProperty("cv_parallel_framework", parallel_framework);
+        if (useStdOut) std::cout << "Parallel framework: " << parallel_framework << std::endl;
+    }
+
+    std::string cpu_features;
+
+#if CV_SSE
+    if (checkHardwareSupport(CV_CPU_SSE)) cpu_features += " sse";
+#endif
+#if CV_SSE2
+    if (checkHardwareSupport(CV_CPU_SSE2)) cpu_features += " sse2";
+#endif
+#if CV_SSE3
+    if (checkHardwareSupport(CV_CPU_SSE3)) cpu_features += " sse3";
+#endif
+#if CV_SSSE3
+    if (checkHardwareSupport(CV_CPU_SSSE3)) cpu_features += " ssse3";
+#endif
+#if CV_SSE4_1
+    if (checkHardwareSupport(CV_CPU_SSE4_1)) cpu_features += " sse4.1";
+#endif
+#if CV_SSE4_2
+    if (checkHardwareSupport(CV_CPU_SSE4_2)) cpu_features += " sse4.2";
+#endif
+#if CV_AVX
+    if (checkHardwareSupport(CV_CPU_AVX)) cpu_features += " avx";
+#endif
+#if CV_NEON
+    cpu_features += " neon"; // NEON is currently not checked at runtime
+#endif
+
+    cpu_features.erase(0, 1); // erase initial space
+
+    ::testing::Test::RecordProperty("cv_cpu_features", cpu_features);
+    if (useStdOut) std::cout << "CPU features: " << cpu_features << std::endl;
+
+#ifdef HAVE_TEGRA_OPTIMIZATION
+    const char * tegra_optimization = tegra::isDeviceSupported() ? "enabled" : "disabled";
+    ::testing::Test::RecordProperty("cv_tegra_optimization", tegra_optimization);
+    if (useStdOut) std::cout << "Tegra optimization: " << tegra_optimization << std::endl;
+#endif
 }
+
+} //namespace cvtest
 
 void cvTsConvert( const CvMat* src, CvMat* dst )
 {

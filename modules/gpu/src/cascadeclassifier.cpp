@@ -22,13 +22,13 @@
 //
 //   * Redistribution's in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
-//     and/or other GpuMaterials provided with the distribution.
+//     and/or other materials provided with the distribution.
 //
 //   * The name of the copyright holders may not be used to endorse or promote products
 //     derived from this software without specific prior written permission.
 //
 // This software is provided by the copyright holders and contributors "as is" and
-// any express or bpied warranties, including, but not limited to, the bpied
+// any express or implied warranties, including, but not limited to, the implied
 // warranties of merchantability and fitness for a particular purpose are disclaimed.
 // In no event shall the Intel Corporation or contributors be liable for any direct,
 // indirect, incidental, special, exemplary, or consequential damages
@@ -406,7 +406,7 @@ public:
         GpuMat dclassified(1, 1, CV_32S);
         cudaSafeCall( cudaMemcpy(dclassified.ptr(), &classified, sizeof(int), cudaMemcpyHostToDevice) );
 
-        PyrLavel level(0, 1.0f, image.size(), NxM, minObjectSize);
+        PyrLavel level(0, scaleFactor, image.size(), NxM, minObjectSize);
 
         while (level.isFeasible(maxObjectSize))
         {
@@ -623,7 +623,7 @@ private:
         }
 
         // copy data structures on gpu
-        stage_mat.upload(cv::Mat(1, stages.size() * sizeof(Stage), CV_8UC1, (uchar*)&(stages[0]) ));
+        stage_mat.upload(cv::Mat(1, (int) (stages.size() * sizeof(Stage)), CV_8UC1, (uchar*)&(stages[0]) ));
         trees_mat.upload(cv::Mat(cl_trees).reshape(1,1));
         nodes_mat.upload(cv::Mat(cl_nodes).reshape(1,1));
         leaves_mat.upload(cv::Mat(cl_leaves).reshape(1,1));

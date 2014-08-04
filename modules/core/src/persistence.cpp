@@ -59,7 +59,6 @@
 #endif
 
 #if USE_ZLIB
-#  undef HAVE_UNISTD_H //to avoid redefinition
 #  ifndef _LFS64_LARGEFILE
 #    define _LFS64_LARGEFILE 0
 #  endif
@@ -416,13 +415,8 @@ cvCreateMap( int flags, int header_size, int elem_size,
     return map;
 }
 
-#ifdef __GNUC__
 #define CV_PARSE_ERROR( errmsg )                                    \
-    icvParseError( fs, __func__, (errmsg), __FILE__, __LINE__ )
-#else
-#define CV_PARSE_ERROR( errmsg )                                    \
-    icvParseError( fs, "", (errmsg), __FILE__, __LINE__ )
-#endif
+    icvParseError( fs, CV_Func, (errmsg), __FILE__, __LINE__ )
 
 static void
 icvParseError( CvFileStorage* fs, const char* func_name,
@@ -614,10 +608,11 @@ cvGetHashedKey( CvFileStorage* fs, const char* str, int len, int create_missing 
     CvStringHashNode* node = 0;
     unsigned hashval = 0;
     int i, tab_size;
-    CvStringHash* map = fs->str_hash;
 
     if( !fs )
         return 0;
+
+    CvStringHash* map = fs->str_hash;
 
     if( len < 0 )
     {
@@ -5200,6 +5195,7 @@ void FileStorage::release()
 string FileStorage::releaseAndGetString()
 {
     string buf;
+    buf.reserve(16); // HACK: Work around for compiler bug
     if( fs.obj && fs.obj->outbuf )
         icvClose(fs.obj, &buf);
 

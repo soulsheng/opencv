@@ -28,7 +28,7 @@
 //     derived from this software without specific prior written permission.
 //
 // This software is provided by the copyright holders and contributors "as is" and
-// any express or bpied warranties, including, but not limited to, the bpied
+// any express or implied warranties, including, but not limited to, the implied
 // warranties of merchantability and fitness for a particular purpose are disclaimed.
 // In no event shall the Intel Corporation or contributors be liable for any direct,
 // indirect, incidental, special, exemplary, or consequential damages
@@ -357,18 +357,19 @@ namespace cv { namespace gpu { namespace device
         #endif
         }
 
-        void shfl_integral_gpu(PtrStepSzb img, PtrStepSz<unsigned int> integral, cudaStream_t stream)
+        void shfl_integral_gpu(const PtrStepSzb& img, PtrStepSz<unsigned int> integral, cudaStream_t stream)
         {
             {
                 // each thread handles 16 values, use 1 block/row
-                const int block = img.cols / 16;
+                // save, becouse step is actually can't be less 512 bytes
+                int block = integral.cols / 16;
 
                 // launch 1 block / row
                 const int grid = img.rows;
 
                 cudaSafeCall( cudaFuncSetCacheConfig(shfl_integral_horizontal, cudaFuncCachePreferL1) );
 
-                shfl_integral_horizontal<<<grid, block, 0, stream>>>((PtrStepSz<uint4>) img, (PtrStepSz<uint4>) integral);
+                shfl_integral_horizontal<<<grid, block, 0, stream>>>((const PtrStepSz<uint4>) img, (PtrStepSz<uint4>) integral);
                 cudaSafeCall( cudaGetLastError() );
             }
 

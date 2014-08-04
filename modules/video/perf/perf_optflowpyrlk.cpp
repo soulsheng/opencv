@@ -33,7 +33,7 @@ PERF_TEST_P(Path_Idx_Cn_NPoints_WSize, OpticalFlowPyrLK_full, testing::Combine(
                 testing::Range(1, 3),
                 testing::Values(1, 3, 4),
                 testing::Values(make_tuple(9, 9), make_tuple(15, 15)),
-                testing::Values(7, 11, 25)
+                testing::Values(7, 11)
                 )
             )
 {
@@ -105,7 +105,7 @@ PERF_TEST_P(Path_Idx_Cn_NPoints_WSize_Deriv, OpticalFlowPyrLK_self, testing::Com
                 testing::Range(1, 3),
                 testing::Values(1, 3, 4),
                 testing::Values(make_tuple(9, 9), make_tuple(15, 15)),
-                testing::Values(7, 11, 25),
+                testing::Values(7, 11),
                 testing::Bool()
                 )
             )
@@ -163,8 +163,10 @@ PERF_TEST_P(Path_Idx_Cn_NPoints_WSize_Deriv, OpticalFlowPyrLK_self, testing::Com
     maxLevel = buildOpticalFlowPyramid(frame2, pyramid2, Size(winSize, winSize), maxLevel, withDerivatives);
 
     declare.in(pyramid1, pyramid2, inPoints).out(outPoints);
+    declare.time(400);
 
-    TEST_CYCLE()
+    int runs = 3;
+    TEST_CYCLE_MULTIRUN(runs)
     {
         calcOpticalFlowPyrLK(pyramid1, pyramid2, inPoints, outPoints, status, err,
                              Size(winSize, winSize), maxLevel, criteria,
@@ -184,7 +186,7 @@ PERF_TEST_P(Path_Win_Deriv_Border_Reuse, OpticalFlowPyrLK_pyr, testing::Combine(
                 testing::Values<std::string>("cv/optflow/frames/720p_01.png"),
                 testing::Values(7, 11),
                 testing::Bool(),
-                testing::ValuesIn(PyrBorderMode::all()),
+                PyrBorderMode::all(),
                 testing::Bool()
                 )
             )
