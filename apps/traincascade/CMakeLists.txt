@@ -1,8 +1,4 @@
-if(IOS OR ANDROID)
-  return()
-endif()
-
-set(OPENCV_TRAINCASCADE_DEPS opencv_core opencv_ml opencv_imgproc opencv_objdetect opencv_highgui opencv_calib3d opencv_video opencv_features2d opencv_flann opencv_legacy)
+SET(OPENCV_TRAINCASCADE_DEPS opencv_core opencv_ml opencv_imgproc opencv_objdetect opencv_highgui opencv_calib3d opencv_video opencv_features2d opencv_flann opencv_legacy)
 ocv_check_dependencies(${OPENCV_TRAINCASCADE_DEPS})
 
 if(NOT OCV_DEPENDENCIES_FOUND)
@@ -37,5 +33,10 @@ if(ENABLE_SOLUTION_FOLDERS)
   set_target_properties(${the_target} PROPERTIES FOLDER "applications")
 endif()
 
-install(TARGETS ${the_target} RUNTIME DESTINATION bin COMPONENT main)
-
+if(INSTALL_CREATE_DISTRIB)
+  if(BUILD_SHARED_LIBS)
+    install(TARGETS ${the_target} RUNTIME DESTINATION ${OPENCV_BIN_INSTALL_PATH} CONFIGURATIONS Release COMPONENT main)
+  endif()
+else()
+  install(TARGETS ${the_target} RUNTIME DESTINATION ${OPENCV_BIN_INSTALL_PATH} COMPONENT main)
+endif()
