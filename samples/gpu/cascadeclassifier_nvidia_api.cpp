@@ -17,12 +17,21 @@ using namespace std;
 using namespace cv;
 
 
-#if !defined(HAVE_CUDA)
+#if !defined(HAVE_CUDA) || defined(__arm__)
+
 int main( int, const char** )
 {
-    cout << "Please compile the library with CUDA support" << endl;
-    return -1;
+#if !defined(HAVE_CUDA)
+    std::cout << "CUDA support is required (CMake key 'WITH_CUDA' must be true)." << std::endl;
+#endif
+
+#if defined(__arm__)
+    std::cout << "Unsupported for ARM CUDA library." << std::endl;
+#endif
+
+    return 0;
 }
+
 #else
 
 
@@ -30,7 +39,7 @@ const Size2i preferredVideoFrameSize(640, 480);
 const string wndTitle = "NVIDIA Computer Vision :: Haar Classifiers Cascade";
 
 
-void matPrint(Mat &img, int lineOffsY, Scalar fontColor, const string &ss)
+static void matPrint(Mat &img, int lineOffsY, Scalar fontColor, const string &ss)
 {
     int fontFace = FONT_HERSHEY_DUPLEX;
     double fontScale = 0.8;
@@ -45,7 +54,7 @@ void matPrint(Mat &img, int lineOffsY, Scalar fontColor, const string &ss)
 }
 
 
-void displayState(Mat &canvas, bool bHelp, bool bGpu, bool bLargestFace, bool bFilter, double fps)
+static void displayState(Mat &canvas, bool bHelp, bool bGpu, bool bLargestFace, bool bFilter, double fps)
 {
     Scalar fontColorRed = CV_RGB(255,0,0);
     Scalar fontColorNV  = CV_RGB(118,185,0);
@@ -74,7 +83,7 @@ void displayState(Mat &canvas, bool bHelp, bool bGpu, bool bLargestFace, bool bF
 }
 
 
-NCVStatus process(Mat *srcdst,
+static NCVStatus process(Mat *srcdst,
                   Ncv32u width, Ncv32u height,
                   NcvBool bFilterRects, NcvBool bLargestFace,
                   HaarClassifierCascadeDescriptor &haar,
@@ -281,7 +290,7 @@ int main(int argc, const char** argv)
     //==============================================================================
 
     namedWindow(wndTitle, 1);
-    Mat gray, frameDisp;
+    Mat frameDisp;
 
     do
     {

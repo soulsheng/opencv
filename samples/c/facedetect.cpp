@@ -2,6 +2,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
+#include <cctype>
 #include <iostream>
 #include <iterator>
 #include <stdio.h>
@@ -30,8 +31,8 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
                     CascadeClassifier& nestedCascade,
                     double scale, bool tryflip );
 
-string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
-string nestedCascadeName = "../../../data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
+string cascadeName = "../../data/haarcascades/haarcascade_frontalface_alt.xml";
+string nestedCascadeName = "../../data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
 
 int main( int argc, const char** argv )
 {
@@ -93,17 +94,14 @@ int main( int argc, const char** argv )
         help();
         return -1;
     }
-#if 0
+
     if( inputName.empty() || (isdigit(inputName.c_str()[0]) && inputName.c_str()[1] == '\0') )
     {
         capture = cvCaptureFromCAM( inputName.empty() ? 0 : inputName.c_str()[0] - '0' );
         int c = inputName.empty() ? 0 : inputName.c_str()[0] - '0' ;
         if(!capture) cout << "Capture from CAM " <<  c << " didn't work" << endl;
     }
-    else 
-#endif
-		
-	if( inputName.size() )
+    else if( inputName.size() )
     {
         image = imread( inputName, 1 );
         if( image.empty() )
@@ -114,7 +112,7 @@ int main( int argc, const char** argv )
     }
     else
     {
-        image = imread( "../../images/lena.jpg", 1 );
+        image = imread( "lena.jpg", 1 );
         if(image.empty()) cout << "Couldn't read lena.jpg" << endl;
     }
 
@@ -150,20 +148,7 @@ _cleanup_:
         cout << "In image read" << endl;
         if( !image.empty() )
         {
-			char * bufferIn =  new char[image.rows * image.cols * 3];
-			memcpy( bufferIn, image.ptr(), image.rows * image.cols * 3 ) ;
-
-			cv::Mat src( image.rows, image.cols, CV_8UC3, bufferIn );
-
-
-			detectAndDraw( src, cascade, nestedCascade, scale, tryflip );
-
-			char * bufferOut =  new char[image.rows * image.cols * 3];
-			memcpy( bufferOut, src.ptr(), image.rows * image.cols * 3 ) ;
-
-			delete [] bufferIn;
-			delete [] bufferOut;
-
+            detectAndDraw( image, cascade, nestedCascade, scale, tryflip );
             waitKey(0);
         }
         else if( !inputName.empty() )

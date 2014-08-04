@@ -101,7 +101,7 @@ int main(int argc, const char *argv[])
     if (argc == 1)
     {
         help();
-        //return -1;
+        return -1;
     }
 
     if (getCudaEnabledDeviceCount() == 0)
@@ -111,9 +111,9 @@ int main(int argc, const char *argv[])
 
     cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
-    string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
-    string inputName = "../../images/lena.jpg";
-    bool isInputImage = true;
+    string cascadeName;
+    string inputName;
+    bool isInputImage = false;
     bool isInputVideo = false;
     bool isInputCamera = false;
 
@@ -216,7 +216,7 @@ int main(int argc, const char *argv[])
 
         if (useGPU)
         {
-            cascade_gpu.visualizeInPlace = true;
+            //cascade_gpu.visualizeInPlace = true;
             cascade_gpu.findLargestObject = findLargestObject;
 
             detections_num = cascade_gpu.detectMultiScale(resized_gpu, facesBuf_gpu, 1.2,
@@ -245,6 +245,11 @@ int main(int argc, const char *argv[])
         if (useGPU)
         {
             resized_gpu.download(resized_cpu);
+
+             for (int i = 0; i < detections_num; ++i)
+             {
+                rectangle(resized_cpu, faces_downloaded.ptr<cv::Rect>()[i], Scalar(255));
+             }
         }
 
         tm.stop();
@@ -253,7 +258,7 @@ int main(int argc, const char *argv[])
 
         //print detections to console
         cout << setfill(' ') << setprecision(2);
-        cout << setw(6) << fixed << fps << " FPS, " << detections_num << " det, " << detectionTime << "ms detectionTime";
+        cout << setw(6) << fixed << fps << " FPS, " << detections_num << " det";
         if ((filterRects || findLargestObject) && detections_num > 0)
         {
             Rect *faceRects = useGPU ? faces_downloaded.ptr<Rect>() : &facesBuf_cpu[0];
@@ -263,25 +268,13 @@ int main(int argc, const char *argv[])
                      << ", " << setw(4) << faceRects[i].y
                      << ", " << setw(4) << faceRects[i].width
                      << ", " << setw(4) << faceRects[i].height << "]";
-				
-				Point center;
-				int radius;
-
-				center.x = cvRound((faceRects[i].x + faceRects[i].width*0.5) );
-				center.y = cvRound((faceRects[i].y + faceRects[i].height*0.5) );
-				radius = cvRound((faceRects[i].width + faceRects[i].height)*0.25 );
-				circle( image, center, radius, CV_RGB(0,255,0), 3, 8, 0 );
             }
         }
         cout << endl;
 
-#if 0
         cvtColor(resized_cpu, frameDisp, CV_GRAY2BGR);
         displayState(frameDisp, helpScreen, useGPU, findLargestObject, filterRects, fps);
         imshow("result", frameDisp);
-#else
-		imshow("result", image );
-#endif
 
         char key = (char)waitKey(5);
         if (key == 27)

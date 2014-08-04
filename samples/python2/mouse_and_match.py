@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+
+#!/usr/bin/env python
 '''
 mouse_and_match.py [-i path | --input path: default ./]
 

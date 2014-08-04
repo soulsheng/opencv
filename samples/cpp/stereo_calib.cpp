@@ -14,15 +14,12 @@
      Or: http://oreilly.com/catalog/9780596516130/
      ISBN-10: 0596516134 or: ISBN-13: 978-0596516130
 
-   OTHER OPENCV SITES:
-   * The source code is on sourceforge at:
-     http://sourceforge.net/projects/opencvlibrary/
-   * The OpenCV wiki page (As of Oct 1, 2008 this is down for changing over servers, but should come back):
-     http://opencvlibrary.sourceforge.net/
-   * An active user group is at:
-     http://tech.groups.yahoo.com/group/OpenCV/
-   * The minutes of weekly OpenCV development meetings are at:
-     http://pr.willowgarage.com/wiki/OpenCV
+   OPENCV WEBSITES:
+     Homepage:      http://opencv.org
+     Online docs:   http://docs.opencv.org
+     Q&A forum:     http://answers.opencv.org
+     Issue tracker: http://code.opencv.org
+     GitHub:        https://github.com/Itseez/opencv/
    ************************************************** */
 
 #include "opencv2/calib3d/calib3d.hpp"
@@ -121,7 +118,7 @@ StereoCalib(const vector<string>& imagelist, Size boardSize, bool useCalibrated=
             {
                 cout << filename << endl;
                 Mat cimg, cimg1;
-                cvtColor(img, cimg, CV_GRAY2BGR);
+                cvtColor(img, cimg, COLOR_GRAY2BGR);
                 drawChessboardCorners(cimg, boardSize, corners, found);
                 double sf = 640./MAX(img.rows, img.cols);
                 resize(cimg, cimg1, Size(), sf, sf);
@@ -305,7 +302,7 @@ StereoCalib(const vector<string>& imagelist, Size boardSize, bool useCalibrated=
         {
             Mat img = imread(goodImageList[i*2+k], 0), rimg, cimg;
             remap(img, rimg, rmap[k][0], rmap[k][1], CV_INTER_LINEAR);
-            cvtColor(rimg, cimg, CV_GRAY2BGR);
+            cvtColor(rimg, cimg, COLOR_GRAY2BGR);
             Mat canvasPart = !isVerticalStereo ? canvas(Rect(w*k, 0, w, h)) : canvas(Rect(0, h*k, w, h));
             resize(cimg, canvasPart, canvasPart.size(), 0, 0, CV_INTER_AREA);
             if( useCalibrated )
@@ -404,4 +401,3 @@ int main(int argc, char** argv)
     StereoCalib(imagelist, boardSize, true, showRectified);
     return 0;
 }
-

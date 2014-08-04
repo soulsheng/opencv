@@ -19,8 +19,8 @@ static void help()
 
 const char* keys =
 {
-    "{@logo1 |logo_in_clutter.png  |image edge map    }"
-    "{@logo2 |logo.png             |template edge map}"
+    "{1| |logo_in_clutter.png|image edge map    }"
+    "{2| |logo.png               |template edge map}"
 };
 
 int main( int argc, const char** argv )
@@ -29,8 +29,8 @@ int main( int argc, const char** argv )
     help();
     CommandLineParser parser(argc, argv, keys);
 
-    string image = parser.get<string>(1);
-    string templ = parser.get<string>(2);
+    string image = parser.get<string>("1");
+    string templ = parser.get<string>("2");
     Mat img = imread(image.c_str(), 0);
     Mat tpl = imread(templ.c_str(), 0);
 
@@ -40,7 +40,7 @@ int main( int argc, const char** argv )
         return -1;
     }
     Mat cimg;
-    cvtColor(img, cimg, CV_GRAY2BGR);
+    cvtColor(img, cimg, COLOR_GRAY2BGR);
 
     // if the image and the template are not edge maps but normal grayscale images,
     // you might want to uncomment the lines below to produce the maps. You can also

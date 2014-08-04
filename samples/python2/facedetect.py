@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import numpy as np
 import cv2
 import cv2.cv as cv
@@ -57,4 +59,3 @@ if __name__ == '__main__':
         if 0xFF & cv2.waitKey(5) == 27:
             break
     cv2.destroyAllWindows()
-

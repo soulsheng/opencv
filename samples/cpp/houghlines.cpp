@@ -6,10 +6,6 @@
 using namespace cv;
 using namespace std;
 
-#define TEST_IMAGE_FILE	"../../images/pic1.png"
-//#define TEST_IMAGE_FILE	"../../images/car.bmp"
-
-
 static void help()
 {
     cout << "\nThis program demonstrates line finding with the Hough transform.\n"
@@ -19,7 +15,7 @@ static void help()
 
 int main(int argc, char** argv)
 {
-    const char* filename = argc >= 2 ? argv[1] : TEST_IMAGE_FILE;
+    const char* filename = argc >= 2 ? argv[1] : "pic1.png";
 
     Mat src = imread(filename, 0);
     if(src.empty())
@@ -31,7 +27,7 @@ int main(int argc, char** argv)
 
     Mat dst, cdst;
     Canny(src, dst, 50, 200, 3);
-    cvtColor(dst, cdst, CV_GRAY2BGR);
+    cvtColor(dst, cdst, COLOR_GRAY2BGR);
 
 #if 0
     vector<Vec2f> lines;
@@ -65,4 +61,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-

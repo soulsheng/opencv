@@ -18,8 +18,8 @@ static void help()
 
 const char* keys =
 {
-    "{c  camera   |         | use camera or not}"
-    "{fn file_name|tree.avi | movie file        }"
+    "{c |camera   |true    | use camera or not}"
+    "{fn|file_name|tree.avi | movie file             }"
 };
 
 //this is a sample for foreground detection functions
@@ -28,7 +28,7 @@ int main(int argc, const char** argv)
     help();
 
     CommandLineParser parser(argc, argv, keys);
-    bool useCamera = parser.has("camera");
+    bool useCamera = parser.get<bool>("camera");
     string file = parser.get<string>("file_name");
     VideoCapture cap;
     bool update_bg_model = true;
@@ -37,8 +37,7 @@ int main(int argc, const char** argv)
         cap.open(0);
     else
         cap.open(file.c_str());
-
-    parser.printMessage();
+    parser.printParams();
 
     if( !cap.isOpened() )
     {
@@ -46,10 +45,10 @@ int main(int argc, const char** argv)
         return -1;
     }
 
-    namedWindow("image", CV_WINDOW_NORMAL);
-    namedWindow("foreground mask", CV_WINDOW_NORMAL);
-    namedWindow("foreground image", CV_WINDOW_NORMAL);
-    namedWindow("mean background image", CV_WINDOW_NORMAL);
+    namedWindow("image", WINDOW_NORMAL);
+    namedWindow("foreground mask", WINDOW_NORMAL);
+    namedWindow("foreground image", WINDOW_NORMAL);
+    namedWindow("mean background image", WINDOW_NORMAL);
 
     BackgroundSubtractorMOG2 bg_model;//(100, 3, 0.3, 5);
 

@@ -6,6 +6,7 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener;
+import org.opencv.android.JavaCameraView;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -13,8 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.Window;
 import android.view.View;
+import android.view.WindowManager;
 
 public class Puzzle15Activity extends Activity implements CvCameraViewListener, View.OnTouchListener {
 
@@ -22,6 +23,9 @@ public class Puzzle15Activity extends Activity implements CvCameraViewListener, 
 
     private CameraBridgeViewBase mOpenCvCameraView;
     private Puzzle15Processor    mPuzzle15;
+    private MenuItem             mItemHideNumbers;
+    private MenuItem             mItemStartNewGame;
+
 
     private int                  mGameWidth;
     private int                  mGameHeight;
@@ -50,11 +54,11 @@ public class Puzzle15Activity extends Activity implements CvCameraViewListener, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        setContentView(R.layout.activity_puzzle15);
-
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.puzzle_activity_surface_view);
+        Log.d(TAG, "Creating and seting view");
+        mOpenCvCameraView = (CameraBridgeViewBase) new JavaCameraView(this, -1);
+        setContentView(mOpenCvCameraView);
         mOpenCvCameraView.setCvCameraViewListener(this);
         mPuzzle15 = new Puzzle15Processor();
         mPuzzle15.prepareNewGame();
@@ -63,9 +67,9 @@ public class Puzzle15Activity extends Activity implements CvCameraViewListener, 
     @Override
     public void onPause()
     {
+        super.onPause();
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
-        super.onPause();
     }
 
     @Override
@@ -83,17 +87,19 @@ public class Puzzle15Activity extends Activity implements CvCameraViewListener, 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_puzzle15, menu);
+        Log.i(TAG, "called onCreateOptionsMenu");
+        mItemHideNumbers = menu.add("Show/hide tile numbers");
+        mItemStartNewGame = menu.add("Start new game");
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.i(TAG, "Menu Item selected " + item);
-        if (item.getItemId() == R.id.menu_start_new_game) {
+        if (item == mItemStartNewGame) {
             /* We need to start new game */
             mPuzzle15.prepareNewGame();
-        } else if (item.getItemId() == R.id.menu_toggle_tile_numbers) {
+        } else if (item == mItemHideNumbers) {
             /* We need to enable or disable drawing of the tile numbers */
             mPuzzle15.toggleTileNumbers();
         }
@@ -107,10 +113,6 @@ public class Puzzle15Activity extends Activity implements CvCameraViewListener, 
     }
 
     public void onCameraViewStopped() {
-    }
-
-    public Mat onCameraFrame(Mat inputFrame) {
-        return mPuzzle15.puzzleFrame(inputFrame);
     }
 
     public boolean onTouch(View view, MotionEvent event) {
@@ -128,5 +130,9 @@ public class Puzzle15Activity extends Activity implements CvCameraViewListener, 
         }
 
         return false;
+    }
+
+    public Mat onCameraFrame(Mat inputFrame) {
+        return mPuzzle15.puzzleFrame(inputFrame);
     }
 }

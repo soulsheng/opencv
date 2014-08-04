@@ -13,7 +13,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/gpu/gpu.hpp"
 
-#if !defined(HAVE_CUDA) || !defined(HAVE_TBB)
+#if !defined(HAVE_CUDA) || !defined(HAVE_TBB) || defined(__arm__)
 
 int main()
 {
@@ -23,6 +23,10 @@ int main()
 
 #if !defined(HAVE_TBB)
     std::cout << "TBB support is required (CMake key 'WITH_TBB' must be true).\n";
+#endif
+
+#if defined(__arm__)
+    std::cout << "Unsupported for ARM CUDA library." << std::endl;
 #endif
 
     return 0;
@@ -73,10 +77,7 @@ GpuMat d_right[2];
 StereoBM_GPU* bm[2];
 GpuMat d_result[2];
 
-// CPU result
-Mat result;
-
-void printHelp()
+static void printHelp()
 {
     std::cout << "Usage: driver_api_stereo_multi_gpu --left <left_image> --right <right_image>\n";
 }

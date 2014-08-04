@@ -3,8 +3,16 @@ set(the_target "example_gpu_performance")
 file(GLOB sources "performance/*.cpp")
 file(GLOB headers "performance/*.h")
 
+if(HAVE_opencv_nonfree)
+  ocv_include_directories("${OpenCV_SOURCE_DIR}/modules/nonfree/include")
+endif()
+
 add_executable(${the_target} ${sources} ${headers})
 target_link_libraries(${the_target} ${OPENCV_LINKER_LIBS} ${OPENCV_GPU_SAMPLES_REQUIRED_DEPS})
+
+if(HAVE_opencv_nonfree)
+  target_link_libraries(${the_target} opencv_nonfree)
+endif()
 
 set_target_properties(${the_target} PROPERTIES
     OUTPUT_NAME "performance_gpu"
@@ -15,7 +23,7 @@ if(ENABLE_SOLUTION_FOLDERS)
 endif()
 
 if(WIN32)
-  install(TARGETS ${the_target} RUNTIME DESTINATION "samples/gpu" COMPONENT main)
+  install(TARGETS ${the_target} RUNTIME DESTINATION "${OPENCV_SAMPLES_BIN_INSTALL_PATH}/gpu" COMPONENT main)
 endif()
 
 if(INSTALL_C_EXAMPLES AND NOT WIN32)

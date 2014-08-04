@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 '''
 Affine invariant feature-based image matching sample.
 
@@ -140,4 +142,3 @@ if __name__ == '__main__':
     match_and_draw('affine find_obj')
     cv2.waitKey()
     cv2.destroyAllWindows()
-

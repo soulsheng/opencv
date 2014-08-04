@@ -104,14 +104,14 @@ static void help()
 
 const char* keys =
 {
-    "{@image |stuff.jpg|input image file}"
+    "{1| |stuff.jpg|input image file}"
 };
 
 int main( int argc, const char** argv )
 {
     help();
     CommandLineParser parser(argc, argv, keys);
-    string filename = parser.get<string>(1);
+    string filename = parser.get<string>("1");
     gray = imread(filename.c_str(), 0);
     if(gray.empty())
     {
@@ -128,7 +128,7 @@ int main( int argc, const char** argv )
         // Call to update the view
         onTrackbar(0, 0);
 
-        int c = cvWaitKey(0) & 255;
+        int c = waitKey(0) & 255;
 
         if( c == 27 )
             break;

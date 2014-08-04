@@ -16,8 +16,12 @@ if(BUILD_EXAMPLES AND OCV_DEPENDENCIES_FOUND)
   ocv_include_directories("${OpenCV_SOURCE_DIR}/include")#for opencv.hpp
   ocv_include_modules(${OPENCV_CPP_SAMPLES_REQUIRED_DEPS})
 
-  if (HAVE_opencv_gpu)
+  if(HAVE_opencv_gpu)
     ocv_include_directories("${OpenCV_SOURCE_DIR}/modules/gpu/include")
+  endif()
+
+  if(HAVE_opencv_ocl)
+    ocv_include_directories("${OpenCV_SOURCE_DIR}/modules/ocl/include")
   endif()
 
   if(CMAKE_COMPILER_IS_GNUCXX AND NOT ENABLE_NOISY_WARNINGS)
@@ -32,17 +36,23 @@ if(BUILD_EXAMPLES AND OCV_DEPENDENCIES_FOUND)
     if("${srcs}" MATCHES "tutorial_code")
       set(sample_kind tutorial)
       set(sample_KIND TUTORIAL)
+      set(sample_subfolder "tutorials")
     else()
       set(sample_kind example)
       set(sample_KIND EXAMPLE)
+      set(sample_subfolder "cpp")
     endif()
 
     set(the_target "${sample_kind}_${name}")
     add_executable(${the_target} ${srcs})
     target_link_libraries(${the_target} ${OPENCV_LINKER_LIBS} ${OPENCV_CPP_SAMPLES_REQUIRED_DEPS})
 
-    if (HAVE_opencv_gpu)
+    if(HAVE_opencv_gpu)
       target_link_libraries(${the_target} opencv_gpu)
+    endif()
+
+    if(HAVE_opencv_ocl)
+      target_link_libraries(${the_target} opencv_ocl)
     endif()
 
     set_target_properties(${the_target} PROPERTIES
@@ -50,7 +60,7 @@ if(BUILD_EXAMPLES AND OCV_DEPENDENCIES_FOUND)
       PROJECT_LABEL "(${sample_KIND}) ${name}")
 
     if(ENABLE_SOLUTION_FOLDERS)
-      set_target_properties(${the_target} PROPERTIES FOLDER "${sample_kind}s//cpp")
+      set_target_properties(${the_target} PROPERTIES FOLDER "samples/${sample_subfolder}")
     endif()
 
     if(WIN32)
@@ -58,7 +68,7 @@ if(BUILD_EXAMPLES AND OCV_DEPENDENCIES_FOUND)
         set_target_properties(${the_target} PROPERTIES LINK_FLAGS "/NODEFAULTLIB:atlthunk.lib /NODEFAULTLIB:atlsd.lib /DEBUG")
       endif()
       install(TARGETS ${the_target}
-              RUNTIME DESTINATION "${sample_kind}s/cpp" COMPONENT main)
+              RUNTIME DESTINATION "${OPENCV_SAMPLES_BIN_INSTALL_PATH}/${sample_subfolder}" COMPONENT main)
     endif()
   ENDMACRO()
 
@@ -84,4 +94,3 @@ if (INSTALL_C_EXAMPLES AND NOT WIN32)
           DESTINATION share/OpenCV/samples/cpp
           PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 endif()
-
