@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\modules\stitching\src\autocalib.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\blenders.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\camera.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\exposure_compensate.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\matchers.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\motion_estimators.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\seam_finders.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\stitcher.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\util.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\stitching\src\warpers.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencv_stitching_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\stitcher.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\warpers.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\autocalib.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\blenders.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\camera.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\exposure_compensate.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\matchers.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\motion_estimators.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\seam_finders.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\util.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\util_inl.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\warpers.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\include\opencv2\stitching\detail\warpers_inl.hpp">
+      <Filter>Include\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\stitching\src\precomp.hpp">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cvconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\opencv2\opencv_modules.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\modules\stitching\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{872EA7CF-7A6E-4D0D-90EA-82006A2EF0C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{356861E4-2E30-4EC6-9B30-888FE003440B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{F1AE1A71-E8BC-4FC4-9E39-DFEAE9EF8622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{51E3DDCB-2312-46DE-ACEB-73FCD93038C7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\detail">
+      <UniqueIdentifier>{F53A3668-CFBD-4E23-ABCE-601CD0319DBA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

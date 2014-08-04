@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{387BB5FF-3F53-411A-9E5A-470B26E19EA3}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>opencv_highgui</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\bin\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_highgui.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_highgui248d</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\bin\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_highgui.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_highgui248</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\highgui\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\build\modules\highgui;C:\opencv\sources\modules\highgui\src;C:\opencv\sources\modules\highgui\test;C:\opencv\sources\3rdparty\libjasper;C:\opencv\sources\build\3rdparty\libtiff;C:\opencv\sources\3rdparty\libtiff;C:\opencv\sources\3rdparty\libpng;C:\opencv\sources\3rdparty\libjpeg;C:\opencv\sources\build\3rdparty\zlib;C:\opencv\sources\3rdparty\zlib;C:\opencv\sources\build;C:\opencv\sources\3rdparty\openexr\Half;C:\opencv\sources\3rdparty\openexr\Iex;C:\opencv\sources\3rdparty\openexr\IlmThread;C:\opencv\sources\3rdparty\openexr\Imath;C:\opencv\sources\3rdparty\openexr\IlmImf;C:\opencv\sources\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForcedIncludeFiles>C:/opencv/sources/modules/highgui/src/precomp.hpp</ForcedIncludeFiles>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>C:/opencv/sources/modules/highgui/src/precomp.hpp</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;_VARIADIC_MAX=10;HIGHGUI_EXPORTS;CMAKE_INTDIR="Debug";CVAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;_VARIADIC_MAX=10;HIGHGUI_EXPORTS;CMAKE_INTDIR=\"Debug\";CVAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\highgui\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\build\modules\highgui;C:\opencv\sources\modules\highgui\src;C:\opencv\sources\modules\highgui\test;C:\opencv\sources\3rdparty\libjasper;C:\opencv\sources\build\3rdparty\libtiff;C:\opencv\sources\3rdparty\libtiff;C:\opencv\sources\3rdparty\libpng;C:\opencv\sources\3rdparty\libjpeg;C:\opencv\sources\build\3rdparty\zlib;C:\opencv\sources\3rdparty\zlib;C:\opencv\sources\build;C:\opencv\sources\3rdparty\openexr\Half;C:\opencv\sources\3rdparty\openexr\Iex;C:\opencv\sources\3rdparty\openexr\IlmThread;C:\opencv\sources\3rdparty\openexr\Imath;C:\opencv\sources\3rdparty\openexr\IlmImf;C:\opencv\sources\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\highgui\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\build\modules\highgui;C:\opencv\sources\modules\highgui\src;C:\opencv\sources\modules\highgui\test;C:\opencv\sources\3rdparty\libjasper;C:\opencv\sources\build\3rdparty\libtiff;C:\opencv\sources\3rdparty\libtiff;C:\opencv\sources\3rdparty\libpng;C:\opencv\sources\3rdparty\libjpeg;C:\opencv\sources\build\3rdparty\zlib;C:\opencv\sources\3rdparty\zlib;C:\opencv\sources\build;C:\opencv\sources\3rdparty\openexr\Half;C:\opencv\sources\3rdparty\openexr\Iex;C:\opencv\sources\3rdparty\openexr\IlmThread;C:\opencv\sources\3rdparty\openexr\Imath;C:\opencv\sources\3rdparty\openexr\IlmImf;C:\opencv\sources\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Copying C:/opencv/sources/3rdparty/ffmpeg/opencv_ffmpeg.dll to the output directory</Message>
+      <Command>setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -E copy C:/opencv/sources/3rdparty/ffmpeg/opencv_ffmpeg.dll C:/opencv/sources/build/bin/Release/opencv_ffmpeg248.dll
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -E copy C:/opencv/sources/3rdparty/ffmpeg/opencv_ffmpeg.dll C:/opencv/sources/build/bin/Debug/opencv_ffmpeg248.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\3rdparty\lib\Debug\zlibd.lib;..\..\3rdparty\lib\Debug\libjpegd.lib;..\..\3rdparty\lib\Debug\libpngd.lib;..\..\3rdparty\lib\Debug\libtiffd.lib;..\..\3rdparty\lib\Debug\libjasperd.lib;..\..\3rdparty\lib\Debug\IlmImfd.lib;comctl32.lib;gdi32.lib;ole32.lib;setupapi.lib;ws2_32.lib;vfw32.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\3rdparty\lib\Debug\zlibd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/opencv/sources/3rdparty/lib;C:/opencv/sources/3rdparty/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;libcmt.lib</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/opencv/sources/build/lib/Debug/opencv_highgui248d.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/opencv/sources/build/bin/Debug/opencv_highgui248d.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\highgui\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\build\modules\highgui;C:\opencv\sources\modules\highgui\src;C:\opencv\sources\modules\highgui\test;C:\opencv\sources\3rdparty\libjasper;C:\opencv\sources\build\3rdparty\libtiff;C:\opencv\sources\3rdparty\libtiff;C:\opencv\sources\3rdparty\libpng;C:\opencv\sources\3rdparty\libjpeg;C:\opencv\sources\build\3rdparty\zlib;C:\opencv\sources\3rdparty\zlib;C:\opencv\sources\build;C:\opencv\sources\3rdparty\openexr\Half;C:\opencv\sources\3rdparty\openexr\Iex;C:\opencv\sources\3rdparty\openexr\IlmThread;C:\opencv\sources\3rdparty\openexr\Imath;C:\opencv\sources\3rdparty\openexr\IlmImf;C:\opencv\sources\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForcedIncludeFiles>C:/opencv/sources/modules/highgui/src/precomp.hpp</ForcedIncludeFiles>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>C:/opencv/sources/modules/highgui/src/precomp.hpp</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;_VARIADIC_MAX=10;HIGHGUI_EXPORTS;CMAKE_INTDIR="Release";CVAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;_VARIADIC_MAX=10;HIGHGUI_EXPORTS;CMAKE_INTDIR=\"Release\";CVAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\highgui\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\build\modules\highgui;C:\opencv\sources\modules\highgui\src;C:\opencv\sources\modules\highgui\test;C:\opencv\sources\3rdparty\libjasper;C:\opencv\sources\build\3rdparty\libtiff;C:\opencv\sources\3rdparty\libtiff;C:\opencv\sources\3rdparty\libpng;C:\opencv\sources\3rdparty\libjpeg;C:\opencv\sources\build\3rdparty\zlib;C:\opencv\sources\3rdparty\zlib;C:\opencv\sources\build;C:\opencv\sources\3rdparty\openexr\Half;C:\opencv\sources\3rdparty\openexr\Iex;C:\opencv\sources\3rdparty\openexr\IlmThread;C:\opencv\sources\3rdparty\openexr\Imath;C:\opencv\sources\3rdparty\openexr\IlmImf;C:\opencv\sources\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\highgui\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\build\modules\highgui;C:\opencv\sources\modules\highgui\src;C:\opencv\sources\modules\highgui\test;C:\opencv\sources\3rdparty\libjasper;C:\opencv\sources\build\3rdparty\libtiff;C:\opencv\sources\3rdparty\libtiff;C:\opencv\sources\3rdparty\libpng;C:\opencv\sources\3rdparty\libjpeg;C:\opencv\sources\build\3rdparty\zlib;C:\opencv\sources\3rdparty\zlib;C:\opencv\sources\build;C:\opencv\sources\3rdparty\openexr\Half;C:\opencv\sources\3rdparty\openexr\Iex;C:\opencv\sources\3rdparty\openexr\IlmThread;C:\opencv\sources\3rdparty\openexr\Imath;C:\opencv\sources\3rdparty\openexr\IlmImf;C:\opencv\sources\3rdparty\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>Copying C:/opencv/sources/3rdparty/ffmpeg/opencv_ffmpeg.dll to the output directory</Message>
+      <Command>setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -E copy C:/opencv/sources/3rdparty/ffmpeg/opencv_ffmpeg.dll C:/opencv/sources/build/bin/Release/opencv_ffmpeg248.dll
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -E copy C:/opencv/sources/3rdparty/ffmpeg/opencv_ffmpeg.dll C:/opencv/sources/build/bin/Debug/opencv_ffmpeg248.dll
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_imgproc248.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\3rdparty\lib\Release\zlib.lib;..\..\3rdparty\lib\Release\libjpeg.lib;..\..\3rdparty\lib\Release\libpng.lib;..\..\3rdparty\lib\Release\libtiff.lib;..\..\3rdparty\lib\Release\libjasper.lib;..\..\3rdparty\lib\Release\IlmImf.lib;comctl32.lib;gdi32.lib;ole32.lib;setupapi.lib;ws2_32.lib;vfw32.lib;..\..\lib\Release\opencv_core248.lib;..\..\3rdparty\lib\Release\zlib.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/opencv/sources/3rdparty/lib;C:/opencv/sources/3rdparty/lib/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>atlthunk.lib;atlsd.lib;libcmt.lib</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/opencv/sources/build/lib/Release/opencv_highgui248.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/opencv/sources/build/bin/Release/opencv_highgui248.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\modules\highgui\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/opencv/sources/modules/highgui/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\modules\highgui\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/highgui/CMakeLists.txt;C:\opencv\sources\modules\highgui\CMakeLists.txt;C:\opencv\sources\modules\highgui\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\modules\highgui\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/opencv/sources/modules/highgui/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\modules\highgui\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/modules/highgui/CMakeLists.txt;C:\opencv\sources\modules\highgui\CMakeLists.txt;C:\opencv\sources\modules\highgui\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\modules\highgui\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\modules\highgui\include\opencv2\highgui\highgui.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\include\opencv2\highgui\cap_ios.h" />
+    <ClInclude Include="..\..\..\modules\highgui\include\opencv2\highgui\highgui_c.h" />
+    <ClInclude Include="..\..\..\modules\highgui\include\opencv2\highgui\ios.h" />
+    <ClInclude Include="..\..\..\modules\highgui\src\precomp.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\utils.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\cap_ffmpeg_impl.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmts.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_base.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_bmp.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_exr.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_imageio.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_jpeg.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_jpeg2000.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_png.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_pxm.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_sunras.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\grfmt_tiff.hpp" />
+    <ClInclude Include="..\..\..\modules\highgui\src\bitstrm.hpp" />
+    <ClInclude Include="..\..\cvconfig.h" />
+    <ClInclude Include="..\..\opencv2\opencv_modules.hpp" />
+    <ClCompile Include="..\..\..\modules\highgui\src\cap.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\cap_images.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\cap_ffmpeg.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\loadsave.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\utils.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\window.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\window_w32.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\cap_cmu.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\cap_dshow.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\cap_vfw.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_base.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_bmp.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_exr.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_imageio.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_jpeg.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_jpeg2000.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_png.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_pxm.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_sunras.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\grfmt_tiff.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\bitstrm.cpp"  />
+    <ClCompile Include="opencv_highgui_pch.cpp" >
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/highgui/src/precomp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/modules/highgui/src/precomp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/opencv/sources/build/3rdparty/openexr/IlmImf.vcxproj">
+      <Project>3626489E-805C-416E-95E8-43DC44A78659</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
+      <Project>217B5AB9-29C9-435F-AE1B-8598893A63B8</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/3rdparty/libjasper/libjasper.vcxproj">
+      <Project>95DC8E71-84A5-405C-9B6B-CDBA6D51AE50</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/3rdparty/libjpeg/libjpeg.vcxproj">
+      <Project>944F371D-8FF7-44BC-A21F-BEDCFE209A36</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/3rdparty/libpng/libpng.vcxproj">
+      <Project>780C2599-0FBC-4D15-9FE9-59628A94DDC5</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/3rdparty/libtiff/libtiff.vcxproj">
+      <Project>6D2C8344-A407-4777-B5C6-C63AF9450D0F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
+      <Project>850C6E8B-DEB2-458B-BFE5-226EE50A9B79</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_imgproc.vcxproj">
+      <Project>5088A88D-71D1-4291-B8B0-527524D44694</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/3rdparty/zlib/zlib.vcxproj">
+      <Project>1ED1C1D9-EEA4-4826-A22A-6405FC62B9C0</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

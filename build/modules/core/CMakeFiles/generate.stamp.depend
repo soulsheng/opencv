@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+C:/opencv/sources/modules/core/CMakeLists.txt
+C:/opencv/sources/build/modules/core/CMakeFiles/cuda_compile.dir/__/dynamicuda/src/cuda/cuda_compile_generated_matrix_operations.cu.obj.depend
+C:/opencv/sources/cmake/FindCUDA/run_nvcc.cmake

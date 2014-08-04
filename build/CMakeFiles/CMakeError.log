@@ -1,0 +1,217 @@
+Determining if the function fseeko exists failed with the following output:
+Change Dir: C:/opencv/sources/build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~2.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec4183775752
+
+Microsoft(R) Visual Studio 10.0.40219.1 版。
+版权所有(C) Microsoft Corp。保留所有权利。
+1>------ 已启动生成: 项目: cmTryCompileExec4183775752, 配置: Debug Win32 ------
+1>生成启动时间为 2014/8/4 16:58:41。
+1>PrepareForBuild:
+1>  正在创建目录“C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\”。
+1>InitializeBuildStatus:
+1>  正在创建“cmTryCompileExec4183775752.dir\Debug\cmTryCompileExec4183775752.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+1>ClCompile:
+1>  用于 80x86 的 Microsoft (R) 32 位 C/C++ 优化编译器 16.00.40219.01 版
+1>  版权所有(C) Microsoft Corporation。保留所有权利。
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oi /Oy- /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /D CHECK_FUNCTION_EXISTS=fseeko /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec4183775752.dir\Debug\\" /Fd"cmTryCompileExec4183775752.dir\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt "..\..\..\..\..\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CheckFunctionExists.c"  /bigobj 
+1>  
+1>  CheckFunctionExists.c
+1>CheckFunctionExists.obj : error LNK2019: 无法解析的外部符号 _fseeko，该符号在函数 _main 中被引用
+1>C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4183775752.exe : fatal error LNK1120: 1 个无法解析的外部命令
+1>
+1>生成失败。
+1>
+1>已用时间 00:00:00.65
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========
+
+
+Determining if the include file unistd.h exists failed with the following output:
+Change Dir: C:/opencv/sources/build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~2.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec742349294
+
+Microsoft(R) Visual Studio 10.0.40219.1 版。
+版权所有(C) Microsoft Corp。保留所有权利。
+1>------ 已启动生成: 项目: cmTryCompileExec742349294, 配置: Debug Win32 ------
+1>生成启动时间为 2014/8/4 16:58:44。
+1>PrepareForBuild:
+1>  正在创建目录“C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\”。
+1>InitializeBuildStatus:
+1>  正在创建“cmTryCompileExec742349294.dir\Debug\cmTryCompileExec742349294.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+1>ClCompile:
+1>  用于 80x86 的 Microsoft (R) 32 位 C/C++ 优化编译器 16.00.40219.01 版
+1>  版权所有(C) Microsoft Corporation。保留所有权利。
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oi /Oy- /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec742349294.dir\Debug\\" /Fd"cmTryCompileExec742349294.dir\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt CheckIncludeFile.c  /bigobj 
+1>  
+1>  CheckIncludeFile.c
+1>CheckIncludeFile.c(1): fatal error C1083: 无法打开包括文件:“unistd.h”: No such file or directory
+1>
+1>生成失败。
+1>
+1>已用时间 00:00:00.28
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========
+
+
+Determining size of off64_t failed with the following output:
+Change Dir: C:/opencv/sources/build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~2.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec2597224801
+
+Microsoft(R) Visual Studio 10.0.40219.1 版。
+版权所有(C) Microsoft Corp。保留所有权利。
+1>------ 已启动生成: 项目: cmTryCompileExec2597224801, 配置: Debug Win32 ------
+1>生成启动时间为 2014/8/4 16:59:05。
+1>PrepareForBuild:
+1>  正在创建目录“C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\”。
+1>InitializeBuildStatus:
+1>  正在创建“cmTryCompileExec2597224801.dir\Debug\cmTryCompileExec2597224801.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+1>ClCompile:
+1>  用于 80x86 的 Microsoft (R) 32 位 C/C++ 优化编译器 16.00.40219.01 版
+1>  版权所有(C) Microsoft Corporation。保留所有权利。
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oi /Oy- /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec2597224801.dir\Debug\\" /Fd"cmTryCompileExec2597224801.dir\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\CheckTypeSize\OFF64_T.c  /bigobj 
+1>  
+1>  OFF64_T.c
+1>..\CheckTypeSize\OFF64_T.c(19): error C2065: “off64_t”: 未声明的标识符
+1>..\CheckTypeSize\OFF64_T.c(20): error C2065: “off64_t”: 未声明的标识符
+1>..\CheckTypeSize\OFF64_T.c(21): error C2065: “off64_t”: 未声明的标识符
+1>..\CheckTypeSize\OFF64_T.c(22): error C2065: “off64_t”: 未声明的标识符
+1>..\CheckTypeSize\OFF64_T.c(23): error C2065: “off64_t”: 未声明的标识符
+1>
+1>生成失败。
+1>
+1>已用时间 00:00:00.24
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========
+
+C:/opencv/sources/build/CMakeFiles/CheckTypeSize/OFF64_T.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(off64_t))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining if the function jbg_newlen exists failed with the following output:
+Change Dir: C:/opencv/sources/build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~2.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec956730513
+
+Microsoft(R) Visual Studio 10.0.40219.1 版。
+版权所有(C) Microsoft Corp。保留所有权利。
+1>------ 已启动生成: 项目: cmTryCompileExec956730513, 配置: Debug Win32 ------
+1>生成启动时间为 2014/8/4 16:59:24。
+1>PrepareForBuild:
+1>  正在创建目录“C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\”。
+1>InitializeBuildStatus:
+1>  正在创建“cmTryCompileExec956730513.dir\Debug\cmTryCompileExec956730513.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+1>ClCompile:
+1>  用于 80x86 的 Microsoft (R) 32 位 C/C++ 优化编译器 16.00.40219.01 版
+1>  版权所有(C) Microsoft Corporation。保留所有权利。
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oi /Oy- /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /D CHECK_FUNCTION_EXISTS=jbg_newlen /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec956730513.dir\Debug\\" /Fd"cmTryCompileExec956730513.dir\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt "..\..\..\..\..\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CheckFunctionExists.c"  /bigobj 
+1>  
+1>  CheckFunctionExists.c
+1>CheckFunctionExists.obj : error LNK2019: 无法解析的外部符号 _jbg_newlen，该符号在函数 _main 中被引用
+1>C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec956730513.exe : fatal error LNK1120: 1 个无法解析的外部命令
+1>
+1>生成失败。
+1>
+1>已用时间 00:00:00.52
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========
+
+
+Determining if the function mmap exists failed with the following output:
+Change Dir: C:/opencv/sources/build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~2.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec1678382276
+
+Microsoft(R) Visual Studio 10.0.40219.1 版。
+版权所有(C) Microsoft Corp。保留所有权利。
+1>------ 已启动生成: 项目: cmTryCompileExec1678382276, 配置: Debug Win32 ------
+1>生成启动时间为 2014/8/4 16:59:27。
+1>PrepareForBuild:
+1>  正在创建目录“C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\”。
+1>InitializeBuildStatus:
+1>  正在创建“cmTryCompileExec1678382276.dir\Debug\cmTryCompileExec1678382276.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+1>ClCompile:
+1>  用于 80x86 的 Microsoft (R) 32 位 C/C++ 优化编译器 16.00.40219.01 版
+1>  版权所有(C) Microsoft Corporation。保留所有权利。
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oi /Oy- /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /D CHECK_FUNCTION_EXISTS=mmap /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec1678382276.dir\Debug\\" /Fd"cmTryCompileExec1678382276.dir\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt "..\..\..\..\..\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CheckFunctionExists.c"  /bigobj 
+1>  
+1>  CheckFunctionExists.c
+1>CheckFunctionExists.obj : error LNK2019: 无法解析的外部符号 _mmap，该符号在函数 _main 中被引用
+1>C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1678382276.exe : fatal error LNK1120: 1 个无法解析的外部命令
+1>
+1>生成失败。
+1>
+1>已用时间 00:00:00.54
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========
+
+
+Determining if the include file unistd.h exists failed with the following output:
+Change Dir: C:/opencv/sources/build/CMakeFiles/CMakeTmp
+
+Run Build Command:C:\PROGRA~2\MICROS~2.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec2325063993
+
+Microsoft(R) Visual Studio 10.0.40219.1 版。
+版权所有(C) Microsoft Corp。保留所有权利。
+1>------ 已启动生成: 项目: cmTryCompileExec2325063993, 配置: Debug Win32 ------
+1>生成启动时间为 2014/8/4 16:59:41。
+1>PrepareForBuild:
+1>  正在创建目录“C:\opencv\sources\build\CMakeFiles\CMakeTmp\Debug\”。
+1>InitializeBuildStatus:
+1>  正在创建“cmTryCompileExec2325063993.dir\Debug\cmTryCompileExec2325063993.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+1>ClCompile:
+1>  用于 80x86 的 Microsoft (R) 32 位 C/C++ 优化编译器 16.00.40219.01 版
+1>  版权所有(C) Microsoft Corporation。保留所有权利。
+1>  
+1>  cl /c /Zi /W3 /WX- /Od /Ob0 /Oi /Oy- /D WIN32 /D _WINDOWS /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /Gy /arch:SSE2 /fp:fast /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec2325063993.dir\Debug\\" /Fd"cmTryCompileExec2325063993.dir\Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt CheckIncludeFile.c  /bigobj 
+1>  
+1>  CheckIncludeFile.c
+1>CheckIncludeFile.c(1): fatal error C1083: 无法打开包括文件:“unistd.h”: No such file or directory
+1>
+1>生成失败。
+1>
+1>已用时间 00:00:00.17
+========== 生成: 成功 0 个，失败 1 个，最新 0 个，跳过 0 个 ==========
+
+

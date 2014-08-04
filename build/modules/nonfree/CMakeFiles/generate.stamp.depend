@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+C:/opencv/sources/modules/nonfree/CMakeLists.txt
+C:/opencv/sources/build/modules/nonfree/CMakeFiles/cuda_compile.dir/src/cuda/cuda_compile_generated_surf.cu.obj.depend
+C:/opencv/sources/cmake/FindCUDA/run_nvcc.cmake

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\modules\nonfree\src\nonfree_init.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\nonfree\src\sift.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\nonfree\src\surf.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\nonfree\src\surf.ocl.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\nonfree\src\surf_gpu.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencl_kernels.cpp">
+      <Filter>OpenCL</Filter>
+    </ClCompile>
+    <ClCompile Include="opencv_nonfree_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\modules\nonfree\include\opencv2\nonfree\features2d.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\nonfree\include\opencv2\nonfree\gpu.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\nonfree\include\opencv2\nonfree\nonfree.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\nonfree\include\opencv2\nonfree\ocl.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="opencl_kernels.hpp">
+      <Filter>OpenCL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\nonfree\src\precomp.hpp">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cvconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\opencv2\opencv_modules.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\modules\nonfree\src\cuda\surf.cu">
+      <Filter>Src\Cuda</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\modules\nonfree\CMakeLists.txt" />
+    <CustomBuild Include="..\..\CMakeFiles\30b8dd231ba77ff091a87ab6fc87630f\opencl_kernels.cpp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_surf.cu.obj">
+      <Filter>Object Files</Filter>
+    </None>
+    <None Include="..\..\..\modules\nonfree\src\opencl\surf.cl">
+      <Filter>OpenCL</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Src\Cuda">
+      <UniqueIdentifier>{8F6CD30F-73AD-4B49-BBE1-5FEBB6456CC5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{872EA7CF-7A6E-4D0D-90EA-82006A2EF0C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{356861E4-2E30-4EC6-9B30-888FE003440B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{980B272D-03CE-430A-9C5A-901FEEE47C09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object Files">
+      <UniqueIdentifier>{38C72229-2C5B-4B7D-A364-65F004474942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{F1AE1A71-E8BC-4FC4-9E39-DFEAE9EF8622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenCL">
+      <UniqueIdentifier>{59650E22-48B4-490F-863C-3735CFD7D960}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{51E3DDCB-2312-46DE-ACEB-73FCD93038C7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

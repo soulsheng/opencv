@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\modules\gpu\test\main.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_bgfg.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_calib3d.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_color.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_copy_make_border.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_core.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_denoising.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_features2d.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_filters.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_global_motion.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_gpumat.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_hough.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_imgproc.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_labeling.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_nvidia.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_objdetect.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_opengl.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_optflow.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_pyramids.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_remap.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_resize.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_stream.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_threshold.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_video.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_warp_affine.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\test_warp_perspective.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\main_nvidia.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestCompact.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestDrawRects.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeApplication.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeLoader.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesFilter.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesGrow.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImage.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImageSquared.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestRectStdDev.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestResize.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestTranspose.cpp">
+      <Filter>Src\NVidia</Filter>
+    </ClCompile>
+    <ClCompile Include="opencv_test_gpu_pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\modules\gpu\test\interpolation.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\test_precomp.hpp">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\main_test_nvidia.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\NCVAutoTestLister.hpp">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\NCVTest.hpp">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\NCVTestSourceProvider.hpp">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestCompact.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestDrawRects.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeApplication.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeLoader.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesFilter.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesGrow.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImage.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImageSquared.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestRectStdDev.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestResize.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestTranspose.h">
+      <Filter>Src\NVidia</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\modules\gpu\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Src\NVidia">
+      <UniqueIdentifier>{E2DF2549-0050-4C11-8F06-BBD7AE2A2036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{872EA7CF-7A6E-4D0D-90EA-82006A2EF0C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{51E3DDCB-2312-46DE-ACEB-73FCD93038C7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{F1AE1A71-E8BC-4FC4-9E39-DFEAE9EF8622}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{4855E576-2428-4591-A00D-6ED85FFCDBC7}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>opencv_test_objdetect</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\bin\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_test_objdetect.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_test_objdetectd</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\bin\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_test_objdetect.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_test_objdetect</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\objdetect\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\build\modules\objdetect;C:\opencv\sources\modules\objdetect\src;C:\opencv\sources\modules\objdetect\test;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForcedIncludeFiles>C:/opencv/sources/modules/objdetect/test/test_precomp.hpp</ForcedIncludeFiles>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>C:/opencv/sources/modules/objdetect/test/test_precomp.hpp</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;_VARIADIC_MAX=10;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;_VARIADIC_MAX=10;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\objdetect\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\build\modules\objdetect;C:\opencv\sources\modules\objdetect\src;C:\opencv\sources\modules\objdetect\test;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\objdetect\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\build\modules\objdetect;C:\opencv\sources\modules\objdetect\src;C:\opencv\sources\modules\objdetect\test;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_objdetect248d.lib;..\..\lib\Debug\opencv_ts248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_core248d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>C:/opencv/sources/build/bin/Debug/opencv_test_objdetectd.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/opencv/sources/build/bin/Debug/opencv_test_objdetectd.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\objdetect\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\build\modules\objdetect;C:\opencv\sources\modules\objdetect\src;C:\opencv\sources\modules\objdetect\test;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <ForcedIncludeFiles>C:/opencv/sources/modules/objdetect/test/test_precomp.hpp</ForcedIncludeFiles>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>C:/opencv/sources/modules/objdetect/test/test_precomp.hpp</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;_VARIADIC_MAX=10;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;_VARIADIC_MAX=10;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\objdetect\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\build\modules\objdetect;C:\opencv\sources\modules\objdetect\src;C:\opencv\sources\modules\objdetect\test;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\objdetect\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\build\modules\objdetect;C:\opencv\sources\modules\objdetect\src;C:\opencv\sources\modules\objdetect\test;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_objdetect248.lib;..\..\lib\Release\opencv_ts248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_features2d248.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_core248.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>C:/opencv/sources/build/bin/Release/opencv_test_objdetect.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/opencv/sources/build/bin/Release/opencv_test_objdetect.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\modules\objdetect\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/opencv/sources/modules/objdetect/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\modules\objdetect\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/objdetect/CMakeLists.txt;C:\opencv\sources\modules\objdetect\CMakeLists.txt;C:\opencv\sources\modules\objdetect\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\modules\objdetect\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/opencv/sources/modules/objdetect/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\modules\objdetect\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/modules/objdetect/CMakeLists.txt;C:\opencv\sources\modules\objdetect\CMakeLists.txt;C:\opencv\sources\modules\objdetect\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\modules\objdetect\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\modules\objdetect\test\test_precomp.hpp" />
+    <ClCompile Include="..\..\..\modules\objdetect\test\test_cascadeandhog.cpp"  />
+    <ClCompile Include="..\..\..\modules\objdetect\test\test_latentsvmdetector.cpp"  />
+    <ClCompile Include="..\..\..\modules\objdetect\test\test_main.cpp"  />
+    <ClCompile Include="opencv_test_objdetect_pch.cpp" >
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/objdetect/test/test_precomp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/modules/objdetect/test/test_precomp.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
+      <Project>217B5AB9-29C9-435F-AE1B-8598893A63B8</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
+      <Project>850C6E8B-DEB2-458B-BFE5-226EE50A9B79</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/features2d/opencv_features2d.vcxproj">
+      <Project>9DB5399A-5991-40CD-BCBB-65F5ADD6E969</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_flann.vcxproj">
+      <Project>BAA389EE-1DA1-4AC1-827F-3AD061D40952</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/highgui/opencv_highgui.vcxproj">
+      <Project>387BB5FF-3F53-411A-9E5A-470B26E19EA3</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_imgproc.vcxproj">
+      <Project>5088A88D-71D1-4291-B8B0-527524D44694</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/objdetect/opencv_objdetect.vcxproj">
+      <Project>742E0B4D-5E94-4508-AAF7-FC9BEDE9CADB</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/ts/opencv_ts.vcxproj">
+      <Project>0F647B2E-BCFE-4EE4-910C-6B024B6592CA</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

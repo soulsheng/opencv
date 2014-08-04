@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+C:/opencv/sources/modules/superres/CMakeLists.txt
+C:/opencv/sources/build/modules/superres/CMakeFiles/cuda_compile.dir/src/cuda/cuda_compile_generated_btv_l1_gpu.cu.obj.depend
+C:/opencv/sources/cmake/FindCUDA/run_nvcc.cmake
