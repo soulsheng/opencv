@@ -47,6 +47,9 @@ macro(add_extra_compiler_option option)
   endif()
 endmacro()
 
+# OpenCV fails some tests when 'char' is 'unsigned' by default
+add_extra_compiler_option(-fsigned-char)
+
 if(MINGW)
   # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=40838
   # here we are trying to workaround the problem
@@ -56,12 +59,18 @@ if(MINGW)
   endif()
 endif()
 
+if(OPENCV_CAN_BREAK_BINARY_COMPATIBILITY)
+  add_definitions(-DOPENCV_CAN_BREAK_BINARY_COMPATIBILITY)
+endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX)
   # High level of warnings.
   add_extra_compiler_option(-W)
   add_extra_compiler_option(-Wall)
   add_extra_compiler_option(-Werror=return-type)
-  #add_extra_compiler_option(-Werror=non-virtual-dtor)
+  if(OPENCV_CAN_BREAK_BINARY_COMPATIBILITY)
+    add_extra_compiler_option(-Werror=non-virtual-dtor)
+  endif()
   add_extra_compiler_option(-Werror=address)
   add_extra_compiler_option(-Werror=sequence-point)
   add_extra_compiler_option(-Wformat)
@@ -91,7 +100,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   endif()
 
   # We need pthread's
-  if(UNIX AND NOT ANDROID)
+  if(UNIX AND NOT ANDROID AND NOT (APPLE AND CMAKE_COMPILER_IS_CLANGCXX))
     add_extra_compiler_option(-pthread)
   endif()
 
@@ -120,6 +129,12 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   endif()
   if(ENABLE_SSE2)
     add_extra_compiler_option(-msse2)
+  endif()
+  if (ENABLE_NEON)
+    add_extra_compiler_option("-mfpu=neon")
+  endif()
+  if (ENABLE_VFPV3 AND NOT ENABLE_NEON)
+    add_extra_compiler_option("-mfpu=vfpv3")
   endif()
 
   # SSE3 and further should be disabled under MingW because it generates compiler errors
@@ -174,9 +189,6 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 
   set(OPENCV_EXTRA_FLAGS_RELEASE "${OPENCV_EXTRA_FLAGS_RELEASE} -DNDEBUG")
   set(OPENCV_EXTRA_FLAGS_DEBUG "${OPENCV_EXTRA_FLAGS_DEBUG} -O0 -DDEBUG -D_DEBUG")
-  if(BUILD_WITH_DEBUG_INFO)
-    set(OPENCV_EXTRA_FLAGS_DEBUG "${OPENCV_EXTRA_FLAGS_DEBUG} -ggdb3")
-  endif()
 endif()
 
 if(MSVC)
@@ -229,6 +241,10 @@ if(MSVC)
     if(CMAKE_SIZEOF_VOID_P EQUAL 4 AND ENABLE_SSE2)
       set(OPENCV_EXTRA_FLAGS "${OPENCV_EXTRA_FLAGS} /fp:fast") # !! important - be on the same wave with x64 compilers
     endif()
+  endif()
+
+  if(OPENCV_WARNINGS_ARE_ERRORS)
+    set(OPENCV_EXTRA_FLAGS "${OPENCV_EXTRA_FLAGS} /WX")
   endif()
 endif()
 

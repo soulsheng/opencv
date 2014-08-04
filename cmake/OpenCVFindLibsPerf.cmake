@@ -7,11 +7,6 @@ if(WITH_TBB)
   include("${OpenCV_SOURCE_DIR}/cmake/OpenCVDetectTBB.cmake")
 endif(WITH_TBB)
 
-# --- C= ---
-if(WITH_CSTRIPES)
-  include("${OpenCV_SOURCE_DIR}/cmake/OpenCVDetectCStripes.cmake")
-endif(WITH_CSTRIPES)
-
 # --- IPP ---
 ocv_clear_vars(IPP_FOUND)
 if(WITH_IPP)
@@ -32,7 +27,7 @@ endif(WITH_CUDA)
 # --- Eigen ---
 if(WITH_EIGEN)
   find_path(EIGEN_INCLUDE_PATH "Eigen/Core"
-            PATHS /usr/local /opt /usr $ENV{EIGEN_ROOT}/include ENV ProgramFiles ENV ProgramW6432 
+            PATHS /usr/local /opt /usr ENV ProgramFiles ENV ProgramW6432
             PATH_SUFFIXES include/eigen3 include/eigen2 Eigen/include/eigen3 Eigen/include/eigen2
             DOC "The path to Eigen3/Eigen2 headers"
             CMAKE_FIND_ROOT_PATH_BOTH)
@@ -44,41 +39,36 @@ if(WITH_EIGEN)
   endif()
 endif(WITH_EIGEN)
 
-# --- Clp ---
-# Ubuntu: sudo apt-get install coinor-libclp-dev coinor-libcoinutils-dev
-ocv_clear_vars(HAVE_CLP)
-if(WITH_CLP)
-  if(UNIX)
-    PKG_CHECK_MODULES(CLP clp)
-    if(CLP_FOUND)
-      set(HAVE_CLP TRUE)
-      if(NOT ${CLP_INCLUDE_DIRS} STREQUAL "")
-        ocv_include_directories(${CLP_INCLUDE_DIRS})
-      endif()
-      link_directories(${CLP_LIBRARY_DIRS})
-      set(OPENCV_LINKER_LIBS ${OPENCV_LINKER_LIBS} ${CLP_LIBRARIES})
-    endif()
-  endif()
+# --- C= ---
+if(WITH_CSTRIPES AND NOT HAVE_TBB)
+  include("${OpenCV_SOURCE_DIR}/cmake/OpenCVDetectCStripes.cmake")
+else()
+  set(HAVE_CSTRIPES 0)
+endif()
 
-  if(NOT CLP_FOUND)
-    find_path(CLP_INCLUDE_PATH "coin"
-              PATHS "/usr/local/include" "/usr/include" "/opt/include"
-              DOC "The path to Clp headers")
-    if(CLP_INCLUDE_PATH)
-      ocv_include_directories(${CLP_INCLUDE_PATH} "${CLP_INCLUDE_PATH}/coin")
-      get_filename_component(_CLP_LIBRARY_DIR "${CLP_INCLUDE_PATH}/../lib" ABSOLUTE)
-      set(CLP_LIBRARY_DIR "${_CLP_LIBRARY_DIR}" CACHE PATH "Full path of Clp library directory")
-      link_directories(${CLP_LIBRARY_DIR})
-      if(UNIX)
-        set(OPENCV_LINKER_LIBS ${OPENCV_LINKER_LIBS} Clp CoinUtils m)
-      else()
-        if(MINGW)
-            set(OPENCV_LINKER_LIBS ${OPENCV_LINKER_LIBS} Clp CoinUtils)
-        else()
-            set(OPENCV_LINKER_LIBS ${OPENCV_LINKER_LIBS} libClp libCoinUtils)
-        endif()
-      endif()
-      set(HAVE_CLP TRUE)
-    endif()
+# --- OpenMP ---
+if(WITH_OPENMP AND NOT HAVE_TBB AND NOT HAVE_CSTRIPES)
+  find_package(OpenMP)
+  if(OPENMP_FOUND)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
   endif()
-endif(WITH_CLP)
+  set(HAVE_OPENMP "${OPENMP_FOUND}")
+endif()
+
+# --- GCD ---
+if(APPLE AND NOT HAVE_TBB AND NOT HAVE_CSTRIPES AND NOT HAVE_OPENMP)
+  set(HAVE_GCD 1)
+else()
+  set(HAVE_GCD 0)
+endif()
+
+# --- Concurrency ---
+if(MSVC AND NOT HAVE_TBB AND NOT HAVE_CSTRIPES AND NOT HAVE_OPENMP)
+  set(_fname "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/concurrencytest.cpp")
+  file(WRITE "${_fname}" "#if _MSC_VER < 1600\n#error\n#endif\nint main() { return 0; }\n")
+  try_compile(HAVE_CONCURRENCY "${CMAKE_BINARY_DIR}" "${_fname}")
+  file(REMOVE "${_fname}")
+else()
+  set(HAVE_CONCURRENCY 0)
+endif()

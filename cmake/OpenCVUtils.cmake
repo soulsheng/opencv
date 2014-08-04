@@ -11,6 +11,29 @@ if(NOT COMMAND find_host_program)
   endmacro()
 endif()
 
+# assert macro
+# Note: it doesn't support lists in arguments
+# Usage samples:
+#   ocv_assert(MyLib_FOUND)
+#   ocv_assert(DEFINED MyLib_INCLUDE_DIRS)
+macro(ocv_assert)
+  if(NOT (${ARGN}))
+    string(REPLACE ";" " " __assert_msg "${ARGN}")
+    message(AUTHOR_WARNING "Assertion failed: ${__assert_msg}")
+  endif()
+endmacro()
+
+macro(ocv_check_environment_variables)
+  foreach(_var ${ARGN})
+    if(NOT DEFINED ${_var} AND DEFINED ENV{${_var}})
+      set(__value "$ENV{${_var}}")
+      file(TO_CMAKE_PATH "${__value}" __value) # Assume that we receive paths
+      set(${_var} "${__value}")
+      message(STATUS "Update variable ${_var} from environment: ${${_var}}")
+    endif()
+  endforeach()
+endmacro()
+
 # adds include directories in such way that directories from the OpenCV source tree go first
 function(ocv_include_directories)
   set(__add_before "")
@@ -64,13 +87,20 @@ MACRO(ocv_check_compiler_flag LANG FLAG RESULT)
       else()
         FILE(WRITE "${_fname}" "#pragma\nint main(void) { return 0; }\n")
       endif()
+    elseif("_${LANG}_" MATCHES "_OBJCXX_")
+      set(_fname "${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/src.mm")
+      if("${CMAKE_CXX_FLAGS} ${FLAG} " MATCHES "-Werror " OR "${CMAKE_CXX_FLAGS} ${FLAG} " MATCHES "-Werror=unknown-pragmas ")
+        FILE(WRITE "${_fname}" "int main() { return 0; }\n")
+      else()
+        FILE(WRITE "${_fname}" "#pragma\nint main() { return 0; }\n")
+      endif()
     else()
       unset(_fname)
     endif()
     if(_fname)
       MESSAGE(STATUS "Performing Test ${RESULT}")
       TRY_COMPILE(${RESULT}
-        ${CMAKE_BINARY_DIR}
+        "${CMAKE_BINARY_DIR}"
         "${_fname}"
         COMPILE_DEFINITIONS "${FLAG}"
         OUTPUT_VARIABLE OUTPUT)
@@ -100,6 +130,8 @@ macro(ocv_check_flag_support lang flag varname)
     set(_lang CXX)
   elseif("_${lang}_" MATCHES "_C_")
     set(_lang C)
+  elseif("_${lang}_" MATCHES "_OBJCXX_")
+    set(_lang OBJCXX)
   else()
     set(_lang ${lang})
   endif()
@@ -132,7 +164,7 @@ macro(ocv_warnings_disable)
           set(${var} "${${var}} ${warning}")
         endforeach()
       endforeach()
-    elseif(CV_COMPILER_IS_GNU AND _gxx_warnings AND _flag_vars)
+    elseif((CMAKE_COMPILER_IS_GNUCXX OR (UNIX AND CV_ICC)) AND _gxx_warnings AND _flag_vars)
       foreach(var ${_flag_vars})
         foreach(warning ${_gxx_warnings})
           if(NOT warning MATCHES "^-Wno-")
@@ -402,16 +434,6 @@ macro(ocv_regex_escape var regex)
 endmacro()
 
 
-# get absolute path with symlinks resolved
-macro(ocv_get_real_path VAR PATHSTR)
-  if(CMAKE_VERSION VERSION_LESS 2.8)
-    get_filename_component(${VAR} "${PATHSTR}" ABSOLUTE)
-  else()
-    get_filename_component(${VAR} "${PATHSTR}" REALPATH)
-  endif()
-endmacro()
-
-
 # convert list of paths to full paths
 macro(ocv_convert_to_full_paths VAR)
   if(${VAR})
@@ -424,6 +446,72 @@ macro(ocv_convert_to_full_paths VAR)
     unset(__tmp)
   endif()
 endmacro()
+
+
+# add install command
+function(ocv_install_target)
+  install(TARGETS ${ARGN})
+
+  set(isPackage 0)
+  unset(__package)
+  unset(__target)
+  foreach(e ${ARGN})
+    if(NOT DEFINED __target)
+      set(__target "${e}")
+    endif()
+    if(isPackage EQUAL 1)
+      set(__package "${e}")
+      break()
+    endif()
+    if(e STREQUAL "EXPORT")
+      set(isPackage 1)
+    endif()
+  endforeach()
+
+  if(DEFINED __package)
+    list(APPEND ${__package}_TARGETS ${__target})
+    set(${__package}_TARGETS "${${__package}_TARGETS}" CACHE INTERNAL "List of ${__package} targets")
+  endif()
+
+  if(INSTALL_CREATE_DISTRIB)
+    if(MSVC AND NOT BUILD_SHARED_LIBS)
+      set(__target "${ARGV0}")
+
+      set(isArchive 0)
+      set(isDst 0)
+      unset(__dst)
+      foreach(e ${ARGN})
+        if(isDst EQUAL 1)
+          set(__dst "${e}")
+          break()
+        endif()
+        if(isArchive EQUAL 1 AND e STREQUAL "DESTINATION")
+          set(isDst 1)
+        endif()
+        if(e STREQUAL "ARCHIVE")
+          set(isArchive 1)
+        else()
+          set(isArchive 0)
+        endif()
+      endforeach()
+
+#      message(STATUS "Process ${__target} dst=${__dst}...")
+      if(DEFINED __dst)
+        get_target_property(fname ${__target} LOCATION_DEBUG)
+        if(fname MATCHES "\\.lib$")
+          string(REGEX REPLACE "\\.lib$" ".pdb" fname "${fname}")
+          install(FILES ${fname} DESTINATION ${__dst} CONFIGURATIONS Debug)
+        endif()
+
+        get_target_property(fname ${__target} LOCATION_RELEASE)
+        if(fname MATCHES "\\.lib$")
+          string(REGEX REPLACE "\\.lib$" ".pdb" fname "${fname}")
+          install(FILES ${fname} DESTINATION ${__dst} CONFIGURATIONS Release)
+        endif()
+      endif()
+    endif()
+  endif()
+endfunction()
 
 
 # read set of version defines from the header file
@@ -502,6 +590,13 @@ macro(ocv_parse_header2 LIBNAME HDR_PATH VARNAME)
   endif()
 endmacro()
 
+# read single version info from the pkg file
+macro(ocv_parse_pkg LIBNAME PKG_PATH SCOPE)
+  if(EXISTS "${PKG_PATH}/${LIBNAME}.pc")
+    file(STRINGS "${PKG_PATH}/${LIBNAME}.pc" line_to_parse REGEX "^Version:[ \t]+[0-9.]*.*$" LIMIT_COUNT 1)
+    STRING(REGEX REPLACE ".*Version: ([^ ]+).*" "\\1" ALIASOF_${LIBNAME}_VERSION "${line_to_parse}" )
+  endif()
+endmacro()
 
 ################################################################################################
 # short command to setup source group
