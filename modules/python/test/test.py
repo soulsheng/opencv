@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import unittest
 import random
 import time
@@ -13,6 +15,8 @@ import operator
 import functools
 
 import cv2.cv as cv
+
+from test2 import *
 
 class OpenCVTests(unittest.TestCase):
 
@@ -1642,7 +1646,7 @@ class AreaTests(OpenCVTests):
             cv.SetData(imagefiledata, filedata, len(filedata))
             return cv.DecodeImageM(imagefiledata)
 
-        urllib.urlretrieve("http://opencv.itseez.com/data/camera_calibration.tar.gz", "camera_calibration.tar.gz")
+        urllib.urlretrieve("http://docs.opencv.org/data/camera_calibration.tar.gz", "camera_calibration.tar.gz")
         tf = tarfile.open("camera_calibration.tar.gz")
 
         num_x_ints = 8
@@ -2197,10 +2201,6 @@ class DocumentFragmentTests(OpenCVTests):
         h3 = hs_histogram(i3)
         self.assertEqual(self.hashimg(h1), self.hashimg(h3))
         self.assertNotEqual(self.hashimg(h1), self.hashimg(h2))
-
-class NewTests(OpenCVTests):
-
-    pass
 
 if __name__ == '__main__':
     print "testing", cv.__version__

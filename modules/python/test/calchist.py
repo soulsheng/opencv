@@ -1,5 +1,6 @@
-# Calculating and displaying 2D Hue-Saturation histogram of a color image
+#!/usr/bin/env python
 
+# Calculating and displaying 2D Hue-Saturation histogram of a color image
 import sys
 import cv2.cv as cv
 
@@ -50,4 +51,3 @@ if __name__ == '__main__':
     cv.ShowImage("H-S Histogram", hs_histogram(src))
 
     cv.WaitKey(0)
-

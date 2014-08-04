@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import testlog_parser, sys, os, xml, glob, re
 from table_formatter import *
 from optparse import OptionParser
@@ -35,10 +37,13 @@ if __name__ == "__main__":
     parser.add_option("", "--module", dest="module", default=None, metavar="NAME", help="module prefix for test names")
     parser.add_option("", "--columns", dest="columns", default=None, metavar="NAMES", help="comma-separated list of column aliases")
     parser.add_option("", "--no-relatives", action="store_false", dest="calc_relatives", default=True, help="do not output relative values")
-    parser.add_option("", "--with-cycles-reduction", action="store_true", dest="calc_cr", default=False, help="alos output cycle reduction percentages")
+    parser.add_option("", "--with-cycles-reduction", action="store_true", dest="calc_cr", default=False, help="output cycle reduction percentages")
+    parser.add_option("", "--with-score", action="store_true", dest="calc_score", default=False, help="output automatic classification of speedups")
+    parser.add_option("", "--progress", action="store_true", dest="progress_mode", default=False, help="enable progress mode")
     parser.add_option("", "--show-all", action="store_true", dest="showall", default=False, help="also include empty and \"notrun\" lines")
     parser.add_option("", "--match", dest="match", default=None)
     parser.add_option("", "--match-replace", dest="match_replace", default="")
+    parser.add_option("", "--regressions-only", dest="regressionsOnly", default=None, metavar="X-FACTOR", help="show only tests with performance regressions not")
     (options, args) = parser.parse_args()
 
     options.generateHtml = detectHtmlOutputType(options.format)
@@ -104,10 +109,9 @@ if __name__ == "__main__":
 
     # build table
     getter = metrix_table[options.metric][1]
-    if options.calc_relatives:
-        getter_p = metrix_table[options.metric + "%"][1]
-    if options.calc_cr:
-        getter_cr = metrix_table[options.metric + "$"][1]
+    getter_score = metrix_table["score"][1] if options.calc_score else None
+    getter_p = metrix_table[options.metric + "%"][1] if options.calc_relatives else None
+    getter_cr = metrix_table[options.metric + "$"][1] if options.calc_cr else None
     tbl = table(metrix_table[options.metric][0])
 
     # header
@@ -120,12 +124,20 @@ if __name__ == "__main__":
     if options.calc_cr:
         i = 1
         for set in metric_sets:
-            tbl.newColumn(str(i) + "$", getSetName(set, i, options.columns) + "\nvs\n" + getSetName(test_sets[0], 0, options.columns) + "\n(cycles reduction)", align = "center", cssclass = "col_cr")
+            reference = getSetName(test_sets[0], 0, options.columns) if not options.progress_mode else 'previous'
+            tbl.newColumn(str(i) + "$", getSetName(set, i, options.columns) + "\nvs\n" + reference + "\n(cycles reduction)", align = "center", cssclass = "col_cr")
             i += 1
     if options.calc_relatives:
         i = 1
         for set in metric_sets:
-            tbl.newColumn(str(i) + "%", getSetName(set, i, options.columns) + "\nvs\n" + getSetName(test_sets[0], 0, options.columns) + "\n(x-factor)", align = "center", cssclass = "col_rel")
+            reference = getSetName(test_sets[0], 0, options.columns) if not options.progress_mode else 'previous'
+            tbl.newColumn(str(i) + "%", getSetName(set, i, options.columns) + "\nvs\n" + reference + "\n(x-factor)", align = "center", cssclass = "col_rel")
+            i += 1
+    if options.calc_score:
+        i = 1
+        for set in metric_sets:
+            reference = getSetName(test_sets[0], 0, options.columns) if not options.progress_mode else 'previous'
+            tbl.newColumn(str(i) + "S", getSetName(set, i, options.columns) + "\nvs\n" + reference + "\n(score)", align = "center", cssclass = "col_name")
             i += 1
 
     # rows
@@ -155,6 +167,8 @@ if __name__ == "__main__":
                     tbl.newCell(str(i) + "%", "-")
                 if options.calc_cr and i > 0:
                     tbl.newCell(str(i) + "$", "-")
+                if options.calc_score and i > 0:
+                    tbl.newCell(str(i) + "$", "-")
             else:
                 status = case.get("status")
                 if status != "run":
@@ -165,16 +179,20 @@ if __name__ == "__main__":
                         tbl.newCell(str(i) + "%", "-", color = "red")
                     if options.calc_cr and i > 0:
                         tbl.newCell(str(i) + "$", "-", color = "red")
+                    if options.calc_score and i > 0:
+                        tbl.newCell(str(i) + "S", "-", color = "red")
                 else:
                     val = getter(case, cases[0], options.units)
-                    if options.calc_relatives and i > 0 and val:
-                        valp = getter_p(case, cases[0], options.units)
-                    else:
-                        valp = None
-                    if options.calc_cr and i > 0 and val:
-                        valcr = getter_cr(case, cases[0], options.units)
-                    else:
-                        valcr = None
+                    def getter_fn(fn):
+                        if fn and i > 0 and val:
+                            for j in reversed(range(i)) if options.progress_mode else [0]:
+                                r = cases[j]
+                                if r is not None and r.get("status") == 'run':
+                                    return fn(case, r, options.units)
+                        return None
+                    valp = getter_fn(getter_p) if options.calc_relatives or options.progress_mode else None
+                    valcr = getter_fn(getter_cr) if options.calc_cr else None
+                    val_score = getter_fn(getter_score) if options.calc_score else None
                     if not valp or i == 0:
                         color = None
                     elif valp > 1.05:
@@ -190,8 +208,22 @@ if __name__ == "__main__":
                         tbl.newCell(str(i) + "%", formatValue(valp, "%"), valp, color = color, bold = color)
                     if options.calc_cr and i > 0:
                         tbl.newCell(str(i) + "$", formatValue(valcr, "$"), valcr, color = color, bold = color)
+                    if options.calc_score and i > 0:
+                        tbl.newCell(str(i) + "S", formatValue(val_score, "S"), val_score, color = color, bold = color)
     if not needNewRow:
         tbl.trimLastRow()
+
+    if options.regressionsOnly:
+        for r in reversed(range(len(tbl.rows))):
+            delete = True
+            i = 1
+            for set in metric_sets:
+                val = tbl.rows[r].cells[len(tbl.rows[r].cells)-i].value
+                if val is not None and val < float(options.regressionsOnly):
+                    delete = False
+                i += 1
+            if (delete):
+                tbl.rows.pop(r)
 
     # output table
     if options.generateHtml:
@@ -203,3 +235,6 @@ if __name__ == "__main__":
             htmlPrintFooter(sys.stdout)
     else:
         tbl.consolePrintTable(sys.stdout)
+
+    if options.regressionsOnly:
+        sys.exit(len(tbl.rows))

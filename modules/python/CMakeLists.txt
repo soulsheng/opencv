@@ -80,6 +80,10 @@ set_target_properties(${the_module} PROPERTIES
                       OUTPUT_NAME cv2
                       SUFFIX ${CVPY_SUFFIX})
 
+if(ENABLE_SOLUTION_FOLDERS)
+  set_target_properties(${the_module} PROPERTIES FOLDER "bindings")
+endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX AND NOT ENABLE_NOISY_WARNINGS)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-function")
 endif()
@@ -101,10 +105,29 @@ else()
   set(PYTHON_INSTALL_CONFIGURATIONS "")
 endif()
 
-install(TARGETS ${the_module}
-        ${PYTHON_INSTALL_CONFIGURATIONS}
-        RUNTIME DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main
-        LIBRARY DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main
-        ARCHIVE DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main
-        )
-install(FILES src2/cv.py ${PYTHON_INSTALL_CONFIGURATIONS} DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main)
+if(WIN32)
+  set(PYTHON_INSTALL_ARCHIVE "")
+else()
+  set(PYTHON_INSTALL_ARCHIVE ARCHIVE DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main)
+endif()
+
+if(NOT INSTALL_CREATE_DISTRIB)
+  install(TARGETS ${the_module}
+          ${PYTHON_INSTALL_CONFIGURATIONS}
+          RUNTIME DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main
+          LIBRARY DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main
+          ${PYTHON_INSTALL_ARCHIVE}
+          )
+  install(FILES src2/cv.py ${PYTHON_INSTALL_CONFIGURATIONS} DESTINATION ${PYTHON_PACKAGES_PATH} COMPONENT main)
+else()
+  if(DEFINED PYTHON_VERSION_MAJOR)
+    set(__ver "${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
+  else()
+    set(__ver "unknown")
+  endif()
+  install(TARGETS ${the_module}
+          CONFIGURATIONS Release
+          RUNTIME DESTINATION python/${__ver}/${OpenCV_ARCH} COMPONENT main
+          LIBRARY DESTINATION python/${__ver}/${OpenCV_ARCH} COMPONENT main
+          )
+endif()

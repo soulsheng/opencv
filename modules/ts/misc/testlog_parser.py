@@ -1,4 +1,9 @@
-import sys, re, os.path
+#!/usr/bin/env python
+
+import collections
+import re
+import os.path
+import sys
 from xml.dom.minidom import parse
 
 class TestInfo(object):
@@ -8,10 +13,17 @@ class TestInfo(object):
         self.name = xmlnode.getAttribute("name")
         self.value_param = xmlnode.getAttribute("value_param")
         self.type_param = xmlnode.getAttribute("type_param")
-        if xmlnode.getElementsByTagName("failure"):
+
+        custom_status = xmlnode.getAttribute("custom_status")
+        failures = xmlnode.getElementsByTagName("failure")
+
+        if len(custom_status) > 0:
+            self.status = custom_status
+        elif len(failures) > 0:
             self.status = "failed"
         else:
             self.status = xmlnode.getAttribute("status")
+
         if self.name.startswith("DISABLED_"):
             self.status = "disabled"
             self.fixture = self.fixture.replace("DISABLED_", "")
@@ -28,6 +40,7 @@ class TestInfo(object):
         self.parseLongMetric(xmlnode, "mean");
         self.parseLongMetric(xmlnode, "stddev");
         self.parseFloatMetric(xmlnode, "gstddev");
+        self.parseFloatMetric(xmlnode, "time");
 
     def parseLongMetric(self, xmlnode, name, default = 0):
         if xmlnode.hasAttribute(name):
@@ -76,6 +89,8 @@ class TestInfo(object):
         val = self.metrix.get(name, None)
         if not val:
             return val
+        if name == "time":
+            return self.metrix.get("time")
         if name in ["gmean", "min", "mean", "median", "stddev"]:
             scale = 1.0
             frequency = self.metrix.get("frequency", 1.0) or 1.0
@@ -95,33 +110,38 @@ class TestInfo(object):
     def dump(self, units="ms"):
         print "%s ->\t\033[1;31m%s\033[0m = \t%.2f%s" % (str(self), self.status, self.get("gmean", units), units)
 
-    def shortName(self):
+
+    def getName(self):
         pos = self.name.find("/")
         if pos > 0:
-            name = self.name[:pos]
-        else:
-            name = self.name
-        if self.fixture.endswith(name):
-            fixture = self.fixture[:-len(name)]
+            return self.name[:pos]
+        return self.name
+
+
+    def getFixture(self):
+        if self.fixture.endswith(self.getName()):
+            fixture = self.fixture[:-len(self.getName())]
         else:
             fixture = self.fixture
         if fixture.endswith("_"):
             fixture = fixture[:-1]
+        return fixture
+
+
+    def param(self):
+        return '::'.join(filter(None, [self.type_param, self.value_param]))
+
+    def shortName(self):
+        name = self.getName()
+        fixture = self.getFixture()
         return '::'.join(filter(None, [name, fixture]))
 
+
     def __str__(self):
-        pos = self.name.find("/")
-        if pos > 0:
-            name = self.name[:pos]
-        else:
-            name = self.name
-        if self.fixture.endswith(name):
-            fixture = self.fixture[:-len(name)]
-        else:
-            fixture = self.fixture
-        if fixture.endswith("_"):
-            fixture = fixture[:-1]
+        name = self.getName()
+        fixture = self.getFixture()
         return '::'.join(filter(None, [name, fixture, self.type_param, self.value_param]))
+
 
     def __cmp__(self, other):
         r = cmp(self.fixture, other.fixture);
@@ -149,12 +169,31 @@ class TestInfo(object):
                 return 1
         return 0
 
+# This is a Sequence for compatibility with old scripts,
+# which treat parseLogFile's return value as a list.
+class TestRunInfo(collections.Sequence):
+    def __init__(self, properties, tests):
+        self.properties = properties
+        self.tests = tests
+
+    def __len__(self):
+        return len(self.tests)
+
+    def __getitem__(self, key):
+        return self.tests[key]
+
 def parseLogFile(filename):
-    tests = []
     log = parse(filename)
-    for case in log.getElementsByTagName("testcase"):
-        tests.append(TestInfo(case))
-    return tests
+
+    properties = {
+        attr_name[3:]: attr_value
+        for (attr_name, attr_value) in log.documentElement.attributes.items()
+        if attr_name.startswith('cv_')
+    }
+
+    tests = map(TestInfo, log.getElementsByTagName("testcase"))
+
+    return TestRunInfo(properties, tests)
 
 
 if __name__ == "__main__":
@@ -163,8 +202,18 @@ if __name__ == "__main__":
         exit(0)
 
     for arg in sys.argv[1:]:
-        print "Tests found in", arg
-        tests = parseLogFile(arg)
-        for t in sorted(tests):
+        print "Processing {}...".format(arg)
+
+        run = parseLogFile(arg)
+
+        print "Properties:"
+
+        for (prop_name, prop_value) in run.properties.items():
+          print "\t{} = {}".format(prop_name, prop_value)
+
+        print "Tests:"
+
+        for t in sorted(run.tests):
             t.dump()
+
         print
