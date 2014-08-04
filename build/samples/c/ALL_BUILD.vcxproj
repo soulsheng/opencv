@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\contrib\include;C:\opencv\sources\modules\legacy\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\nonfree\include;C:\opencv\sources\modules\photo\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\contrib\include;C:\opencv\sources\modules\legacy\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\nonfree\include;C:\opencv\sources\modules\photo\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\samples\c\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/opencv/sources/samples/c/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\samples\c\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/samples/c/CMakeLists.txt;C:\opencv\sources\samples\c\CMakeLists.txt;C:\opencv\sources\samples\c\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\samples\c\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/opencv/sources/samples/c/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\samples\c\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/samples/c/CMakeLists.txt;C:\opencv\sources\samples\c\CMakeLists.txt;C:\opencv\sources\samples\c\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\samples\c\CMakeFiles\generate.stamp</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\CMakeFiles\3700fc29c440950e3c6d8d34f61c98a7\ALL_BUILD.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/build/CMakeFiles/3700fc29c440950e3c6d8d34f61c98a7/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\samples\c\CMakeFiles\ALL_BUILD</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/build/CMakeFiles/3700fc29c440950e3c6d8d34f61c98a7/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\samples\c\CMakeFiles\ALL_BUILD</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CMakeFiles\ALL_BUILD" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_adaptiveskindetector.vcxproj">
+      <Project>9484B394-D55B-4A3F-8A8D-377B187437F8</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_bgfg_codebook.vcxproj">
+      <Project>E772D891-7D88-40BE-AD49-58D3F37FA094</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_blobtrack_sample.vcxproj">
+      <Project>67BC7863-BCA1-47B4-B525-D3793AF4D292</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_contours.vcxproj">
+      <Project>EB95FBAE-AE6F-48F7-8B17-38A7A9301C6D</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_convert_cascade.vcxproj">
+      <Project>8D99AEB7-FD5B-4F45-BA83-844B766B6C39</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_delaunay.vcxproj">
+      <Project>4E79EA43-050E-468F-81B6-1C65B9EC8FD8</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_facedetect.vcxproj">
+      <Project>D124922B-5A45-4320-B9A0-9B3D55711B19</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_fback_c.vcxproj">
+      <Project>E4E37EE1-D317-448C-9C77-36A6001674D4</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_find_obj.vcxproj">
+      <Project>78A2C568-D3CA-4349-80D8-AD25F36C2E14</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_find_obj_calonder.vcxproj">
+      <Project>F752DCBA-4A32-41DD-84EF-24C45DA5F526</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_find_obj_ferns.vcxproj">
+      <Project>EE131958-A689-4C46-9C14-DCD97AEDE7C0</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_latentsvmdetect.vcxproj">
+      <Project>B15EC87C-338C-45C8-96EC-9A4CDD0FB0D6</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_morphology.vcxproj">
+      <Project>35EA7078-BB74-4AFE-9709-C714507B625A</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_motempl.vcxproj">
+      <Project>D8B86F46-7B7E-4C13-9D12-8EBCDC1A78F0</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_mser_sample.vcxproj">
+      <Project>62C64738-CED8-4C24-905E-62EFF7A44B52</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_mushroom.vcxproj">
+      <Project>29C16248-0AF6-487C-93C8-3563C5F3F96A</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_one_way_sample.vcxproj">
+      <Project>7E586EFF-C05A-433B-BAE9-70E65AB162C3</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_polar_transforms.vcxproj">
+      <Project>FF9D849E-88DE-4DC6-9236-905CDC59DE4D</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_pyramid_segmentation.vcxproj">
+      <Project>FD206F34-6454-4DC9-A8F5-E9885ED588D1</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_smiledetect.vcxproj">
+      <Project>99D14C5D-1553-4F2B-AAE8-FCCF093862B4</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_tree_engine.vcxproj">
+      <Project>BCE38E6F-C521-44D2-9559-019D036BC69C</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -102,7 +102,7 @@
 "  Tests and samples:\n"
 "    Tests:                       YES\n"
 "    Performance tests:           YES\n"
-"    C/C++ Examples:              NO\n"
+"    C/C++ Examples:              YES\n"
 "\n"
 "  Install path:                  C:/opencv/sources/build/install\n"
 "\n"

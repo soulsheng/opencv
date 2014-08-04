@@ -94,6 +94,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("C:/opencv/sources/build/doc/cmake_install.cmake")
   INCLUDE("C:/opencv/sources/build/data/cmake_install.cmake")
   INCLUDE("C:/opencv/sources/build/apps/cmake_install.cmake")
+  INCLUDE("C:/opencv/sources/build/samples/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

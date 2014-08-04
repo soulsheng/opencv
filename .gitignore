@@ -65,3 +65,4 @@ tags
 /build/modules/ts/*
 /build/modules/video/*
 /build/Win32
+/build/CMakeFiles
