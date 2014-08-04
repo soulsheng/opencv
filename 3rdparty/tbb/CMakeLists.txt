@@ -1,15 +1,45 @@
-#build TBB for Android from source
-if(NOT ANDROID)
-  message(FATAL_ERROR "The script is designed for Android only!")
-endif()
-
+#Cross compile TBB from source
 project(tbb)
 
+if (WIN32 AND NOT ARM)
+  message(FATAL_ERROR "BUILD_TBB option supports Windows on ARM only!\nUse regular official TBB build instead of the BUILD_TBB option!")
+endif()
+
+if (WIN32 AND ARM)
+  # 4.1 update 4 - The first release that supports Windows RT. Hangs on some Android devices
+  set(tbb_ver "tbb41_20130613oss")
+  set(tbb_url "http://threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb41_20130613oss_src.tgz")
+  set(tbb_md5 "108c8c1e481b0aaea61878289eb28b6a")
+  set(tbb_version_file "version_string.ver")
+  ocv_warnings_disable(CMAKE_CXX_FLAGS /wd4702)
+else()
+  # 4.1 update 2 - works fine
+  set(tbb_ver "tbb41_20130116oss")
+  set(tbb_url "http://threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb41_20130116oss_src.tgz")
+  set(tbb_md5 "3809790e1001a1b32d59c9fee590ee85")
+  set(tbb_version_file "version_string.ver")
+  ocv_warnings_disable(CMAKE_CXX_FLAGS -Wshadow)
+endif()
+
+# 4.1 update 3 dev - Hangs on some Android devices
+#set(tbb_ver "tbb41_20130401oss")
+#set(tbb_url "http://threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb41_20130401oss_src.tgz")
+#set(tbb_md5 "f2f591a0d2ca8f801e221ce7d9ea84bb")
+#set(tbb_version_file "version_string.ver")
+#ocv_warnings_disable(CMAKE_CXX_FLAGS -Wshadow)
+
+# 4.1 update 2 - works fine
+#set(tbb_ver "tbb41_20130116oss")
+#set(tbb_url "http://threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb41_20130116oss_src.tgz")
+#set(tbb_md5 "3809790e1001a1b32d59c9fee590ee85")
+#set(tbb_version_file "version_string.ver")
+#ocv_warnings_disable(CMAKE_CXX_FLAGS -Wshadow)
+
 # 4.1 update 1 - works fine
-set(tbb_ver "tbb41_20121003oss")
-set(tbb_url "http://threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb41_20121003oss_src.tgz")
-set(tbb_md5 "2a684fefb855d2d0318d1ef09afa75ff")
-set(tbb_version_file "version_string.ver")
+#set(tbb_ver "tbb41_20121003oss")
+#set(tbb_url "http://threadingbuildingblocks.org/sites/default/files/software_releases/source/tbb41_20121003oss_src.tgz")
+#set(tbb_md5 "2a684fefb855d2d0318d1ef09afa75ff")
+#set(tbb_version_file "version_string.ver")
 
 # 4.1 - works fine
 #set(tbb_ver "tbb41_20120718oss")
@@ -104,7 +134,7 @@ if(NOT EXISTS "${tbb_src_dir}")
               RESULT_VARIABLE tbb_untar_RESULT)
 
   if(NOT tbb_untar_RESULT EQUAL 0 OR NOT EXISTS "${tbb_src_dir}")
-    message(FATAL_ERROR "Failed to unpack TBB sources")
+    message(FATAL_ERROR "Failed to unpack TBB sources from ${tbb_tarball} to ${tbb_src_dir} with error ${tbb_untar_RESULT}")
   endif()
 endif()
 
@@ -119,15 +149,41 @@ file(GLOB lib_srcs "${tbb_src_dir}/src/tbb/*.cpp")
 file(GLOB lib_hdrs "${tbb_src_dir}/src/tbb/*.h")
 list(APPEND lib_srcs "${tbb_src_dir}/src/rml/client/rml_tbb.cpp")
 
-add_definitions(-D__TBB_DYNAMIC_LOAD_ENABLED=0         #required
-                -D__TBB_BUILD=1                        #required
-                -D__TBB_SURVIVE_THREAD_SWITCH=0        #no cilk on Android ?
-                -DUSE_PTHREAD                          #required
-                -DTBB_USE_GCC_BUILTINS=1               #required
-                -DTBB_USE_DEBUG=0                      #just to be sure
-                -DTBB_NO_LEGACY=1                      #don't need backward compatibility
-                -DDO_ITT_NOTIFY=0                      #it seems that we don't need these notifications
-               )
+if (WIN32)
+  add_definitions(/D__TBB_DYNAMIC_LOAD_ENABLED=0
+                  /D__TBB_BUILD=1
+                  /DTBB_NO_LEGACY=1
+                  /D_UNICODE
+                  /DUNICODE
+                  /DWINAPI_FAMILY=WINAPI_FAMILY_APP
+                  /DDO_ITT_NOTIFY=0
+                  /DUSE_WINTHREAD
+               ) # defines were copied from windows.cl.inc
+
+  if (ARM)
+    add_definitions(/D_WIN32_WINNT=0x0602
+                    /D__TBB_WIN32_USE_CL_BUILTINS
+                   )
+  endif()
+
+set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} /APPCONTAINER")
+else()
+  add_definitions(-D__TBB_DYNAMIC_LOAD_ENABLED=0         #required
+                  -D__TBB_BUILD=1                        #required
+                  -D__TBB_SURVIVE_THREAD_SWITCH=0        #no cilk support
+                  -DTBB_USE_DEBUG=0                      #just to be sure
+                  -DTBB_NO_LEGACY=1                      #don't need backward compatibility
+                  -DDO_ITT_NOTIFY=0                      #it seems that we don't need these notifications
+                 )
+endif()
+
+if (HAVE_LIBPTHREAD)
+  add_definitions(-DUSE_PTHREAD) #required for Unix
+endif()
+
+if (CMAKE_COMPILER_IS_GNUCXX)
+  add_definitions(-DTBB_USE_GCC_BUILTINS=1) #required for ARM GCC
+endif()
 
 if(ANDROID_COMPILER_IS_CLANG)
   add_definitions(-D__TBB_GCC_BUILTIN_ATOMICS_PRESENT=1)
@@ -140,28 +196,62 @@ if(tbb_need_GENERIC_DWORD_LOAD_STORE)
   set(tbb_need_GENERIC_DWORD_LOAD_STORE ON PARENT_SCOPE)
 endif()
 
-add_library(tbb STATIC ${lib_srcs} ${lib_hdrs} "${CMAKE_CURRENT_SOURCE_DIR}/android_additional.h" "${CMAKE_CURRENT_SOURCE_DIR}/${tbb_version_file}")
-target_link_libraries(tbb c m dl)
+set(TBB_SOURCE_FILES ${lib_srcs} ${lib_hdrs})
+
+if (ARM AND NOT WIN32)
+  if (NOT ANDROID)
+    set(TBB_SOURCE_FILES ${TBB_SOURCE_FILES} "${CMAKE_CURRENT_SOURCE_DIR}/arm_linux_stub.cpp")
+  endif()
+  set(TBB_SOURCE_FILES ${TBB_SOURCE_FILES} "${CMAKE_CURRENT_SOURCE_DIR}/android_additional.h")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include \"${CMAKE_CURRENT_SOURCE_DIR}/android_additional.h\"")
+endif()
+
+set(TBB_SOURCE_FILES ${TBB_SOURCE_FILES} "${CMAKE_CURRENT_SOURCE_DIR}/${tbb_version_file}")
+
+add_library(tbb ${TBB_SOURCE_FILES})
+
+if (WIN32)
+  if (ARM)
+    set(platform_macro /D_M_ARM=1)
+  endif()
+
+  add_custom_command(TARGET tbb
+                     PRE_BUILD
+                     COMMAND ${CMAKE_C_COMPILER} /nologo /TC /EP ${tbb_src_dir}\\src\\tbb\\win32-tbb-export.def /DTBB_NO_LEGACY=1 /D_CRT_SECURE_NO_DEPRECATE /D__TBB_BUILD=1 ${platform_macro} /I${tbb_src_dir}\\src /I${tbb_src_dir}\\include > "${tbb_src_dir}\\src\\tbb\\tbb.def"
+                     WORKING_DIRECTORY ${tbb_src_dir}\\src\\tbb
+                     COMMENT "Generating tbb.def file" VERBATIM
+                    )
+
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /DEF:${tbb_src_dir}/src/tbb/tbb.def /DLL /MAP /fixed:no /INCREMENTAL:NO")
+else()
+  target_link_libraries(tbb c m dl)
+endif()
 
 ocv_warnings_disable(CMAKE_CXX_FLAGS -Wundef -Wmissing-declarations)
 string(REPLACE "-Werror=non-virtual-dtor" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include \"${CMAKE_CURRENT_SOURCE_DIR}/android_additional.h\"")
+if (WIN32)
+  set(tbb_debug_postfix "_debug") # to fit pragmas in _windef.h inside TBB
+else()
+  set(tbb_debug_postfix ${OPENCV_DEBUG_POSTFIX})
+endif()
 
 set_target_properties(tbb
   PROPERTIES OUTPUT_NAME tbb
-  DEBUG_POSTFIX "${OPENCV_DEBUG_POSTFIX}"
+  DEBUG_POSTFIX "${tbb_debug_postfix}"
   ARCHIVE_OUTPUT_DIRECTORY ${3P_LIBRARY_OUTPUT_PATH}
+  RUNTIME_OUTPUT_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}
   )
 
 if(ENABLE_SOLUTION_FOLDERS)
   set_target_properties(tbb PROPERTIES FOLDER "3rdparty")
 endif()
 
-if(NOT BUILD_SHARED_LIBS)
-  install(TARGETS tbb ARCHIVE DESTINATION ${OPENCV_3P_LIB_INSTALL_PATH} COMPONENT main)
-endif()
+ocv_install_target(tbb EXPORT OpenCVModules
+    RUNTIME DESTINATION ${OPENCV_BIN_INSTALL_PATH} COMPONENT main
+    LIBRARY DESTINATION ${OPENCV_LIB_INSTALL_PATH} COMPONENT main
+    ARCHIVE DESTINATION ${OPENCV_3P_LIB_INSTALL_PATH} COMPONENT main
+    )
 
 # get TBB version
 ocv_parse_header("${tbb_src_dir}/include/tbb/tbb_stddef.h" TBB_VERSION_LINES TBB_VERSION_MAJOR TBB_VERSION_MINOR TBB_INTERFACE_VERSION CACHE)
-
