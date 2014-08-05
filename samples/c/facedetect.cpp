@@ -31,8 +31,8 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
                     CascadeClassifier& nestedCascade,
                     double scale, bool tryflip );
 
-string cascadeName = "../../data/haarcascades/haarcascade_frontalface_alt.xml";
-string nestedCascadeName = "../../data/haarcascades/haarcascade_eye_tree_eyeglasses.xml";
+string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
+string nestedCascadeName = "../../data/../haarcascades/haarcascade_eye_tree_eyeglasses.xml";
 
 int main( int argc, const char** argv )
 {
@@ -94,14 +94,16 @@ int main( int argc, const char** argv )
         help();
         return -1;
     }
-
+#if 0
     if( inputName.empty() || (isdigit(inputName.c_str()[0]) && inputName.c_str()[1] == '\0') )
     {
         capture = cvCaptureFromCAM( inputName.empty() ? 0 : inputName.c_str()[0] - '0' );
         int c = inputName.empty() ? 0 : inputName.c_str()[0] - '0' ;
         if(!capture) cout << "Capture from CAM " <<  c << " didn't work" << endl;
     }
-    else if( inputName.size() )
+    else 
+#endif
+	if( inputName.size() )
     {
         image = imread( inputName, 1 );
         if( image.empty() )
@@ -112,7 +114,8 @@ int main( int argc, const char** argv )
     }
     else
     {
-        image = imread( "lena.jpg", 1 );
+		image = imread( "../../images/151.bmp", 1 );
+        //image = imread( "../../images/lena.jpg", 1 );
         if(image.empty()) cout << "Couldn't read lena.jpg" << endl;
     }
 
@@ -212,7 +215,7 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
 
     t = (double)cvGetTickCount();
     cascade.detectMultiScale( smallImg, faces,
-        1.1, 2, 0
+        1.2, 2, 0
         //|CV_HAAR_FIND_BIGGEST_OBJECT
         //|CV_HAAR_DO_ROUGH_SEARCH
         |CV_HAAR_SCALE_IMAGE
