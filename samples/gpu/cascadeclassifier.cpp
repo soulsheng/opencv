@@ -101,7 +101,7 @@ int main(int argc, const char *argv[])
     if (argc == 1)
     {
         help();
-        return -1;
+        //return -1;
     }
 
     if (getCudaEnabledDeviceCount() == 0)
@@ -111,9 +111,9 @@ int main(int argc, const char *argv[])
 
     cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
-    string cascadeName;
-    string inputName;
-    bool isInputImage = false;
+	string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
+	string inputName = "../../images/151.bmp";//"../../images/lena.jpg";
+	bool isInputImage = true;
     bool isInputVideo = false;
     bool isInputCamera = false;
 
@@ -161,7 +161,7 @@ int main(int argc, const char *argv[])
     }
 
     VideoCapture capture;
-    Mat image;
+    Mat image, imageDraw;
 
     if (isInputImage)
     {
@@ -187,7 +187,7 @@ int main(int argc, const char *argv[])
     GpuMat frame_gpu, gray_gpu, resized_gpu, facesBuf_gpu;
 
     /* parameters */
-    bool useGPU = true;
+    bool useGPU = false;
     double scaleFactor = 1.0;
     bool findLargestObject = false;
     bool filterRects = true;
@@ -207,6 +207,7 @@ int main(int argc, const char *argv[])
 
         (image.empty() ? frame : image).copyTo(frame_cpu);
         frame_gpu.upload(image.empty() ? frame : image);
+		frame_cpu.copyTo( imageDraw );
 
         convertAndResize(frame_gpu, gray_gpu, resized_gpu, scaleFactor);
         convertAndResize(frame_cpu, gray_cpu, resized_cpu, scaleFactor);
@@ -216,7 +217,7 @@ int main(int argc, const char *argv[])
 
         if (useGPU)
         {
-            //cascade_gpu.visualizeInPlace = true;
+            cascade_gpu.visualizeInPlace = true;
             cascade_gpu.findLargestObject = findLargestObject;
 
             detections_num = cascade_gpu.detectMultiScale(resized_gpu, facesBuf_gpu, 1.2,
@@ -268,13 +269,26 @@ int main(int argc, const char *argv[])
                      << ", " << setw(4) << faceRects[i].y
                      << ", " << setw(4) << faceRects[i].width
                      << ", " << setw(4) << faceRects[i].height << "]";
-            }
+            
+				Point center;
+				int radius;
+
+				center.x = cvRound((faceRects[i].x + faceRects[i].width*0.5) );
+				center.y = cvRound((faceRects[i].y + faceRects[i].height*0.5) );
+				radius = cvRound((faceRects[i].width + faceRects[i].height)*0.25 );
+				circle( imageDraw, center, radius, CV_RGB(0,255,0), 3, 8, 0 );
+
+			}
         }
         cout << endl;
 
+#if 0
         cvtColor(resized_cpu, frameDisp, CV_GRAY2BGR);
         displayState(frameDisp, helpScreen, useGPU, findLargestObject, filterRects, fps);
         imshow("result", frameDisp);
+#else
+		imshow("result", imageDraw );
+#endif
 
         char key = (char)waitKey(5);
         if (key == 27)
