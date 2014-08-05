@@ -32,6 +32,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_gpu", "modules\gpu\opencv_gpu.vcxproj", "{22F2C74F-40D5-460D-ACE9-14EC205D95AD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_legacy", "modules\legacy\opencv_legacy.vcxproj", "{D206F789-FB5F-4856-9181-320EF728318D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C8861F5-E6B3-4456-B09C-B76986D45A73} = {8C8861F5-E6B3-4456-B09C-B76986D45A73}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_ml", "modules\ml\opencv_ml.vcxproj", "{75F327C0-3BBD-4844-9815-14D90A6963AF}"
 EndProject
@@ -44,6 +47,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_photo", "modules\photo\opencv_photo.vcxproj", "{15B51179-78FD-4E1A-A189-2F50B3277403}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_video", "modules\video\opencv_video.vcxproj", "{B06870D9-FA7C-4E03-8477-5A98F9CCC29F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_calib3d", "modules\calib3d\opencv_calib3d.vcxproj", "{8C8861F5-E6B3-4456-B09C-B76986D45A73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +132,10 @@ Global
 		{B06870D9-FA7C-4E03-8477-5A98F9CCC29F}.Debug|Win32.Build.0 = Debug|Win32
 		{B06870D9-FA7C-4E03-8477-5A98F9CCC29F}.Release|Win32.ActiveCfg = Release|Win32
 		{B06870D9-FA7C-4E03-8477-5A98F9CCC29F}.Release|Win32.Build.0 = Release|Win32
+		{8C8861F5-E6B3-4456-B09C-B76986D45A73}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8C8861F5-E6B3-4456-B09C-B76986D45A73}.Debug|Win32.Build.0 = Debug|Win32
+		{8C8861F5-E6B3-4456-B09C-B76986D45A73}.Release|Win32.ActiveCfg = Release|Win32
+		{8C8861F5-E6B3-4456-B09C-B76986D45A73}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,5 +160,6 @@ Global
 		{6DF67AD5-F5C8-405D-B8EF-2011244563F9} = {982665DB-B433-4052-BC4F-3994172AAFBC}
 		{15B51179-78FD-4E1A-A189-2F50B3277403} = {982665DB-B433-4052-BC4F-3994172AAFBC}
 		{B06870D9-FA7C-4E03-8477-5A98F9CCC29F} = {982665DB-B433-4052-BC4F-3994172AAFBC}
+		{8C8861F5-E6B3-4456-B09C-B76986D45A73} = {982665DB-B433-4052-BC4F-3994172AAFBC}
 	EndGlobalSection
 EndGlobal
