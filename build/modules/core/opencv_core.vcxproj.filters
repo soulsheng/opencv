@@ -146,13 +146,11 @@
     <CustomBuild Include="..\..\..\modules\dynamicuda\src\cuda\matrix_operations.cu">
       <Filter>Src\Cuda</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\modules\core\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeFiles\cuda_compile.dir\__\dynamicuda\src\cuda\$(Configuration)\cuda_compile_generated_matrix_operations.cu.obj">
       <Filter>Object Files</Filter>
     </None>
-    <None Include="version_string.inc" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

@@ -66,3 +66,10 @@ tags
 /build/modules/video/*
 /build/Win32
 /build/CMakeFiles
+/build/3rdparty/lib
+/build/modules/core/CMakeFiles/*
+/build/modules/gpu/CMakeFiles/*
+/build/modules/nonfree/*
+/build/lib
+/build/bin
+/build/*.suo
