@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{95DC8E71-84A5-405C-9B6B-CDBA6D51AE50}</ProjectGUID>
+    <ProjectGUID>{C43D9BD2-D268-41FD-88D2-5C6211E9C267}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>libjasper</ProjectName>
@@ -226,7 +226,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
-      <Project>217B5AB9-29C9-435F-AE1B-8598893A63B8</Project>
+      <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

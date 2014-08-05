@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{780C2599-0FBC-4D15-9FE9-59628A94DDC5}</ProjectGUID>
+    <ProjectGUID>{B0FDBF7D-2BE5-46D2-A483-3D63BDB719C5}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>libpng</ProjectName>
@@ -167,10 +167,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
-      <Project>217B5AB9-29C9-435F-AE1B-8598893A63B8</Project>
+      <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/3rdparty/zlib/zlib.vcxproj">
-      <Project>1ED1C1D9-EEA4-4826-A22A-6405FC62B9C0</Project>
+      <Project>60493312-6EDA-4EEF-A9B9-D202E31FF865</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

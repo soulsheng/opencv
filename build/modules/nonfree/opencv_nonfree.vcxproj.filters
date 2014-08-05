@@ -67,29 +67,29 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Src\Cuda">
-      <UniqueIdentifier>{8F6CD30F-73AD-4B49-BBE1-5FEBB6456CC5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{872EA7CF-7A6E-4D0D-90EA-82006A2EF0C3}</UniqueIdentifier>
+      <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{356861E4-2E30-4EC6-9B30-888FE003440B}</UniqueIdentifier>
+      <UniqueIdentifier>{D8EF5608-42B2-4906-889B-2962B2C4B40C}</UniqueIdentifier>
     </Filter>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{980B272D-03CE-430A-9C5A-901FEEE47C09}</UniqueIdentifier>
+      <UniqueIdentifier>{CBF4343C-8DDE-4303-8DE0-02CC725E5AA8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object Files">
-      <UniqueIdentifier>{38C72229-2C5B-4B7D-A364-65F004474942}</UniqueIdentifier>
+      <UniqueIdentifier>{60A17FD1-DFDD-44C7-B5D2-89B9E3A910DC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src">
-      <UniqueIdentifier>{F1AE1A71-E8BC-4FC4-9E39-DFEAE9EF8622}</UniqueIdentifier>
+      <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
     </Filter>
     <Filter Include="OpenCL">
-      <UniqueIdentifier>{59650E22-48B4-490F-863C-3735CFD7D960}</UniqueIdentifier>
+      <UniqueIdentifier>{F4D4848B-A998-40E7-8A60-4BB314572980}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include">
-      <UniqueIdentifier>{51E3DDCB-2312-46DE-ACEB-73FCD93038C7}</UniqueIdentifier>
+      <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Cuda">
+      <UniqueIdentifier>{4B69BF74-7689-4BF3-BC38-742E156457FD}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{DE4F50A5-F1E1-4E92-BA02-C24FFD027F11}</ProjectGUID>
+    <ProjectGUID>{637A36E9-6065-4766-9035-EF5DD90E3371}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>opencv_modules</ProjectName>
@@ -115,64 +115,64 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
-      <Project>217B5AB9-29C9-435F-AE1B-8598893A63B8</Project>
+      <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_calib3d.vcxproj">
-      <Project>9994292E-14DC-498D-86B9-00801ACD009F</Project>
+      <Project>8C8861F5-E6B3-4456-B09C-B76986D45A73</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/contrib/opencv_contrib.vcxproj">
-      <Project>8F257D52-8C1E-49F1-A82A-25ABC1AC8D9E</Project>
+      <Project>26D97A86-787D-4680-8170-D2B9F3453FBE</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
-      <Project>850C6E8B-DEB2-458B-BFE5-226EE50A9B79</Project>
+      <Project>DCCB6440-17B8-46A6-9E8E-E9E383409B2D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/features2d/opencv_features2d.vcxproj">
-      <Project>9DB5399A-5991-40CD-BCBB-65F5ADD6E969</Project>
+      <Project>0C6E5AB9-79BB-4AA7-A2C8-5CAC04B42C5F</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_flann.vcxproj">
-      <Project>BAA389EE-1DA1-4AC1-827F-3AD061D40952</Project>
+      <Project>6D0A1722-B1D7-47C1-A820-45F29381AC75</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/gpu/opencv_gpu.vcxproj">
-      <Project>1A51E5E0-E2F6-4733-8F63-7EB449F1D66B</Project>
+      <Project>22F2C74F-40D5-460D-ACE9-14EC205D95AD</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/highgui/opencv_highgui.vcxproj">
-      <Project>387BB5FF-3F53-411A-9E5A-470B26E19EA3</Project>
+      <Project>33DAEE4D-9DA8-49AA-AE61-5E2EE477B20B</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_imgproc.vcxproj">
-      <Project>5088A88D-71D1-4291-B8B0-527524D44694</Project>
+      <Project>691F6C6F-239F-4DEF-83A0-82DD6CCD8DBB</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/legacy/opencv_legacy.vcxproj">
-      <Project>706A19F4-F6F8-433F-BA2D-3CF3E732B80C</Project>
+      <Project>D206F789-FB5F-4856-9181-320EF728318D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ml/opencv_ml.vcxproj">
-      <Project>70670E5B-0C2C-44D6-B4B8-A39E1F4D2341</Project>
+      <Project>75F327C0-3BBD-4844-9815-14D90A6963AF</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/nonfree/opencv_nonfree.vcxproj">
-      <Project>1523E77E-A4EB-4400-BEA5-631E4DABB6B8</Project>
+      <Project>CBFDE28B-5971-4727-A587-0CC076844434</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/objdetect/opencv_objdetect.vcxproj">
-      <Project>742E0B4D-5E94-4508-AAF7-FC9BEDE9CADB</Project>
+      <Project>DFE02322-833E-4343-A730-03A26181B04E</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_ocl.vcxproj">
-      <Project>0504B39E-ED7D-4978-B1F1-4FF7A4236533</Project>
+      <Project>6DF67AD5-F5C8-405D-B8EF-2011244563F9</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/photo/opencv_photo.vcxproj">
-      <Project>3F649CC0-3704-4742-9230-D28E50B2BF23</Project>
+      <Project>15B51179-78FD-4E1A-A189-2F50B3277403</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/stitching/opencv_stitching.vcxproj">
-      <Project>961E2997-1903-42DF-9D97-BD713723C35A</Project>
+      <Project>11EB6B3D-AEA7-437F-B0F3-07DDB9DD4830</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_superres.vcxproj">
-      <Project>F2269FD5-8889-4B6A-996B-ABE30520D5D7</Project>
+      <Project>E5DFA334-39AC-4C58-8342-345AB5CF6B1D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ts/opencv_ts.vcxproj">
-      <Project>0F647B2E-BCFE-4EE4-910C-6B024B6592CA</Project>
+      <Project>925930E3-F95C-43DB-9398-1801D8E0676C</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/video/opencv_video.vcxproj">
-      <Project>8F31AACC-CEE4-4DEF-87CA-EBED09F4B24C</Project>
+      <Project>B06870D9-FA7C-4E03-8477-5A98F9CCC29F</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/videostab/opencv_videostab.vcxproj">
-      <Project>691DE820-5296-4733-B318-9FBAEED30AFD</Project>
+      <Project>8969B4AE-59D1-4605-BB4A-FF607D414F27</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

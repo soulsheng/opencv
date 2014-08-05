@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{4B5D125F-304B-4B7E-B77B-160A344CAA16}</ProjectGUID>
+    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -115,13 +115,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_perf_superres.vcxproj">
-      <Project>A6BAC50F-057E-4C3A-B99E-B4C78E2A5AB4</Project>
+      <Project>66E04509-8F71-4B65-B43E-CA6EC7CAFADB</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_superres.vcxproj">
-      <Project>F2269FD5-8889-4B6A-996B-ABE30520D5D7</Project>
+      <Project>E5DFA334-39AC-4C58-8342-345AB5CF6B1D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_test_superres.vcxproj">
-      <Project>5FA7D358-B11F-43AE-BDA4-7F927DAD0167</Project>
+      <Project>C2A35E1F-238C-4A91-8653-4580E78E48C5</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -159,16 +159,16 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{872EA7CF-7A6E-4D0D-90EA-82006A2EF0C3}</UniqueIdentifier>
+      <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{356861E4-2E30-4EC6-9B30-888FE003440B}</UniqueIdentifier>
+      <UniqueIdentifier>{D8EF5608-42B2-4906-889B-2962B2C4B40C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src">
-      <UniqueIdentifier>{F1AE1A71-E8BC-4FC4-9E39-DFEAE9EF8622}</UniqueIdentifier>
+      <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include">
-      <UniqueIdentifier>{51E3DDCB-2312-46DE-ACEB-73FCD93038C7}</UniqueIdentifier>
+      <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

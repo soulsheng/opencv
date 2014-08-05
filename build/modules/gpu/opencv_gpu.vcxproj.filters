@@ -844,35 +844,35 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Src\Host">
-      <UniqueIdentifier>{2A257DCD-1ADA-41B0-B722-FAFEF521FE58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Cuda">
-      <UniqueIdentifier>{8F6CD30F-73AD-4B49-BBE1-5FEBB6456CC5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\NVidia">
-      <UniqueIdentifier>{E2DF2549-0050-4C11-8F06-BBD7AE2A2036}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Device\Detail">
-      <UniqueIdentifier>{C5D7ACFD-4336-4162-851F-9167AD528264}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{872EA7CF-7A6E-4D0D-90EA-82006A2EF0C3}</UniqueIdentifier>
+      <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{356861E4-2E30-4EC6-9B30-888FE003440B}</UniqueIdentifier>
+      <UniqueIdentifier>{D8EF5608-42B2-4906-889B-2962B2C4B40C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object Files">
-      <UniqueIdentifier>{38C72229-2C5B-4B7D-A364-65F004474942}</UniqueIdentifier>
+      <UniqueIdentifier>{60A17FD1-DFDD-44C7-B5D2-89B9E3A910DC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include">
-      <UniqueIdentifier>{51E3DDCB-2312-46DE-ACEB-73FCD93038C7}</UniqueIdentifier>
+      <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src">
-      <UniqueIdentifier>{F1AE1A71-E8BC-4FC4-9E39-DFEAE9EF8622}</UniqueIdentifier>
+      <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Device">
-      <UniqueIdentifier>{2218544F-5A72-46A7-8126-B27C618AC327}</UniqueIdentifier>
+      <UniqueIdentifier>{ECC2FED0-D9BA-4F34-AF67-E896EF139062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Host">
+      <UniqueIdentifier>{8DD31637-64DC-40C1-BEC4-A47E21E16D2B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Cuda">
+      <UniqueIdentifier>{4B69BF74-7689-4BF3-BC38-742E156457FD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\NVidia">
+      <UniqueIdentifier>{80BF7D7C-4D96-4C93-89F2-84BBBEE4B705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device\Detail">
+      <UniqueIdentifier>{EDEF0434-F1B9-4D1F-9E86-64E94D98F92D}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

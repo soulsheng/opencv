@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{4B5D125F-304B-4B7E-B77B-160A344CAA16}</ProjectGUID>
+    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -115,10 +115,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_flann.vcxproj">
-      <Project>BAA389EE-1DA1-4AC1-827F-3AD061D40952</Project>
+      <Project>6D0A1722-B1D7-47C1-A820-45F29381AC75</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_test_flann.vcxproj">
-      <Project>E381A0C2-5FF8-4B71-B4EB-BFB7DD89F60B</Project>
+      <Project>63274B88-97AD-4B94-B1E7-57854FAF1CA8</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{4B5D125F-304B-4B7E-B77B-160A344CAA16}</ProjectGUID>
+    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -115,13 +115,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_ocl.vcxproj">
-      <Project>0504B39E-ED7D-4978-B1F1-4FF7A4236533</Project>
+      <Project>6DF67AD5-F5C8-405D-B8EF-2011244563F9</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_perf_ocl.vcxproj">
-      <Project>5A4D43C2-073A-452E-B4F3-7B17E259359F</Project>
+      <Project>F9E45B62-6B44-44C6-975F-198D3FE75F44</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_test_ocl.vcxproj">
-      <Project>F45E9FE5-CF98-4FA2-B2CB-4E946D24A328</Project>
+      <Project>D513E105-7E8F-4CC6-AC91-D7322A0334F9</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

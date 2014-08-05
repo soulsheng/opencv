@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{4B5D125F-304B-4B7E-B77B-160A344CAA16}</ProjectGUID>
+    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -115,13 +115,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_calib3d.vcxproj">
-      <Project>9994292E-14DC-498D-86B9-00801ACD009F</Project>
+      <Project>8C8861F5-E6B3-4456-B09C-B76986D45A73</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_perf_calib3d.vcxproj">
-      <Project>DBD8862C-7D67-41AF-A817-BFE642280263</Project>
+      <Project>DAA23699-19EA-426C-8E14-95691FDBD203</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_test_calib3d.vcxproj">
-      <Project>960B17B2-2593-4972-9EE8-E638F88F8CC5</Project>
+      <Project>DB0D77E3-6A94-499C-8FF0-8982320D9066</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

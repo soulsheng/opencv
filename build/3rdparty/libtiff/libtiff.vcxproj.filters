@@ -162,10 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{872EA7CF-7A6E-4D0D-90EA-82006A2EF0C3}</UniqueIdentifier>
+      <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{356861E4-2E30-4EC6-9B30-888FE003440B}</UniqueIdentifier>
+      <UniqueIdentifier>{D8EF5608-42B2-4906-889B-2962B2C4B40C}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

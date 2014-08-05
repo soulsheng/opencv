@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{4B5D125F-304B-4B7E-B77B-160A344CAA16}</ProjectGUID>
+    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -115,16 +115,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_createsamples.vcxproj">
-      <Project>9E0200E8-4665-44F5-80A9-265D720BC03E</Project>
+      <Project>12422D7B-4C8C-48B6-BA72-7E39861BDB4E</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_haartraining.vcxproj">
-      <Project>ECC0C316-1B2C-4130-944B-92B7991A8CE5</Project>
+      <Project>78A2457C-BE4A-40EE-BF45-9D98860F7ECF</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_haartraining_engine.vcxproj">
-      <Project>E22CF52A-3D17-416B-B067-0937CF0F763B</Project>
+      <Project>F6EE0649-7F4D-40F1-9A3B-90755731D2DF</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_performance.vcxproj">
-      <Project>2552155A-8498-4560-B484-57BD82C1D67E</Project>
+      <Project>2E2E4CD3-8E34-4B00-9CFA-282BBA552004</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

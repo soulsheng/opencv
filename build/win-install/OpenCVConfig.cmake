@@ -48,7 +48,7 @@ endif()
 # TODO All things below should be reviewed. What is about of moving this code into related modules (special vars/hooks/files)
 
 # Version Compute Capability from which OpenCV has been compiled is remembered
-set(OpenCV_COMPUTE_CAPABILITIES -gencode;arch=compute_11,code=sm_11;-gencode;arch=compute_12,code=sm_12;-gencode;arch=compute_13,code=sm_13;-gencode;arch=compute_20,code=sm_20;-gencode;arch=compute_20,code=sm_21;-gencode;arch=compute_30,code=sm_30;-gencode;arch=compute_35,code=sm_35;-gencode;arch=compute_30,code=compute_30)
+set(OpenCV_COMPUTE_CAPABILITIES -gencode;arch=compute_20,code=sm_20)
 
 set(OpenCV_CUDA_VERSION 5.5)
 set(OpenCV_USE_CUBLAS   )

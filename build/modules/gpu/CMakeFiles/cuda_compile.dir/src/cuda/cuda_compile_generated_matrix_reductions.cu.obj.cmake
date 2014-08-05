@@ -70,7 +70,7 @@ set(generated_file_internal "C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda
 set(generated_cubin_file_internal "C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_matrix_reductions.cu.obj.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/bin/nvcc.exe") # path
-set(CUDA_NVCC_FLAGS -gencode;arch=compute_11,code=sm_11;-gencode;arch=compute_12,code=sm_12;-gencode;arch=compute_13,code=sm_13;-gencode;arch=compute_20,code=sm_20;-gencode;arch=compute_20,code=sm_21;-gencode;arch=compute_30,code=sm_30;-gencode;arch=compute_35,code=sm_35;-gencode;arch=compute_30,code=compute_30;-Xcompiler;/wd4251;-Xcompiler;-DCVAPI_EXPORTS ;; ) # list
+set(CUDA_NVCC_FLAGS -gencode;arch=compute_20,code=sm_20;-Xcompiler;/wd4251;-Xcompiler;-DCVAPI_EXPORTS ;; ) # list
 # Build specific configuration flags
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
 set(CUDA_NVCC_FLAGS_RELEASE  ; )

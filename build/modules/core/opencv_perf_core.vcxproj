@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{DEDE647C-51FA-4D90-B849-892534193045}</ProjectGUID>
+    <ProjectGUID>{09D6CFD8-9228-46A9-A701-4E4FC62206D4}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>opencv_perf_core</ProjectName>
@@ -206,25 +206,25 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
-      <Project>217B5AB9-29C9-435F-AE1B-8598893A63B8</Project>
+      <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
-      <Project>850C6E8B-DEB2-458B-BFE5-226EE50A9B79</Project>
+      <Project>DCCB6440-17B8-46A6-9E8E-E9E383409B2D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/features2d/opencv_features2d.vcxproj">
-      <Project>9DB5399A-5991-40CD-BCBB-65F5ADD6E969</Project>
+      <Project>0C6E5AB9-79BB-4AA7-A2C8-5CAC04B42C5F</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_flann.vcxproj">
-      <Project>BAA389EE-1DA1-4AC1-827F-3AD061D40952</Project>
+      <Project>6D0A1722-B1D7-47C1-A820-45F29381AC75</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/highgui/opencv_highgui.vcxproj">
-      <Project>387BB5FF-3F53-411A-9E5A-470B26E19EA3</Project>
+      <Project>33DAEE4D-9DA8-49AA-AE61-5E2EE477B20B</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_imgproc.vcxproj">
-      <Project>5088A88D-71D1-4291-B8B0-527524D44694</Project>
+      <Project>691F6C6F-239F-4DEF-83A0-82DD6CCD8DBB</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ts/opencv_ts.vcxproj">
-      <Project>0F647B2E-BCFE-4EE4-910C-6B024B6592CA</Project>
+      <Project>925930E3-F95C-43DB-9398-1801D8E0676C</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

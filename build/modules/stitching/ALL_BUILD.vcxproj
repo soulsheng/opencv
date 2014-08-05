@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{4B5D125F-304B-4B7E-B77B-160A344CAA16}</ProjectGUID>
+    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -115,13 +115,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/modules/stitching/opencv_perf_stitching.vcxproj">
-      <Project>6FAF5986-18DF-4CF8-BEC1-33FA89D017BF</Project>
+      <Project>CD0D4B47-D5DA-4528-AFD4-1613E374AF58</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/stitching/opencv_stitching.vcxproj">
-      <Project>961E2997-1903-42DF-9D97-BD713723C35A</Project>
+      <Project>11EB6B3D-AEA7-437F-B0F3-07DDB9DD4830</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/stitching/opencv_test_stitching.vcxproj">
-      <Project>0356EB3E-E86C-4E00-95C7-199E04B30012</Project>
+      <Project>B78EEEC8-E89C-45E5-9CF4-953DD6C2CE68</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
