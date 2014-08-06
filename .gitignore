@@ -73,3 +73,6 @@ tags
 /build/lib
 /build/bin
 /build/*.suo
+/samples/vc10/resizeXPU/Release
+/samples/vc10/resizeXPU/Debug
+/samples/vc10/houghLine/Release

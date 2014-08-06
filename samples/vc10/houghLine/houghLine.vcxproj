@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CB82BFF5-77BB-44EE-8721-C7DBB7C417E5}</ProjectGuid>
+    <ProjectGuid>{F60E5336-4D54-4B0A-A2C5-075D80FB5112}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>faceDetect</RootNamespace>
   </PropertyGroup>
