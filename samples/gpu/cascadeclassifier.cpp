@@ -112,7 +112,7 @@ int main(int argc, const char *argv[])
     cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
-	string inputName = "../../images/151.bmp";//"../../images/lena.jpg";
+	string inputName = "../../images/lena.jpg";//"../../images/151.bmp";
 	bool isInputImage = true;
     bool isInputVideo = false;
     bool isInputCamera = false;
@@ -188,7 +188,7 @@ int main(int argc, const char *argv[])
 
     /* parameters */
     bool useGPU = false;
-    double scaleFactor = 1.0;
+    double scaleFactor = 0.375;
     bool findLargestObject = false;
     bool filterRects = true;
     bool helpScreen = false;
@@ -273,9 +273,9 @@ int main(int argc, const char *argv[])
 				Point center;
 				int radius;
 
-				center.x = cvRound((faceRects[i].x + faceRects[i].width*0.5) );
-				center.y = cvRound((faceRects[i].y + faceRects[i].height*0.5) );
-				radius = cvRound((faceRects[i].width + faceRects[i].height)*0.25 );
+				center.x = cvRound((faceRects[i].x + faceRects[i].width*0.5)/scaleFactor );
+				center.y = cvRound((faceRects[i].y + faceRects[i].height*0.5)/scaleFactor );
+				radius = cvRound((faceRects[i].width + faceRects[i].height)*0.25/scaleFactor );
 				circle( imageDraw, center, radius, CV_RGB(0,255,0), 3, 8, 0 );
 
 			}
