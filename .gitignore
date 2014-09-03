@@ -76,3 +76,14 @@ tags
 /samples/vc10/resizeXPU/Release
 /samples/vc10/resizeXPU/Debug
 /samples/vc10/houghLine/Release
+/build/modules/gpu/Release
+/build/modules/gpu/Win32
+/build/modules/gpu/Debug
+/build/modules/gpu/ipch
+/build/modules/gpu/*.suo
+/build/modules/gpu/*.opensdf
+/build/samples/cpp/*.sdf
+/build/samples/cpp/*.opensdf
+/build/modules/gpu/*.sdf
+/build/samples/cpp/ipch
+/build/samples/cpp/Win32

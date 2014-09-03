@@ -112,10 +112,11 @@ int main(int argc, const char *argv[])
     cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
-	string inputName = "../../images/lena.jpg";//"../../images/151.bmp";
-	bool isInputImage = true;
+	//string inputName = "../../images/lena.jpg";//"../../images/151.bmp";
+	string inputName = "rtsp://192.168.1.11:554/user=admin&password=admin&channel=1&stream=0.sdp";//"../../images/151.bmp";
+	bool isInputImage = false;
     bool isInputVideo = false;
-    bool isInputCamera = false;
+    bool isInputCamera = true;
 
     for (int i = 1; i < argc; ++i)
     {
@@ -175,7 +176,8 @@ int main(int argc, const char *argv[])
     }
     else
     {
-        capture.open(atoi(inputName.c_str()));
+        //capture.open(atoi(inputName.c_str()));
+		capture.open( inputName.c_str() );
         CV_Assert(capture.isOpened());
     }
 
@@ -211,7 +213,7 @@ int main(int argc, const char *argv[])
 
         convertAndResize(frame_gpu, gray_gpu, resized_gpu, scaleFactor);
         convertAndResize(frame_cpu, gray_cpu, resized_cpu, scaleFactor);
-
+#if 0
         TickMeter tm;
         tm.start();
 
@@ -281,7 +283,7 @@ int main(int argc, const char *argv[])
 			}
         }
         cout << endl;
-
+#endif
 #if 0
         cvtColor(resized_cpu, frameDisp, CV_GRAY2BGR);
         displayState(frameDisp, helpScreen, useGPU, findLargestObject, filterRects, fps);
