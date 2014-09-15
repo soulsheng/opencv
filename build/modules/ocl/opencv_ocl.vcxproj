@@ -31,28 +31,27 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\bin\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl248d</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\bin\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl248</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-  </PropertyGroup>
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\bin\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl248d</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\bin\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl248</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -76,10 +75,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;_DEBUG;_VARIADIC_MAX=10;CMAKE_INTDIR=\"Debug\";CVAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -88,15 +87,14 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_calib3d248d.lib;..\..\lib\Debug\opencv_ml248d.lib;..\..\lib\Debug\opencv_objdetect248d.lib;..\..\lib\Debug\opencv_video248d.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_core248d.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_calib3d248d.lib;..\..\lib\Debug\opencv_ml248d.lib;..\..\lib\Debug\opencv_objdetect248d.lib;..\..\lib\Debug\opencv_video248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_core248d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>libc</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/opencv/sources/build/lib/Debug/opencv_ocl248d.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/opencv/sources/build/bin/Debug/opencv_ocl248d.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version>
-      </Version>
+      <Version></Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -105,7 +103,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -128,10 +126,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;NDEBUG;_VARIADIC_MAX=10;CMAKE_INTDIR=\"Release\";CVAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\sources\modules\ocl\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\ocl;C:\opencv\sources\modules\ocl\src;C:\opencv\sources\modules\ocl\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -140,15 +138,14 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_calib3d248.lib;..\..\lib\Release\opencv_ml248.lib;..\..\lib\Release\opencv_objdetect248.lib;..\..\lib\Release\opencv_video248.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_core248.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_calib3d248.lib;..\..\lib\Release\opencv_ml248.lib;..\..\lib\Release\opencv_objdetect248.lib;..\..\lib\Release\opencv_video248.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_core248.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>libc</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/opencv/sources/build/lib/Release/opencv_ocl248.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/opencv/sources/build/bin/Release/opencv_ocl248.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version>
-      </Version>
+      <Version></Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -220,50 +217,50 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\..\modules\ocl\src\safe_call.hpp" />
     <ClInclude Include="..\..\cvconfig.h" />
     <ClInclude Include="..\..\opencv2\opencv_modules.hpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\arithm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\bgfg_mog.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\blend.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\brute_force_matcher.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\build_warps.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\canny.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_context.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_operations.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_programcache.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdblas_runtime.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdfft_runtime.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\cl_runtime.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\color.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\columnsum.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\error.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\fft.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\filtering.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\gemm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\gftt.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\haar.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\hog.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\imgproc.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\interpolate_frames.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\kalman.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\kmeans.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\knearest.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\match_template.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\matrix_operations.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\mcwutil.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\moments.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\mssegmentation.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\optical_flow_farneback.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\pyrdown.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\pyrlk.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\pyrup.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\sort_by_key.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\split_merge.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\stereobm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\stereobp.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\stereo_csbp.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\svm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\tvl1flow.cpp" />
-    <ClCompile Include="opencl_kernels.cpp" />
-    <ClCompile Include="opencv_ocl_pch.cpp">
+    <ClCompile Include="..\..\..\modules\ocl\src\arithm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\bgfg_mog.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\blend.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\brute_force_matcher.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\build_warps.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\canny.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_context.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_operations.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_programcache.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdblas_runtime.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdfft_runtime.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\cl_runtime.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\color.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\columnsum.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\error.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\fft.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\filtering.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\gemm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\gftt.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\haar.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\hog.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\imgproc.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\interpolate_frames.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\kalman.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\kmeans.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\knearest.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\match_template.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\matrix_operations.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\mcwutil.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\moments.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\mssegmentation.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\optical_flow_farneback.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\pyrdown.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\pyrlk.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\pyrup.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\sort_by_key.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\split_merge.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\stereobm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\stereobp.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\stereo_csbp.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\svm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\tvl1flow.cpp"  />
+    <ClCompile Include="opencl_kernels.cpp"  />
+    <ClCompile Include="opencv_ocl_pch.cpp" >
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/ocl/src/precomp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -360,6 +357,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
       <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_calib3d.vcxproj">
+      <Project>8C8861F5-E6B3-4456-B09C-B76986D45A73</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
       <Project>DCCB6440-17B8-46A6-9E8E-E9E383409B2D</Project>

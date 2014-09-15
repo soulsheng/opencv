@@ -50,21 +50,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\modules\nonfree\src\cuda\surf.cu">
-      <Filter>Src\Cuda</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\..\modules\nonfree\CMakeLists.txt" />
     <CustomBuild Include="..\..\CMakeFiles\30b8dd231ba77ff091a87ab6fc87630f\opencl_kernels.cpp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_surf.cu.obj">
-      <Filter>Object Files</Filter>
-    </None>
     <None Include="..\..\..\modules\nonfree\src\opencl\surf.cl">
       <Filter>OpenCL</Filter>
     </None>
+    <None Include="..\..\..\modules\nonfree\src\cuda\surf.cu" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -76,9 +71,6 @@
     <Filter Include="CMake Rules">
       <UniqueIdentifier>{CBF4343C-8DDE-4303-8DE0-02CC725E5AA8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object Files">
-      <UniqueIdentifier>{60A17FD1-DFDD-44C7-B5D2-89B9E3A910DC}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src">
       <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
     </Filter>
@@ -87,9 +79,6 @@
     </Filter>
     <Filter Include="Include">
       <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Cuda">
-      <UniqueIdentifier>{4B69BF74-7689-4BF3-BC38-742E156457FD}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -79,42 +79,6 @@
     <ClCompile Include="..\..\..\modules\gpu\test\test_warp_perspective.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\main_nvidia.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestCompact.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestDrawRects.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeApplication.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeLoader.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesFilter.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesGrow.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImage.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImageSquared.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestRectStdDev.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestResize.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\modules\gpu\test\nvidia\TestTranspose.cpp">
-      <Filter>Src\NVidia</Filter>
-    </ClCompile>
     <ClCompile Include="opencv_test_gpu_pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -129,48 +93,6 @@
     <ClInclude Include="..\..\..\modules\gpu\test\main_test_nvidia.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\NCVAutoTestLister.hpp">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\NCVTest.hpp">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\NCVTestSourceProvider.hpp">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestCompact.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestDrawRects.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeApplication.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHaarCascadeLoader.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesFilter.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestHypothesesGrow.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImage.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestIntegralImageSquared.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestRectStdDev.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestResize.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\modules\gpu\test\nvidia\TestTranspose.h">
-      <Filter>Src\NVidia</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\modules\gpu\CMakeLists.txt" />
@@ -184,9 +106,6 @@
     </Filter>
     <Filter Include="Src">
       <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\NVidia">
-      <UniqueIdentifier>{80BF7D7C-4D96-4C93-89F2-84BBBEE4B705}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
