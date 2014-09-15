@@ -285,7 +285,6 @@ CUDA_64_BIT_DEVICE_CODE:BOOL=OFF
 //Specify 'real' GPU architectures to build binaries for, BIN(PTX)
 // format is supported
 CUDA_ARCH_BIN:STRING=   正在创建库 a.lib 和对象 a.exp
-2.0
 
 //Specify 'virtual' PTX architectures to build PTX intermediate
 // code for
@@ -523,7 +522,7 @@ PYTHON_EXECUTABLE:FILEPATH=PYTHON_EXECUTABLE-NOTFOUND
 
 VISUAL_STUDIO_PATH:STRING=C:\Program Files (x86)\Microsoft Visual Studio 10.0
 
-WINDOWS_SDK_PATH:STRING=/C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A
+WINDOWS_SDK_PATH:STRING=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A
 
 //Include IEEE1394 support
 WITH_1394:BOOL=OFF
@@ -536,7 +535,7 @@ WITH_CSTRIPES:BOOL=OFF
 WITH_CUBLAS:BOOL=OFF
 
 //Include NVidia Cuda Runtime support
-WITH_CUDA:BOOL=ON
+WITH_CUDA:BOOL=OFF
 
 //Include NVidia Cuda Fast Fourier Transform (FFT) library support
 WITH_CUFFT:BOOL=OFF
@@ -692,7 +691,7 @@ ocl_samples_SOURCE_DIR:STATIC=C:/opencv/sources/samples/ocl
 opencv_calib3d_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/calib3d
 
 //Dependencies for the target
-opencv_calib3d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_calib3d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;
 
 //Value Computed by CMake
 opencv_calib3d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/calib3d
@@ -701,7 +700,7 @@ opencv_calib3d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/calib3d
 opencv_contrib_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/contrib
 
 //Dependencies for the target
-opencv_contrib_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_contrib_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;
 
 //Value Computed by CMake
 opencv_contrib_SOURCE_DIR:STATIC=C:/opencv/sources/modules/contrib
@@ -710,7 +709,7 @@ opencv_contrib_SOURCE_DIR:STATIC=C:/opencv/sources/modules/contrib
 opencv_core_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/core
 
 //Dependencies for the target
-opencv_core_LIB_DEPENDS:STATIC=general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;zlib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_core_LIB_DEPENDS:STATIC=general;zlib;
 
 //Value Computed by CMake
 opencv_core_SOURCE_DIR:STATIC=C:/opencv/sources/modules/core
@@ -719,7 +718,7 @@ opencv_core_SOURCE_DIR:STATIC=C:/opencv/sources/modules/core
 opencv_features2d_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/features2d
 
 //Dependencies for the target
-opencv_features2d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_features2d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;
 
 //Value Computed by CMake
 opencv_features2d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/features2d
@@ -728,7 +727,7 @@ opencv_features2d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/features2d
 opencv_flann_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/flann
 
 //Dependencies for the target
-opencv_flann_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_flann_LIB_DEPENDS:STATIC=general;opencv_core;
 
 //Value Computed by CMake
 opencv_flann_SOURCE_DIR:STATIC=C:/opencv/sources/modules/flann
@@ -737,19 +736,19 @@ opencv_flann_SOURCE_DIR:STATIC=C:/opencv/sources/modules/flann
 opencv_gpu_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/gpu
 
 //Dependencies for the target
-opencv_gpu_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_gpu_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;
 
 //Value Computed by CMake
 opencv_gpu_SOURCE_DIR:STATIC=C:/opencv/sources/modules/gpu
 
 //Dependencies for the target
-opencv_haartraining_engine_LIB_DEPENDS:STATIC=general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;opencv_core;general;opencv_imgproc;general;opencv_highgui;general;opencv_objdetect;general;opencv_calib3d;general;opencv_video;general;opencv_features2d;general;opencv_flann;general;opencv_legacy;
+opencv_haartraining_engine_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;opencv_highgui;general;opencv_objdetect;general;opencv_calib3d;general;opencv_video;general;opencv_features2d;general;opencv_flann;general;opencv_legacy;
 
 //Value Computed by CMake
 opencv_highgui_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/highgui
 
 //Dependencies for the target
-opencv_highgui_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;zlib;general;libjpeg;general;libpng;general;libtiff;general;libjasper;general;IlmImf;general;comctl32;general;gdi32;general;ole32;general;setupapi;general;ws2_32;general;vfw32;
+opencv_highgui_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;zlib;general;libjpeg;general;libpng;general;libtiff;general;libjasper;general;IlmImf;general;comctl32;general;gdi32;general;ole32;general;setupapi;general;ws2_32;general;vfw32;
 
 //Value Computed by CMake
 opencv_highgui_SOURCE_DIR:STATIC=C:/opencv/sources/modules/highgui
@@ -758,7 +757,7 @@ opencv_highgui_SOURCE_DIR:STATIC=C:/opencv/sources/modules/highgui
 opencv_imgproc_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/imgproc
 
 //Dependencies for the target
-opencv_imgproc_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_imgproc_LIB_DEPENDS:STATIC=general;opencv_core;
 
 //Value Computed by CMake
 opencv_imgproc_SOURCE_DIR:STATIC=C:/opencv/sources/modules/imgproc
@@ -767,7 +766,7 @@ opencv_imgproc_SOURCE_DIR:STATIC=C:/opencv/sources/modules/imgproc
 opencv_legacy_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/legacy
 
 //Dependencies for the target
-opencv_legacy_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_legacy_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;
 
 //Value Computed by CMake
 opencv_legacy_SOURCE_DIR:STATIC=C:/opencv/sources/modules/legacy
@@ -776,7 +775,7 @@ opencv_legacy_SOURCE_DIR:STATIC=C:/opencv/sources/modules/legacy
 opencv_ml_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/ml
 
 //Dependencies for the target
-opencv_ml_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_ml_LIB_DEPENDS:STATIC=general;opencv_core;
 
 //Value Computed by CMake
 opencv_ml_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ml
@@ -785,7 +784,7 @@ opencv_ml_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ml
 opencv_nonfree_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/nonfree
 
 //Dependencies for the target
-opencv_nonfree_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_nonfree_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;
 
 //Value Computed by CMake
 opencv_nonfree_SOURCE_DIR:STATIC=C:/opencv/sources/modules/nonfree
@@ -794,7 +793,7 @@ opencv_nonfree_SOURCE_DIR:STATIC=C:/opencv/sources/modules/nonfree
 opencv_objdetect_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/objdetect
 
 //Dependencies for the target
-opencv_objdetect_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;opencv_highgui;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_objdetect_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;opencv_highgui;
 
 //Value Computed by CMake
 opencv_objdetect_SOURCE_DIR:STATIC=C:/opencv/sources/modules/objdetect
@@ -803,7 +802,7 @@ opencv_objdetect_SOURCE_DIR:STATIC=C:/opencv/sources/modules/objdetect
 opencv_ocl_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/ocl
 
 //Dependencies for the target
-opencv_ocl_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_objdetect;general;opencv_video;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_ocl_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_objdetect;general;opencv_video;
 
 //Value Computed by CMake
 opencv_ocl_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ocl
@@ -812,7 +811,7 @@ opencv_ocl_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ocl
 opencv_photo_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/photo
 
 //Dependencies for the target
-opencv_photo_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_photo_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;
 
 //Value Computed by CMake
 opencv_photo_SOURCE_DIR:STATIC=C:/opencv/sources/modules/photo
@@ -821,7 +820,7 @@ opencv_photo_SOURCE_DIR:STATIC=C:/opencv/sources/modules/photo
 opencv_stitching_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/stitching
 
 //Dependencies for the target
-opencv_stitching_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_stitching_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;
 
 //Value Computed by CMake
 opencv_stitching_SOURCE_DIR:STATIC=C:/opencv/sources/modules/stitching
@@ -830,7 +829,7 @@ opencv_stitching_SOURCE_DIR:STATIC=C:/opencv/sources/modules/stitching
 opencv_superres_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/superres
 
 //Dependencies for the target
-opencv_superres_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_superres_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;
 
 //Value Computed by CMake
 opencv_superres_SOURCE_DIR:STATIC=C:/opencv/sources/modules/superres
@@ -839,7 +838,7 @@ opencv_superres_SOURCE_DIR:STATIC=C:/opencv/sources/modules/superres
 opencv_ts_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/ts
 
 //Dependencies for the target
-opencv_ts_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_ts_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;
 
 //Value Computed by CMake
 opencv_ts_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ts
@@ -848,7 +847,7 @@ opencv_ts_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ts
 opencv_video_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/video
 
 //Dependencies for the target
-opencv_video_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_video_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;
 
 //Value Computed by CMake
 opencv_video_SOURCE_DIR:STATIC=C:/opencv/sources/modules/video
@@ -857,7 +856,7 @@ opencv_video_SOURCE_DIR:STATIC=C:/opencv/sources/modules/video
 opencv_videostab_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/videostab
 
 //Dependencies for the target
-opencv_videostab_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_videostab_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;
 
 //Value Computed by CMake
 opencv_videostab_SOURCE_DIR:STATIC=C:/opencv/sources/modules/videostab
@@ -996,7 +995,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=63
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=62
 //ADVANCED property for variable: CMAKE_RC_COMPILER
 CMAKE_RC_COMPILER-ADVANCED:INTERNAL=1
 CMAKE_RC_COMPILER_WORKS:INTERNAL=1
@@ -1316,7 +1315,7 @@ OPENCV_MODULE_opencv_core_CLASS:INTERNAL=PUBLIC
 //Flattened dependencies of opencv_core module
 OPENCV_MODULE_opencv_core_DEPS:INTERNAL=
 //Extra dependencies of opencv_core module
-OPENCV_MODULE_opencv_core_DEPS_EXT:INTERNAL=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;zlib
+OPENCV_MODULE_opencv_core_DEPS_EXT:INTERNAL=zlib
 OPENCV_MODULE_opencv_core_DEPS_ORDERED:INTERNAL=
 //Brief description of opencv_core module
 OPENCV_MODULE_opencv_core_DESCRIPTION:INTERNAL=The Core Functionality
@@ -1329,11 +1328,11 @@ OPENCV_MODULE_opencv_core_OPT_DEPS:INTERNAL=
 //Optional private dependencies of opencv_core module
 OPENCV_MODULE_opencv_core_PRIVATE_OPT_DEPS:INTERNAL=
 //Required private dependencies of opencv_core module
-OPENCV_MODULE_opencv_core_PRIVATE_REQ_DEPS:INTERNAL=zlib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib
+OPENCV_MODULE_opencv_core_PRIVATE_REQ_DEPS:INTERNAL=zlib
 //Required dependencies of opencv_core module
 OPENCV_MODULE_opencv_core_REQ_DEPS:INTERNAL=
 //List of source files for opencv_core
-OPENCV_MODULE_opencv_core_SOURCES:INTERNAL=C:/opencv/sources/build/modules/core/version_string.inc;C:/opencv/sources/modules/core/../dynamicuda/src/cuda/matrix_operations.cu;C:/opencv/sources/build/modules/core/CMakeFiles/cuda_compile.dir/__/dynamicuda/src/cuda/$(Configuration)/cuda_compile_generated_matrix_operations.cu.obj;C:/opencv/sources/modules/core/src/algorithm.cpp;C:/opencv/sources/modules/core/src/alloc.cpp;C:/opencv/sources/modules/core/src/arithm.cpp;C:/opencv/sources/modules/core/src/array.cpp;C:/opencv/sources/modules/core/src/cmdparser.cpp;C:/opencv/sources/modules/core/src/convert.cpp;C:/opencv/sources/modules/core/src/copy.cpp;C:/opencv/sources/modules/core/src/datastructs.cpp;C:/opencv/sources/modules/core/src/drawing.cpp;C:/opencv/sources/modules/core/src/dxt.cpp;C:/opencv/sources/modules/core/src/glob.cpp;C:/opencv/sources/modules/core/src/gl_core_3_1.cpp;C:/opencv/sources/modules/core/src/gpumat.cpp;C:/opencv/sources/modules/core/src/lapack.cpp;C:/opencv/sources/modules/core/src/mathfuncs.cpp;C:/opencv/sources/modules/core/src/matmul.cpp;C:/opencv/sources/modules/core/src/matop.cpp;C:/opencv/sources/modules/core/src/matrix.cpp;C:/opencv/sources/modules/core/src/opengl_interop.cpp;C:/opencv/sources/modules/core/src/opengl_interop_deprecated.cpp;C:/opencv/sources/modules/core/src/out.cpp;C:/opencv/sources/modules/core/src/parallel.cpp;C:/opencv/sources/modules/core/src/persistence.cpp;C:/opencv/sources/modules/core/src/rand.cpp;C:/opencv/sources/modules/core/src/stat.cpp;C:/opencv/sources/modules/core/src/system.cpp;C:/opencv/sources/modules/core/src/tables.cpp;C:/opencv/sources/modules/core/src/gl_core_3_1.hpp;C:/opencv/sources/modules/core/src/precomp.hpp
+OPENCV_MODULE_opencv_core_SOURCES:INTERNAL=C:/opencv/sources/build/modules/core/version_string.inc;C:/opencv/sources/modules/core/src/algorithm.cpp;C:/opencv/sources/modules/core/src/alloc.cpp;C:/opencv/sources/modules/core/src/arithm.cpp;C:/opencv/sources/modules/core/src/array.cpp;C:/opencv/sources/modules/core/src/cmdparser.cpp;C:/opencv/sources/modules/core/src/convert.cpp;C:/opencv/sources/modules/core/src/copy.cpp;C:/opencv/sources/modules/core/src/datastructs.cpp;C:/opencv/sources/modules/core/src/drawing.cpp;C:/opencv/sources/modules/core/src/dxt.cpp;C:/opencv/sources/modules/core/src/glob.cpp;C:/opencv/sources/modules/core/src/gl_core_3_1.cpp;C:/opencv/sources/modules/core/src/gpumat.cpp;C:/opencv/sources/modules/core/src/lapack.cpp;C:/opencv/sources/modules/core/src/mathfuncs.cpp;C:/opencv/sources/modules/core/src/matmul.cpp;C:/opencv/sources/modules/core/src/matop.cpp;C:/opencv/sources/modules/core/src/matrix.cpp;C:/opencv/sources/modules/core/src/opengl_interop.cpp;C:/opencv/sources/modules/core/src/opengl_interop_deprecated.cpp;C:/opencv/sources/modules/core/src/out.cpp;C:/opencv/sources/modules/core/src/parallel.cpp;C:/opencv/sources/modules/core/src/persistence.cpp;C:/opencv/sources/modules/core/src/rand.cpp;C:/opencv/sources/modules/core/src/stat.cpp;C:/opencv/sources/modules/core/src/system.cpp;C:/opencv/sources/modules/core/src/tables.cpp;C:/opencv/sources/modules/core/src/gl_core_3_1.hpp;C:/opencv/sources/modules/core/src/precomp.hpp
 //Location of opencv_dynamicuda module sources
 OPENCV_MODULE_opencv_dynamicuda_LOCATION:INTERNAL=C:/opencv/sources/modules/dynamicuda
 //The cathegory of the module
@@ -1396,7 +1395,7 @@ OPENCV_MODULE_opencv_gpu_HEADERS:INTERNAL=C:/opencv/sources/modules/gpu/include/
 //Location of opencv_gpu module sources
 OPENCV_MODULE_opencv_gpu_LOCATION:INTERNAL=C:/opencv/sources/modules/gpu
 //Optional dependencies of opencv_gpu module
-OPENCV_MODULE_opencv_gpu_OPT_DEPS:INTERNAL=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cublas.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cufft.lib
+OPENCV_MODULE_opencv_gpu_OPT_DEPS:INTERNAL=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cublas.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cufft.lib
 //Optional private dependencies of opencv_gpu module
 OPENCV_MODULE_opencv_gpu_PRIVATE_OPT_DEPS:INTERNAL=
 //Required private dependencies of opencv_gpu module
@@ -1404,7 +1403,7 @@ OPENCV_MODULE_opencv_gpu_PRIVATE_REQ_DEPS:INTERNAL=
 //Required dependencies of opencv_gpu module
 OPENCV_MODULE_opencv_gpu_REQ_DEPS:INTERNAL=opencv_imgproc;opencv_calib3d;opencv_objdetect;opencv_video;opencv_photo;opencv_legacy
 //List of source files for opencv_gpu
-OPENCV_MODULE_opencv_gpu_SOURCES:INTERNAL=C:/opencv/sources/modules/gpu/src/precomp.hpp;C:/opencv/sources/modules/gpu/src/cuvid_video_source.h;C:/opencv/sources/modules/gpu/src/cu_safe_call.h;C:/opencv/sources/modules/gpu/src/cvt_color_internal.h;C:/opencv/sources/modules/gpu/src/ffmpeg_video_source.h;C:/opencv/sources/modules/gpu/src/frame_queue.h;C:/opencv/sources/modules/gpu/src/thread_wrappers.h;C:/opencv/sources/modules/gpu/src/video_decoder.h;C:/opencv/sources/modules/gpu/src/video_parser.h;C:/opencv/sources/modules/gpu/src/cuda/fgd_bgfg_common.hpp;C:/opencv/sources/modules/gpu/src/cuda/internal_shared.hpp;C:/opencv/sources/modules/gpu/src/cuda/lbp.hpp;C:/opencv/sources/modules/gpu/src/cuda/safe_call.hpp;C:/opencv/sources/modules/gpu/src/cuda/texture_binder.hpp;C:/opencv/sources/modules/gpu/src/cuda/column_filter.h;C:/opencv/sources/modules/gpu/src/cuda/row_filter.h;C:/opencv/sources/modules/gpu/src/arithm.cpp;C:/opencv/sources/modules/gpu/src/bgfg_gmg.cpp;C:/opencv/sources/modules/gpu/src/bgfg_mog.cpp;C:/opencv/sources/modules/gpu/src/bilateral_filter.cpp;C:/opencv/sources/modules/gpu/src/blend.cpp;C:/opencv/sources/modules/gpu/src/brute_force_matcher.cpp;C:/opencv/sources/modules/gpu/src/calib3d.cpp;C:/opencv/sources/modules/gpu/src/cascadeclassifier.cpp;C:/opencv/sources/modules/gpu/src/color.cpp;C:/opencv/sources/modules/gpu/src/cudastream.cpp;C:/opencv/sources/modules/gpu/src/cuvid_video_source.cpp;C:/opencv/sources/modules/gpu/src/cu_safe_call.cpp;C:/opencv/sources/modules/gpu/src/denoising.cpp;C:/opencv/sources/modules/gpu/src/element_operations.cpp;C:/opencv/sources/modules/gpu/src/error.cpp;C:/opencv/sources/modules/gpu/src/fast.cpp;C:/opencv/sources/modules/gpu/src/ffmpeg_video_source.cpp;C:/opencv/sources/modules/gpu/src/fgd_bgfg.cpp;C:/opencv/sources/modules/gpu/src/filtering.cpp;C:/opencv/sources/modules/gpu/src/frame_queue.cpp;C:/opencv/sources/modules/gpu/src/gftt.cpp;C:/opencv/sources/modules/gpu/src/global_motion.cpp;C:/opencv/sources/modules/gpu/src/graphcuts.cpp;C:/opencv/sources/modules/gpu/src/hog.cpp;C:/opencv/sources/modules/gpu/src/hough.cpp;C:/opencv/sources/modules/gpu/src/imgproc.cpp;C:/opencv/sources/modules/gpu/src/match_template.cpp;C:/opencv/sources/modules/gpu/src/matrix_operations.cpp;C:/opencv/sources/modules/gpu/src/matrix_reductions.cpp;C:/opencv/sources/modules/gpu/src/mssegmentation.cpp;C:/opencv/sources/modules/gpu/src/optflowbm.cpp;C:/opencv/sources/modules/gpu/src/optical_flow.cpp;C:/opencv/sources/modules/gpu/src/optical_flow_farneback.cpp;C:/opencv/sources/modules/gpu/src/orb.cpp;C:/opencv/sources/modules/gpu/src/precomp.cpp;C:/opencv/sources/modules/gpu/src/pyramids.cpp;C:/opencv/sources/modules/gpu/src/pyrlk.cpp;C:/opencv/sources/modules/gpu/src/remap.cpp;C:/opencv/sources/modules/gpu/src/resize.cpp;C:/opencv/sources/modules/gpu/src/speckle_filtering.cpp;C:/opencv/sources/modules/gpu/src/split_merge.cpp;C:/opencv/sources/modules/gpu/src/stereobm.cpp;C:/opencv/sources/modules/gpu/src/stereobp.cpp;C:/opencv/sources/modules/gpu/src/stereocsbp.cpp;C:/opencv/sources/modules/gpu/src/thread_wrappers.cpp;C:/opencv/sources/modules/gpu/src/tvl1flow.cpp;C:/opencv/sources/modules/gpu/src/video_decoder.cpp;C:/opencv/sources/modules/gpu/src/video_parser.cpp;C:/opencv/sources/modules/gpu/src/video_reader.cpp;C:/opencv/sources/modules/gpu/src/video_writer.cpp;C:/opencv/sources/modules/gpu/src/warp.cpp;C:/opencv/sources/modules/gpu/src/cuda/bf_knnmatch.cu;C:/opencv/sources/modules/gpu/src/cuda/bf_match.cu;C:/opencv/sources/modules/gpu/src/cuda/bf_radius_match.cu;C:/opencv/sources/modules/gpu/src/cuda/bgfg_gmg.cu;C:/opencv/sources/modules/gpu/src/cuda/bgfg_mog.cu;C:/opencv/sources/modules/gpu/src/cuda/bilateral_filter.cu;C:/opencv/sources/modules/gpu/src/cuda/blend.cu;C:/opencv/sources/modules/gpu/src/cuda/calib3d.cu;C:/opencv/sources/modules/gpu/src/cuda/canny.cu;C:/opencv/sources/modules/gpu/src/cuda/ccomponetns.cu;C:/opencv/sources/modules/gpu/src/cuda/clahe.cu;C:/opencv/sources/modules/gpu/src/cuda/color.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.0.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.1.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.10.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.11.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.12.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.13.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.14.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.2.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.3.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.4.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.5.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.6.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.7.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.8.cu;C:/opencv/sources/modules/gpu/src/cuda/column_filter.9.cu;C:/opencv/sources/modules/gpu/src/cuda/copy_make_border.cu;C:/opencv/sources/modules/gpu/src/cuda/debayer.cu;C:/opencv/sources/modules/gpu/src/cuda/disp_bilateral_filter.cu;C:/opencv/sources/modules/gpu/src/cuda/element_operations.cu;C:/opencv/sources/modules/gpu/src/cuda/fast.cu;C:/opencv/sources/modules/gpu/src/cuda/fgd_bgfg.cu;C:/opencv/sources/modules/gpu/src/cuda/gftt.cu;C:/opencv/sources/modules/gpu/src/cuda/global_motion.cu;C:/opencv/sources/modules/gpu/src/cuda/hist.cu;C:/opencv/sources/modules/gpu/src/cuda/hog.cu;C:/opencv/sources/modules/gpu/src/cuda/hough.cu;C:/opencv/sources/modules/gpu/src/cuda/imgproc.cu;C:/opencv/sources/modules/gpu/src/cuda/integral_image.cu;C:/opencv/sources/modules/gpu/src/cuda/lbp.cu;C:/opencv/sources/modules/gpu/src/cuda/match_template.cu;C:/opencv/sources/modules/gpu/src/cuda/mathfunc.cu;C:/opencv/sources/modules/gpu/src/cuda/matrix_reductions.cu;C:/opencv/sources/modules/gpu/src/cuda/nlm.cu;C:/opencv/sources/modules/gpu/src/cuda/NV12ToARGB.cu;C:/opencv/sources/modules/gpu/src/cuda/optflowbm.cu;C:/opencv/sources/modules/gpu/src/cuda/optical_flow.cu;C:/opencv/sources/modules/gpu/src/cuda/optical_flow_farneback.cu;C:/opencv/sources/modules/gpu/src/cuda/orb.cu;C:/opencv/sources/modules/gpu/src/cuda/pyrlk.cu;C:/opencv/sources/modules/gpu/src/cuda/pyr_down.cu;C:/opencv/sources/modules/gpu/src/cuda/pyr_up.cu;C:/opencv/sources/modules/gpu/src/cuda/remap.cu;C:/opencv/sources/modules/gpu/src/cuda/resize.cu;C:/opencv/sources/modules/gpu/src/cuda/rgb_to_yv12.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.0.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.1.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.10.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.11.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.12.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.13.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.14.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.2.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.3.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.4.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.5.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.6.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.7.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.8.cu;C:/opencv/sources/modules/gpu/src/cuda/row_filter.9.cu;C:/opencv/sources/modules/gpu/src/cuda/split_merge.cu;C:/opencv/sources/modules/gpu/src/cuda/stereobm.cu;C:/opencv/sources/modules/gpu/src/cuda/stereobp.cu;C:/opencv/sources/modules/gpu/src/cuda/stereocsbp.cu;C:/opencv/sources/modules/gpu/src/cuda/tvl1flow.cu;C:/opencv/sources/modules/gpu/src/cuda/warp.cu;C:/opencv/sources/modules/gpu/src/nvidia/core/NCV.hpp;C:/opencv/sources/modules/gpu/src/nvidia/core/NCVAlg.hpp;C:/opencv/sources/modules/gpu/src/nvidia/core/NCVColorConversion.hpp;C:/opencv/sources/modules/gpu/src/nvidia/core/NCVPixelOperations.hpp;C:/opencv/sources/modules/gpu/src/nvidia/core/NCVPyramid.hpp;C:/opencv/sources/modules/gpu/src/nvidia/core/NCVRuntimeTemplates.hpp;C:/opencv/sources/modules/gpu/src/nvidia/NCVBroxOpticalFlow.hpp;C:/opencv/sources/modules/gpu/src/nvidia/NCVHaarObjectDetection.hpp;C:/opencv/sources/modules/gpu/src/nvidia/NPP_staging/NPP_staging.hpp;C:/opencv/sources/modules/gpu/src/nvidia/core/NCV.cu;C:/opencv/sources/modules/gpu/src/nvidia/core/NCVPyramid.cu;C:/opencv/sources/modules/gpu/src/nvidia/NCVBroxOpticalFlow.cu;C:/opencv/sources/modules/gpu/src/nvidia/NCVHaarObjectDetection.cu;C:/opencv/sources/modules/gpu/src/nvidia/NPP_staging/NPP_staging.cu;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_bf_knnmatch.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_bf_match.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_bf_radius_match.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_bgfg_gmg.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_bgfg_mog.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_bilateral_filter.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_blend.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_calib3d.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_canny.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_ccomponetns.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_clahe.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_color.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.0.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.1.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.10.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.11.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.12.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.13.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.14.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.2.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.3.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.4.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.5.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.6.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.7.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.8.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_column_filter.9.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_copy_make_border.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_debayer.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_disp_bilateral_filter.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_element_operations.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_fast.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_fgd_bgfg.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_gftt.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_global_motion.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_hist.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_hog.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_hough.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_imgproc.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_integral_image.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_lbp.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_match_template.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_mathfunc.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_matrix_reductions.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_nlm.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_NV12ToARGB.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_optflowbm.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_optical_flow.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_optical_flow_farneback.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_orb.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_pyrlk.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_pyr_down.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_pyr_up.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_remap.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_resize.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_rgb_to_yv12.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.0.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.1.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.10.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.11.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.12.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.13.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.14.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.2.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.3.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.4.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.5.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.6.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.7.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.8.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_row_filter.9.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_split_merge.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_stereobm.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_stereobp.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_stereocsbp.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_tvl1flow.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_warp.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/nvidia/core/$(Configuration)/cuda_compile_generated_NCV.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/nvidia/core/$(Configuration)/cuda_compile_generated_NCVPyramid.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/nvidia/$(Configuration)/cuda_compile_generated_NCVBroxOpticalFlow.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/nvidia/$(Configuration)/cuda_compile_generated_NCVHaarObjectDetection.cu.obj;C:/opencv/sources/build/modules/gpu/CMakeFiles/cuda_compile.dir/src/nvidia/NPP_staging/$(Configuration)/cuda_compile_generated_NPP_staging.cu.obj
+OPENCV_MODULE_opencv_gpu_SOURCES:INTERNAL=C:/opencv/sources/modules/gpu/src/precomp.hpp;C:/opencv/sources/modules/gpu/src/cuvid_video_source.h;C:/opencv/sources/modules/gpu/src/cu_safe_call.h;C:/opencv/sources/modules/gpu/src/cvt_color_internal.h;C:/opencv/sources/modules/gpu/src/ffmpeg_video_source.h;C:/opencv/sources/modules/gpu/src/frame_queue.h;C:/opencv/sources/modules/gpu/src/thread_wrappers.h;C:/opencv/sources/modules/gpu/src/video_decoder.h;C:/opencv/sources/modules/gpu/src/video_parser.h;C:/opencv/sources/modules/gpu/src/cuda/fgd_bgfg_common.hpp;C:/opencv/sources/modules/gpu/src/cuda/internal_shared.hpp;C:/opencv/sources/modules/gpu/src/cuda/lbp.hpp;C:/opencv/sources/modules/gpu/src/cuda/safe_call.hpp;C:/opencv/sources/modules/gpu/src/cuda/texture_binder.hpp;C:/opencv/sources/modules/gpu/src/cuda/column_filter.h;C:/opencv/sources/modules/gpu/src/cuda/row_filter.h;C:/opencv/sources/modules/gpu/src/arithm.cpp;C:/opencv/sources/modules/gpu/src/bgfg_gmg.cpp;C:/opencv/sources/modules/gpu/src/bgfg_mog.cpp;C:/opencv/sources/modules/gpu/src/bilateral_filter.cpp;C:/opencv/sources/modules/gpu/src/blend.cpp;C:/opencv/sources/modules/gpu/src/brute_force_matcher.cpp;C:/opencv/sources/modules/gpu/src/calib3d.cpp;C:/opencv/sources/modules/gpu/src/cascadeclassifier.cpp;C:/opencv/sources/modules/gpu/src/color.cpp;C:/opencv/sources/modules/gpu/src/cudastream.cpp;C:/opencv/sources/modules/gpu/src/cuvid_video_source.cpp;C:/opencv/sources/modules/gpu/src/cu_safe_call.cpp;C:/opencv/sources/modules/gpu/src/denoising.cpp;C:/opencv/sources/modules/gpu/src/element_operations.cpp;C:/opencv/sources/modules/gpu/src/error.cpp;C:/opencv/sources/modules/gpu/src/fast.cpp;C:/opencv/sources/modules/gpu/src/ffmpeg_video_source.cpp;C:/opencv/sources/modules/gpu/src/fgd_bgfg.cpp;C:/opencv/sources/modules/gpu/src/filtering.cpp;C:/opencv/sources/modules/gpu/src/frame_queue.cpp;C:/opencv/sources/modules/gpu/src/gftt.cpp;C:/opencv/sources/modules/gpu/src/global_motion.cpp;C:/opencv/sources/modules/gpu/src/graphcuts.cpp;C:/opencv/sources/modules/gpu/src/hog.cpp;C:/opencv/sources/modules/gpu/src/hough.cpp;C:/opencv/sources/modules/gpu/src/imgproc.cpp;C:/opencv/sources/modules/gpu/src/match_template.cpp;C:/opencv/sources/modules/gpu/src/matrix_operations.cpp;C:/opencv/sources/modules/gpu/src/matrix_reductions.cpp;C:/opencv/sources/modules/gpu/src/mssegmentation.cpp;C:/opencv/sources/modules/gpu/src/optflowbm.cpp;C:/opencv/sources/modules/gpu/src/optical_flow.cpp;C:/opencv/sources/modules/gpu/src/optical_flow_farneback.cpp;C:/opencv/sources/modules/gpu/src/orb.cpp;C:/opencv/sources/modules/gpu/src/precomp.cpp;C:/opencv/sources/modules/gpu/src/pyramids.cpp;C:/opencv/sources/modules/gpu/src/pyrlk.cpp;C:/opencv/sources/modules/gpu/src/remap.cpp;C:/opencv/sources/modules/gpu/src/resize.cpp;C:/opencv/sources/modules/gpu/src/speckle_filtering.cpp;C:/opencv/sources/modules/gpu/src/split_merge.cpp;C:/opencv/sources/modules/gpu/src/stereobm.cpp;C:/opencv/sources/modules/gpu/src/stereobp.cpp;C:/opencv/sources/modules/gpu/src/stereocsbp.cpp;C:/opencv/sources/modules/gpu/src/thread_wrappers.cpp;C:/opencv/sources/modules/gpu/src/tvl1flow.cpp;C:/opencv/sources/modules/gpu/src/video_decoder.cpp;C:/opencv/sources/modules/gpu/src/video_parser.cpp;C:/opencv/sources/modules/gpu/src/video_reader.cpp;C:/opencv/sources/modules/gpu/src/video_writer.cpp;C:/opencv/sources/modules/gpu/src/warp.cpp
 //The cathegory of the module
 OPENCV_MODULE_opencv_highgui_CLASS:INTERNAL=PUBLIC
 //Flattened dependencies of opencv_highgui module
@@ -1521,7 +1520,7 @@ OPENCV_MODULE_opencv_nonfree_PRIVATE_REQ_DEPS:INTERNAL=
 //Required dependencies of opencv_nonfree module
 OPENCV_MODULE_opencv_nonfree_REQ_DEPS:INTERNAL=opencv_imgproc;opencv_features2d;opencv_calib3d
 //List of source files for opencv_nonfree
-OPENCV_MODULE_opencv_nonfree_SOURCES:INTERNAL=C:/opencv/sources/modules/nonfree/src/nonfree_init.cpp;C:/opencv/sources/modules/nonfree/src/sift.cpp;C:/opencv/sources/modules/nonfree/src/surf.cpp;C:/opencv/sources/modules/nonfree/src/surf.ocl.cpp;C:/opencv/sources/modules/nonfree/src/surf_gpu.cpp;C:/opencv/sources/modules/nonfree/src/opencl/surf.cl;C:/opencv/sources/build/modules/nonfree/opencl_kernels.cpp;C:/opencv/sources/build/modules/nonfree/opencl_kernels.hpp;C:/opencv/sources/modules/nonfree/src/precomp.hpp;C:/opencv/sources/build/modules/nonfree/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_surf.cu.obj;C:/opencv/sources/modules/nonfree/src/cuda/surf.cu
+OPENCV_MODULE_opencv_nonfree_SOURCES:INTERNAL=C:/opencv/sources/modules/nonfree/src/nonfree_init.cpp;C:/opencv/sources/modules/nonfree/src/sift.cpp;C:/opencv/sources/modules/nonfree/src/surf.cpp;C:/opencv/sources/modules/nonfree/src/surf.ocl.cpp;C:/opencv/sources/modules/nonfree/src/surf_gpu.cpp;C:/opencv/sources/modules/nonfree/src/opencl/surf.cl;C:/opencv/sources/build/modules/nonfree/opencl_kernels.cpp;C:/opencv/sources/build/modules/nonfree/opencl_kernels.hpp;C:/opencv/sources/modules/nonfree/src/precomp.hpp;C:/opencv/sources/modules/nonfree/src/cuda/surf.cu
 //The cathegory of the module
 OPENCV_MODULE_opencv_objdetect_CLASS:INTERNAL=PUBLIC
 //Flattened dependencies of opencv_objdetect module
@@ -1630,7 +1629,7 @@ OPENCV_MODULE_opencv_superres_HEADERS:INTERNAL=C:/opencv/sources/modules/superre
 //Location of opencv_superres module sources
 OPENCV_MODULE_opencv_superres_LOCATION:INTERNAL=C:/opencv/sources/modules/superres
 //Optional dependencies of opencv_superres module
-OPENCV_MODULE_opencv_superres_OPT_DEPS:INTERNAL=opencv_gpu;opencv_highgui;opencv_ocl;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib
+OPENCV_MODULE_opencv_superres_OPT_DEPS:INTERNAL=opencv_gpu;opencv_highgui;opencv_ocl
 //Optional private dependencies of opencv_superres module
 OPENCV_MODULE_opencv_superres_PRIVATE_OPT_DEPS:INTERNAL=
 //Required private dependencies of opencv_superres module
@@ -1638,7 +1637,7 @@ OPENCV_MODULE_opencv_superres_PRIVATE_REQ_DEPS:INTERNAL=
 //Required dependencies of opencv_superres module
 OPENCV_MODULE_opencv_superres_REQ_DEPS:INTERNAL=opencv_imgproc;opencv_video
 //List of source files for opencv_superres
-OPENCV_MODULE_opencv_superres_SOURCES:INTERNAL=C:/opencv/sources/modules/superres/src/btv_l1.cpp;C:/opencv/sources/modules/superres/src/btv_l1_gpu.cpp;C:/opencv/sources/modules/superres/src/btv_l1_ocl.cpp;C:/opencv/sources/modules/superres/src/frame_source.cpp;C:/opencv/sources/modules/superres/src/input_array_utility.cpp;C:/opencv/sources/modules/superres/src/optical_flow.cpp;C:/opencv/sources/modules/superres/src/super_resolution.cpp;C:/opencv/sources/modules/superres/src/opencl/superres_btvl1.cl;C:/opencv/sources/build/modules/superres/opencl_kernels.cpp;C:/opencv/sources/build/modules/superres/opencl_kernels.hpp;C:/opencv/sources/modules/superres/src/input_array_utility.hpp;C:/opencv/sources/modules/superres/src/precomp.hpp;C:/opencv/sources/modules/superres/src/ring_buffer.hpp;C:/opencv/sources/build/modules/superres/CMakeFiles/cuda_compile.dir/src/cuda/$(Configuration)/cuda_compile_generated_btv_l1_gpu.cu.obj;C:/opencv/sources/modules/superres/src/cuda/btv_l1_gpu.cu
+OPENCV_MODULE_opencv_superres_SOURCES:INTERNAL=C:/opencv/sources/modules/superres/src/btv_l1.cpp;C:/opencv/sources/modules/superres/src/btv_l1_gpu.cpp;C:/opencv/sources/modules/superres/src/btv_l1_ocl.cpp;C:/opencv/sources/modules/superres/src/frame_source.cpp;C:/opencv/sources/modules/superres/src/input_array_utility.cpp;C:/opencv/sources/modules/superres/src/optical_flow.cpp;C:/opencv/sources/modules/superres/src/super_resolution.cpp;C:/opencv/sources/modules/superres/src/opencl/superres_btvl1.cl;C:/opencv/sources/build/modules/superres/opencl_kernels.cpp;C:/opencv/sources/build/modules/superres/opencl_kernels.hpp;C:/opencv/sources/modules/superres/src/input_array_utility.hpp;C:/opencv/sources/modules/superres/src/precomp.hpp;C:/opencv/sources/modules/superres/src/ring_buffer.hpp;C:/opencv/sources/modules/superres/src/cuda/btv_l1_gpu.cu
 //The cathegory of the module
 OPENCV_MODULE_opencv_ts_CLASS:INTERNAL=PUBLIC
 //Flattened dependencies of opencv_ts module

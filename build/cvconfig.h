@@ -2,13 +2,13 @@
 #define BUILD_SHARED_LIBS
 
 /* Compile for 'real' NVIDIA GPU architectures */
-#define CUDA_ARCH_BIN " 20"
+#define CUDA_ARCH_BIN ""
 
 /* Create PTX or BIN for 1.0 compute capability */
 /* #undef CUDA_ARCH_BIN_OR_PTX_10 */
 
 /* NVIDIA GPU features are used */
-#define CUDA_ARCH_FEATURES " 20"
+#define CUDA_ARCH_FEATURES ""
 
 /* Compile for 'virtual' NVIDIA PTX architectures */
 #define CUDA_ARCH_PTX ""
@@ -41,7 +41,7 @@
 /* #undef HAVE_CUBLAS */
 
 /* NVidia Cuda Runtime API*/
-#define HAVE_CUDA
+/* #undef HAVE_CUDA */
 
 /* NVidia Cuda Fast Fourier Transform (FFT) API*/
 /* #undef HAVE_CUFFT */

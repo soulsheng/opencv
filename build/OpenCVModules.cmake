@@ -235,7 +235,7 @@ set_target_properties(opencv_superres PROPERTIES
 set_property(TARGET opencv_ts APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(opencv_ts PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LINK_INTERFACE_LIBRARIES_DEBUG "opencv_core;opencv_flann;opencv_imgproc;opencv_highgui;opencv_features2d;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib"
+  IMPORTED_LINK_INTERFACE_LIBRARIES_DEBUG "opencv_core;opencv_flann;opencv_imgproc;opencv_highgui;opencv_features2d"
   IMPORTED_LOCATION_DEBUG "C:/opencv/sources/build/lib/Debug/opencv_ts248d.lib"
   )
 
@@ -388,7 +388,7 @@ set_target_properties(opencv_superres PROPERTIES
 set_property(TARGET opencv_ts APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(opencv_ts PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LINK_INTERFACE_LIBRARIES_RELEASE "opencv_core;opencv_flann;opencv_imgproc;opencv_highgui;opencv_features2d;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib"
+  IMPORTED_LINK_INTERFACE_LIBRARIES_RELEASE "opencv_core;opencv_flann;opencv_imgproc;opencv_highgui;opencv_features2d"
   IMPORTED_LOCATION_RELEASE "C:/opencv/sources/build/lib/Release/opencv_ts248.lib"
   )
 
