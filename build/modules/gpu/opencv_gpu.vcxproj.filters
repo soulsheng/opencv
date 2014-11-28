@@ -593,6 +593,7 @@
     <CustomBuild Include="..\..\..\modules\gpu\src\nvidia\NPP_staging\NPP_staging.cu">
       <Filter>Src\NVidia</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\..\modules\gpu\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bf_knnmatch.cu.obj">

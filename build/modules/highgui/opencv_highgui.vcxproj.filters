@@ -137,9 +137,6 @@
     <CustomBuild Include="..\..\..\modules\highgui\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Src\grfmts">
-      <UniqueIdentifier>{D2C463A8-5F14-43C0-8F7A-60FE776B3208}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
     </Filter>
@@ -151,6 +148,9 @@
     </Filter>
     <Filter Include="Include">
       <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\grfmts">
+      <UniqueIdentifier>{D2C463A8-5F14-43C0-8F7A-60FE776B3208}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

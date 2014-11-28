@@ -31,24 +31,23 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\bin\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl248d</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\bin\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl248</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-  </PropertyGroup>
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\bin\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_ocl248d</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\bin\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_ocl248</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -95,8 +94,7 @@
       <ImportLibrary>C:/opencv/sources/build/lib/Debug/opencv_ocl248d.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/opencv/sources/build/bin/Debug/opencv_ocl248d.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version>
-      </Version>
+      <Version></Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -147,8 +145,7 @@
       <ImportLibrary>C:/opencv/sources/build/lib/Release/opencv_ocl248.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/opencv/sources/build/bin/Release/opencv_ocl248.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version>
-      </Version>
+      <Version></Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -220,50 +217,50 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\..\..\modules\ocl\src\safe_call.hpp" />
     <ClInclude Include="..\..\cvconfig.h" />
     <ClInclude Include="..\..\opencv2\opencv_modules.hpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\arithm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\bgfg_mog.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\blend.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\brute_force_matcher.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\build_warps.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\canny.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_context.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_operations.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_programcache.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdblas_runtime.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdfft_runtime.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\cl_runtime.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\color.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\columnsum.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\error.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\fft.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\filtering.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\gemm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\gftt.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\haar.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\hog.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\imgproc.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\interpolate_frames.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\kalman.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\kmeans.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\knearest.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\match_template.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\matrix_operations.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\mcwutil.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\moments.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\mssegmentation.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\optical_flow_farneback.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\pyrdown.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\pyrlk.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\pyrup.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\sort_by_key.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\split_merge.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\stereobm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\stereobp.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\stereo_csbp.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\svm.cpp" />
-    <ClCompile Include="..\..\..\modules\ocl\src\tvl1flow.cpp" />
-    <ClCompile Include="opencl_kernels.cpp" />
-    <ClCompile Include="opencv_ocl_pch.cpp">
+    <ClCompile Include="..\..\..\modules\ocl\src\arithm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\bgfg_mog.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\blend.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\brute_force_matcher.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\build_warps.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\canny.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_context.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_operations.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_programcache.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdblas_runtime.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\clamdfft_runtime.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\cl_runtime\cl_runtime.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\color.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\columnsum.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\error.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\fft.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\filtering.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\gemm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\gftt.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\haar.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\hog.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\imgproc.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\interpolate_frames.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\kalman.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\kmeans.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\knearest.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\match_template.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\matrix_operations.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\mcwutil.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\moments.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\mssegmentation.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\optical_flow_farneback.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\pyrdown.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\pyrlk.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\pyrup.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\sort_by_key.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\split_merge.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\stereobm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\stereobp.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\stereo_csbp.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\svm.cpp"  />
+    <ClCompile Include="..\..\..\modules\ocl\src\tvl1flow.cpp"  />
+    <ClCompile Include="opencl_kernels.cpp"  />
+    <ClCompile Include="opencv_ocl_pch.cpp" >
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/ocl/src/precomp.hpp</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -360,6 +357,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
       <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_calib3d.vcxproj">
+      <Project>8C8861F5-E6B3-4456-B09C-B76986D45A73</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
       <Project>DCCB6440-17B8-46A6-9E8E-E9E383409B2D</Project>
