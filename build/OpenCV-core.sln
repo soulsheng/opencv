@@ -50,6 +50,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_video", "modules\vid
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_calib3d", "modules\calib3d\opencv_calib3d.vcxproj", "{8C8861F5-E6B3-4456-B09C-B76986D45A73}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_contrib", "modules\contrib\opencv_contrib.vcxproj", "{26D97A86-787D-4680-8170-D2B9F3453FBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -136,6 +138,10 @@ Global
 		{8C8861F5-E6B3-4456-B09C-B76986D45A73}.Debug|Win32.Build.0 = Debug|Win32
 		{8C8861F5-E6B3-4456-B09C-B76986D45A73}.Release|Win32.ActiveCfg = Release|Win32
 		{8C8861F5-E6B3-4456-B09C-B76986D45A73}.Release|Win32.Build.0 = Release|Win32
+		{26D97A86-787D-4680-8170-D2B9F3453FBE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{26D97A86-787D-4680-8170-D2B9F3453FBE}.Debug|Win32.Build.0 = Debug|Win32
+		{26D97A86-787D-4680-8170-D2B9F3453FBE}.Release|Win32.ActiveCfg = Release|Win32
+		{26D97A86-787D-4680-8170-D2B9F3453FBE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,5 +167,6 @@ Global
 		{15B51179-78FD-4E1A-A189-2F50B3277403} = {982665DB-B433-4052-BC4F-3994172AAFBC}
 		{B06870D9-FA7C-4E03-8477-5A98F9CCC29F} = {982665DB-B433-4052-BC4F-3994172AAFBC}
 		{8C8861F5-E6B3-4456-B09C-B76986D45A73} = {982665DB-B433-4052-BC4F-3994172AAFBC}
+		{26D97A86-787D-4680-8170-D2B9F3453FBE} = {982665DB-B433-4052-BC4F-3994172AAFBC}
 	EndGlobalSection
 EndGlobal
