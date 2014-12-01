@@ -70,13 +70,13 @@ set(generated_file_internal "C:/opencv/sources/build/modules/core/CMakeFiles/cud
 set(generated_cubin_file_internal "C:/opencv/sources/build/modules/core/CMakeFiles/cuda_compile.dir/__/dynamicuda/src/cuda/$(Configuration)/cuda_compile_generated_matrix_operations.cu.obj.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/bin/nvcc.exe") # path
-set(CUDA_NVCC_FLAGS -gencode;arch=compute_35,code=sm_35;-Xcompiler;-DCVAPI_EXPORTS ;; ) # list
+set(CUDA_NVCC_FLAGS -gencode;arch=compute_11,code=sm_11;-gencode;arch=compute_12,code=sm_12;-gencode;arch=compute_13,code=sm_13;-gencode;arch=compute_20,code=sm_20;-gencode;arch=compute_20,code=sm_21;-gencode;arch=compute_30,code=sm_30;-gencode;arch=compute_35,code=sm_35;-gencode;arch=compute_30,code=compute_30;-Xcompiler;-DCVAPI_EXPORTS ;; ) # list
 # Build specific configuration flags
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
 set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_MINSIZEREL  ; )
 set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
-set(nvcc_flags -m32;-D_VARIADIC_MAX=10;-DUSE_CUDA) # list
+set(nvcc_flags -m64;-D_VARIADIC_MAX=10;-DUSE_CUDA) # list
 set(CUDA_NVCC_INCLUDE_ARGS "-IC:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/include;-IC:/opencv/sources/modules/gpu/include;-IC:/opencv/sources/build/3rdparty/zlib;-IC:/opencv/sources/3rdparty/zlib;-IC:/opencv/sources/modules/dynamicuda/include;-IC:/opencv/sources/build/modules/core;-IC:/opencv/sources/modules/core/src;-IC:/opencv/sources/modules/core/include;-IC:/opencv/sources/build;-IC:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/include") # list (needs to be in quotes to handle spaces properly).
 set(format_flag "-c") # string
 
@@ -86,7 +86,7 @@ endif()
 
 # This is the list of host compilation flags.  It C or CXX should already have
 # been chosen by FindCUDA.cmake.
-set(CMAKE_HOST_FLAGS /DWIN32 /D_WINDOWS /W4 /GR   /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /arch:SSE2 /Oi /fp:fast  /wd4251 )
+set(CMAKE_HOST_FLAGS /DWIN32 /D_WINDOWS /W4 /GR   /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /Oi  /wd4251 )
 set(CMAKE_HOST_FLAGS_DEBUG /D_DEBUG /MDd /Zi /Ob0 /Od /RTC1 )
 set(CMAKE_HOST_FLAGS_RELEASE /MD /O2 /Ob2 /D NDEBUG  /Zi)
 set(CMAKE_HOST_FLAGS_MINSIZEREL /MD /O1 /Ob1 /D NDEBUG)

@@ -149,29 +149,31 @@
     <CustomBuild Include="..\..\..\modules\core\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CMakeFiles\cuda_compile.dir\__\dynamicuda\src\cuda\$(Configuration)\cuda_compile_generated_matrix_operations.cu.obj">
-      <Filter>Object Files</Filter>
-    </None>
     <None Include="version_string.inc" />
   </ItemGroup>
   <ItemGroup>
+    <Object Include="CMakeFiles\cuda_compile.dir\__\dynamicuda\src\cuda\$(Configuration)\cuda_compile_generated_matrix_operations.cu.obj">
+      <Filter>Object Files</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
+      <UniqueIdentifier>{A2F2BF55-4E50-4AB1-919C-DF9F99BF3226}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{D8EF5608-42B2-4906-889B-2962B2C4B40C}</UniqueIdentifier>
+      <UniqueIdentifier>{63AC1B07-F6D4-47A5-B113-667BF03E3954}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object Files">
-      <UniqueIdentifier>{60A17FD1-DFDD-44C7-B5D2-89B9E3A910DC}</UniqueIdentifier>
+      <UniqueIdentifier>{97D0B88E-21E7-454B-A895-2ABEF0E0A4B3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src">
-      <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
+      <UniqueIdentifier>{E0CA9821-780C-45C8-A12D-D90614218567}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include">
-      <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
+      <UniqueIdentifier>{00D29FF5-18BC-4F67-814E-8FA13A67342F}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Cuda">
-      <UniqueIdentifier>{4B69BF74-7689-4BF3-BC38-742E156457FD}</UniqueIdentifier>
+      <UniqueIdentifier>{DBD2EB12-3E2B-4493-A0C5-2510070DB912}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

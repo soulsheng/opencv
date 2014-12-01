@@ -1,31 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
+    <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
+    <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{1EA8D00C-13C0-4666-A97C-CEAD89F36E92}</ProjectGUID>
+    <ProjectGUID>{27FA7C4A-258C-4559-BE1C-2C8F37E761B4}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
-    <Platform>Win32</Platform>
+    <Platform>x64</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Utility</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Utility</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -35,10 +37,10 @@
   <PropertyGroup Label="UserMacros" />
     <PropertyGroup>
       <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
       <AdditionalIncludeDirectories>C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
@@ -48,7 +50,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
       <AdditionalIncludeDirectories>C:\opencv\sources\build;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
@@ -60,8 +62,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="..\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/opencv/sources/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/opencv/sources/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 "C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H.. -B. --check-stamp-file C:\opencv\sources\build\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -70,10 +72,11 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/CMakeLists.txt;C:\opencv\sources\CMakeLists.txt;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeSystem.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCXXCompiler.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv\sources\cmake\OpenCVUtils.cmake;C:\opencv\sources\cmake\OpenCVDetectCXXCompiler.cmake;C:\opencv\sources\cmake\OpenCVLegacyOptions.cmake;C:\opencv\sources\cmake\OpenCVVersion.cmake;C:\opencv\sources\modules\core\include\opencv2\core\version.hpp;C:\opencv\sources\cmake\OpenCVCompilerOptions.cmake;C:\opencv\sources\cmake\OpenCVCRTLinkage.cmake;C:\opencv\sources\cmake\checks\winrttest.cpp;C:\opencv\sources\cmake\OpenCVPCHSupport.cmake;C:\opencv\sources\cmake\OpenCVModule.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGrfmt.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGUI.cmake;C:\opencv\sources\cmake\checks\win32uitest.cpp;C:\opencv\sources\cmake\OpenCVFindLibsVideo.cmake;C:\opencv\sources\cmake\checks\vfwtest.cpp;C:\opencv\sources\3rdparty\ffmpeg\ffmpeg_version.cmake;C:\opencv\sources\cmake\OpenCVFindLibsPerf.cmake;C:\opencv\sources\cmake\OpenCVDetectCUDA.cmake;C:\opencv\sources\cmake\FindCUDA.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVFindLATEX.cmake;C:\opencv\sources\cmake\OpenCVDetectPython.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPythonInterp.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectApacheAnt.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJNI.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectOpenCL.cmake;C:\opencv\sources\cmake\checks\opencl.cpp;C:\opencv\sources\cmake\OpenCVExtraTargets.cmake;C:\opencv\sources\cmake\templates\cmake_uninstall.cmake.in;C:\opencv\sources\cmake\OpenCVGenHeaders.cmake;C:\opencv\sources\cmake\templates\cvconfig.h.in;C:\opencv\sources\cmake\templates\opencv_modules.hpp.in;C:\opencv\sources\cmake\OpenCVGenPkgconfig.cmake;C:\opencv\sources\cmake\templates\opencv-XXX.pc.in;C:\opencv\sources\cmake\OpenCVGenAndroidMK.cmake;C:\opencv\sources\cmake\OpenCVGenConfig.cmake;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\OpenCVGenInfoPlist.cmake;C:\opencv\sources\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\CMakeFiles\generate.stamp</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/opencv/sources/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/opencv/sources/CMakeLists.txt;C:\opencv\sources\CMakeLists.txt;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeSystem.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCXXCompiler.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv\sources\cmake\OpenCVUtils.cmake;C:\opencv\sources\cmake\OpenCVDetectCXXCompiler.cmake;C:\opencv\sources\cmake\OpenCVLegacyOptions.cmake;C:\opencv\sources\cmake\OpenCVVersion.cmake;C:\opencv\sources\modules\core\include\opencv2\core\version.hpp;C:\opencv\sources\cmake\OpenCVCompilerOptions.cmake;C:\opencv\sources\cmake\OpenCVCRTLinkage.cmake;C:\opencv\sources\cmake\checks\winrttest.cpp;C:\opencv\sources\cmake\OpenCVPCHSupport.cmake;C:\opencv\sources\cmake\OpenCVModule.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGrfmt.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGUI.cmake;C:\opencv\sources\cmake\checks\win32uitest.cpp;C:\opencv\sources\cmake\OpenCVFindLibsVideo.cmake;C:\opencv\sources\cmake\checks\vfwtest.cpp;C:\opencv\sources\3rdparty\ffmpeg\ffmpeg_version.cmake;C:\opencv\sources\cmake\OpenCVFindLibsPerf.cmake;C:\opencv\sources\cmake\OpenCVDetectCUDA.cmake;C:\opencv\sources\cmake\FindCUDA.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVFindLATEX.cmake;C:\opencv\sources\cmake\OpenCVDetectPython.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPythonInterp.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectApacheAnt.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJNI.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectOpenCL.cmake;C:\opencv\sources\cmake\checks\opencl.cpp;C:\opencv\sources\cmake\OpenCVExtraTargets.cmake;C:\opencv\sources\cmake\templates\cmake_uninstall.cmake.in;C:\opencv\sources\cmake\OpenCVGenHeaders.cmake;C:\opencv\sources\cmake\templates\cvconfig.h.in;C:\opencv\sources\cmake\templates\opencv_modules.hpp.in;C:\opencv\sources\cmake\OpenCVGenPkgconfig.cmake;C:\opencv\sources\cmake\templates\opencv-XXX.pc.in;C:\opencv\sources\cmake\OpenCVGenAndroidMK.cmake;C:\opencv\sources\cmake\OpenCVGenConfig.cmake;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\OpenCVGenInfoPlist.cmake;C:\opencv\sources\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\opencv\sources\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/opencv/sources/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 "C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H.. -B. --check-stamp-file C:\opencv\sources\build\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -82,32 +85,35 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/CMakeLists.txt;C:\opencv\sources\CMakeLists.txt;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeSystem.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCXXCompiler.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv\sources\cmake\OpenCVUtils.cmake;C:\opencv\sources\cmake\OpenCVDetectCXXCompiler.cmake;C:\opencv\sources\cmake\OpenCVLegacyOptions.cmake;C:\opencv\sources\cmake\OpenCVVersion.cmake;C:\opencv\sources\modules\core\include\opencv2\core\version.hpp;C:\opencv\sources\cmake\OpenCVCompilerOptions.cmake;C:\opencv\sources\cmake\OpenCVCRTLinkage.cmake;C:\opencv\sources\cmake\checks\winrttest.cpp;C:\opencv\sources\cmake\OpenCVPCHSupport.cmake;C:\opencv\sources\cmake\OpenCVModule.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGrfmt.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGUI.cmake;C:\opencv\sources\cmake\checks\win32uitest.cpp;C:\opencv\sources\cmake\OpenCVFindLibsVideo.cmake;C:\opencv\sources\cmake\checks\vfwtest.cpp;C:\opencv\sources\3rdparty\ffmpeg\ffmpeg_version.cmake;C:\opencv\sources\cmake\OpenCVFindLibsPerf.cmake;C:\opencv\sources\cmake\OpenCVDetectCUDA.cmake;C:\opencv\sources\cmake\FindCUDA.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVFindLATEX.cmake;C:\opencv\sources\cmake\OpenCVDetectPython.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPythonInterp.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectApacheAnt.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJNI.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectOpenCL.cmake;C:\opencv\sources\cmake\checks\opencl.cpp;C:\opencv\sources\cmake\OpenCVExtraTargets.cmake;C:\opencv\sources\cmake\templates\cmake_uninstall.cmake.in;C:\opencv\sources\cmake\OpenCVGenHeaders.cmake;C:\opencv\sources\cmake\templates\cvconfig.h.in;C:\opencv\sources\cmake\templates\opencv_modules.hpp.in;C:\opencv\sources\cmake\OpenCVGenPkgconfig.cmake;C:\opencv\sources\cmake\templates\opencv-XXX.pc.in;C:\opencv\sources\cmake\OpenCVGenAndroidMK.cmake;C:\opencv\sources\cmake\OpenCVGenConfig.cmake;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\OpenCVGenInfoPlist.cmake;C:\opencv\sources\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/opencv/sources/CMakeLists.txt;C:\opencv\sources\CMakeLists.txt;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeSystem.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCXXCompiler.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\opencv\sources\build\CMakeFiles\2.8.12.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\opencv\sources\cmake\OpenCVUtils.cmake;C:\opencv\sources\cmake\OpenCVDetectCXXCompiler.cmake;C:\opencv\sources\cmake\OpenCVLegacyOptions.cmake;C:\opencv\sources\cmake\OpenCVVersion.cmake;C:\opencv\sources\modules\core\include\opencv2\core\version.hpp;C:\opencv\sources\cmake\OpenCVCompilerOptions.cmake;C:\opencv\sources\cmake\OpenCVCRTLinkage.cmake;C:\opencv\sources\cmake\checks\winrttest.cpp;C:\opencv\sources\cmake\OpenCVPCHSupport.cmake;C:\opencv\sources\cmake\OpenCVModule.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGrfmt.cmake;C:\opencv\sources\cmake\OpenCVFindLibsGUI.cmake;C:\opencv\sources\cmake\checks\win32uitest.cpp;C:\opencv\sources\cmake\OpenCVFindLibsVideo.cmake;C:\opencv\sources\cmake\checks\vfwtest.cpp;C:\opencv\sources\3rdparty\ffmpeg\ffmpeg_version.cmake;C:\opencv\sources\cmake\OpenCVFindLibsPerf.cmake;C:\opencv\sources\cmake\OpenCVDetectCUDA.cmake;C:\opencv\sources\cmake\FindCUDA.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVFindLATEX.cmake;C:\opencv\sources\cmake\OpenCVDetectPython.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPythonInterp.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectApacheAnt.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJNI.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\opencv\sources\cmake\OpenCVDetectOpenCL.cmake;C:\opencv\sources\cmake\checks\opencl.cpp;C:\opencv\sources\cmake\OpenCVExtraTargets.cmake;C:\opencv\sources\cmake\templates\cmake_uninstall.cmake.in;C:\opencv\sources\cmake\OpenCVGenHeaders.cmake;C:\opencv\sources\cmake\templates\cvconfig.h.in;C:\opencv\sources\cmake\templates\opencv_modules.hpp.in;C:\opencv\sources\cmake\OpenCVGenPkgconfig.cmake;C:\opencv\sources\cmake\templates\opencv-XXX.pc.in;C:\opencv\sources\cmake\OpenCVGenAndroidMK.cmake;C:\opencv\sources\cmake\OpenCVGenConfig.cmake;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig.cmake.in;C:\opencv\sources\cmake\templates\OpenCVConfig-version.cmake.in;C:\opencv\sources\cmake\OpenCVGenInfoPlist.cmake;C:\opencv\sources\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\opencv\sources\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CMakeFiles\c6016899bd7f782277383def4ac3ab0d\ALL_BUILD.rule">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build all projects</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 :cmErrorLevel
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/build/CMakeFiles/c6016899bd7f782277383def4ac3ab0d/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\CMakeFiles\ALL_BUILD</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build all projects</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/opencv/sources/build/CMakeFiles/c6016899bd7f782277383def4ac3ab0d/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\opencv\sources\build\CMakeFiles\ALL_BUILD</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Build all projects</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 :cmErrorLevel
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/build/CMakeFiles/c6016899bd7f782277383def4ac3ab0d/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\CMakeFiles\ALL_BUILD</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/opencv/sources/build/CMakeFiles/c6016899bd7f782277383def4ac3ab0d/ALL_BUILD.rule;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\opencv\sources\build\CMakeFiles\ALL_BUILD</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -115,775 +121,190 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/3rdparty/openexr/IlmImf.vcxproj">
-      <Project>45598E47-286B-44A7-A5AA-D764364A6E89</Project>
+      <Project>1DF11A93-E51C-46FF-A365-76EB567ED04E</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
-      <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_3calibration.vcxproj">
-      <Project>99BD0798-E393-422D-866D-A69D989BF0F4</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_OpenEXRimages_HDR_Retina_toneMapping.vcxproj">
-      <Project>CB461B9C-5A75-4FD0-A464-90016AC738D4</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_OpenEXRimages_HDR_Retina_toneMapping_video.vcxproj">
-      <Project>68214AA9-E65D-4A76-AC1F-15EA1500EE9A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_adaptiveskindetector.vcxproj">
-      <Project>9484B394-D55B-4A3F-8A8D-377B187437F8</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_bagofwords_classification.vcxproj">
-      <Project>5E030386-8125-4200-9FAC-DCF7DD9295D3</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_bgfg_codebook.vcxproj">
-      <Project>E772D891-7D88-40BE-AD49-58D3F37FA094</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_bgfg_gmg.vcxproj">
-      <Project>42E04E9B-44D0-4B70-BAA5-667E80B9CC64</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_bgfg_segm.vcxproj">
-      <Project>4C31C748-F7F8-4963-AD07-539C28B6157D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_blobtrack_sample.vcxproj">
-      <Project>67BC7863-BCA1-47B4-B525-D3793AF4D292</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_brief_match_test.vcxproj">
-      <Project>B3357104-BE48-4788-9C01-9E102D7FD980</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_build3dmodel.vcxproj">
-      <Project>1BE0E20C-DF92-40C6-95FB-C003903D489C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_calibration.vcxproj">
-      <Project>4A63181A-69DB-4155-B5E1-5A30160CAAF2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_calibration_artificial.vcxproj">
-      <Project>B4DE9F28-AA3E-42A1-9205-302704089C1F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_camshiftdemo.vcxproj">
-      <Project>58E87760-6C41-4F04-9142-BB5DB7C59758</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_chamfer.vcxproj">
-      <Project>A85D1830-2A3B-45E3-AE53-B209E59A78B7</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_connected_components.vcxproj">
-      <Project>1A647825-4ED1-4502-997F-28854752427D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_contours.vcxproj">
-      <Project>EB95FBAE-AE6F-48F7-8B17-38A7A9301C6D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_contours2.vcxproj">
-      <Project>56EB3156-C50A-4BAC-A6D3-EB2CB068B3A4</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_convert_cascade.vcxproj">
-      <Project>8D99AEB7-FD5B-4F45-BA83-844B766B6C39</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_convexhull.vcxproj">
-      <Project>DD37EF55-389C-4DEE-B2EC-C18420958131</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_cout_mat.vcxproj">
-      <Project>5B3F7EC3-EC94-4E45-ACFE-0530A9EC1BD9</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_delaunay.vcxproj">
-      <Project>4E79EA43-050E-468F-81B6-1C65B9EC8FD8</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_delaunay2.vcxproj">
-      <Project>FC4E6FEE-7675-4E05-B273-45AC4274C42B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_demhist.vcxproj">
-      <Project>F75980CD-04AA-4CFE-BE82-3E2933F81B03</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_descriptor_extractor_matcher.vcxproj">
-      <Project>918F7C56-F22D-4833-9E6D-294E3F6EFCD7</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_detection_based_tracker_sample.vcxproj">
-      <Project>96C65216-32DA-47A8-A2E2-5EED379F42F0</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_detector_descriptor_evaluation.vcxproj">
-      <Project>6BE7C84C-222F-4CB0-AF86-7B7FED87BA5D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_detector_descriptor_matcher_evaluation.vcxproj">
-      <Project>57734C40-C9DF-48D1-9F37-BBBE68D07180</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_dft.vcxproj">
-      <Project>EA6CD136-C65C-4390-B126-1771A0471E31</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_distrans.vcxproj">
-      <Project>A7A8D135-636F-4C17-9D81-7A6713A4F56B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_drawing.vcxproj">
-      <Project>0B85115F-B9C1-4495-99D3-4786D0E77FF0</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_edge.vcxproj">
-      <Project>AACCFA55-01E4-4B81-B899-4BA0EC846746</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_em.vcxproj">
-      <Project>51FEB378-11EC-4984-AB80-21947433A4B1</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_fabmap_sample.vcxproj">
-      <Project>1321E7CA-B184-4C2A-AE56-DC9AFA0173FB</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_facedetect.vcxproj">
-      <Project>D124922B-5A45-4320-B9A0-9B3D55711B19</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_facerec_demo.vcxproj">
-      <Project>C87B3BBF-02E8-4401-AB98-55096DD9E1B9</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_fback.vcxproj">
-      <Project>319409E7-2AF1-4AB9-86FC-55AE9804EF82</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_fback_c.vcxproj">
-      <Project>E4E37EE1-D317-448C-9C77-36A6001674D4</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_ffilldemo.vcxproj">
-      <Project>A5709045-7E0D-4C6F-96CC-FC9F4A87F7F7</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_filestorage.vcxproj">
-      <Project>D69D69A3-5FC5-40B8-BA0C-810DC9F3CAB2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_find_obj.vcxproj">
-      <Project>78A2C568-D3CA-4349-80D8-AD25F36C2E14</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_find_obj_calonder.vcxproj">
-      <Project>F752DCBA-4A32-41DD-84EF-24C45DA5F526</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_find_obj_ferns.vcxproj">
-      <Project>EE131958-A689-4C46-9C14-DCD97AEDE7C0</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_fitellipse.vcxproj">
-      <Project>948DFE6C-6B49-4774-AD22-B21861BA48B6</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_freak_demo.vcxproj">
-      <Project>460902A8-D02B-41FA-8E1B-D931714E8128</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_gencolors.vcxproj">
-      <Project>2A58AD8B-E64E-40DF-9DD7-27C008EA361F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_generic_descriptor_match.vcxproj">
-      <Project>09644CA7-0774-414A-935F-B9773C3AEF25</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_alpha_comp.vcxproj">
-      <Project>5CECC857-807A-4CF4-94EB-0F1A4E18441B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_bgfg_segm.vcxproj">
-      <Project>FDC3A4C5-340E-43D3-B777-93818F794B8F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_brox_optical_flow.vcxproj">
-      <Project>4549D00A-76F6-4605-A696-8CE492924DE3</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_cascadeclassifier.vcxproj">
-      <Project>79480F82-C4B6-412B-9B77-41831D85E38C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_cascadeclassifier_nvidia_api.vcxproj">
-      <Project>186E2E79-4F78-46E4-BBF3-B3944A79D427</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_driver_api_multi.vcxproj">
-      <Project>4B9B40C4-6572-47A6-96B5-DB28C6EBC873</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_driver_api_stereo_multi.vcxproj">
-      <Project>FE28FAB6-261A-418F-80E7-838F82227193</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_farneback_optical_flow.vcxproj">
-      <Project>F2F82C5B-4CCD-4BD5-AEA1-A6CE0254E4D0</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_generalized_hough.vcxproj">
-      <Project>215826CE-ECD1-4D23-92A2-E4D6B0446607</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_hog.vcxproj">
-      <Project>B4BE9B27-9B48-402D-8317-CDF1C01A19B2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_houghlines.vcxproj">
-      <Project>CAF25847-C1C8-4B4C-AD1C-165F389A82F5</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_morphology.vcxproj">
-      <Project>CC6DF137-120D-4B64-9673-8C8C71D4BB47</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_multi.vcxproj">
-      <Project>0A4CD58E-E52F-40A5-9A62-D8C9448BEB95</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_opengl.vcxproj">
-      <Project>D2D7C27F-1125-4955-9932-63F0EDDCD4DF</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_optical_flow.vcxproj">
-      <Project>23C6DD3A-89F3-48AE-B608-378972221C9D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_opticalflow_nvidia_api.vcxproj">
-      <Project>19CA3D59-861F-4ACF-9DDE-3789945625D9</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_performance.vcxproj">
-      <Project>C1ACCC86-9621-4354-80F3-F8B3E281F874</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_pyrlk_optical_flow.vcxproj">
-      <Project>A7D45A1A-5947-4F50-8D6C-CED9560AD57C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_stereo_match.vcxproj">
-      <Project>B35E9929-E0BE-495C-9E4F-BB84BECAFD03</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_stereo_multi.vcxproj">
-      <Project>48904160-008C-4F6D-A8B4-5487C179D856</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_super_resolution.vcxproj">
-      <Project>98179DA3-C7B2-4B1C-BA39-999C6681E512</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_surf_keypoint_matcher.vcxproj">
-      <Project>383FCE21-6730-4225-B43D-C255DAE9700F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_video_reader.vcxproj">
-      <Project>F1D31883-FBB9-4B23-9635-3EC6485E7E82</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/gpu/example_gpu_video_writer.vcxproj">
-      <Project>B796EFD9-39B4-47D6-8264-FBC77C48F50F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_grabcut.vcxproj">
-      <Project>392AA618-8CA5-49E3-8DF7-9A1D481C32AC</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_houghcircles.vcxproj">
-      <Project>47C3B3EC-F51A-45F7-A9C2-1EFF5D3C7583</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_houghlines.vcxproj">
-      <Project>C0B3D867-A2D0-451F-9BDB-870B3DA87F7D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_hybridtrackingsample.vcxproj">
-      <Project>9A8125BD-D38E-4E03-86AB-6FE455EE9335</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_image.vcxproj">
-      <Project>ADD19C10-5EDD-4F62-87C5-BD8EC18DE8C2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_image_sequence.vcxproj">
-      <Project>8DC4F44B-085A-49F1-9B3D-DA328CFE7D08</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_imagelist_creator.vcxproj">
-      <Project>E8F93976-843E-4797-B4FF-F4D90A4AF82E</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_inpaint.vcxproj">
-      <Project>6EB63903-CB9E-46CD-B225-E306DE6E123B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_intelperc_capture.vcxproj">
-      <Project>17E00A7D-1237-4701-9DB4-42077DEBDC18</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_kalman.vcxproj">
-      <Project>EE4CE0B6-91B2-4044-8971-7822D1210E23</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_kmeans.vcxproj">
-      <Project>0E9F716A-D334-4232-9FA7-6C1E6706023B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_laplace.vcxproj">
-      <Project>74C24D48-748B-4452-8C5C-2D0D6D87A38D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_latentsvm_multidetect.vcxproj">
-      <Project>CC9CEB5B-D1F6-48C0-8598-31683F3E2A0F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_latentsvmdetect.vcxproj">
-      <Project>B15EC87C-338C-45C8-96EC-9A4CDD0FB0D6</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_letter_recog.vcxproj">
-      <Project>2C1A929A-241C-4B44-B96A-B4C3C4E5A4E3</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_linemod.vcxproj">
-      <Project>94B92281-7495-4CA2-B99C-DAF9B72D5F69</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_lkdemo.vcxproj">
-      <Project>6386EDDF-AAF9-4371-A878-4BCF10B4FA8A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_logpolar_bsm.vcxproj">
-      <Project>A094FACB-5D9B-4245-9DE2-9D8B0E795800</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_matcher_simple.vcxproj">
-      <Project>7BDE0A45-9BCF-490D-A1B8-4DFBEDE5A588</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_matching_to_many_images.vcxproj">
-      <Project>2ED69DFA-DAE2-49DD-BFEA-5D93AF8CF775</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_meanshift_segmentation.vcxproj">
-      <Project>D6C3482F-BD0A-4771-A91C-DC9B06ACAB8A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_minarea.vcxproj">
-      <Project>27469F32-B166-4DA0-9074-DBBEBCF27B3D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_morphology.vcxproj">
-      <Project>35EA7078-BB74-4AFE-9709-C714507B625A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_morphology2.vcxproj">
-      <Project>D810637D-E6B8-46CB-9736-D738308FFCAE</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_motempl.vcxproj">
-      <Project>D8B86F46-7B7E-4C13-9D12-8EBCDC1A78F0</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_mser_sample.vcxproj">
-      <Project>62C64738-CED8-4C24-905E-62EFF7A44B52</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_mushroom.vcxproj">
-      <Project>29C16248-0AF6-487C-93C8-3563C5F3F96A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_adaptive_bilateral_filter.vcxproj">
-      <Project>00D85106-4936-476C-8D4C-F456F1843EBC</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_bgfg_segm.vcxproj">
-      <Project>94DDD6CB-E62C-4DEA-A2CA-CA8EFBA1A86E</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_clahe.vcxproj">
-      <Project>DC0839E1-9BC4-4CA9-A484-FFAAF7E99E25</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_facedetect.vcxproj">
-      <Project>29749704-E5F8-4685-8BEF-A01302546446</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_hog.vcxproj">
-      <Project>CC246C71-CAC0-4DB6-903F-E8916B8B177A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_pyrlk_optical_flow.vcxproj">
-      <Project>6E19A8A8-DD24-494F-AA33-8CA6EF917C69</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_squares.vcxproj">
-      <Project>15CCEFB9-8B61-4136-BBA6-3DBDD104130D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_stereo_match.vcxproj">
-      <Project>961E1CA3-309B-41FF-848F-638517B6C51F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_surf_matcher.vcxproj">
-      <Project>D90330DA-4F70-4122-8249-6F26E2793801</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/ocl/example_ocl_tvl1_optical_flow.vcxproj">
-      <Project>F2E9DA02-1325-4D3F-9E55-EF60FBE90923</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_one_way_sample.vcxproj">
-      <Project>7E586EFF-C05A-433B-BAE9-70E65AB162C3</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_opencv_version.vcxproj">
-      <Project>E60A6D75-B2B2-4D54-8268-C0F7228BB01E</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_openni_capture.vcxproj">
-      <Project>2E450507-B63F-4030-BBD6-1F56621085BF</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_pca.vcxproj">
-      <Project>84C2C35B-069A-411C-9428-A949D515E4EE</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_peopledetect.vcxproj">
-      <Project>2065D0C0-6841-4AB8-B73B-5396C1AF62A2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_phase_corr.vcxproj">
-      <Project>D8FD09DD-270E-412D-BBAD-E490C89CEB44</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_points_classifier.vcxproj">
-      <Project>AE911817-2CD0-4C33-A769-045B418F5BD9</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_polar_transforms.vcxproj">
-      <Project>FF9D849E-88DE-4DC6-9236-905CDC59DE4D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_pyramid_segmentation.vcxproj">
-      <Project>FD206F34-6454-4DC9-A8F5-E9885ED588D1</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_retinaDemo.vcxproj">
-      <Project>FA2BA62E-0C95-44A5-A666-B4F63A92E54E</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_rgbdodometry.vcxproj">
-      <Project>49A8A765-05DC-41B7-B2CE-BD1768ED720A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_segment_objects.vcxproj">
-      <Project>F5B589DF-3D10-4834-85CB-8AB48C145641</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_select3dobj.vcxproj">
-      <Project>86E0DDF4-782D-448F-BCDC-69CE2987C8BC</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_simpleflow_demo.vcxproj">
-      <Project>9D71AA59-605F-4B71-98AF-90A4FE639A19</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_smiledetect.vcxproj">
-      <Project>99D14C5D-1553-4F2B-AAE8-FCCF093862B4</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_squares.vcxproj">
-      <Project>3FFAD21D-6F42-42B8-ABC2-66E8C4D7A461</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_starter_imagelist.vcxproj">
-      <Project>1A9327CF-C575-4EDC-AB72-5D568E19512F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_starter_video.vcxproj">
-      <Project>AAB3BC8A-A050-46BF-A5C1-B859A92279F1</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_stereo_calib.vcxproj">
-      <Project>ACC69BF8-DE45-4566-A033-B7D3D06E24EF</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_stereo_match.vcxproj">
-      <Project>3CBD5B98-B2A9-4AFB-ABEE-1782E0CCFE1C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_stitching.vcxproj">
-      <Project>A0610A4F-0963-425C-9766-86CE9C2FF5E2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_stitching_detailed.vcxproj">
-      <Project>2C672A0F-4A8F-4451-B46D-858AD6A73F2C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/c/example_tree_engine.vcxproj">
-      <Project>BCE38E6F-C521-44D2-9559-019D036BC69C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_tvl1_optical_flow.vcxproj">
-      <Project>E8EC8B97-9E48-4133-828C-1EF391561C22</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_video_dmtx.vcxproj">
-      <Project>2F2CE6E9-5C53-40A7-A0FD-C3E3BDE4BBE2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_video_homography.vcxproj">
-      <Project>06C07975-39B4-42F4-81D4-D5E964F5C980</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_videostab.vcxproj">
-      <Project>46E73207-5C8C-4CED-9D00-D6F426CFFFEC</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/example_watershed.vcxproj">
-      <Project>C3284F2F-0005-4A72-8CA6-A0F906591F2D</Project>
+      <Project>7EDF77C3-842A-453E-AC10-36FE77CE0395</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/gpu/perf4au/gpu_perf4au.vcxproj">
-      <Project>48946225-40F6-48E3-B7F8-940312C19860</Project>
+      <Project>E6D1633D-8156-427C-B114-83383A9C6B91</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/3rdparty/libjasper/libjasper.vcxproj">
-      <Project>C43D9BD2-D268-41FD-88D2-5C6211E9C267</Project>
+      <Project>1DB6E3AA-4B39-44ED-8A33-F6B298E12739</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/3rdparty/libjpeg/libjpeg.vcxproj">
-      <Project>167118FC-BF80-45C7-813D-67CEFEC9858F</Project>
+      <Project>72EDA610-F3E9-4493-988F-F92461679CFD</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/3rdparty/libpng/libpng.vcxproj">
-      <Project>B0FDBF7D-2BE5-46D2-A483-3D63BDB719C5</Project>
+      <Project>E9D97CBD-754B-4CFD-9D10-EA325206E541</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/3rdparty/libtiff/libtiff.vcxproj">
-      <Project>4FB9BC2A-4E34-43F6-AC11-F68E12CBABD7</Project>
+      <Project>9AFF067D-ED68-490D-AB7C-61173D79A57D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_calib3d.vcxproj">
-      <Project>8C8861F5-E6B3-4456-B09C-B76986D45A73</Project>
+      <Project>5DB41127-6594-48AD-BB17-FF16D476BD59</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/contrib/opencv_contrib.vcxproj">
-      <Project>26D97A86-787D-4680-8170-D2B9F3453FBE</Project>
+      <Project>BCAA398A-56CA-4843-A417-B07C0203CD9B</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
-      <Project>DCCB6440-17B8-46A6-9E8E-E9E383409B2D</Project>
+      <Project>30E8B75B-9FE4-4341-873F-D95AFD23CFAA</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_createsamples.vcxproj">
-      <Project>12422D7B-4C8C-48B6-BA72-7E39861BDB4E</Project>
+      <Project>755CFC2B-788C-41B0-9EF0-31C58CA1DCF7</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/features2d/opencv_features2d.vcxproj">
-      <Project>0C6E5AB9-79BB-4AA7-A2C8-5CAC04B42C5F</Project>
+      <Project>4A9B9130-F6C0-45ED-BC46-64E577885184</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_flann.vcxproj">
-      <Project>6D0A1722-B1D7-47C1-A820-45F29381AC75</Project>
+      <Project>D163366F-1FA3-4AC6-8C0C-E2E8DEBA2024</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/gpu/opencv_gpu.vcxproj">
-      <Project>22F2C74F-40D5-460D-ACE9-14EC205D95AD</Project>
+      <Project>FD69EA5D-1594-4EC2-8504-BB2599F2D1A2</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_haartraining.vcxproj">
-      <Project>78A2457C-BE4A-40EE-BF45-9D98860F7ECF</Project>
+      <Project>4304EAE5-87B6-4904-B3A7-829C5E48771B</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_haartraining_engine.vcxproj">
-      <Project>F6EE0649-7F4D-40F1-9A3B-90755731D2DF</Project>
+      <Project>79B238E9-8F26-4AEA-B800-C416C72FBE45</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/highgui/opencv_highgui.vcxproj">
-      <Project>33DAEE4D-9DA8-49AA-AE61-5E2EE477B20B</Project>
+      <Project>3CFAD95C-F39F-4A70-B6CE-D15070068F73</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_imgproc.vcxproj">
-      <Project>691F6C6F-239F-4DEF-83A0-82DD6CCD8DBB</Project>
+      <Project>E3350A30-D89D-4774-9166-76D60653EE4B</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/legacy/opencv_legacy.vcxproj">
-      <Project>D206F789-FB5F-4856-9181-320EF728318D</Project>
+      <Project>3E4C2AF0-8E79-4413-8ADD-61CFA0C78E01</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ml/opencv_ml.vcxproj">
-      <Project>75F327C0-3BBD-4844-9815-14D90A6963AF</Project>
+      <Project>DABB1A0A-1C9E-4FD5-A70D-854DA0FAA9F3</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/nonfree/opencv_nonfree.vcxproj">
-      <Project>CBFDE28B-5971-4727-A587-0CC076844434</Project>
+      <Project>1C2979D7-F05A-4947-A574-8DDBBB575E9E</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/objdetect/opencv_objdetect.vcxproj">
-      <Project>DFE02322-833E-4343-A730-03A26181B04E</Project>
+      <Project>4D45E321-7DF0-43D1-85D2-63084EB51647</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_ocl.vcxproj">
-      <Project>6DF67AD5-F5C8-405D-B8EF-2011244563F9</Project>
+      <Project>37CC297B-5082-4D2D-AB13-8E912F3DE6B4</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_perf_calib3d.vcxproj">
-      <Project>DAA23699-19EA-426C-8E14-95691FDBD203</Project>
+      <Project>6E14F2FD-E8E6-4BB4-9E04-98B8379F3AB5</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_perf_core.vcxproj">
-      <Project>09D6CFD8-9228-46A9-A701-4E4FC62206D4</Project>
+      <Project>030C0F88-444D-49E7-8DFD-0BF7BC6302CB</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/features2d/opencv_perf_features2d.vcxproj">
-      <Project>2D9D8434-DD30-405B-AFE1-1B42E58DDD6E</Project>
+      <Project>CA6C0F23-6B25-4FCE-9500-917F0CAFAD01</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/gpu/opencv_perf_gpu.vcxproj">
-      <Project>A7D1484D-B470-4C38-B299-FE59FF647BC3</Project>
+      <Project>2D8A9108-A771-4699-B9D9-5CED19814D55</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/highgui/opencv_perf_highgui.vcxproj">
-      <Project>CD9042ED-C333-48AC-BCC1-B00B4D3E30E9</Project>
+      <Project>9005F7CE-2113-479E-9381-77D33A5C2341</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_perf_imgproc.vcxproj">
-      <Project>3E448390-4BDC-4B4D-A5C0-D9839C6B8B4D</Project>
+      <Project>FEAB858E-37C1-41B9-BD7C-99EB0931B345</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/nonfree/opencv_perf_nonfree.vcxproj">
-      <Project>3D45BB7F-0850-41E9-93DB-CA3AB05733B6</Project>
+      <Project>391ED1C0-EA0C-438E-B112-F69CC2738379</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/objdetect/opencv_perf_objdetect.vcxproj">
-      <Project>E8E9B225-0E63-4FB3-BF7B-946A67CC8D9A</Project>
+      <Project>4F79EBD7-D323-4BFA-926E-C740BF2D254F</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_perf_ocl.vcxproj">
-      <Project>F9E45B62-6B44-44C6-975F-198D3FE75F44</Project>
+      <Project>2AC469E9-433A-46C7-ACAB-4650EDDD22F6</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/photo/opencv_perf_photo.vcxproj">
-      <Project>3086AEFF-C632-4384-B94E-9F893E9654C9</Project>
+      <Project>836D77B9-78DD-461F-A321-844F21C7512C</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/stitching/opencv_perf_stitching.vcxproj">
-      <Project>CD0D4B47-D5DA-4528-AFD4-1613E374AF58</Project>
+      <Project>239EFB45-9D4E-4294-A5A6-91EF4BE97C49</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_perf_superres.vcxproj">
-      <Project>66E04509-8F71-4B65-B43E-CA6EC7CAFADB</Project>
+      <Project>0CBBB1C2-DBFA-4E5D-B011-CCFA4FD0BFD0</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/video/opencv_perf_video.vcxproj">
-      <Project>82DA6E4E-2CB6-4798-A6BC-3D8BD5D8BF6A</Project>
+      <Project>A40C1ACE-3C43-4751-8BD2-FF37E29AA08D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/haartraining/opencv_performance.vcxproj">
-      <Project>2E2E4CD3-8E34-4B00-9CFA-282BBA552004</Project>
+      <Project>9ADCE7C1-928F-4BF0-BE80-DABE272CFAFC</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/photo/opencv_photo.vcxproj">
-      <Project>15B51179-78FD-4E1A-A189-2F50B3277403</Project>
+      <Project>8470FFCF-DA15-49A4-8FA0-55EEC9F4534A</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/stitching/opencv_stitching.vcxproj">
-      <Project>11EB6B3D-AEA7-437F-B0F3-07DDB9DD4830</Project>
+      <Project>1874913A-71FD-4AD8-ACAF-E43198F14921</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_superres.vcxproj">
-      <Project>E5DFA334-39AC-4C58-8342-345AB5CF6B1D</Project>
+      <Project>62396029-C6EE-4354-B42B-F615147DF01A</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_test_calib3d.vcxproj">
-      <Project>DB0D77E3-6A94-499C-8FF0-8982320D9066</Project>
+      <Project>938CC017-35A5-4429-9BFC-0C2D7452C416</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/contrib/opencv_test_contrib.vcxproj">
-      <Project>AA5BF948-A252-4FEC-894A-3E744AE83F2F</Project>
+      <Project>A217A244-D746-42B7-966A-EC8FBB1269BA</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_test_core.vcxproj">
-      <Project>6139D6C4-C759-4D3C-9B8F-85F22EFC0B75</Project>
+      <Project>1CCE45B1-B98B-42EA-A255-EF6BFC469F8B</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/features2d/opencv_test_features2d.vcxproj">
-      <Project>532DBCE7-2B6C-4D9C-A075-C9D2103929B1</Project>
+      <Project>5CF8D6D2-7F53-4E94-9C8E-F85E898E9DD0</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_test_flann.vcxproj">
-      <Project>63274B88-97AD-4B94-B1E7-57854FAF1CA8</Project>
+      <Project>0AC77352-D5E6-46BB-9FE9-C2BF4D5E7BF0</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/gpu/opencv_test_gpu.vcxproj">
-      <Project>B52A3112-9ADD-4456-B9FE-87D2D3AF2844</Project>
+      <Project>B6CE350F-23DE-40E2-988C-B62C846EECCE</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/highgui/opencv_test_highgui.vcxproj">
-      <Project>D4B56D11-E71B-4E1C-8AAE-0A17F30B6D9B</Project>
+      <Project>AE171FF8-BC0E-4B00-8563-E52BC73E80D1</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_test_imgproc.vcxproj">
-      <Project>C3EC094A-2FDF-40F7-B164-9E9A51EB5FE9</Project>
+      <Project>5A47FF2A-E98A-491E-B463-FD7F1EB3A519</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/legacy/opencv_test_legacy.vcxproj">
-      <Project>175BEBC9-E40E-4912-96AE-106C22691BF3</Project>
+      <Project>4FA18781-B5C3-482F-98F4-62938BAEE046</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ml/opencv_test_ml.vcxproj">
-      <Project>7A408C08-0D67-4055-99AB-4513717CC336</Project>
+      <Project>4470E9F3-FC2F-4BFE-8F3B-BC3BF984C7B7</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/nonfree/opencv_test_nonfree.vcxproj">
-      <Project>6FEE1E6F-2730-4686-BA89-74D4253E7138</Project>
+      <Project>2C8C158A-16E6-486F-ADCB-13C06AF3A286</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/objdetect/opencv_test_objdetect.vcxproj">
-      <Project>E1CD94FB-2EEF-471D-BC3A-CD335FE0D78E</Project>
+      <Project>E9EB980D-FB08-418D-937B-8C341B63A4E0</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_test_ocl.vcxproj">
-      <Project>D513E105-7E8F-4CC6-AC91-D7322A0334F9</Project>
+      <Project>90E5D427-573F-48C2-8264-47505927C4A9</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/photo/opencv_test_photo.vcxproj">
-      <Project>5B2CDDDD-518C-47E9-B095-5A216DA8CB03</Project>
+      <Project>FB63AF39-025E-4E76-9A5C-4668CBDAC8CA</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/stitching/opencv_test_stitching.vcxproj">
-      <Project>B78EEEC8-E89C-45E5-9CF4-953DD6C2CE68</Project>
+      <Project>8315F8D5-5626-4DB9-A29C-B1CFDA1ACB78</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_test_superres.vcxproj">
-      <Project>C2A35E1F-238C-4A91-8653-4580E78E48C5</Project>
+      <Project>6FE52F03-B4BD-41CE-B971-82118780159A</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/video/opencv_test_video.vcxproj">
-      <Project>5BF9FD16-E7C3-4DED-82BE-C06B9470467C</Project>
+      <Project>DBD163CE-85B6-42F7-988C-37AFCB99584D</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/apps/traincascade/opencv_traincascade.vcxproj">
-      <Project>205C8365-269D-46F0-99BA-FDB795084DC6</Project>
+      <Project>44ECD6B5-2A83-4CAB-8BB7-462B971E0EF0</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ts/opencv_ts.vcxproj">
-      <Project>925930E3-F95C-43DB-9398-1801D8E0676C</Project>
+      <Project>A97C48E2-A716-443A-9D3D-1BA5C99397DD</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/video/opencv_video.vcxproj">
-      <Project>B06870D9-FA7C-4E03-8477-5A98F9CCC29F</Project>
+      <Project>7A9826F6-55C9-488A-8B89-CCFD3B846573</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/videostab/opencv_videostab.vcxproj">
-      <Project>8969B4AE-59D1-4605-BB4A-FF607D414F27</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_AddingImages.vcxproj">
-      <Project>20075246-5245-413B-A58A-1D545B5CF24D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_AddingImagesTrackbar.vcxproj">
-      <Project>10651F21-60A1-4493-8D8C-15835E6A743F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_BasicLinearTransforms.vcxproj">
-      <Project>6C65A504-A983-4798-B013-B05373C1DA37</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_BasicLinearTransformsTrackbar.vcxproj">
-      <Project>7F71D7DC-CBAC-4AB9-B407-388D6A9A26FB</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_CannyDetector_Demo.vcxproj">
-      <Project>FC6BE544-3599-431C-AFB0-6DD190F8175E</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Drawing_1.vcxproj">
-      <Project>2254E4FA-C683-42D5-9584-5C2F9496DE1F</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Drawing_2.vcxproj">
-      <Project>A06E692B-BF74-4AF6-9D4B-03A51BA018FC</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_EqualizeHist_Demo.vcxproj">
-      <Project>28097931-B7E1-4547-8B1C-20C649E26E0A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Geometric_Transforms_Demo.vcxproj">
-      <Project>41523FD3-CFDE-423A-84AE-3CA57DFCEFC5</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_HoughCircle_Demo.vcxproj">
-      <Project>BFFBE142-9DD2-4017-9A59-2EFF2FB53B31</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_HoughLines_Demo.vcxproj">
-      <Project>1CA52E3B-90C2-4072-9A8B-D9D45935C7FA</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Laplace_Demo.vcxproj">
-      <Project>B50A4D37-EFEF-4428-8554-9C0159CC721C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_MatchTemplate_Demo.vcxproj">
-      <Project>5AF4AAA0-8A68-4432-BF1D-DB310615D10B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Morphology_1.vcxproj">
-      <Project>6B9AE7A6-BB6E-453A-82FB-4DB5213608D8</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Morphology_2.vcxproj">
-      <Project>AC0AD759-7BA9-4AF2-B738-A4CC23ABB1AF</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Pyramids.vcxproj">
-      <Project>6E967B11-CD51-47B9-A8FC-3F33001BEAC2</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Remap_Demo.vcxproj">
-      <Project>D8CD9CE2-E1BA-45F8-AAED-D53BED913609</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_SBM_Sample.vcxproj">
-      <Project>51B1B12D-3238-4C93-8E04-9D307DE9F50A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_SURF_FlannMatcher.vcxproj">
-      <Project>E9595CB0-6D66-4EFC-9ED2-83203A91BD78</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_SURF_Homography.vcxproj">
-      <Project>FDFDA945-DF76-4BE0-BB69-8EB3E486147D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_SURF_descriptor.vcxproj">
-      <Project>8FDF782D-2C01-4E47-9D55-298D593C2C28</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_SURF_detector.vcxproj">
-      <Project>FCC88D74-768B-44C9-BC27-752646DD6C56</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Smoothing.vcxproj">
-      <Project>07D313DD-F71F-4B1F-9C1F-140F25106D39</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Sobel_Demo.vcxproj">
-      <Project>80B0BAAB-6BD9-4E0A-A50F-321342C4AA7C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_Threshold.vcxproj">
-      <Project>2DD1E310-2826-4DF5-8EAD-85E4A0B4CCBD</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_calcBackProject_Demo1.vcxproj">
-      <Project>B735A069-BF62-4FC4-96C4-A4C905C9C82A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_calcBackProject_Demo2.vcxproj">
-      <Project>ED979CC8-9A6B-40FB-BC49-421FEFEFB732</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_calcHist_Demo.vcxproj">
-      <Project>33E2D7D5-B935-4526-A9BC-88CD03B2A7D9</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_camera_calibration.vcxproj">
-      <Project>4647D60E-A5A1-4F5F-97E4-F5BDDF04AC83</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_compareHist_Demo.vcxproj">
-      <Project>4534C380-426B-4D4E-B9D0-CA3CB7A75993</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_copyMakeBorder_demo.vcxproj">
-      <Project>EAF92B4E-1887-4877-9DEB-5306522AAE38</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_cornerDetector_Demo.vcxproj">
-      <Project>88222723-DF65-482C-B0D4-C23155CFB2F0</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_cornerHarris_Demo.vcxproj">
-      <Project>BED31E58-E732-4845-8005-1BCB362C448B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_cornerSubPix_Demo.vcxproj">
-      <Project>C8CC5F62-26C0-433B-84E8-5BC4020BA560</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_discrete_fourier_transform.vcxproj">
-      <Project>2416BBE9-720C-4EBC-AD6A-ADDCC0C34645</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_display_image.vcxproj">
-      <Project>849EE1FF-1921-4297-BCAC-A11D2D95140B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_file_input_output.vcxproj">
-      <Project>9EA69FB5-777A-4710-9BEA-86465D17BF71</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_filter2D_demo.vcxproj">
-      <Project>532F4587-EC29-410C-B334-73F5598D774B</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_findContours_demo.vcxproj">
-      <Project>865E7FA9-E80C-4EFB-9FD5-5C0F0E849553</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_generalContours_demo1.vcxproj">
-      <Project>1D2EB028-2400-46C4-8BC7-F37295DF4198</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_generalContours_demo2.vcxproj">
-      <Project>E5947D4C-E0B6-439F-8E16-8A7DA1A6D79A</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_goodFeaturesToTrack_Demo.vcxproj">
-      <Project>83B3A009-15DA-4157-92B2-4621917C2946</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_gpu-basics-similarity.vcxproj">
-      <Project>D72407B7-50D2-41D8-875A-AB354523CAF0</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_how_to_scan_images.vcxproj">
-      <Project>A8EB0BA2-705A-46CB-9A9E-8E4E3CE60ED1</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_hull_demo.vcxproj">
-      <Project>2B34AD7E-22EB-4BFE-89DC-0408DEF3FD66</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_interoperability_with_OpenCV_1.vcxproj">
-      <Project>1F446AA7-ADBB-4DDB-AFA7-B2FABB036CB6</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_introduction_to_svm.vcxproj">
-      <Project>C036F642-750E-4AF9-AC64-A52955E866BF</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_introduction_windows_vs.vcxproj">
-      <Project>00D9F6A1-7A74-4368-9EE1-E8435810587C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_mat_mask_operations.vcxproj">
-      <Project>6C080D9F-6338-49FF-AAE8-D17ADE333858</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_mat_the_basic_image_container.vcxproj">
-      <Project>057A9E94-BE8A-4A0D-8E4D-979C37571B89</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_moments_demo.vcxproj">
-      <Project>3455A7CA-63FB-400E-830F-C0F283C92D86</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_non_linear_svms.vcxproj">
-      <Project>A097F0FD-162D-45E1-9ACA-3B4A5B90003D</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_objectDetection.vcxproj">
-      <Project>768491FD-90B9-4AEE-ABD8-50522F370FBD</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_objectDetection2.vcxproj">
-      <Project>9AE68431-9263-446E-9AD3-22FE71A0A403</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_pointPolygonTest_demo.vcxproj">
-      <Project>B5AB6E05-5521-4F3F-8DEF-7B12D849D62E</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_retina_tutorial.vcxproj">
-      <Project>A4794180-5F8D-482D-A4D5-2B30A82A37FE</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_timerC.vcxproj">
-      <Project>E5EE7F2D-4DC9-4F8E-B82A-88E93E291A6E</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_video-input-psnr-ssim.vcxproj">
-      <Project>89730EA0-A4CE-4038-838A-83240A6BBA0C</Project>
-    </ProjectReference>
-    <ProjectReference Include="C:/opencv/sources/build/samples/cpp/tutorial_video-write.vcxproj">
-      <Project>B4B2934B-79C8-418D-AECE-72E8944BFDEE</Project>
+      <Project>D417FA2E-3132-4B36-974B-6BCBF97970BE</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/3rdparty/zlib/zlib.vcxproj">
-      <Project>60493312-6EDA-4EEF-A9B9-D202E31FF865</Project>
+      <Project>412593F3-7FC7-473E-BEB9-83B8FF84BF2B</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

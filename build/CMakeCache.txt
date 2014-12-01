@@ -24,7 +24,7 @@ BIBTEX_COMPILER:FILEPATH=BIBTEX_COMPILER-NOTFOUND
 BUILD_DOCS:BOOL=ON
 
 //Build all examples
-BUILD_EXAMPLES:BOOL=ON
+BUILD_EXAMPLES:BOOL=OFF
 
 //Build libjasper from source
 BUILD_JASPER:BOOL=ON
@@ -186,7 +186,7 @@ CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=/MD /Zi /O2 /Ob1 /D NDEBUG
 CMAKE_C_STANDARD_LIBRARIES:STRING=kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
 
 //Flags used by the linker.
-CMAKE_EXE_LINKER_FLAGS:STRING=' /machine:X86 '
+CMAKE_EXE_LINKER_FLAGS:STRING=' /machine:x64 '
 
 //Flags used by the linker during debug builds.
 CMAKE_EXE_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
@@ -204,13 +204,13 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 CMAKE_INSTALL_PREFIX:PATH=C:/opencv/sources/build/install
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio 10.0/VC/bin/link.exe
+CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/bin/x86_amd64/link.exe
 
 //make program
-CMAKE_MAKE_PROGRAM:FILEPATH=C:/PROGRA~2/MICROS~2.0/Common7/IDE/devenv.com
+CMAKE_MAKE_PROGRAM:FILEPATH=C:/PROGRA~2/MICROS~3.0/Common7/IDE/devenv.com
 
 //Flags used by the linker during the creation of modules.
-CMAKE_MODULE_LINKER_FLAGS:STRING=' /machine:X86 '
+CMAKE_MODULE_LINKER_FLAGS:STRING=' /machine:x64 '
 
 //Flags used by the linker during debug builds.
 CMAKE_MODULE_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
@@ -234,7 +234,7 @@ CMAKE_RC_COMPILER:FILEPATH=rc
 CMAKE_RC_FLAGS:STRING=' '
 
 //Flags used by the linker during the creation of dll's.
-CMAKE_SHARED_LINKER_FLAGS:STRING=' /machine:X86 '
+CMAKE_SHARED_LINKER_FLAGS:STRING=' /machine:x64 '
 
 //Flags used by the linker during debug builds.
 CMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
@@ -280,16 +280,15 @@ CMAKE_VERBOSE:BOOL=OFF
 CMAKE_VERBOSE_MAKEFILE:BOOL=OFF
 
 //Compile device code in 64 bit mode
-CUDA_64_BIT_DEVICE_CODE:BOOL=OFF
+CUDA_64_BIT_DEVICE_CODE:BOOL=ON
 
 //Specify 'real' GPU architectures to build binaries for, BIN(PTX)
 // format is supported
-CUDA_ARCH_BIN:STRING=   正在创建库 a.lib 和对象 a.exp
-3.5
+CUDA_ARCH_BIN:STRING=1.1 1.2 1.3 2.0 2.1(2.0) 3.0 3.5
 
 //Specify 'virtual' PTX architectures to build PTX intermediate
 // code for
-CUDA_ARCH_PTX:STRING=
+CUDA_ARCH_PTX:STRING=3.0
 
 //Attach the build rule to the CUDA source file.  Enable only when
 // the CUDA source file is added to at most one target.
@@ -302,10 +301,10 @@ CUDA_BUILD_CUBIN:BOOL=OFF
 CUDA_BUILD_EMULATION:BOOL=OFF
 
 //"cudart" library
-CUDA_CUDART_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib
+CUDA_CUDART_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib
 
 //"cuda" library (older versions only).
-CUDA_CUDA_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cuda.lib
+CUDA_CUDA_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cuda.lib
 
 //Enable --use_fast_math for CUDA compiler 
 CUDA_FAST_MATH:BOOL=OFF
@@ -316,7 +315,7 @@ CUDA_GENERATED_OUTPUT_DIR:PATH=
 
 //Build CUDA device code only for specific GPU architecture. Leave
 // empty to build for all architectures.
-CUDA_GENERATION:STRING=Auto
+CUDA_GENERATION:STRING=
 
 //Generated file extension
 CUDA_HOST_COMPILATION_CPP:BOOL=ON
@@ -375,34 +374,34 @@ CUDA_VERBOSE_BUILD:BOOL=OFF
 CUDA_VERSION:STRING=5.5
 
 //"cublas" library
-CUDA_cublas_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cublas.lib
+CUDA_cublas_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cublas.lib
 
 //"cufft" library
-CUDA_cufft_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cufft.lib
+CUDA_cufft_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cufft.lib
 
 //"cupti" library
-CUDA_cupti_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/extras/CUPTI/libWin32/cupti.lib
+CUDA_cupti_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/extras/CUPTI/libx64/cupti.lib
 
 //"curand" library
-CUDA_curand_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/curand.lib
+CUDA_curand_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/curand.lib
 
 //"cusparse" library
-CUDA_cusparse_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cusparse.lib
+CUDA_cusparse_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cusparse.lib
 
 //"nppc" library
-CUDA_nppc_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib
+CUDA_nppc_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib
 
 //"nppi" library
-CUDA_nppi_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib
+CUDA_nppi_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib
 
 //"npps" library
-CUDA_npps_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib
+CUDA_npps_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib
 
 //"nvcuvenc" library
-CUDA_nvcuvenc_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nvcuvenc.lib
+CUDA_nvcuvenc_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nvcuvenc.lib
 
 //"nvcuvid" library
-CUDA_nvcuvid_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nvcuvid.lib
+CUDA_nvcuvid_LIBRARY:FILEPATH=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nvcuvid.lib
 
 //Path to a program.
 DVIPDF_CONVERTER:FILEPATH=DVIPDF_CONVERTER-NOTFOUND
@@ -521,9 +520,9 @@ PVAPI_INCLUDE_PATH:PATH=PVAPI_INCLUDE_PATH-NOTFOUND
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=PYTHON_EXECUTABLE-NOTFOUND
 
-VISUAL_STUDIO_PATH:STRING=C:\Program Files (x86)\Microsoft Visual Studio 10.0
+VISUAL_STUDIO_PATH:STRING=C:/Program Files (x86)/Microsoft Visual Studio 11.0
 
-WINDOWS_SDK_PATH:STRING=/C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A
+WINDOWS_SDK_PATH:STRING=C:/Program Files (x86)/Windows Kits/8.0
 
 //Include IEEE1394 support
 WITH_1394:BOOL=OFF
@@ -617,28 +616,10 @@ WITH_WIN32UI:BOOL=ON
 WITH_XIMEA:BOOL=OFF
 
 //Value Computed by CMake
-c_samples_BINARY_DIR:STATIC=C:/opencv/sources/build/samples/c
-
-//Value Computed by CMake
-c_samples_SOURCE_DIR:STATIC=C:/opencv/sources/samples/c
-
-//Value Computed by CMake
-cpp_samples_BINARY_DIR:STATIC=C:/opencv/sources/build/samples/cpp
-
-//Value Computed by CMake
-cpp_samples_SOURCE_DIR:STATIC=C:/opencv/sources/samples/cpp
-
-//Value Computed by CMake
 gpu_perf4au_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/gpu/perf4au
 
 //Value Computed by CMake
 gpu_perf4au_SOURCE_DIR:STATIC=C:/opencv/sources/modules/gpu/perf4au
-
-//Value Computed by CMake
-gpu_samples_BINARY_DIR:STATIC=C:/opencv/sources/build/samples/gpu
-
-//Value Computed by CMake
-gpu_samples_SOURCE_DIR:STATIC=C:/opencv/sources/samples/gpu
 
 //Value Computed by CMake
 haartraining_BINARY_DIR:STATIC=C:/opencv/sources/build/apps/haartraining
@@ -683,16 +664,10 @@ libtiff_LIB_DEPENDS:STATIC=general;zlib;
 libtiff_SOURCE_DIR:STATIC=C:/opencv/sources/3rdparty/libtiff
 
 //Value Computed by CMake
-ocl_samples_BINARY_DIR:STATIC=C:/opencv/sources/build/samples/ocl
-
-//Value Computed by CMake
-ocl_samples_SOURCE_DIR:STATIC=C:/opencv/sources/samples/ocl
-
-//Value Computed by CMake
 opencv_calib3d_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/calib3d
 
 //Dependencies for the target
-opencv_calib3d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_calib3d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_calib3d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/calib3d
@@ -701,7 +676,7 @@ opencv_calib3d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/calib3d
 opencv_contrib_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/contrib
 
 //Dependencies for the target
-opencv_contrib_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_contrib_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_contrib_SOURCE_DIR:STATIC=C:/opencv/sources/modules/contrib
@@ -710,7 +685,7 @@ opencv_contrib_SOURCE_DIR:STATIC=C:/opencv/sources/modules/contrib
 opencv_core_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/core
 
 //Dependencies for the target
-opencv_core_LIB_DEPENDS:STATIC=general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;zlib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_core_LIB_DEPENDS:STATIC=general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;general;zlib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_core_SOURCE_DIR:STATIC=C:/opencv/sources/modules/core
@@ -719,7 +694,7 @@ opencv_core_SOURCE_DIR:STATIC=C:/opencv/sources/modules/core
 opencv_features2d_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/features2d
 
 //Dependencies for the target
-opencv_features2d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_features2d_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_features2d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/features2d
@@ -728,7 +703,7 @@ opencv_features2d_SOURCE_DIR:STATIC=C:/opencv/sources/modules/features2d
 opencv_flann_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/flann
 
 //Dependencies for the target
-opencv_flann_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_flann_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_flann_SOURCE_DIR:STATIC=C:/opencv/sources/modules/flann
@@ -737,19 +712,19 @@ opencv_flann_SOURCE_DIR:STATIC=C:/opencv/sources/modules/flann
 opencv_gpu_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/gpu
 
 //Dependencies for the target
-opencv_gpu_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_gpu_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_gpu_SOURCE_DIR:STATIC=C:/opencv/sources/modules/gpu
 
 //Dependencies for the target
-opencv_haartraining_engine_LIB_DEPENDS:STATIC=general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;opencv_core;general;opencv_imgproc;general;opencv_highgui;general;opencv_objdetect;general;opencv_calib3d;general;opencv_video;general;opencv_features2d;general;opencv_flann;general;opencv_legacy;
+opencv_haartraining_engine_LIB_DEPENDS:STATIC=general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;general;opencv_core;general;opencv_imgproc;general;opencv_highgui;general;opencv_objdetect;general;opencv_calib3d;general;opencv_video;general;opencv_features2d;general;opencv_flann;general;opencv_legacy;
 
 //Value Computed by CMake
 opencv_highgui_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/highgui
 
 //Dependencies for the target
-opencv_highgui_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;general;zlib;general;libjpeg;general;libpng;general;libtiff;general;libjasper;general;IlmImf;general;comctl32;general;gdi32;general;ole32;general;setupapi;general;ws2_32;general;vfw32;
+opencv_highgui_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;general;zlib;general;libjpeg;general;libpng;general;libtiff;general;libjasper;general;IlmImf;general;comctl32;general;gdi32;general;ole32;general;setupapi;general;ws2_32;general;vfw32;
 
 //Value Computed by CMake
 opencv_highgui_SOURCE_DIR:STATIC=C:/opencv/sources/modules/highgui
@@ -758,7 +733,7 @@ opencv_highgui_SOURCE_DIR:STATIC=C:/opencv/sources/modules/highgui
 opencv_imgproc_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/imgproc
 
 //Dependencies for the target
-opencv_imgproc_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_imgproc_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_imgproc_SOURCE_DIR:STATIC=C:/opencv/sources/modules/imgproc
@@ -767,7 +742,7 @@ opencv_imgproc_SOURCE_DIR:STATIC=C:/opencv/sources/modules/imgproc
 opencv_legacy_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/legacy
 
 //Dependencies for the target
-opencv_legacy_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_legacy_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_legacy_SOURCE_DIR:STATIC=C:/opencv/sources/modules/legacy
@@ -776,7 +751,7 @@ opencv_legacy_SOURCE_DIR:STATIC=C:/opencv/sources/modules/legacy
 opencv_ml_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/ml
 
 //Dependencies for the target
-opencv_ml_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_ml_LIB_DEPENDS:STATIC=general;opencv_core;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_ml_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ml
@@ -785,7 +760,7 @@ opencv_ml_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ml
 opencv_nonfree_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/nonfree
 
 //Dependencies for the target
-opencv_nonfree_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_nonfree_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_nonfree_SOURCE_DIR:STATIC=C:/opencv/sources/modules/nonfree
@@ -794,7 +769,7 @@ opencv_nonfree_SOURCE_DIR:STATIC=C:/opencv/sources/modules/nonfree
 opencv_objdetect_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/objdetect
 
 //Dependencies for the target
-opencv_objdetect_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;opencv_highgui;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_objdetect_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;opencv_highgui;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_objdetect_SOURCE_DIR:STATIC=C:/opencv/sources/modules/objdetect
@@ -803,7 +778,7 @@ opencv_objdetect_SOURCE_DIR:STATIC=C:/opencv/sources/modules/objdetect
 opencv_ocl_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/ocl
 
 //Dependencies for the target
-opencv_ocl_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_objdetect;general;opencv_video;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_ocl_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_objdetect;general;opencv_video;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_ocl_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ocl
@@ -812,7 +787,7 @@ opencv_ocl_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ocl
 opencv_photo_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/photo
 
 //Dependencies for the target
-opencv_photo_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_photo_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_photo_SOURCE_DIR:STATIC=C:/opencv/sources/modules/photo
@@ -821,7 +796,7 @@ opencv_photo_SOURCE_DIR:STATIC=C:/opencv/sources/modules/photo
 opencv_stitching_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/stitching
 
 //Dependencies for the target
-opencv_stitching_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_stitching_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;opencv_nonfree;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_stitching_SOURCE_DIR:STATIC=C:/opencv/sources/modules/stitching
@@ -830,7 +805,7 @@ opencv_stitching_SOURCE_DIR:STATIC=C:/opencv/sources/modules/stitching
 opencv_superres_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/superres
 
 //Dependencies for the target
-opencv_superres_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_superres_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;opencv_ocl;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_superres_SOURCE_DIR:STATIC=C:/opencv/sources/modules/superres
@@ -839,7 +814,7 @@ opencv_superres_SOURCE_DIR:STATIC=C:/opencv/sources/modules/superres
 opencv_ts_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/ts
 
 //Dependencies for the target
-opencv_ts_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_ts_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_ts_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ts
@@ -848,7 +823,7 @@ opencv_ts_SOURCE_DIR:STATIC=C:/opencv/sources/modules/ts
 opencv_video_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/video
 
 //Dependencies for the target
-opencv_video_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_video_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_imgproc;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_video_SOURCE_DIR:STATIC=C:/opencv/sources/modules/video
@@ -857,7 +832,7 @@ opencv_video_SOURCE_DIR:STATIC=C:/opencv/sources/modules/video
 opencv_videostab_BINARY_DIR:STATIC=C:/opencv/sources/build/modules/videostab
 
 //Dependencies for the target
-opencv_videostab_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;
+opencv_videostab_LIB_DEPENDS:STATIC=general;opencv_core;general;opencv_flann;general;opencv_imgproc;general;opencv_highgui;general;opencv_features2d;general;opencv_calib3d;general;opencv_ml;general;opencv_video;general;opencv_legacy;general;opencv_objdetect;general;opencv_photo;general;opencv_gpu;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;general;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;
 
 //Value Computed by CMake
 opencv_videostab_SOURCE_DIR:STATIC=C:/opencv/sources/modules/videostab
@@ -889,13 +864,13 @@ zlib_SOURCE_DIR:STATIC=C:/opencv/sources/3rdparty/zlib
 ########################
 
 //Stored GUID
-ALL_BUILD_GUID_CMAKE:INTERNAL=1EA8D00C-13C0-4666-A97C-CEAD89F36E92
+ALL_BUILD_GUID_CMAKE:INTERNAL=27FA7C4A-258C-4559-BE1C-2C8F37E761B4
 //ADVANCED property for variable: BIBTEX_COMPILER
 BIBTEX_COMPILER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_BUILD_TOOL
 CMAKE_BUILD_TOOL-ADVANCED:INTERNAL=1
 //What is the target build tool cmake is generating for.
-CMAKE_BUILD_TOOL:INTERNAL=C:/PROGRA~2/MICROS~2.0/Common7/IDE/devenv.com
+CMAKE_BUILD_TOOL:INTERNAL=C:/PROGRA~2/MICROS~3.0/Common7/IDE/devenv.com
 //This is the directory where this CMakeCache.txt was created
 CMAKE_CACHEFILE_DIR:INTERNAL=c:/opencv/sources/build
 //Major version of cmake used to create the current loaded cache
@@ -949,33 +924,21 @@ CMAKE_EXE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO
 CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Stored GUID
-CMAKE_FOLDER_GUID_3rdparty_GUID_CMAKE:INTERNAL=1FE55048-7650-415D-8BAE-9D9A08A0B927
+CMAKE_FOLDER_GUID_3rdparty_GUID_CMAKE:INTERNAL=BEE56249-3B2F-4554-A0B7-83FB605BF3E9
 //Stored GUID
-CMAKE_FOLDER_GUID_CMakeTargets_GUID_CMAKE:INTERNAL=79056037-2DB4-4615-A5C3-9C1B254AA67A
+CMAKE_FOLDER_GUID_CMakeTargets_GUID_CMAKE:INTERNAL=9043DA29-EDBC-42D0-A0BE-2D6991F869BA
 //Stored GUID
-CMAKE_FOLDER_GUID_applications_GUID_CMAKE:INTERNAL=111D3200-F777-44AF-AD08-B804E8954778
+CMAKE_FOLDER_GUID_applications_GUID_CMAKE:INTERNAL=BCAD508C-8BCB-4674-993C-3A1D29291EB7
 //Stored GUID
-CMAKE_FOLDER_GUID_extra_GUID_CMAKE:INTERNAL=DF9FC17B-2340-4218-B07F-DCC83CBC74B1
+CMAKE_FOLDER_GUID_extra_GUID_CMAKE:INTERNAL=3927EEE1-0E59-42DD-A19D-92AB9734FA0D
 //Stored GUID
-CMAKE_FOLDER_GUID_modules_GUID_CMAKE:INTERNAL=E4EF858E-33EE-41D0-B4C8-671528D59CE8
+CMAKE_FOLDER_GUID_modules_GUID_CMAKE:INTERNAL=AC581171-E69D-433E-A13A-55E3234C850D
 //Stored GUID
-CMAKE_FOLDER_GUID_samples//c_GUID_CMAKE:INTERNAL=4D7A0C70-4E2B-4736-A074-7FE2271BE7FF
+CMAKE_FOLDER_GUID_tests accuracy_GUID_CMAKE:INTERNAL=C3BF1DA3-2107-4764-92CB-0FC999329D01
 //Stored GUID
-CMAKE_FOLDER_GUID_samples//gpu_GUID_CMAKE:INTERNAL=29C0CC7C-13AA-4E2B-A010-2139480212C7
-//Stored GUID
-CMAKE_FOLDER_GUID_samples//ocl_GUID_CMAKE:INTERNAL=D31D88DD-F81C-4733-A801-DBAE39565701
-//Stored GUID
-CMAKE_FOLDER_GUID_samples/cpp_GUID_CMAKE:INTERNAL=063BDE85-5540-4D7B-A719-D9111DCCF548
-//Stored GUID
-CMAKE_FOLDER_GUID_samples/tutorials_GUID_CMAKE:INTERNAL=446269C2-0AE6-4AB0-96B6-2B0C682F0A5C
-//Stored GUID
-CMAKE_FOLDER_GUID_samples_GUID_CMAKE:INTERNAL=B1EDFD67-3073-4D11-96FA-743F4A2F5D85
-//Stored GUID
-CMAKE_FOLDER_GUID_tests accuracy_GUID_CMAKE:INTERNAL=04076B6D-0BBD-4C2E-B04C-985AF1A365DF
-//Stored GUID
-CMAKE_FOLDER_GUID_tests performance_GUID_CMAKE:INTERNAL=506E963E-5B0C-49A9-9DA7-80E80A78B6EF
+CMAKE_FOLDER_GUID_tests performance_GUID_CMAKE:INTERNAL=036351D2-F05D-4799-997F-106F8F471623
 //Name of generator.
-CMAKE_GENERATOR:INTERNAL=Visual Studio 10
+CMAKE_GENERATOR:INTERNAL=Visual Studio 11 Win64
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Start directory with the top level CMakeLists.txt file for this
@@ -996,7 +959,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=63
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=58
 //ADVANCED property for variable: CMAKE_RC_COMPILER
 CMAKE_RC_COMPILER-ADVANCED:INTERNAL=1
 CMAKE_RC_COMPILER_WORKS:INTERNAL=1
@@ -1159,11 +1122,11 @@ HAVE_SYS_TYPES_H:INTERNAL=1
 //Have include unistd.h
 HAVE_UNISTD_H:INTERNAL=
 //Result of TRY_COMPILE
-HAVE_VFW:INTERNAL=TRUE
+HAVE_VFW:INTERNAL=FALSE
 //Result of TRY_COMPILE
 HAVE_WIN32UI:INTERNAL=TRUE
 //Result of TRY_COMPILE
-HAVE_WINRT_SDK:INTERNAL=FALSE
+HAVE_WINRT_SDK:INTERNAL=TRUE
 //Module opencv_androidcamera can not be built in current configuration
 HAVE_opencv_androidcamera:INTERNAL=OFF
 //Module opencv_calib3d will be built in current configuration
@@ -1213,9 +1176,9 @@ HAVE_opencv_videostab:INTERNAL=ON
 //Module opencv_world will not be built in current configuration
 HAVE_opencv_world:INTERNAL=OFF
 //Stored GUID
-INSTALL_GUID_CMAKE:INTERNAL=7CD137CE-258E-41B8-A894-34C2A9A77C59
+INSTALL_GUID_CMAKE:INTERNAL=FC1838D5-DBA4-4039-8877-2DDB372D3200
 //Stored GUID
-IlmImf_GUID_CMAKE:INTERNAL=45598E47-286B-44A7-A5AA-D764364A6E89
+IlmImf_GUID_CMAKE:INTERNAL=1DF11A93-E51C-46FF-A365-76EB567ED04E
 //ADVANCED property for variable: JAVA_AWT_INCLUDE_PATH
 JAVA_AWT_INCLUDE_PATH-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: JAVA_AWT_LIBRARY
@@ -1247,7 +1210,7 @@ OPENCV_EXTRA_EXE_LINKER_FLAGS_DEBUG:INTERNAL=
 //Extra linker flags for Release build
 OPENCV_EXTRA_EXE_LINKER_FLAGS_RELEASE:INTERNAL= /debug
 //Extra compiler options
-OPENCV_EXTRA_FLAGS:INTERNAL= /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /arch:SSE2 /Oi /fp:fast
+OPENCV_EXTRA_FLAGS:INTERNAL= /D _CRT_SECURE_NO_DEPRECATE /D _CRT_NONSTDC_NO_DEPRECATE /D _SCL_SECURE_NO_WARNINGS /Gy /bigobj /Oi
 //Extra compiler options for Debug build
 OPENCV_EXTRA_FLAGS_DEBUG:INTERNAL=
 //Extra compiler options for Release build
@@ -1316,7 +1279,7 @@ OPENCV_MODULE_opencv_core_CLASS:INTERNAL=PUBLIC
 //Flattened dependencies of opencv_core module
 OPENCV_MODULE_opencv_core_DEPS:INTERNAL=
 //Extra dependencies of opencv_core module
-OPENCV_MODULE_opencv_core_DEPS_EXT:INTERNAL=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;zlib
+OPENCV_MODULE_opencv_core_DEPS_EXT:INTERNAL=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;zlib
 OPENCV_MODULE_opencv_core_DEPS_ORDERED:INTERNAL=
 //Brief description of opencv_core module
 OPENCV_MODULE_opencv_core_DESCRIPTION:INTERNAL=The Core Functionality
@@ -1329,7 +1292,7 @@ OPENCV_MODULE_opencv_core_OPT_DEPS:INTERNAL=
 //Optional private dependencies of opencv_core module
 OPENCV_MODULE_opencv_core_PRIVATE_OPT_DEPS:INTERNAL=
 //Required private dependencies of opencv_core module
-OPENCV_MODULE_opencv_core_PRIVATE_REQ_DEPS:INTERNAL=zlib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib
+OPENCV_MODULE_opencv_core_PRIVATE_REQ_DEPS:INTERNAL=zlib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib
 //Required dependencies of opencv_core module
 OPENCV_MODULE_opencv_core_REQ_DEPS:INTERNAL=
 //List of source files for opencv_core
@@ -1396,7 +1359,7 @@ OPENCV_MODULE_opencv_gpu_HEADERS:INTERNAL=C:/opencv/sources/modules/gpu/include/
 //Location of opencv_gpu module sources
 OPENCV_MODULE_opencv_gpu_LOCATION:INTERNAL=C:/opencv/sources/modules/gpu
 //Optional dependencies of opencv_gpu module
-OPENCV_MODULE_opencv_gpu_OPT_DEPS:INTERNAL=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cublas.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cufft.lib
+OPENCV_MODULE_opencv_gpu_OPT_DEPS:INTERNAL=C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cublas.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cufft.lib
 //Optional private dependencies of opencv_gpu module
 OPENCV_MODULE_opencv_gpu_PRIVATE_OPT_DEPS:INTERNAL=
 //Required private dependencies of opencv_gpu module
@@ -1427,7 +1390,7 @@ OPENCV_MODULE_opencv_highgui_PRIVATE_REQ_DEPS:INTERNAL=
 //Required dependencies of opencv_highgui module
 OPENCV_MODULE_opencv_highgui_REQ_DEPS:INTERNAL=opencv_imgproc
 //List of source files for opencv_highgui
-OPENCV_MODULE_opencv_highgui_SOURCES:INTERNAL=src/cap.cpp;src/cap_images.cpp;src/cap_ffmpeg.cpp;src/loadsave.cpp;src/utils.cpp;src/window.cpp;src/window_w32.cpp;src/cap_cmu.cpp;src/cap_dshow.cpp;src/cap_vfw.cpp;src/precomp.hpp;src/utils.hpp;src/cap_ffmpeg_impl.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.cpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.cpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.cpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.cpp;C:/opencv/sources/modules/highgui/src/grfmt_png.cpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.cpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.cpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.cpp;src/bitstrm.cpp;C:/opencv/sources/modules/highgui/src/grfmts.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.hpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.hpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.hpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.hpp;C:/opencv/sources/modules/highgui/src/grfmt_png.hpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.hpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.hpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.hpp;src/bitstrm.hpp
+OPENCV_MODULE_opencv_highgui_SOURCES:INTERNAL=src/cap.cpp;src/cap_images.cpp;src/cap_ffmpeg.cpp;src/loadsave.cpp;src/utils.cpp;src/window.cpp;src/window_w32.cpp;src/cap_cmu.cpp;src/cap_dshow.cpp;src/precomp.hpp;src/utils.hpp;src/cap_ffmpeg_impl.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.cpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.cpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.cpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.cpp;C:/opencv/sources/modules/highgui/src/grfmt_png.cpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.cpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.cpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.cpp;src/bitstrm.cpp;C:/opencv/sources/modules/highgui/src/grfmts.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.hpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.hpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.hpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.hpp;C:/opencv/sources/modules/highgui/src/grfmt_png.hpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.hpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.hpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.hpp;src/bitstrm.hpp
 //The cathegory of the module
 OPENCV_MODULE_opencv_imgproc_CLASS:INTERNAL=PUBLIC
 //Flattened dependencies of opencv_imgproc module
@@ -1630,7 +1593,7 @@ OPENCV_MODULE_opencv_superres_HEADERS:INTERNAL=C:/opencv/sources/modules/superre
 //Location of opencv_superres module sources
 OPENCV_MODULE_opencv_superres_LOCATION:INTERNAL=C:/opencv/sources/modules/superres
 //Optional dependencies of opencv_superres module
-OPENCV_MODULE_opencv_superres_OPT_DEPS:INTERNAL=opencv_gpu;opencv_highgui;opencv_ocl;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/Win32/npps.lib
+OPENCV_MODULE_opencv_superres_OPT_DEPS:INTERNAL=opencv_gpu;opencv_highgui;opencv_ocl;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/cudart.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppc.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/nppi.lib;C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v5.5/lib/x64/npps.lib
 //Optional private dependencies of opencv_superres module
 OPENCV_MODULE_opencv_superres_PRIVATE_OPT_DEPS:INTERNAL=
 //Required private dependencies of opencv_superres module
@@ -1731,561 +1694,171 @@ PS2PDF_CONVERTER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //Stored GUID
-SG_Filter_CMake Rules_GUID_CMAKE:INTERNAL=CBF4343C-8DDE-4303-8DE0-02CC725E5AA8
+SG_Filter_CMake Rules_GUID_CMAKE:INTERNAL=F9227315-F495-4DE9-A82F-513251D5DAA1
 //Stored GUID
-SG_Filter_Cuda Headers\Detail_GUID_CMAKE:INTERNAL=58C8AE32-D087-460A-ADEB-AB888E134329
+SG_Filter_Cuda Headers\Detail_GUID_CMAKE:INTERNAL=468238DE-C3D7-4EEE-A0E4-553AFA0E75DA
 //Stored GUID
-SG_Filter_Cuda Headers_GUID_CMAKE:INTERNAL=1E3C5EB4-3393-4F57-B084-1210AD24AA7C
+SG_Filter_Cuda Headers_GUID_CMAKE:INTERNAL=CF8D031F-4557-4A7C-837C-2EB96DA1AF0D
 //Stored GUID
-SG_Filter_Device\Detail_GUID_CMAKE:INTERNAL=EDEF0434-F1B9-4D1F-9E86-64E94D98F92D
+SG_Filter_Device\Detail_GUID_CMAKE:INTERNAL=ABB4BC0F-3182-4EAB-A9B4-E600802B52C9
 //Stored GUID
-SG_Filter_Device_GUID_CMAKE:INTERNAL=ECC2FED0-D9BA-4F34-AF67-E896EF139062
+SG_Filter_Device_GUID_CMAKE:INTERNAL=27CD89EF-5315-48E0-8F70-E2751DFCA48C
 //Stored GUID
-SG_Filter_Header Files_GUID_CMAKE:INTERNAL=D8EF5608-42B2-4906-889B-2962B2C4B40C
+SG_Filter_Header Files_GUID_CMAKE:INTERNAL=63AC1B07-F6D4-47A5-B113-667BF03E3954
 //Stored GUID
-SG_Filter_Include\detail_GUID_CMAKE:INTERNAL=B510D655-3A57-4DCE-8066-A83D870B225F
+SG_Filter_Include\detail_GUID_CMAKE:INTERNAL=FC4ECC31-6898-42B5-903A-C2BE3B92D591
 //Stored GUID
-SG_Filter_Include_GUID_CMAKE:INTERNAL=724E969D-A249-4EB6-A9F1-B7168BB42FBC
+SG_Filter_Include_GUID_CMAKE:INTERNAL=00D29FF5-18BC-4F67-814E-8FA13A67342F
 //Stored GUID
-SG_Filter_Object Files_GUID_CMAKE:INTERNAL=60A17FD1-DFDD-44C7-B5D2-89B9E3A910DC
+SG_Filter_Object Files_GUID_CMAKE:INTERNAL=97D0B88E-21E7-454B-A895-2ABEF0E0A4B3
 //Stored GUID
-SG_Filter_OpenCL_GUID_CMAKE:INTERNAL=F4D4848B-A998-40E7-8A60-4BB314572980
+SG_Filter_OpenCL_GUID_CMAKE:INTERNAL=B7F6D27D-4C91-4A60-8A46-2B7248EA1FA7
 //Stored GUID
-SG_Filter_Resources_GUID_CMAKE:INTERNAL=396341A3-B73F-4BB8-8D83-B84490ADED2B
+SG_Filter_Resources_GUID_CMAKE:INTERNAL=B98B968C-0FA8-445E-9719-6DAF55A01D2B
 //Stored GUID
-SG_Filter_Source Files_GUID_CMAKE:INTERNAL=FB386426-FA48-4772-81A3-F2D37A6C5F03
+SG_Filter_Source Files_GUID_CMAKE:INTERNAL=A2F2BF55-4E50-4AB1-919C-DF9F99BF3226
 //Stored GUID
-SG_Filter_Src\Cuda_GUID_CMAKE:INTERNAL=4B69BF74-7689-4BF3-BC38-742E156457FD
+SG_Filter_Src\Cuda_GUID_CMAKE:INTERNAL=DBD2EB12-3E2B-4493-A0C5-2510070DB912
 //Stored GUID
-SG_Filter_Src\Host_GUID_CMAKE:INTERNAL=8DD31637-64DC-40C1-BEC4-A47E21E16D2B
+SG_Filter_Src\Host_GUID_CMAKE:INTERNAL=1FA01086-136B-45A2-B01C-C393C13703AF
 //Stored GUID
-SG_Filter_Src\NVidia_GUID_CMAKE:INTERNAL=80BF7D7C-4D96-4C93-89F2-84BBBEE4B705
+SG_Filter_Src\NVidia_GUID_CMAKE:INTERNAL=AA7544AC-1E2B-4EDF-BCEB-F8849B332FFF
 //Stored GUID
-SG_Filter_Src\grfmts_GUID_CMAKE:INTERNAL=D2C463A8-5F14-43C0-8F7A-60FE776B3208
+SG_Filter_Src\grfmts_GUID_CMAKE:INTERNAL=C8ED6598-89AB-47E5-A024-C6260291A199
 //Stored GUID
-SG_Filter_Src_GUID_CMAKE:INTERNAL=A9DD8712-43C3-441A-AE77-EC23BF36A4C1
+SG_Filter_Src_GUID_CMAKE:INTERNAL=E0CA9821-780C-45C8-A12D-D90614218567
 //Stored GUID
-ZERO_CHECK_GUID_CMAKE:INTERNAL=4DCE0C4C-AA02-4940-9874-726CFB99914F
+ZERO_CHECK_GUID_CMAKE:INTERNAL=7EDF77C3-842A-453E-AC10-36FE77CE0395
 //Have include unistd.h
 Z_HAVE_UNISTD_H:INTERNAL=
 //Result of TRY_COMPILE
 __VALID_OPENCL:INTERNAL=TRUE
 //Stored GUID
-example_3calibration_GUID_CMAKE:INTERNAL=99BD0798-E393-422D-866D-A69D989BF0F4
+gpu_perf4au_GUID_CMAKE:INTERNAL=E6D1633D-8156-427C-B114-83383A9C6B91
 //Stored GUID
-example_OpenEXRimages_HDR_Retina_toneMapping_GUID_CMAKE:INTERNAL=CB461B9C-5A75-4FD0-A464-90016AC738D4
+libjasper_GUID_CMAKE:INTERNAL=1DB6E3AA-4B39-44ED-8A33-F6B298E12739
 //Stored GUID
-example_OpenEXRimages_HDR_Retina_toneMapping_video_GUID_CMAKE:INTERNAL=68214AA9-E65D-4A76-AC1F-15EA1500EE9A
+libjpeg_GUID_CMAKE:INTERNAL=72EDA610-F3E9-4493-988F-F92461679CFD
 //Stored GUID
-example_adaptiveskindetector_GUID_CMAKE:INTERNAL=9484B394-D55B-4A3F-8A8D-377B187437F8
+libpng_GUID_CMAKE:INTERNAL=E9D97CBD-754B-4CFD-9D10-EA325206E541
 //Stored GUID
-example_bagofwords_classification_GUID_CMAKE:INTERNAL=5E030386-8125-4200-9FAC-DCF7DD9295D3
+libtiff_GUID_CMAKE:INTERNAL=9AFF067D-ED68-490D-AB7C-61173D79A57D
 //Stored GUID
-example_bgfg_codebook_GUID_CMAKE:INTERNAL=E772D891-7D88-40BE-AD49-58D3F37FA094
+opencv_calib3d_GUID_CMAKE:INTERNAL=5DB41127-6594-48AD-BB17-FF16D476BD59
 //Stored GUID
-example_bgfg_gmg_GUID_CMAKE:INTERNAL=42E04E9B-44D0-4B70-BAA5-667E80B9CC64
+opencv_contrib_GUID_CMAKE:INTERNAL=BCAA398A-56CA-4843-A417-B07C0203CD9B
 //Stored GUID
-example_bgfg_segm_GUID_CMAKE:INTERNAL=4C31C748-F7F8-4963-AD07-539C28B6157D
+opencv_core_GUID_CMAKE:INTERNAL=30E8B75B-9FE4-4341-873F-D95AFD23CFAA
 //Stored GUID
-example_blobtrack_sample_GUID_CMAKE:INTERNAL=67BC7863-BCA1-47B4-B525-D3793AF4D292
+opencv_createsamples_GUID_CMAKE:INTERNAL=755CFC2B-788C-41B0-9EF0-31C58CA1DCF7
 //Stored GUID
-example_brief_match_test_GUID_CMAKE:INTERNAL=B3357104-BE48-4788-9C01-9E102D7FD980
+opencv_features2d_GUID_CMAKE:INTERNAL=4A9B9130-F6C0-45ED-BC46-64E577885184
 //Stored GUID
-example_build3dmodel_GUID_CMAKE:INTERNAL=1BE0E20C-DF92-40C6-95FB-C003903D489C
+opencv_flann_GUID_CMAKE:INTERNAL=D163366F-1FA3-4AC6-8C0C-E2E8DEBA2024
 //Stored GUID
-example_calibration_GUID_CMAKE:INTERNAL=4A63181A-69DB-4155-B5E1-5A30160CAAF2
+opencv_gpu_GUID_CMAKE:INTERNAL=FD69EA5D-1594-4EC2-8504-BB2599F2D1A2
 //Stored GUID
-example_calibration_artificial_GUID_CMAKE:INTERNAL=B4DE9F28-AA3E-42A1-9205-302704089C1F
+opencv_haartraining_GUID_CMAKE:INTERNAL=4304EAE5-87B6-4904-B3A7-829C5E48771B
 //Stored GUID
-example_camshiftdemo_GUID_CMAKE:INTERNAL=58E87760-6C41-4F04-9142-BB5DB7C59758
+opencv_haartraining_engine_GUID_CMAKE:INTERNAL=79B238E9-8F26-4AEA-B800-C416C72FBE45
 //Stored GUID
-example_chamfer_GUID_CMAKE:INTERNAL=A85D1830-2A3B-45E3-AE53-B209E59A78B7
+opencv_highgui_GUID_CMAKE:INTERNAL=3CFAD95C-F39F-4A70-B6CE-D15070068F73
 //Stored GUID
-example_connected_components_GUID_CMAKE:INTERNAL=1A647825-4ED1-4502-997F-28854752427D
+opencv_imgproc_GUID_CMAKE:INTERNAL=E3350A30-D89D-4774-9166-76D60653EE4B
 //Stored GUID
-example_contours2_GUID_CMAKE:INTERNAL=56EB3156-C50A-4BAC-A6D3-EB2CB068B3A4
+opencv_legacy_GUID_CMAKE:INTERNAL=3E4C2AF0-8E79-4413-8ADD-61CFA0C78E01
 //Stored GUID
-example_contours_GUID_CMAKE:INTERNAL=EB95FBAE-AE6F-48F7-8B17-38A7A9301C6D
+opencv_ml_GUID_CMAKE:INTERNAL=DABB1A0A-1C9E-4FD5-A70D-854DA0FAA9F3
 //Stored GUID
-example_convert_cascade_GUID_CMAKE:INTERNAL=8D99AEB7-FD5B-4F45-BA83-844B766B6C39
+opencv_modules_GUID_CMAKE:INTERNAL=C0B328C1-63A6-4837-B84C-01A871353586
 //Stored GUID
-example_convexhull_GUID_CMAKE:INTERNAL=DD37EF55-389C-4DEE-B2EC-C18420958131
+opencv_nonfree_GUID_CMAKE:INTERNAL=1C2979D7-F05A-4947-A574-8DDBBB575E9E
 //Stored GUID
-example_cout_mat_GUID_CMAKE:INTERNAL=5B3F7EC3-EC94-4E45-ACFE-0530A9EC1BD9
+opencv_objdetect_GUID_CMAKE:INTERNAL=4D45E321-7DF0-43D1-85D2-63084EB51647
 //Stored GUID
-example_delaunay2_GUID_CMAKE:INTERNAL=FC4E6FEE-7675-4E05-B273-45AC4274C42B
+opencv_ocl_GUID_CMAKE:INTERNAL=37CC297B-5082-4D2D-AB13-8E912F3DE6B4
 //Stored GUID
-example_delaunay_GUID_CMAKE:INTERNAL=4E79EA43-050E-468F-81B6-1C65B9EC8FD8
+opencv_perf_calib3d_GUID_CMAKE:INTERNAL=6E14F2FD-E8E6-4BB4-9E04-98B8379F3AB5
 //Stored GUID
-example_demhist_GUID_CMAKE:INTERNAL=F75980CD-04AA-4CFE-BE82-3E2933F81B03
+opencv_perf_core_GUID_CMAKE:INTERNAL=030C0F88-444D-49E7-8DFD-0BF7BC6302CB
 //Stored GUID
-example_descriptor_extractor_matcher_GUID_CMAKE:INTERNAL=918F7C56-F22D-4833-9E6D-294E3F6EFCD7
+opencv_perf_features2d_GUID_CMAKE:INTERNAL=CA6C0F23-6B25-4FCE-9500-917F0CAFAD01
 //Stored GUID
-example_detection_based_tracker_sample_GUID_CMAKE:INTERNAL=96C65216-32DA-47A8-A2E2-5EED379F42F0
+opencv_perf_gpu_GUID_CMAKE:INTERNAL=2D8A9108-A771-4699-B9D9-5CED19814D55
 //Stored GUID
-example_detector_descriptor_evaluation_GUID_CMAKE:INTERNAL=6BE7C84C-222F-4CB0-AF86-7B7FED87BA5D
+opencv_perf_highgui_GUID_CMAKE:INTERNAL=9005F7CE-2113-479E-9381-77D33A5C2341
 //Stored GUID
-example_detector_descriptor_matcher_evaluation_GUID_CMAKE:INTERNAL=57734C40-C9DF-48D1-9F37-BBBE68D07180
+opencv_perf_imgproc_GUID_CMAKE:INTERNAL=FEAB858E-37C1-41B9-BD7C-99EB0931B345
 //Stored GUID
-example_dft_GUID_CMAKE:INTERNAL=EA6CD136-C65C-4390-B126-1771A0471E31
+opencv_perf_nonfree_GUID_CMAKE:INTERNAL=391ED1C0-EA0C-438E-B112-F69CC2738379
 //Stored GUID
-example_distrans_GUID_CMAKE:INTERNAL=A7A8D135-636F-4C17-9D81-7A6713A4F56B
+opencv_perf_objdetect_GUID_CMAKE:INTERNAL=4F79EBD7-D323-4BFA-926E-C740BF2D254F
 //Stored GUID
-example_drawing_GUID_CMAKE:INTERNAL=0B85115F-B9C1-4495-99D3-4786D0E77FF0
+opencv_perf_ocl_GUID_CMAKE:INTERNAL=2AC469E9-433A-46C7-ACAB-4650EDDD22F6
 //Stored GUID
-example_edge_GUID_CMAKE:INTERNAL=AACCFA55-01E4-4B81-B899-4BA0EC846746
+opencv_perf_photo_GUID_CMAKE:INTERNAL=836D77B9-78DD-461F-A321-844F21C7512C
 //Stored GUID
-example_em_GUID_CMAKE:INTERNAL=51FEB378-11EC-4984-AB80-21947433A4B1
+opencv_perf_stitching_GUID_CMAKE:INTERNAL=239EFB45-9D4E-4294-A5A6-91EF4BE97C49
 //Stored GUID
-example_fabmap_sample_GUID_CMAKE:INTERNAL=1321E7CA-B184-4C2A-AE56-DC9AFA0173FB
+opencv_perf_superres_GUID_CMAKE:INTERNAL=0CBBB1C2-DBFA-4E5D-B011-CCFA4FD0BFD0
 //Stored GUID
-example_facedetect_GUID_CMAKE:INTERNAL=D124922B-5A45-4320-B9A0-9B3D55711B19
+opencv_perf_tests_GUID_CMAKE:INTERNAL=1648D580-0259-4B90-9B68-DD3A4A281A81
 //Stored GUID
-example_facerec_demo_GUID_CMAKE:INTERNAL=C87B3BBF-02E8-4401-AB98-55096DD9E1B9
+opencv_perf_video_GUID_CMAKE:INTERNAL=A40C1ACE-3C43-4751-8BD2-FF37E29AA08D
 //Stored GUID
-example_fback_GUID_CMAKE:INTERNAL=319409E7-2AF1-4AB9-86FC-55AE9804EF82
+opencv_performance_GUID_CMAKE:INTERNAL=9ADCE7C1-928F-4BF0-BE80-DABE272CFAFC
 //Stored GUID
-example_fback_c_GUID_CMAKE:INTERNAL=E4E37EE1-D317-448C-9C77-36A6001674D4
+opencv_photo_GUID_CMAKE:INTERNAL=8470FFCF-DA15-49A4-8FA0-55EEC9F4534A
 //Stored GUID
-example_ffilldemo_GUID_CMAKE:INTERNAL=A5709045-7E0D-4C6F-96CC-FC9F4A87F7F7
+opencv_stitching_GUID_CMAKE:INTERNAL=1874913A-71FD-4AD8-ACAF-E43198F14921
 //Stored GUID
-example_filestorage_GUID_CMAKE:INTERNAL=D69D69A3-5FC5-40B8-BA0C-810DC9F3CAB2
+opencv_superres_GUID_CMAKE:INTERNAL=62396029-C6EE-4354-B42B-F615147DF01A
 //Stored GUID
-example_find_obj_GUID_CMAKE:INTERNAL=78A2C568-D3CA-4349-80D8-AD25F36C2E14
+opencv_test_calib3d_GUID_CMAKE:INTERNAL=938CC017-35A5-4429-9BFC-0C2D7452C416
 //Stored GUID
-example_find_obj_calonder_GUID_CMAKE:INTERNAL=F752DCBA-4A32-41DD-84EF-24C45DA5F526
+opencv_test_contrib_GUID_CMAKE:INTERNAL=A217A244-D746-42B7-966A-EC8FBB1269BA
 //Stored GUID
-example_find_obj_ferns_GUID_CMAKE:INTERNAL=EE131958-A689-4C46-9C14-DCD97AEDE7C0
+opencv_test_core_GUID_CMAKE:INTERNAL=1CCE45B1-B98B-42EA-A255-EF6BFC469F8B
 //Stored GUID
-example_fitellipse_GUID_CMAKE:INTERNAL=948DFE6C-6B49-4774-AD22-B21861BA48B6
+opencv_test_features2d_GUID_CMAKE:INTERNAL=5CF8D6D2-7F53-4E94-9C8E-F85E898E9DD0
 //Stored GUID
-example_freak_demo_GUID_CMAKE:INTERNAL=460902A8-D02B-41FA-8E1B-D931714E8128
+opencv_test_flann_GUID_CMAKE:INTERNAL=0AC77352-D5E6-46BB-9FE9-C2BF4D5E7BF0
 //Stored GUID
-example_gencolors_GUID_CMAKE:INTERNAL=2A58AD8B-E64E-40DF-9DD7-27C008EA361F
+opencv_test_gpu_GUID_CMAKE:INTERNAL=B6CE350F-23DE-40E2-988C-B62C846EECCE
 //Stored GUID
-example_generic_descriptor_match_GUID_CMAKE:INTERNAL=09644CA7-0774-414A-935F-B9773C3AEF25
+opencv_test_highgui_GUID_CMAKE:INTERNAL=AE171FF8-BC0E-4B00-8563-E52BC73E80D1
 //Stored GUID
-example_gpu_alpha_comp_GUID_CMAKE:INTERNAL=5CECC857-807A-4CF4-94EB-0F1A4E18441B
+opencv_test_imgproc_GUID_CMAKE:INTERNAL=5A47FF2A-E98A-491E-B463-FD7F1EB3A519
 //Stored GUID
-example_gpu_bgfg_segm_GUID_CMAKE:INTERNAL=FDC3A4C5-340E-43D3-B777-93818F794B8F
+opencv_test_legacy_GUID_CMAKE:INTERNAL=4FA18781-B5C3-482F-98F4-62938BAEE046
 //Stored GUID
-example_gpu_brox_optical_flow_GUID_CMAKE:INTERNAL=4549D00A-76F6-4605-A696-8CE492924DE3
+opencv_test_ml_GUID_CMAKE:INTERNAL=4470E9F3-FC2F-4BFE-8F3B-BC3BF984C7B7
 //Stored GUID
-example_gpu_cascadeclassifier_GUID_CMAKE:INTERNAL=79480F82-C4B6-412B-9B77-41831D85E38C
+opencv_test_nonfree_GUID_CMAKE:INTERNAL=2C8C158A-16E6-486F-ADCB-13C06AF3A286
 //Stored GUID
-example_gpu_cascadeclassifier_nvidia_api_GUID_CMAKE:INTERNAL=186E2E79-4F78-46E4-BBF3-B3944A79D427
+opencv_test_objdetect_GUID_CMAKE:INTERNAL=E9EB980D-FB08-418D-937B-8C341B63A4E0
 //Stored GUID
-example_gpu_driver_api_multi_GUID_CMAKE:INTERNAL=4B9B40C4-6572-47A6-96B5-DB28C6EBC873
+opencv_test_ocl_GUID_CMAKE:INTERNAL=90E5D427-573F-48C2-8264-47505927C4A9
 //Stored GUID
-example_gpu_driver_api_stereo_multi_GUID_CMAKE:INTERNAL=FE28FAB6-261A-418F-80E7-838F82227193
+opencv_test_photo_GUID_CMAKE:INTERNAL=FB63AF39-025E-4E76-9A5C-4668CBDAC8CA
 //Stored GUID
-example_gpu_farneback_optical_flow_GUID_CMAKE:INTERNAL=F2F82C5B-4CCD-4BD5-AEA1-A6CE0254E4D0
+opencv_test_stitching_GUID_CMAKE:INTERNAL=8315F8D5-5626-4DB9-A29C-B1CFDA1ACB78
 //Stored GUID
-example_gpu_generalized_hough_GUID_CMAKE:INTERNAL=215826CE-ECD1-4D23-92A2-E4D6B0446607
+opencv_test_superres_GUID_CMAKE:INTERNAL=6FE52F03-B4BD-41CE-B971-82118780159A
 //Stored GUID
-example_gpu_hog_GUID_CMAKE:INTERNAL=B4BE9B27-9B48-402D-8317-CDF1C01A19B2
+opencv_test_video_GUID_CMAKE:INTERNAL=DBD163CE-85B6-42F7-988C-37AFCB99584D
 //Stored GUID
-example_gpu_houghlines_GUID_CMAKE:INTERNAL=CAF25847-C1C8-4B4C-AD1C-165F389A82F5
+opencv_tests_GUID_CMAKE:INTERNAL=D57F9A2E-E6C7-44A6-9B95-552BEC550767
 //Stored GUID
-example_gpu_morphology_GUID_CMAKE:INTERNAL=CC6DF137-120D-4B64-9673-8C8C71D4BB47
+opencv_traincascade_GUID_CMAKE:INTERNAL=44ECD6B5-2A83-4CAB-8BB7-462B971E0EF0
 //Stored GUID
-example_gpu_multi_GUID_CMAKE:INTERNAL=0A4CD58E-E52F-40A5-9A62-D8C9448BEB95
+opencv_ts_GUID_CMAKE:INTERNAL=A97C48E2-A716-443A-9D3D-1BA5C99397DD
 //Stored GUID
-example_gpu_opengl_GUID_CMAKE:INTERNAL=D2D7C27F-1125-4955-9932-63F0EDDCD4DF
+opencv_video_GUID_CMAKE:INTERNAL=7A9826F6-55C9-488A-8B89-CCFD3B846573
 //Stored GUID
-example_gpu_optical_flow_GUID_CMAKE:INTERNAL=23C6DD3A-89F3-48AE-B608-378972221C9D
+opencv_videostab_GUID_CMAKE:INTERNAL=D417FA2E-3132-4B36-974B-6BCBF97970BE
 //Stored GUID
-example_gpu_opticalflow_nvidia_api_GUID_CMAKE:INTERNAL=19CA3D59-861F-4ACF-9DDE-3789945625D9
+uninstall_GUID_CMAKE:INTERNAL=E2B98A47-0F0E-4161-93A9-285689F9B6BC
 //Stored GUID
-example_gpu_performance_GUID_CMAKE:INTERNAL=C1ACCC86-9621-4354-80F3-F8B3E281F874
-//Stored GUID
-example_gpu_pyrlk_optical_flow_GUID_CMAKE:INTERNAL=A7D45A1A-5947-4F50-8D6C-CED9560AD57C
-//Stored GUID
-example_gpu_stereo_match_GUID_CMAKE:INTERNAL=B35E9929-E0BE-495C-9E4F-BB84BECAFD03
-//Stored GUID
-example_gpu_stereo_multi_GUID_CMAKE:INTERNAL=48904160-008C-4F6D-A8B4-5487C179D856
-//Stored GUID
-example_gpu_super_resolution_GUID_CMAKE:INTERNAL=98179DA3-C7B2-4B1C-BA39-999C6681E512
-//Stored GUID
-example_gpu_surf_keypoint_matcher_GUID_CMAKE:INTERNAL=383FCE21-6730-4225-B43D-C255DAE9700F
-//Stored GUID
-example_gpu_video_reader_GUID_CMAKE:INTERNAL=F1D31883-FBB9-4B23-9635-3EC6485E7E82
-//Stored GUID
-example_gpu_video_writer_GUID_CMAKE:INTERNAL=B796EFD9-39B4-47D6-8264-FBC77C48F50F
-//Stored GUID
-example_grabcut_GUID_CMAKE:INTERNAL=392AA618-8CA5-49E3-8DF7-9A1D481C32AC
-//Stored GUID
-example_houghcircles_GUID_CMAKE:INTERNAL=47C3B3EC-F51A-45F7-A9C2-1EFF5D3C7583
-//Stored GUID
-example_houghlines_GUID_CMAKE:INTERNAL=C0B3D867-A2D0-451F-9BDB-870B3DA87F7D
-//Stored GUID
-example_hybridtrackingsample_GUID_CMAKE:INTERNAL=9A8125BD-D38E-4E03-86AB-6FE455EE9335
-//Stored GUID
-example_image_GUID_CMAKE:INTERNAL=ADD19C10-5EDD-4F62-87C5-BD8EC18DE8C2
-//Stored GUID
-example_image_sequence_GUID_CMAKE:INTERNAL=8DC4F44B-085A-49F1-9B3D-DA328CFE7D08
-//Stored GUID
-example_imagelist_creator_GUID_CMAKE:INTERNAL=E8F93976-843E-4797-B4FF-F4D90A4AF82E
-//Stored GUID
-example_inpaint_GUID_CMAKE:INTERNAL=6EB63903-CB9E-46CD-B225-E306DE6E123B
-//Stored GUID
-example_intelperc_capture_GUID_CMAKE:INTERNAL=17E00A7D-1237-4701-9DB4-42077DEBDC18
-//Stored GUID
-example_kalman_GUID_CMAKE:INTERNAL=EE4CE0B6-91B2-4044-8971-7822D1210E23
-//Stored GUID
-example_kmeans_GUID_CMAKE:INTERNAL=0E9F716A-D334-4232-9FA7-6C1E6706023B
-//Stored GUID
-example_laplace_GUID_CMAKE:INTERNAL=74C24D48-748B-4452-8C5C-2D0D6D87A38D
-//Stored GUID
-example_latentsvm_multidetect_GUID_CMAKE:INTERNAL=CC9CEB5B-D1F6-48C0-8598-31683F3E2A0F
-//Stored GUID
-example_latentsvmdetect_GUID_CMAKE:INTERNAL=B15EC87C-338C-45C8-96EC-9A4CDD0FB0D6
-//Stored GUID
-example_letter_recog_GUID_CMAKE:INTERNAL=2C1A929A-241C-4B44-B96A-B4C3C4E5A4E3
-//Stored GUID
-example_linemod_GUID_CMAKE:INTERNAL=94B92281-7495-4CA2-B99C-DAF9B72D5F69
-//Stored GUID
-example_lkdemo_GUID_CMAKE:INTERNAL=6386EDDF-AAF9-4371-A878-4BCF10B4FA8A
-//Stored GUID
-example_logpolar_bsm_GUID_CMAKE:INTERNAL=A094FACB-5D9B-4245-9DE2-9D8B0E795800
-//Stored GUID
-example_matcher_simple_GUID_CMAKE:INTERNAL=7BDE0A45-9BCF-490D-A1B8-4DFBEDE5A588
-//Stored GUID
-example_matching_to_many_images_GUID_CMAKE:INTERNAL=2ED69DFA-DAE2-49DD-BFEA-5D93AF8CF775
-//Stored GUID
-example_meanshift_segmentation_GUID_CMAKE:INTERNAL=D6C3482F-BD0A-4771-A91C-DC9B06ACAB8A
-//Stored GUID
-example_minarea_GUID_CMAKE:INTERNAL=27469F32-B166-4DA0-9074-DBBEBCF27B3D
-//Stored GUID
-example_morphology2_GUID_CMAKE:INTERNAL=D810637D-E6B8-46CB-9736-D738308FFCAE
-//Stored GUID
-example_morphology_GUID_CMAKE:INTERNAL=35EA7078-BB74-4AFE-9709-C714507B625A
-//Stored GUID
-example_motempl_GUID_CMAKE:INTERNAL=D8B86F46-7B7E-4C13-9D12-8EBCDC1A78F0
-//Stored GUID
-example_mser_sample_GUID_CMAKE:INTERNAL=62C64738-CED8-4C24-905E-62EFF7A44B52
-//Stored GUID
-example_mushroom_GUID_CMAKE:INTERNAL=29C16248-0AF6-487C-93C8-3563C5F3F96A
-//Stored GUID
-example_ocl_adaptive_bilateral_filter_GUID_CMAKE:INTERNAL=00D85106-4936-476C-8D4C-F456F1843EBC
-//Stored GUID
-example_ocl_bgfg_segm_GUID_CMAKE:INTERNAL=94DDD6CB-E62C-4DEA-A2CA-CA8EFBA1A86E
-//Stored GUID
-example_ocl_clahe_GUID_CMAKE:INTERNAL=DC0839E1-9BC4-4CA9-A484-FFAAF7E99E25
-//Stored GUID
-example_ocl_facedetect_GUID_CMAKE:INTERNAL=29749704-E5F8-4685-8BEF-A01302546446
-//Stored GUID
-example_ocl_hog_GUID_CMAKE:INTERNAL=CC246C71-CAC0-4DB6-903F-E8916B8B177A
-//Stored GUID
-example_ocl_pyrlk_optical_flow_GUID_CMAKE:INTERNAL=6E19A8A8-DD24-494F-AA33-8CA6EF917C69
-//Stored GUID
-example_ocl_squares_GUID_CMAKE:INTERNAL=15CCEFB9-8B61-4136-BBA6-3DBDD104130D
-//Stored GUID
-example_ocl_stereo_match_GUID_CMAKE:INTERNAL=961E1CA3-309B-41FF-848F-638517B6C51F
-//Stored GUID
-example_ocl_surf_matcher_GUID_CMAKE:INTERNAL=D90330DA-4F70-4122-8249-6F26E2793801
-//Stored GUID
-example_ocl_tvl1_optical_flow_GUID_CMAKE:INTERNAL=F2E9DA02-1325-4D3F-9E55-EF60FBE90923
-//Stored GUID
-example_one_way_sample_GUID_CMAKE:INTERNAL=7E586EFF-C05A-433B-BAE9-70E65AB162C3
-//Stored GUID
-example_opencv_version_GUID_CMAKE:INTERNAL=E60A6D75-B2B2-4D54-8268-C0F7228BB01E
-//Stored GUID
-example_openni_capture_GUID_CMAKE:INTERNAL=2E450507-B63F-4030-BBD6-1F56621085BF
-//Stored GUID
-example_pca_GUID_CMAKE:INTERNAL=84C2C35B-069A-411C-9428-A949D515E4EE
-//Stored GUID
-example_peopledetect_GUID_CMAKE:INTERNAL=2065D0C0-6841-4AB8-B73B-5396C1AF62A2
-//Stored GUID
-example_phase_corr_GUID_CMAKE:INTERNAL=D8FD09DD-270E-412D-BBAD-E490C89CEB44
-//Stored GUID
-example_points_classifier_GUID_CMAKE:INTERNAL=AE911817-2CD0-4C33-A769-045B418F5BD9
-//Stored GUID
-example_polar_transforms_GUID_CMAKE:INTERNAL=FF9D849E-88DE-4DC6-9236-905CDC59DE4D
-//Stored GUID
-example_pyramid_segmentation_GUID_CMAKE:INTERNAL=FD206F34-6454-4DC9-A8F5-E9885ED588D1
-//Stored GUID
-example_retinaDemo_GUID_CMAKE:INTERNAL=FA2BA62E-0C95-44A5-A666-B4F63A92E54E
-//Stored GUID
-example_rgbdodometry_GUID_CMAKE:INTERNAL=49A8A765-05DC-41B7-B2CE-BD1768ED720A
-//Stored GUID
-example_segment_objects_GUID_CMAKE:INTERNAL=F5B589DF-3D10-4834-85CB-8AB48C145641
-//Stored GUID
-example_select3dobj_GUID_CMAKE:INTERNAL=86E0DDF4-782D-448F-BCDC-69CE2987C8BC
-//Stored GUID
-example_simpleflow_demo_GUID_CMAKE:INTERNAL=9D71AA59-605F-4B71-98AF-90A4FE639A19
-//Stored GUID
-example_smiledetect_GUID_CMAKE:INTERNAL=99D14C5D-1553-4F2B-AAE8-FCCF093862B4
-//Stored GUID
-example_squares_GUID_CMAKE:INTERNAL=3FFAD21D-6F42-42B8-ABC2-66E8C4D7A461
-//Stored GUID
-example_starter_imagelist_GUID_CMAKE:INTERNAL=1A9327CF-C575-4EDC-AB72-5D568E19512F
-//Stored GUID
-example_starter_video_GUID_CMAKE:INTERNAL=AAB3BC8A-A050-46BF-A5C1-B859A92279F1
-//Stored GUID
-example_stereo_calib_GUID_CMAKE:INTERNAL=ACC69BF8-DE45-4566-A033-B7D3D06E24EF
-//Stored GUID
-example_stereo_match_GUID_CMAKE:INTERNAL=3CBD5B98-B2A9-4AFB-ABEE-1782E0CCFE1C
-//Stored GUID
-example_stitching_GUID_CMAKE:INTERNAL=A0610A4F-0963-425C-9766-86CE9C2FF5E2
-//Stored GUID
-example_stitching_detailed_GUID_CMAKE:INTERNAL=2C672A0F-4A8F-4451-B46D-858AD6A73F2C
-//Stored GUID
-example_tree_engine_GUID_CMAKE:INTERNAL=BCE38E6F-C521-44D2-9559-019D036BC69C
-//Stored GUID
-example_tvl1_optical_flow_GUID_CMAKE:INTERNAL=E8EC8B97-9E48-4133-828C-1EF391561C22
-//Stored GUID
-example_video_dmtx_GUID_CMAKE:INTERNAL=2F2CE6E9-5C53-40A7-A0FD-C3E3BDE4BBE2
-//Stored GUID
-example_video_homography_GUID_CMAKE:INTERNAL=06C07975-39B4-42F4-81D4-D5E964F5C980
-//Stored GUID
-example_videostab_GUID_CMAKE:INTERNAL=46E73207-5C8C-4CED-9D00-D6F426CFFFEC
-//Stored GUID
-example_watershed_GUID_CMAKE:INTERNAL=C3284F2F-0005-4A72-8CA6-A0F906591F2D
-//Stored GUID
-gpu_perf4au_GUID_CMAKE:INTERNAL=48946225-40F6-48E3-B7F8-940312C19860
-//Stored GUID
-libjasper_GUID_CMAKE:INTERNAL=C43D9BD2-D268-41FD-88D2-5C6211E9C267
-//Stored GUID
-libjpeg_GUID_CMAKE:INTERNAL=167118FC-BF80-45C7-813D-67CEFEC9858F
-//Stored GUID
-libpng_GUID_CMAKE:INTERNAL=B0FDBF7D-2BE5-46D2-A483-3D63BDB719C5
-//Stored GUID
-libtiff_GUID_CMAKE:INTERNAL=4FB9BC2A-4E34-43F6-AC11-F68E12CBABD7
-//Stored GUID
-opencv_calib3d_GUID_CMAKE:INTERNAL=8C8861F5-E6B3-4456-B09C-B76986D45A73
-//Stored GUID
-opencv_contrib_GUID_CMAKE:INTERNAL=26D97A86-787D-4680-8170-D2B9F3453FBE
-//Stored GUID
-opencv_core_GUID_CMAKE:INTERNAL=DCCB6440-17B8-46A6-9E8E-E9E383409B2D
-//Stored GUID
-opencv_createsamples_GUID_CMAKE:INTERNAL=12422D7B-4C8C-48B6-BA72-7E39861BDB4E
-//Stored GUID
-opencv_features2d_GUID_CMAKE:INTERNAL=0C6E5AB9-79BB-4AA7-A2C8-5CAC04B42C5F
-//Stored GUID
-opencv_flann_GUID_CMAKE:INTERNAL=6D0A1722-B1D7-47C1-A820-45F29381AC75
-//Stored GUID
-opencv_gpu_GUID_CMAKE:INTERNAL=22F2C74F-40D5-460D-ACE9-14EC205D95AD
-//Stored GUID
-opencv_haartraining_GUID_CMAKE:INTERNAL=78A2457C-BE4A-40EE-BF45-9D98860F7ECF
-//Stored GUID
-opencv_haartraining_engine_GUID_CMAKE:INTERNAL=F6EE0649-7F4D-40F1-9A3B-90755731D2DF
-//Stored GUID
-opencv_highgui_GUID_CMAKE:INTERNAL=33DAEE4D-9DA8-49AA-AE61-5E2EE477B20B
-//Stored GUID
-opencv_imgproc_GUID_CMAKE:INTERNAL=691F6C6F-239F-4DEF-83A0-82DD6CCD8DBB
-//Stored GUID
-opencv_legacy_GUID_CMAKE:INTERNAL=D206F789-FB5F-4856-9181-320EF728318D
-//Stored GUID
-opencv_ml_GUID_CMAKE:INTERNAL=75F327C0-3BBD-4844-9815-14D90A6963AF
-//Stored GUID
-opencv_modules_GUID_CMAKE:INTERNAL=637A36E9-6065-4766-9035-EF5DD90E3371
-//Stored GUID
-opencv_nonfree_GUID_CMAKE:INTERNAL=CBFDE28B-5971-4727-A587-0CC076844434
-//Stored GUID
-opencv_objdetect_GUID_CMAKE:INTERNAL=DFE02322-833E-4343-A730-03A26181B04E
-//Stored GUID
-opencv_ocl_GUID_CMAKE:INTERNAL=6DF67AD5-F5C8-405D-B8EF-2011244563F9
-//Stored GUID
-opencv_perf_calib3d_GUID_CMAKE:INTERNAL=DAA23699-19EA-426C-8E14-95691FDBD203
-//Stored GUID
-opencv_perf_core_GUID_CMAKE:INTERNAL=09D6CFD8-9228-46A9-A701-4E4FC62206D4
-//Stored GUID
-opencv_perf_features2d_GUID_CMAKE:INTERNAL=2D9D8434-DD30-405B-AFE1-1B42E58DDD6E
-//Stored GUID
-opencv_perf_gpu_GUID_CMAKE:INTERNAL=A7D1484D-B470-4C38-B299-FE59FF647BC3
-//Stored GUID
-opencv_perf_highgui_GUID_CMAKE:INTERNAL=CD9042ED-C333-48AC-BCC1-B00B4D3E30E9
-//Stored GUID
-opencv_perf_imgproc_GUID_CMAKE:INTERNAL=3E448390-4BDC-4B4D-A5C0-D9839C6B8B4D
-//Stored GUID
-opencv_perf_nonfree_GUID_CMAKE:INTERNAL=3D45BB7F-0850-41E9-93DB-CA3AB05733B6
-//Stored GUID
-opencv_perf_objdetect_GUID_CMAKE:INTERNAL=E8E9B225-0E63-4FB3-BF7B-946A67CC8D9A
-//Stored GUID
-opencv_perf_ocl_GUID_CMAKE:INTERNAL=F9E45B62-6B44-44C6-975F-198D3FE75F44
-//Stored GUID
-opencv_perf_photo_GUID_CMAKE:INTERNAL=3086AEFF-C632-4384-B94E-9F893E9654C9
-//Stored GUID
-opencv_perf_stitching_GUID_CMAKE:INTERNAL=CD0D4B47-D5DA-4528-AFD4-1613E374AF58
-//Stored GUID
-opencv_perf_superres_GUID_CMAKE:INTERNAL=66E04509-8F71-4B65-B43E-CA6EC7CAFADB
-//Stored GUID
-opencv_perf_tests_GUID_CMAKE:INTERNAL=DC15E9E1-EE54-4536-ADE6-8C35EA17F4D9
-//Stored GUID
-opencv_perf_video_GUID_CMAKE:INTERNAL=82DA6E4E-2CB6-4798-A6BC-3D8BD5D8BF6A
-//Stored GUID
-opencv_performance_GUID_CMAKE:INTERNAL=2E2E4CD3-8E34-4B00-9CFA-282BBA552004
-//Stored GUID
-opencv_photo_GUID_CMAKE:INTERNAL=15B51179-78FD-4E1A-A189-2F50B3277403
-//Stored GUID
-opencv_stitching_GUID_CMAKE:INTERNAL=11EB6B3D-AEA7-437F-B0F3-07DDB9DD4830
-//Stored GUID
-opencv_superres_GUID_CMAKE:INTERNAL=E5DFA334-39AC-4C58-8342-345AB5CF6B1D
-//Stored GUID
-opencv_test_calib3d_GUID_CMAKE:INTERNAL=DB0D77E3-6A94-499C-8FF0-8982320D9066
-//Stored GUID
-opencv_test_contrib_GUID_CMAKE:INTERNAL=AA5BF948-A252-4FEC-894A-3E744AE83F2F
-//Stored GUID
-opencv_test_core_GUID_CMAKE:INTERNAL=6139D6C4-C759-4D3C-9B8F-85F22EFC0B75
-//Stored GUID
-opencv_test_features2d_GUID_CMAKE:INTERNAL=532DBCE7-2B6C-4D9C-A075-C9D2103929B1
-//Stored GUID
-opencv_test_flann_GUID_CMAKE:INTERNAL=63274B88-97AD-4B94-B1E7-57854FAF1CA8
-//Stored GUID
-opencv_test_gpu_GUID_CMAKE:INTERNAL=B52A3112-9ADD-4456-B9FE-87D2D3AF2844
-//Stored GUID
-opencv_test_highgui_GUID_CMAKE:INTERNAL=D4B56D11-E71B-4E1C-8AAE-0A17F30B6D9B
-//Stored GUID
-opencv_test_imgproc_GUID_CMAKE:INTERNAL=C3EC094A-2FDF-40F7-B164-9E9A51EB5FE9
-//Stored GUID
-opencv_test_legacy_GUID_CMAKE:INTERNAL=175BEBC9-E40E-4912-96AE-106C22691BF3
-//Stored GUID
-opencv_test_ml_GUID_CMAKE:INTERNAL=7A408C08-0D67-4055-99AB-4513717CC336
-//Stored GUID
-opencv_test_nonfree_GUID_CMAKE:INTERNAL=6FEE1E6F-2730-4686-BA89-74D4253E7138
-//Stored GUID
-opencv_test_objdetect_GUID_CMAKE:INTERNAL=E1CD94FB-2EEF-471D-BC3A-CD335FE0D78E
-//Stored GUID
-opencv_test_ocl_GUID_CMAKE:INTERNAL=D513E105-7E8F-4CC6-AC91-D7322A0334F9
-//Stored GUID
-opencv_test_photo_GUID_CMAKE:INTERNAL=5B2CDDDD-518C-47E9-B095-5A216DA8CB03
-//Stored GUID
-opencv_test_stitching_GUID_CMAKE:INTERNAL=B78EEEC8-E89C-45E5-9CF4-953DD6C2CE68
-//Stored GUID
-opencv_test_superres_GUID_CMAKE:INTERNAL=C2A35E1F-238C-4A91-8653-4580E78E48C5
-//Stored GUID
-opencv_test_video_GUID_CMAKE:INTERNAL=5BF9FD16-E7C3-4DED-82BE-C06B9470467C
-//Stored GUID
-opencv_tests_GUID_CMAKE:INTERNAL=75203E13-1561-4BAF-99B9-3C85925CA9CF
-//Stored GUID
-opencv_traincascade_GUID_CMAKE:INTERNAL=205C8365-269D-46F0-99BA-FDB795084DC6
-//Stored GUID
-opencv_ts_GUID_CMAKE:INTERNAL=925930E3-F95C-43DB-9398-1801D8E0676C
-//Stored GUID
-opencv_video_GUID_CMAKE:INTERNAL=B06870D9-FA7C-4E03-8477-5A98F9CCC29F
-//Stored GUID
-opencv_videostab_GUID_CMAKE:INTERNAL=8969B4AE-59D1-4605-BB4A-FF607D414F27
-//Stored GUID
-tutorial_AddingImagesTrackbar_GUID_CMAKE:INTERNAL=10651F21-60A1-4493-8D8C-15835E6A743F
-//Stored GUID
-tutorial_AddingImages_GUID_CMAKE:INTERNAL=20075246-5245-413B-A58A-1D545B5CF24D
-//Stored GUID
-tutorial_BasicLinearTransformsTrackbar_GUID_CMAKE:INTERNAL=7F71D7DC-CBAC-4AB9-B407-388D6A9A26FB
-//Stored GUID
-tutorial_BasicLinearTransforms_GUID_CMAKE:INTERNAL=6C65A504-A983-4798-B013-B05373C1DA37
-//Stored GUID
-tutorial_CannyDetector_Demo_GUID_CMAKE:INTERNAL=FC6BE544-3599-431C-AFB0-6DD190F8175E
-//Stored GUID
-tutorial_Drawing_1_GUID_CMAKE:INTERNAL=2254E4FA-C683-42D5-9584-5C2F9496DE1F
-//Stored GUID
-tutorial_Drawing_2_GUID_CMAKE:INTERNAL=A06E692B-BF74-4AF6-9D4B-03A51BA018FC
-//Stored GUID
-tutorial_EqualizeHist_Demo_GUID_CMAKE:INTERNAL=28097931-B7E1-4547-8B1C-20C649E26E0A
-//Stored GUID
-tutorial_Geometric_Transforms_Demo_GUID_CMAKE:INTERNAL=41523FD3-CFDE-423A-84AE-3CA57DFCEFC5
-//Stored GUID
-tutorial_HoughCircle_Demo_GUID_CMAKE:INTERNAL=BFFBE142-9DD2-4017-9A59-2EFF2FB53B31
-//Stored GUID
-tutorial_HoughLines_Demo_GUID_CMAKE:INTERNAL=1CA52E3B-90C2-4072-9A8B-D9D45935C7FA
-//Stored GUID
-tutorial_Laplace_Demo_GUID_CMAKE:INTERNAL=B50A4D37-EFEF-4428-8554-9C0159CC721C
-//Stored GUID
-tutorial_MatchTemplate_Demo_GUID_CMAKE:INTERNAL=5AF4AAA0-8A68-4432-BF1D-DB310615D10B
-//Stored GUID
-tutorial_Morphology_1_GUID_CMAKE:INTERNAL=6B9AE7A6-BB6E-453A-82FB-4DB5213608D8
-//Stored GUID
-tutorial_Morphology_2_GUID_CMAKE:INTERNAL=AC0AD759-7BA9-4AF2-B738-A4CC23ABB1AF
-//Stored GUID
-tutorial_Pyramids_GUID_CMAKE:INTERNAL=6E967B11-CD51-47B9-A8FC-3F33001BEAC2
-//Stored GUID
-tutorial_Remap_Demo_GUID_CMAKE:INTERNAL=D8CD9CE2-E1BA-45F8-AAED-D53BED913609
-//Stored GUID
-tutorial_SBM_Sample_GUID_CMAKE:INTERNAL=51B1B12D-3238-4C93-8E04-9D307DE9F50A
-//Stored GUID
-tutorial_SURF_FlannMatcher_GUID_CMAKE:INTERNAL=E9595CB0-6D66-4EFC-9ED2-83203A91BD78
-//Stored GUID
-tutorial_SURF_Homography_GUID_CMAKE:INTERNAL=FDFDA945-DF76-4BE0-BB69-8EB3E486147D
-//Stored GUID
-tutorial_SURF_descriptor_GUID_CMAKE:INTERNAL=8FDF782D-2C01-4E47-9D55-298D593C2C28
-//Stored GUID
-tutorial_SURF_detector_GUID_CMAKE:INTERNAL=FCC88D74-768B-44C9-BC27-752646DD6C56
-//Stored GUID
-tutorial_Smoothing_GUID_CMAKE:INTERNAL=07D313DD-F71F-4B1F-9C1F-140F25106D39
-//Stored GUID
-tutorial_Sobel_Demo_GUID_CMAKE:INTERNAL=80B0BAAB-6BD9-4E0A-A50F-321342C4AA7C
-//Stored GUID
-tutorial_Threshold_GUID_CMAKE:INTERNAL=2DD1E310-2826-4DF5-8EAD-85E4A0B4CCBD
-//Stored GUID
-tutorial_calcBackProject_Demo1_GUID_CMAKE:INTERNAL=B735A069-BF62-4FC4-96C4-A4C905C9C82A
-//Stored GUID
-tutorial_calcBackProject_Demo2_GUID_CMAKE:INTERNAL=ED979CC8-9A6B-40FB-BC49-421FEFEFB732
-//Stored GUID
-tutorial_calcHist_Demo_GUID_CMAKE:INTERNAL=33E2D7D5-B935-4526-A9BC-88CD03B2A7D9
-//Stored GUID
-tutorial_camera_calibration_GUID_CMAKE:INTERNAL=4647D60E-A5A1-4F5F-97E4-F5BDDF04AC83
-//Stored GUID
-tutorial_compareHist_Demo_GUID_CMAKE:INTERNAL=4534C380-426B-4D4E-B9D0-CA3CB7A75993
-//Stored GUID
-tutorial_copyMakeBorder_demo_GUID_CMAKE:INTERNAL=EAF92B4E-1887-4877-9DEB-5306522AAE38
-//Stored GUID
-tutorial_cornerDetector_Demo_GUID_CMAKE:INTERNAL=88222723-DF65-482C-B0D4-C23155CFB2F0
-//Stored GUID
-tutorial_cornerHarris_Demo_GUID_CMAKE:INTERNAL=BED31E58-E732-4845-8005-1BCB362C448B
-//Stored GUID
-tutorial_cornerSubPix_Demo_GUID_CMAKE:INTERNAL=C8CC5F62-26C0-433B-84E8-5BC4020BA560
-//Stored GUID
-tutorial_discrete_fourier_transform_GUID_CMAKE:INTERNAL=2416BBE9-720C-4EBC-AD6A-ADDCC0C34645
-//Stored GUID
-tutorial_display_image_GUID_CMAKE:INTERNAL=849EE1FF-1921-4297-BCAC-A11D2D95140B
-//Stored GUID
-tutorial_file_input_output_GUID_CMAKE:INTERNAL=9EA69FB5-777A-4710-9BEA-86465D17BF71
-//Stored GUID
-tutorial_filter2D_demo_GUID_CMAKE:INTERNAL=532F4587-EC29-410C-B334-73F5598D774B
-//Stored GUID
-tutorial_findContours_demo_GUID_CMAKE:INTERNAL=865E7FA9-E80C-4EFB-9FD5-5C0F0E849553
-//Stored GUID
-tutorial_generalContours_demo1_GUID_CMAKE:INTERNAL=1D2EB028-2400-46C4-8BC7-F37295DF4198
-//Stored GUID
-tutorial_generalContours_demo2_GUID_CMAKE:INTERNAL=E5947D4C-E0B6-439F-8E16-8A7DA1A6D79A
-//Stored GUID
-tutorial_goodFeaturesToTrack_Demo_GUID_CMAKE:INTERNAL=83B3A009-15DA-4157-92B2-4621917C2946
-//Stored GUID
-tutorial_gpu-basics-similarity_GUID_CMAKE:INTERNAL=D72407B7-50D2-41D8-875A-AB354523CAF0
-//Stored GUID
-tutorial_how_to_scan_images_GUID_CMAKE:INTERNAL=A8EB0BA2-705A-46CB-9A9E-8E4E3CE60ED1
-//Stored GUID
-tutorial_hull_demo_GUID_CMAKE:INTERNAL=2B34AD7E-22EB-4BFE-89DC-0408DEF3FD66
-//Stored GUID
-tutorial_interoperability_with_OpenCV_1_GUID_CMAKE:INTERNAL=1F446AA7-ADBB-4DDB-AFA7-B2FABB036CB6
-//Stored GUID
-tutorial_introduction_to_svm_GUID_CMAKE:INTERNAL=C036F642-750E-4AF9-AC64-A52955E866BF
-//Stored GUID
-tutorial_introduction_windows_vs_GUID_CMAKE:INTERNAL=00D9F6A1-7A74-4368-9EE1-E8435810587C
-//Stored GUID
-tutorial_mat_mask_operations_GUID_CMAKE:INTERNAL=6C080D9F-6338-49FF-AAE8-D17ADE333858
-//Stored GUID
-tutorial_mat_the_basic_image_container_GUID_CMAKE:INTERNAL=057A9E94-BE8A-4A0D-8E4D-979C37571B89
-//Stored GUID
-tutorial_moments_demo_GUID_CMAKE:INTERNAL=3455A7CA-63FB-400E-830F-C0F283C92D86
-//Stored GUID
-tutorial_non_linear_svms_GUID_CMAKE:INTERNAL=A097F0FD-162D-45E1-9ACA-3B4A5B90003D
-//Stored GUID
-tutorial_objectDetection2_GUID_CMAKE:INTERNAL=9AE68431-9263-446E-9AD3-22FE71A0A403
-//Stored GUID
-tutorial_objectDetection_GUID_CMAKE:INTERNAL=768491FD-90B9-4AEE-ABD8-50522F370FBD
-//Stored GUID
-tutorial_pointPolygonTest_demo_GUID_CMAKE:INTERNAL=B5AB6E05-5521-4F3F-8DEF-7B12D849D62E
-//Stored GUID
-tutorial_retina_tutorial_GUID_CMAKE:INTERNAL=A4794180-5F8D-482D-A4D5-2B30A82A37FE
-//Stored GUID
-tutorial_timerC_GUID_CMAKE:INTERNAL=E5EE7F2D-4DC9-4F8E-B82A-88E93E291A6E
-//Stored GUID
-tutorial_video-input-psnr-ssim_GUID_CMAKE:INTERNAL=89730EA0-A4CE-4038-838A-83240A6BBA0C
-//Stored GUID
-tutorial_video-write_GUID_CMAKE:INTERNAL=B4B2934B-79C8-418D-AECE-72E8944BFDEE
-//Stored GUID
-uninstall_GUID_CMAKE:INTERNAL=F98E3A19-FFD0-42FF-A9F5-12604E8ACC2B
-//Stored GUID
-zlib_GUID_CMAKE:INTERNAL=60493312-6EDA-4EEF-A9B9-D202E31FF865
+zlib_GUID_CMAKE:INTERNAL=412593F3-7FC7-473E-BEB9-83B8FF84BF2B
 

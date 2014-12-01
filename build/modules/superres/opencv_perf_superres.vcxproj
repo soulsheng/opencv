@@ -1,31 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
+    <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
+    <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{66E04509-8F71-4B65-B43E-CA6EC7CAFADB}</ProjectGUID>
+    <ProjectGUID>{0CBBB1C2-DBFA-4E5D-B011-CCFA4FD0BFD0}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
-    <Platform>Win32</Platform>
+    <Platform>x64</Platform>
     <ProjectName>opencv_perf_superres</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -35,20 +37,20 @@
   <PropertyGroup Label="UserMacros" />
     <PropertyGroup>
       <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\bin\Debug\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_perf_superres.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opencv_perf_superresd</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\bin\Release\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_perf_superres.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opencv_perf_superres</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\opencv\sources\build\bin\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">opencv_perf_superres.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">opencv_perf_superresd</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\opencv\sources\build\bin\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">opencv_perf_superres.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">opencv_perf_superres</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\opencv\sources\modules\superres\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\superres\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\gpu\include;C:\opencv\sources\modules\photo\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\legacy\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\superres;C:\opencv\sources\modules\superres\src;C:\opencv\sources\modules\superres\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -57,9 +59,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4251;4127</DisableSpecificWarnings>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Async</ExceptionHandling>
-      <FloatingPointModel>Fast</FloatingPointModel>
       <ForcedIncludeFiles>C:/opencv/sources/modules/superres/perf/perf_precomp.hpp</ForcedIncludeFiles>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
@@ -86,8 +86,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_calib3d248d.lib;..\..\lib\Debug\opencv_ml248d.lib;..\..\lib\Debug\opencv_video248d.lib;..\..\lib\Debug\opencv_legacy248d.lib;..\..\lib\Debug\opencv_objdetect248d.lib;..\..\lib\Debug\opencv_photo248d.lib;..\..\lib\Debug\opencv_gpu248d.lib;..\..\lib\Debug\opencv_ocl248d.lib;..\..\lib\Debug\opencv_superres248d.lib;..\..\lib\Debug\opencv_ts248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\lib\Debug\opencv_gpu248d.lib;..\..\lib\Debug\opencv_legacy248d.lib;..\..\lib\Debug\opencv_photo248d.lib;..\..\lib\Debug\opencv_ocl248d.lib;..\..\lib\Debug\opencv_calib3d248d.lib;..\..\lib\Debug\opencv_ml248d.lib;..\..\lib\Debug\opencv_video248d.lib;..\..\lib\Debug\opencv_objdetect248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_core248d.lib</AdditionalDependencies>
+      <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_calib3d248d.lib;..\..\lib\Debug\opencv_ml248d.lib;..\..\lib\Debug\opencv_video248d.lib;..\..\lib\Debug\opencv_legacy248d.lib;..\..\lib\Debug\opencv_objdetect248d.lib;..\..\lib\Debug\opencv_photo248d.lib;..\..\lib\Debug\opencv_gpu248d.lib;..\..\lib\Debug\opencv_ocl248d.lib;..\..\lib\Debug\opencv_superres248d.lib;..\..\lib\Debug\opencv_ts248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_core248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\npps.lib;..\..\lib\Debug\opencv_gpu248d.lib;..\..\lib\Debug\opencv_legacy248d.lib;..\..\lib\Debug\opencv_photo248d.lib;..\..\lib\Debug\opencv_ocl248d.lib;..\..\lib\Debug\opencv_calib3d248d.lib;..\..\lib\Debug\opencv_ml248d.lib;..\..\lib\Debug\opencv_video248d.lib;..\..\lib\Debug\opencv_objdetect248d.lib;..\..\lib\Debug\opencv_features2d248d.lib;..\..\lib\Debug\opencv_flann248d.lib;..\..\lib\Debug\opencv_highgui248d.lib;..\..\lib\Debug\opencv_imgproc248d.lib;..\..\lib\Debug\opencv_core248d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>C:/opencv/sources/build/bin/Debug/opencv_perf_superresd.lib</ImportLibrary>
@@ -99,7 +99,7 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\opencv\sources\modules\superres\perf;C:\opencv\sources\modules\features2d\include;C:\opencv\sources\modules\highgui\include;C:\opencv\sources\modules\imgproc\include;C:\opencv\sources\modules\flann\include;C:\opencv\sources\modules\core\include;C:\opencv\sources\modules\ts\include;C:\opencv\sources\modules\superres\include;C:\opencv\sources\modules\ocl\include;C:\opencv\sources\modules\gpu\include;C:\opencv\sources\modules\photo\include;C:\opencv\sources\modules\objdetect\include;C:\opencv\sources\modules\legacy\include;C:\opencv\sources\modules\video\include;C:\opencv\sources\modules\ml\include;C:\opencv\sources\modules\calib3d\include;C:\opencv\sources\build\modules\superres;C:\opencv\sources\modules\superres\src;C:\opencv\sources\modules\superres\test;C:\opencv\sources\3rdparty\include\opencl\1.2;C:\opencv\sources\build;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -107,9 +107,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4251;4127</DisableSpecificWarnings>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Async</ExceptionHandling>
-      <FloatingPointModel>Fast</FloatingPointModel>
       <ForcedIncludeFiles>C:/opencv/sources/modules/superres/perf/perf_precomp.hpp</ForcedIncludeFiles>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -136,8 +134,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_calib3d248.lib;..\..\lib\Release\opencv_ml248.lib;..\..\lib\Release\opencv_video248.lib;..\..\lib\Release\opencv_legacy248.lib;..\..\lib\Release\opencv_objdetect248.lib;..\..\lib\Release\opencv_photo248.lib;..\..\lib\Release\opencv_gpu248.lib;..\..\lib\Release\opencv_ocl248.lib;..\..\lib\Release\opencv_superres248.lib;..\..\lib\Release\opencv_ts248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_features2d248.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\Win32\npps.lib;..\..\lib\Release\opencv_gpu248.lib;..\..\lib\Release\opencv_legacy248.lib;..\..\lib\Release\opencv_photo248.lib;..\..\lib\Release\opencv_ocl248.lib;..\..\lib\Release\opencv_calib3d248.lib;..\..\lib\Release\opencv_ml248.lib;..\..\lib\Release\opencv_video248.lib;..\..\lib\Release\opencv_objdetect248.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_core248.lib</AdditionalDependencies>
+      <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_calib3d248.lib;..\..\lib\Release\opencv_ml248.lib;..\..\lib\Release\opencv_video248.lib;..\..\lib\Release\opencv_legacy248.lib;..\..\lib\Release\opencv_objdetect248.lib;..\..\lib\Release\opencv_photo248.lib;..\..\lib\Release\opencv_gpu248.lib;..\..\lib\Release\opencv_ocl248.lib;..\..\lib\Release\opencv_superres248.lib;..\..\lib\Release\opencv_ts248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_core248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_features2d248.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\cudart.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\nppc.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\nppi.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v5.5\lib\x64\npps.lib;..\..\lib\Release\opencv_gpu248.lib;..\..\lib\Release\opencv_legacy248.lib;..\..\lib\Release\opencv_photo248.lib;..\..\lib\Release\opencv_ocl248.lib;..\..\lib\Release\opencv_calib3d248.lib;..\..\lib\Release\opencv_ml248.lib;..\..\lib\Release\opencv_video248.lib;..\..\lib\Release\opencv_objdetect248.lib;..\..\lib\Release\opencv_features2d248.lib;..\..\lib\Release\opencv_flann248.lib;..\..\lib\Release\opencv_highgui248.lib;..\..\lib\Release\opencv_imgproc248.lib;..\..\lib\Release\opencv_core248.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>C:/opencv/sources/build/bin/Release/opencv_perf_superres.lib</ImportLibrary>
@@ -151,8 +149,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\modules\superres\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/opencv/sources/modules/superres/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/opencv/sources/modules/superres/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 "C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\modules\superres\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -161,10 +159,11 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/superres/CMakeLists.txt;C:\opencv\sources\modules\superres\CMakeLists.txt;C:\opencv\sources\build\modules\superres\CMakeFiles\cuda_compile.dir\src\cuda\cuda_compile_generated_btv_l1_gpu.cu.obj.depend;C:\opencv\sources\cmake\FindCUDA\run_nvcc.cmake;C:\opencv\sources\modules\superres\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\opencv\sources\build\modules\superres\CMakeFiles\generate.stamp</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/opencv/sources/modules/superres/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/opencv/sources/modules/superres/CMakeLists.txt;C:\opencv\sources\modules\superres\CMakeLists.txt;C:\opencv\sources\build\modules\superres\CMakeFiles\cuda_compile.dir\src\cuda\cuda_compile_generated_btv_l1_gpu.cu.obj.depend;C:\opencv\sources\cmake\FindCUDA\run_nvcc.cmake;C:\opencv\sources\modules\superres\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\opencv\sources\build\modules\superres\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/opencv/sources/modules/superres/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 "C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -H../../.. -B../.. --check-stamp-file C:\opencv\sources\build\modules\superres\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -173,8 +172,9 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/modules/superres/CMakeLists.txt;C:\opencv\sources\modules\superres\CMakeLists.txt;C:\opencv\sources\build\modules\superres\CMakeFiles\cuda_compile.dir\src\cuda\cuda_compile_generated_btv_l1_gpu.cu.obj.depend;C:\opencv\sources\cmake\FindCUDA\run_nvcc.cmake;C:\opencv\sources\modules\superres\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\opencv\sources\build\modules\superres\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/opencv/sources/modules/superres/CMakeLists.txt;C:\opencv\sources\modules\superres\CMakeLists.txt;C:\opencv\sources\build\modules\superres\CMakeFiles\cuda_compile.dir\src\cuda\cuda_compile_generated_btv_l1_gpu.cu.obj.depend;C:\opencv\sources\cmake\FindCUDA\run_nvcc.cmake;C:\opencv\sources\modules\superres\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\opencv\sources\build\modules\superres\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -183,60 +183,60 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\..\modules\superres\perf\perf_superres.cpp"  />
     <ClCompile Include="..\..\..\modules\superres\perf\perf_superres_ocl.cpp"  />
     <ClCompile Include="opencv_perf_superres_pch.cpp" >
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/opencv/sources/modules/superres/perf/perf_precomp.hpp</PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/opencv/sources/modules/superres/perf/perf_precomp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/opencv/sources/modules/superres/perf/perf_precomp.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/opencv/sources/modules/superres/perf/perf_precomp.hpp</PrecompiledHeaderFile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/opencv/sources/build/ZERO_CHECK.vcxproj">
-      <Project>4DCE0C4C-AA02-4940-9874-726CFB99914F</Project>
+      <Project>7EDF77C3-842A-453E-AC10-36FE77CE0395</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/calib3d/opencv_calib3d.vcxproj">
-      <Project>8C8861F5-E6B3-4456-B09C-B76986D45A73</Project>
+      <Project>5DB41127-6594-48AD-BB17-FF16D476BD59</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/core/opencv_core.vcxproj">
-      <Project>DCCB6440-17B8-46A6-9E8E-E9E383409B2D</Project>
+      <Project>30E8B75B-9FE4-4341-873F-D95AFD23CFAA</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/features2d/opencv_features2d.vcxproj">
-      <Project>0C6E5AB9-79BB-4AA7-A2C8-5CAC04B42C5F</Project>
+      <Project>4A9B9130-F6C0-45ED-BC46-64E577885184</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/flann/opencv_flann.vcxproj">
-      <Project>6D0A1722-B1D7-47C1-A820-45F29381AC75</Project>
+      <Project>D163366F-1FA3-4AC6-8C0C-E2E8DEBA2024</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/gpu/opencv_gpu.vcxproj">
-      <Project>22F2C74F-40D5-460D-ACE9-14EC205D95AD</Project>
+      <Project>FD69EA5D-1594-4EC2-8504-BB2599F2D1A2</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/highgui/opencv_highgui.vcxproj">
-      <Project>33DAEE4D-9DA8-49AA-AE61-5E2EE477B20B</Project>
+      <Project>3CFAD95C-F39F-4A70-B6CE-D15070068F73</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/imgproc/opencv_imgproc.vcxproj">
-      <Project>691F6C6F-239F-4DEF-83A0-82DD6CCD8DBB</Project>
+      <Project>E3350A30-D89D-4774-9166-76D60653EE4B</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/legacy/opencv_legacy.vcxproj">
-      <Project>D206F789-FB5F-4856-9181-320EF728318D</Project>
+      <Project>3E4C2AF0-8E79-4413-8ADD-61CFA0C78E01</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ml/opencv_ml.vcxproj">
-      <Project>75F327C0-3BBD-4844-9815-14D90A6963AF</Project>
+      <Project>DABB1A0A-1C9E-4FD5-A70D-854DA0FAA9F3</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/objdetect/opencv_objdetect.vcxproj">
-      <Project>DFE02322-833E-4343-A730-03A26181B04E</Project>
+      <Project>4D45E321-7DF0-43D1-85D2-63084EB51647</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ocl/opencv_ocl.vcxproj">
-      <Project>6DF67AD5-F5C8-405D-B8EF-2011244563F9</Project>
+      <Project>37CC297B-5082-4D2D-AB13-8E912F3DE6B4</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/photo/opencv_photo.vcxproj">
-      <Project>15B51179-78FD-4E1A-A189-2F50B3277403</Project>
+      <Project>8470FFCF-DA15-49A4-8FA0-55EEC9F4534A</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/superres/opencv_superres.vcxproj">
-      <Project>E5DFA334-39AC-4C58-8342-345AB5CF6B1D</Project>
+      <Project>62396029-C6EE-4354-B42B-F615147DF01A</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/ts/opencv_ts.vcxproj">
-      <Project>925930E3-F95C-43DB-9398-1801D8E0676C</Project>
+      <Project>A97C48E2-A716-443A-9D3D-1BA5C99397DD</Project>
     </ProjectReference>
     <ProjectReference Include="C:/opencv/sources/build/modules/video/opencv_video.vcxproj">
-      <Project>B06870D9-FA7C-4E03-8477-5A98F9CCC29F</Project>
+      <Project>7A9826F6-55C9-488A-8B89-CCFD3B846573</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

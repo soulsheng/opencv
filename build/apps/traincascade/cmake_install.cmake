@@ -29,9 +29,9 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "main")
   IF("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/x86/vc10/bin" TYPE EXECUTABLE FILES "C:/opencv/sources/build/bin/Debug/opencv_traincascaded.exe")
+    FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/x64/vc11/bin" TYPE EXECUTABLE FILES "C:/opencv/sources/build/bin/Debug/opencv_traincascaded.exe")
   ELSEIF("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/x86/vc10/bin" TYPE EXECUTABLE FILES "C:/opencv/sources/build/bin/Release/opencv_traincascade.exe")
+    FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/x64/vc11/bin" TYPE EXECUTABLE FILES "C:/opencv/sources/build/bin/Release/opencv_traincascade.exe")
   ENDIF()
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "main")
 

@@ -2,16 +2,16 @@
 #define BUILD_SHARED_LIBS
 
 /* Compile for 'real' NVIDIA GPU architectures */
-#define CUDA_ARCH_BIN " 35"
+#define CUDA_ARCH_BIN " 11 12 13 20 21 30 35"
 
 /* Create PTX or BIN for 1.0 compute capability */
 /* #undef CUDA_ARCH_BIN_OR_PTX_10 */
 
 /* NVIDIA GPU features are used */
-#define CUDA_ARCH_FEATURES " 35"
+#define CUDA_ARCH_FEATURES " 11 12 13 20 20 30 35 30"
 
 /* Compile for 'virtual' NVIDIA PTX architectures */
-#define CUDA_ARCH_PTX ""
+#define CUDA_ARCH_PTX " 30"
 
 /* AVFoundation video libraries */
 /* #undef HAVE_AVFOUNDATION */
@@ -147,7 +147,7 @@
 /* #undef HAVE_UNICAP */
 
 /* Video for Windows support */
-#define HAVE_VFW
+/* #undef HAVE_VFW */
 
 /* V4L2 capturing support in videoio.h */
 /* #undef HAVE_VIDEOIO */

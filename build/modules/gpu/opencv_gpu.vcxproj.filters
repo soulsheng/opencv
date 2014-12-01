@@ -596,283 +596,283 @@
     <CustomBuild Include="..\..\..\modules\gpu\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bf_knnmatch.cu.obj">
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bf_knnmatch.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bf_match.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bf_match.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bf_radius_match.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bf_radius_match.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bgfg_gmg.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bgfg_gmg.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bgfg_mog.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bgfg_mog.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bilateral_filter.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_bilateral_filter.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_blend.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_blend.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_calib3d.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_calib3d.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_canny.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_canny.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_ccomponetns.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_ccomponetns.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_clahe.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_clahe.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_color.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_color.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.0.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.0.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.1.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.1.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.10.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.10.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.11.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.11.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.12.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.12.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.13.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.13.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.14.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.14.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.2.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.2.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.3.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.3.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.4.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.4.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.5.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.5.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.6.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.6.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.7.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.7.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.8.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.8.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.9.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_column_filter.9.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_copy_make_border.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_copy_make_border.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_debayer.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_debayer.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_disp_bilateral_filter.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_disp_bilateral_filter.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_element_operations.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_element_operations.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_fast.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_fast.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_fgd_bgfg.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_fgd_bgfg.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_gftt.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_gftt.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_global_motion.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_global_motion.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_hist.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_hist.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_hog.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_hog.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_hough.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_hough.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_imgproc.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_imgproc.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_integral_image.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_integral_image.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_lbp.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_lbp.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_match_template.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_match_template.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_mathfunc.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_mathfunc.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_matrix_reductions.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_matrix_reductions.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_nlm.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_nlm.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_NV12ToARGB.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_NV12ToARGB.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_optflowbm.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_optflowbm.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_optical_flow.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_optical_flow.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_optical_flow_farneback.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_optical_flow_farneback.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_orb.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_orb.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_pyrlk.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_pyrlk.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_pyr_down.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_pyr_down.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_pyr_up.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_pyr_up.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_remap.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_remap.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_resize.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_resize.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_rgb_to_yv12.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_rgb_to_yv12.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.0.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.0.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.1.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.1.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.10.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.10.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.11.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.11.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.12.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.12.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.13.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.13.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.14.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.14.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.2.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.2.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.3.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.3.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.4.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.4.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.5.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.5.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.6.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.6.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.7.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.7.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.8.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.8.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.9.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_row_filter.9.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_split_merge.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_split_merge.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_stereobm.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_stereobm.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_stereobp.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_stereobp.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_stereocsbp.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_stereocsbp.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_tvl1flow.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_tvl1flow.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_warp.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\cuda\$(Configuration)\cuda_compile_generated_warp.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\nvidia\core\$(Configuration)\cuda_compile_generated_NCV.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\nvidia\core\$(Configuration)\cuda_compile_generated_NCV.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\nvidia\core\$(Configuration)\cuda_compile_generated_NCVPyramid.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\nvidia\core\$(Configuration)\cuda_compile_generated_NCVPyramid.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\nvidia\$(Configuration)\cuda_compile_generated_NCVBroxOpticalFlow.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\nvidia\$(Configuration)\cuda_compile_generated_NCVBroxOpticalFlow.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\nvidia\$(Configuration)\cuda_compile_generated_NCVHaarObjectDetection.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\nvidia\$(Configuration)\cuda_compile_generated_NCVHaarObjectDetection.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
-    <None Include="CMakeFiles\cuda_compile.dir\src\nvidia\NPP_staging\$(Configuration)\cuda_compile_generated_NPP_staging.cu.obj">
+    </Object>
+    <Object Include="CMakeFiles\cuda_compile.dir\src\nvidia\NPP_staging\$(Configuration)\cuda_compile_generated_NPP_staging.cu.obj">
       <Filter>Object Files</Filter>
-    </None>
+    </Object>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Src\Host">
-      <UniqueIdentifier>{8DD31637-64DC-40C1-BEC4-A47E21E16D2B}</UniqueIdentifier>
+      <UniqueIdentifier>{1FA01086-136B-45A2-B01C-C393C13703AF}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Cuda">
-      <UniqueIdentifier>{4B69BF74-7689-4BF3-BC38-742E156457FD}</UniqueIdentifier>
+      <UniqueIdentifier>{DBD2EB12-3E2B-4493-A0C5-2510070DB912}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\NVidia">
-      <UniqueIdentifier>{80BF7D7C-4D96-4C93-89F2-84BBBEE4B705}</UniqueIdentifier>
+      <UniqueIdentifier>{AA7544AC-1E2B-4EDF-BCEB-F8849B332FFF}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
+      <UniqueIdentifier>{A2F2BF55-4E50-4AB1-919C-DF9F99BF3226}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{D8EF5608-42B2-4906-889B-2962B2C4B40C}</UniqueIdentifier>
+      <UniqueIdentifier>{63AC1B07-F6D4-47A5-B113-667BF03E3954}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object Files">
-      <UniqueIdentifier>{60A17FD1-DFDD-44C7-B5D2-89B9E3A910DC}</UniqueIdentifier>
+      <UniqueIdentifier>{97D0B88E-21E7-454B-A895-2ABEF0E0A4B3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include">
-      <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
+      <UniqueIdentifier>{00D29FF5-18BC-4F67-814E-8FA13A67342F}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src">
-      <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
+      <UniqueIdentifier>{E0CA9821-780C-45C8-A12D-D90614218567}</UniqueIdentifier>
     </Filter>
     <Filter Include="Device">
-      <UniqueIdentifier>{ECC2FED0-D9BA-4F34-AF67-E896EF139062}</UniqueIdentifier>
+      <UniqueIdentifier>{27CD89EF-5315-48E0-8F70-E2751DFCA48C}</UniqueIdentifier>
     </Filter>
     <Filter Include="Device\Detail">
-      <UniqueIdentifier>{EDEF0434-F1B9-4D1F-9E86-64E94D98F92D}</UniqueIdentifier>
+      <UniqueIdentifier>{ABB4BC0F-3182-4EAB-A9B4-E600802B52C9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

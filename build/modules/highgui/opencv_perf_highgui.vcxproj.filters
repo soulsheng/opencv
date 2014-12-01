@@ -24,13 +24,13 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
+      <UniqueIdentifier>{A2F2BF55-4E50-4AB1-919C-DF9F99BF3226}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src">
-      <UniqueIdentifier>{A9DD8712-43C3-441A-AE77-EC23BF36A4C1}</UniqueIdentifier>
+      <UniqueIdentifier>{E0CA9821-780C-45C8-A12D-D90614218567}</UniqueIdentifier>
     </Filter>
     <Filter Include="Include">
-      <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
+      <UniqueIdentifier>{00D29FF5-18BC-4F67-814E-8FA13A67342F}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
