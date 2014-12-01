@@ -844,6 +844,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="Src\Host">
+      <UniqueIdentifier>{8DD31637-64DC-40C1-BEC4-A47E21E16D2B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Cuda">
+      <UniqueIdentifier>{4B69BF74-7689-4BF3-BC38-742E156457FD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\NVidia">
+      <UniqueIdentifier>{80BF7D7C-4D96-4C93-89F2-84BBBEE4B705}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
     </Filter>
@@ -861,15 +870,6 @@
     </Filter>
     <Filter Include="Device">
       <UniqueIdentifier>{ECC2FED0-D9BA-4F34-AF67-E896EF139062}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Host">
-      <UniqueIdentifier>{8DD31637-64DC-40C1-BEC4-A47E21E16D2B}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Cuda">
-      <UniqueIdentifier>{4B69BF74-7689-4BF3-BC38-742E156457FD}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\NVidia">
-      <UniqueIdentifier>{80BF7D7C-4D96-4C93-89F2-84BBBEE4B705}</UniqueIdentifier>
     </Filter>
     <Filter Include="Device\Detail">
       <UniqueIdentifier>{EDEF0434-F1B9-4D1F-9E86-64E94D98F92D}</UniqueIdentifier>

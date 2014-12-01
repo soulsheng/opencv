@@ -89,6 +89,9 @@
     <CustomBuild Include="..\..\..\modules\stitching\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="Include\detail">
+      <UniqueIdentifier>{B510D655-3A57-4DCE-8066-A83D870B225F}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{FB386426-FA48-4772-81A3-F2D37A6C5F03}</UniqueIdentifier>
     </Filter>
@@ -100,9 +103,6 @@
     </Filter>
     <Filter Include="Include">
       <UniqueIdentifier>{724E969D-A249-4EB6-A9F1-B7168BB42FBC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Include\detail">
-      <UniqueIdentifier>{B510D655-3A57-4DCE-8066-A83D870B225F}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
