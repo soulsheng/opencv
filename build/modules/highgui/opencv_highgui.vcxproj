@@ -238,6 +238,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\..\..\modules\highgui\src\window_w32.cpp"  />
     <ClCompile Include="..\..\..\modules\highgui\src\cap_cmu.cpp"  />
     <ClCompile Include="..\..\..\modules\highgui\src\cap_dshow.cpp"  />
+    <ClCompile Include="..\..\..\modules\highgui\src\cap_vfw.cpp"  />
     <ClCompile Include="..\..\..\modules\highgui\src\grfmt_base.cpp"  />
     <ClCompile Include="..\..\..\modules\highgui\src\grfmt_bmp.cpp"  />
     <ClCompile Include="..\..\..\modules\highgui\src\grfmt_exr.cpp"  />

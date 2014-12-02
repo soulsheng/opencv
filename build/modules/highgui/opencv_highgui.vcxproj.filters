@@ -28,6 +28,9 @@
     <ClCompile Include="..\..\..\modules\highgui\src\cap_dshow.cpp">
       <Filter>Src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\modules\highgui\src\cap_vfw.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\modules\highgui\src\grfmt_base.cpp">
       <Filter>Src\grfmts</Filter>
     </ClCompile>

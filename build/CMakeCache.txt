@@ -1122,7 +1122,7 @@ HAVE_SYS_TYPES_H:INTERNAL=1
 //Have include unistd.h
 HAVE_UNISTD_H:INTERNAL=
 //Result of TRY_COMPILE
-HAVE_VFW:INTERNAL=FALSE
+HAVE_VFW:INTERNAL=TRUE
 //Result of TRY_COMPILE
 HAVE_WIN32UI:INTERNAL=TRUE
 //Result of TRY_COMPILE
@@ -1390,7 +1390,7 @@ OPENCV_MODULE_opencv_highgui_PRIVATE_REQ_DEPS:INTERNAL=
 //Required dependencies of opencv_highgui module
 OPENCV_MODULE_opencv_highgui_REQ_DEPS:INTERNAL=opencv_imgproc
 //List of source files for opencv_highgui
-OPENCV_MODULE_opencv_highgui_SOURCES:INTERNAL=src/cap.cpp;src/cap_images.cpp;src/cap_ffmpeg.cpp;src/loadsave.cpp;src/utils.cpp;src/window.cpp;src/window_w32.cpp;src/cap_cmu.cpp;src/cap_dshow.cpp;src/precomp.hpp;src/utils.hpp;src/cap_ffmpeg_impl.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.cpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.cpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.cpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.cpp;C:/opencv/sources/modules/highgui/src/grfmt_png.cpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.cpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.cpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.cpp;src/bitstrm.cpp;C:/opencv/sources/modules/highgui/src/grfmts.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.hpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.hpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.hpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.hpp;C:/opencv/sources/modules/highgui/src/grfmt_png.hpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.hpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.hpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.hpp;src/bitstrm.hpp
+OPENCV_MODULE_opencv_highgui_SOURCES:INTERNAL=src/cap.cpp;src/cap_images.cpp;src/cap_ffmpeg.cpp;src/loadsave.cpp;src/utils.cpp;src/window.cpp;src/window_w32.cpp;src/cap_cmu.cpp;src/cap_dshow.cpp;src/cap_vfw.cpp;src/precomp.hpp;src/utils.hpp;src/cap_ffmpeg_impl.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.cpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.cpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.cpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.cpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.cpp;C:/opencv/sources/modules/highgui/src/grfmt_png.cpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.cpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.cpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.cpp;src/bitstrm.cpp;C:/opencv/sources/modules/highgui/src/grfmts.hpp;C:/opencv/sources/modules/highgui/src/grfmt_base.hpp;C:/opencv/sources/modules/highgui/src/grfmt_bmp.hpp;C:/opencv/sources/modules/highgui/src/grfmt_exr.hpp;C:/opencv/sources/modules/highgui/src/grfmt_imageio.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg.hpp;C:/opencv/sources/modules/highgui/src/grfmt_jpeg2000.hpp;C:/opencv/sources/modules/highgui/src/grfmt_png.hpp;C:/opencv/sources/modules/highgui/src/grfmt_pxm.hpp;C:/opencv/sources/modules/highgui/src/grfmt_sunras.hpp;C:/opencv/sources/modules/highgui/src/grfmt_tiff.hpp;src/bitstrm.hpp
 //The cathegory of the module
 OPENCV_MODULE_opencv_imgproc_CLASS:INTERNAL=PUBLIC
 //Flattened dependencies of opencv_imgproc module

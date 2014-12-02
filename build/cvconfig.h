@@ -147,7 +147,7 @@
 /* #undef HAVE_UNICAP */
 
 /* Video for Windows support */
-/* #undef HAVE_VFW */
+#define HAVE_VFW
 
 /* V4L2 capturing support in videoio.h */
 /* #undef HAVE_VIDEOIO */
