@@ -87,3 +87,9 @@ tags
 /build/modules/gpu/*.sdf
 /build/samples/cpp/ipch
 /build/samples/cpp/Win32
+/build/samples/c/Win32
+/build/samples/c/ipch
+/build/samples/c/*.sdf
+/build/samples/c/*
+/samples/c/*.yml
+/build/3rdparty/libpng/Debug/*.cache
