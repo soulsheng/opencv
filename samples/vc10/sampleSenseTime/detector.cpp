@@ -2,6 +2,8 @@
 #include <cassert>
 #include <mcv_facesdk.h>
 
+#include "opencv2/highgui/highgui.hpp"
+
 #include "imagehelper.hpp"
 
 using namespace std;
@@ -30,6 +32,11 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+
+	cv::Mat in = cv::imread( IMAGE_IN );
+	cv::imshow( "in", in );
+	cv::waitKey( );
+
 	// detect
 	PMCV_FACERECT pface=NULL;
 	unsigned int count;
@@ -54,7 +61,10 @@ int main(int argc, char *argv[])
 	helper->FreeImage(img_color);
 	delete helper;
 
-	system( "pause" );
+	cv::Mat out = cv::imread( IMAGE_OUT );
+	cv::imshow( "out", out );
+	cv::waitKey( );
+
 	return 0;
 }
 
