@@ -11,18 +11,22 @@ using namespace sdktest;
 /// \api mcv_facesdk_multiview_detector
 /// \desc 能够检测出不同姿态方位的人脸在图中的位置 
 
+#define IMAGE_IN	"../data/bighero6.jpg"
+#define IMAGE_OUT	"../data/out.jpg"
+
 int main(int argc, char *argv[])
 {
-	assert(argc == 3);
+	//assert(argc == 3);
 	ImageHelper *helper = new ImageHelperBackend();
 
 	// init handle
 	mcv_handle_t hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 2);
 
-	Image *img=helper->LoadGrayImage(argv[1]);
-	Image *img_color = helper->LoadRGBAImage(argv[1]);
+	Image *img=helper->LoadGrayImage(IMAGE_IN);
+	Image *img_color = helper->LoadRGBAImage(IMAGE_IN);
 	if(!img || !img_color){
-		fprintf(stderr, "fail to read %s\n", argv[1]);
+		fprintf(stderr, "fail to read %s\n", IMAGE_IN);
+		system( "pause" );
 		return -1;
 	}
 
@@ -45,10 +49,12 @@ int main(int argc, char *argv[])
 	// destroy handle
     mcv_facesdk_destroy_multiview_instance(hDetect);
         
-	helper->SaveImage(argv[2],img_color);
+	helper->SaveImage(IMAGE_OUT,img_color);
 	helper->FreeImage(img);
 	helper->FreeImage(img_color);
 	delete helper;
+
+	system( "pause" );
 	return 0;
 }
 

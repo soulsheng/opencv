@@ -93,3 +93,5 @@ tags
 /build/samples/c/*
 /samples/c/*.yml
 /build/3rdparty/libpng/Debug/*.cache
+/samples/vc10/faceDetectSenseTime/Debug
+/samples/vc10/sampleSenseTime/Debug
