@@ -20,6 +20,7 @@
     <ProjectGuid>{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>faceDetect</RootNamespace>
+    <ProjectName>faceDetectST</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

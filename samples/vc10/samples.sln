@@ -11,8 +11,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "houghLineGPU", "houghLineGP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "houghLine", "houghLine\houghLine.vcxproj", "{F60E5336-4D54-4B0A-A2C5-075D80FB5112}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faceDetectST", "faceDetectSenseTime\faceDetectST.vcxproj", "{184E5924-4C60-4BDF-95EB-F776ED87CC18}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sampleST", "sampleSenseTime\sampleST.vcxproj", "{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}"
 EndProject
 Global
@@ -41,10 +39,6 @@ Global
 		{F60E5336-4D54-4B0A-A2C5-075D80FB5112}.Debug|Win32.Build.0 = Debug|Win32
 		{F60E5336-4D54-4B0A-A2C5-075D80FB5112}.Release|Win32.ActiveCfg = Release|Win32
 		{F60E5336-4D54-4B0A-A2C5-075D80FB5112}.Release|Win32.Build.0 = Release|Win32
-		{184E5924-4C60-4BDF-95EB-F776ED87CC18}.Debug|Win32.ActiveCfg = Debug|Win32
-		{184E5924-4C60-4BDF-95EB-F776ED87CC18}.Debug|Win32.Build.0 = Debug|Win32
-		{184E5924-4C60-4BDF-95EB-F776ED87CC18}.Release|Win32.ActiveCfg = Release|Win32
-		{184E5924-4C60-4BDF-95EB-F776ED87CC18}.Release|Win32.Build.0 = Release|Win32
 		{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}.Debug|Win32.Build.0 = Debug|Win32
 		{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}.Release|Win32.ActiveCfg = Release|Win32
