@@ -10,18 +10,48 @@
 using namespace std;
 using namespace sdktest;
 
+#define FILE_LIST_NAME	"at.txt"
+
+#define DATA_FILE_COUNT	5
+char  dataFileList[][50]={
+	"data/align_init.model",
+	"data/align_transfer.bin",
+	"data/model_verif.bin",
+	"data/params.txt",
+	"data/verify_nets.model"
+	};
+
+bool checkDataFile()
+{
+	FILE* file = NULL;
+	for (int i=0;i<DATA_FILE_COUNT;i++)
+	{	
+		file = fopen( dataFileList[i], "r" );
+		if ( NULL ==file )
+		{
+			printf( "failed to find file %s \n", dataFileList[i] );
+			return false;
+		}
+		fclose(file);
+	}
+	return true;
+}
+
 int main(int argc, char const *argv[])
 {
-	assert(argc == 2);
+	//assert(argc == 2);
 	ImageHelper *helper = new ImageHelperBackend();
 	mcv_handle_t hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 1);
 	assert(hDetect != 0);
 
+	if ( !checkDataFile() )
+		return false;
+	
 	mcv_handle_t vinst = mcv_create_verify_instance();
 	assert(vinst != 0);
 
 	char line[1024];
-	FILE *flist = fopen(argv[1], "r");
+	FILE *flist = fopen(FILE_LIST_NAME, "r");
 	assert(flist != 0);
 
 	vector<db_item> items;
@@ -100,5 +130,6 @@ int main(int argc, char const *argv[])
 	mcv_verify_release_instance(vinst);
 
 	delete helper;
+	system( "pause" );
 	return 0;
 }
