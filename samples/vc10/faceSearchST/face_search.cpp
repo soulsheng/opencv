@@ -12,6 +12,8 @@ using namespace sdktest;
 
 #define FILE_LIST_NAME	"at.txt"
 #define FILE_RESULT_NAME	"out.txt"
+#define FILE_DATABASE_ITEMS	"st_items.bin"
+#define FILE_DATABASE_NAMES	"st_names.bin"
 
 #define DATA_FILE_COUNT	5
 char  dataFileList[][50]={
@@ -186,18 +188,94 @@ bool predict()
 	return true;
 }
 
+bool save( std::string fileItems, std::string fileNames )
+{
+	FILE *file = fopen( fileItems.c_str(), "wb" );
+
+	fprintf(file, "%d \n", items.size() );
+	for ( int i=0; i<items.size(); i++ )
+	{
+		fwrite( (void*)&items[i], sizeof(db_item), 1, file );
+	}
+
+	fclose( file );
+
+	file = fopen( fileNames.c_str(), "wb" );
+
+	fprintf(file, "%d \n", names.size() );
+	for ( int i=0; i<names.size(); i++ )
+	{
+		std::string& name = names[i];
+		fprintf(file, "%d \n", name.size() );
+		fwrite( (void*)name.c_str(), name.size(), 1, file );
+	}
+
+	fclose( file );
+
+	return true;
+}
+
+bool load( std::string fileItems, std::string fileNames )
+{
+	items.clear();
+	names.clear();
+
+	FILE *file = fopen( fileItems.c_str(), "rb" );
+
+	int nSize = 0;
+
+	fscanf(file, "%d \n", &nSize );
+	for ( int i=0; i<nSize; i++ )
+	{
+		db_item item;
+		fread( (void*)&item, sizeof(db_item), 1, file );
+		items.push_back(item);
+	}
+
+	fclose( file );
+
+	file = fopen( fileNames.c_str(), "rb" );
+
+	fscanf(file, "%d \n", &nSize );
+	for ( int i=0; i<nSize; i++ )
+	{
+		int nLength = 0;
+		fscanf(file, "%d", &nLength );
+
+		char buf[1024];
+		fread( buf, nLength, 1, file );
+		buf[nLength] = '\0';
+
+		names.push_back(buf);
+	}
+
+	fclose( file );
+
+	mcv_result_t ret = mcv_verify_search_build_index(vinst,
+		&items[0], items.size(), &hIndex);
+
+	assert(hIndex != 0 && ret == MCV_OK);
+
+	bTrain = true;
+
+	return true;
+}
+
 int main(int argc, char const *argv[])
 {
 
 	if ( !initialize() )
 		return false;
 
+#if 0
 	/* train */
 	if ( !train() )
 		return false;
 
-	train();
-	train();
+	save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
+#endif
+
+	load( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
 
 	/* query */
 	if ( !predict() )
