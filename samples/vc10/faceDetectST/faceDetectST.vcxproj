@@ -12,8 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="detector.cpp" />
+    <ClCompile Include="faceDetectST.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="faceDetectST.h" />
     <ClInclude Include="imagehelper.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
