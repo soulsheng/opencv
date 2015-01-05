@@ -156,24 +156,23 @@ bool train()
 
 bool predict()
 {
+	mcv_face_search_result_t results[10];
+	unsigned int result_cnt = 0;
+	/* use a db_item as query */
+	const struct db_item *query = &items[0];
+	mcv_result_t ret = mcv_verify_search_face(vinst, 
+			hIndex, query,
+			results, 10, &result_cnt);
+	assert(ret == MCV_OK);
+	fprintf( of, "%s\t%s\t%s\t\t\t\t\t%s\t\t%s\n", "i", "idx", "names", 
+		"score", "rank_score");
+	for(unsigned int i = 0; i < result_cnt; i++){
+		int idx = results[i].item->idx;
+		fprintf( of, "%d\t%d\t%s\t%f\t%f\n", i, idx, names[idx].c_str(), 
+			results[i].score, results[i].rank_score);
+	}
 
-		mcv_face_search_result_t results[10];
-		unsigned int result_cnt = 0;
-		/* use a db_item as query */
-		const struct db_item *query = &items[0];
-		mcv_result_t ret = mcv_verify_search_face(vinst, 
-				hIndex, query,
-				results, 10, &result_cnt);
-		assert(ret == MCV_OK);
-		fprintf( of, "%s\t%s\t%s\t\t\t\t\t%s\t\t%s\n", "i", "idx", "names", 
-			"score", "rank_score");
-		for(unsigned int i = 0; i < result_cnt; i++){
-			int idx = results[i].item->idx;
-			fprintf( of, "%d\t%d\t%s\t%f\t%f\n", i, idx, names[idx].c_str(), 
-				results[i].score, results[i].rank_score);
-		}
-
-		printf("done!search %d results and save to file %s \n", result_cnt, FILE_RESULT_NAME );		
+	printf("done!search %d results and save to file %s \n", result_cnt, FILE_RESULT_NAME );		
 
 	return true;
 }
