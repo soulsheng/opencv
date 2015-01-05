@@ -33,6 +33,7 @@ vector<db_item> items;
 vector<string> names;
 mcv_handle_t hIndex = NULL;
 bool bTrain = false;
+bool bInitialized = false;
 
 bool checkDataFile()
 {
@@ -52,6 +53,9 @@ bool checkDataFile()
 
 bool initialize()
 {
+	if( bInitialized )	
+		return;
+	
 	helper = new ImageHelperBackend();
 	hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 1);
 	if ( NULL == hDetect)
@@ -85,6 +89,7 @@ bool initialize()
 		return false;
 	}
 
+	bInitialized = true;
 }
 
 bool release()
@@ -104,6 +109,10 @@ bool release()
 
 bool train()
 {
+
+	if ( false == bInitialized )
+		initialize();
+
 	if ( bTrain )
 		return true;
 
@@ -164,6 +173,9 @@ bool train()
 bool predict()
 {
 
+	if ( false == bInitialized )
+		initialize();
+
 	if ( false == bTrain )
 		train();
 
@@ -217,6 +229,10 @@ bool save( std::string fileItems, std::string fileNames )
 
 bool load( std::string fileItems, std::string fileNames )
 {
+
+	if ( false == bInitialized )
+		initialize();
+
 	items.clear();
 	names.clear();
 
@@ -263,9 +279,6 @@ bool load( std::string fileItems, std::string fileNames )
 
 int main(int argc, char const *argv[])
 {
-
-	if ( !initialize() )
-		return false;
 
 #if 0
 	/* train */
