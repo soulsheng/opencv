@@ -30,6 +30,7 @@ mcv_handle_t vinst;
 vector<db_item> items;
 vector<string> names;
 mcv_handle_t hIndex = NULL;
+bool bTrain = false;
 
 bool checkDataFile()
 {
@@ -101,6 +102,9 @@ bool release()
 
 bool train()
 {
+	if ( bTrain )
+		return true;
+
 	char line[1024];
 	int db_id = 0;
 	/* generate feature database */
@@ -149,6 +153,7 @@ bool train()
 
 	assert(hIndex != 0 && ret == MCV_OK);
 
+	bTrain = true;
 
 	return true;
 }
@@ -156,6 +161,10 @@ bool train()
 
 bool predict()
 {
+
+	if ( false == bTrain )
+		train();
+
 	mcv_face_search_result_t results[10];
 	unsigned int result_cnt = 0;
 	/* use a db_item as query */
@@ -187,9 +196,15 @@ int main(int argc, char const *argv[])
 	if ( !train() )
 		return false;
 
+	train();
+	train();
+
 	/* query */
 	if ( !predict() )
 		return false;
+
+	predict();
+	predict();
 
 	release();
 
