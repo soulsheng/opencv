@@ -277,31 +277,37 @@ bool load( std::string fileItems, std::string fileNames )
 	return true;
 }
 
-bool isTrained()
+bool checkTrained()
 {
 	if (bTrain)
 		return true;
 
 	FILE *file = fopen( FILE_DATABASE_ITEMS, "rb" );
 	if ( file )
-		return true;
+	{
+		fclose( file );
+		return load( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
+	}
 	else
-		return false;
+	{
+		if ( !train() )
+			return false;
+
+		return save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );	
+	}
 }
 
 int main(int argc, char const *argv[])
 {
 
-	if( !isTrained() )
+	if( !checkTrained() )
 	{
-		/* train */
-		if ( !train() )
-			return false;
-
-		save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
+		printf( "failed to train \n" );
+		return false;
 	}
+	else
+		printf( "success to train \n" );
 
-	load( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
 
 	/* query */
 	if ( !predict() )
