@@ -11,6 +11,7 @@ using namespace std;
 using namespace sdktest;
 
 #define FILE_LIST_NAME	"at.txt"
+#define FILE_RESULT_NAME	"out.txt"
 
 #define DATA_FILE_COUNT	5
 char  dataFileList[][50]={
@@ -29,7 +30,7 @@ bool checkDataFile()
 		file = fopen( dataFileList[i], "r" );
 		if ( NULL ==file )
 		{
-			printf( "failed to find file %s \n", dataFileList[i] );
+			printf( "failed to open file %s \n", dataFileList[i] );
 			return false;
 		}
 		fclose(file);
@@ -52,7 +53,12 @@ int main(int argc, char const *argv[])
 
 	char line[1024];
 	FILE *flist = fopen(FILE_LIST_NAME, "r");
-	assert(flist != 0);
+	//assert(flist != 0);
+	if ( NULL == flist )
+	{
+		printf( "failed to open file %s \n", FILE_LIST_NAME );
+		return false;
+	}
 
 	vector<db_item> items;
 	vector<string> names;
@@ -108,6 +114,13 @@ int main(int argc, char const *argv[])
 
 	assert(hIndex != 0 && ret == MCV_OK);
 
+	FILE* of = fopen( FILE_RESULT_NAME, "w" );
+	if ( NULL == of)
+	{
+		printf( "failed to open file %s \n", FILE_RESULT_NAME );
+		return false;
+	}
+
 	if(items.size() > 0){
 		mcv_face_search_result_t results[10];
 		unsigned int result_cnt = 0;
@@ -117,13 +130,20 @@ int main(int argc, char const *argv[])
 				hIndex, query,
 				results, 10, &result_cnt);
 		assert(ret == MCV_OK);
+		fprintf( of, "%s\t%s\t%s\t\t\t\t\t%s\t\t%s\n", "i", "idx", "names", 
+			"score", "rank_score");
 		for(unsigned int i = 0; i < result_cnt; i++){
 			int idx = results[i].item->idx;
-			printf("%d\t%d\t%s\t%f\t%f\n", i, idx, names[idx].c_str(), 
+			fprintf( of, "%d\t%d\t%s\t%f\t%f\n", i, idx, names[idx].c_str(), 
 				results[i].score, results[i].rank_score);
 		}
+
+		printf("done!search %d results and save to file %s \n", result_cnt, FILE_RESULT_NAME );		
+		
 		fflush(stdout);
 	}
+
+	fclose(flist);
 
 	mcv_verify_search_release_index(hIndex);
 	mcv_facesdk_destroy_multiview_instance(hDetect);
