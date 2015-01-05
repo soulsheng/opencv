@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "houghLine", "houghLine\houg
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faceDetectST", "faceDetectST\faceDetectST.vcxproj", "{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faceSearchST", "faceSearchST\faceSearchST.vcxproj", "{B8092A3A-6E34-451E-A2FB-951B24526992}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,10 @@ Global
 		{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}.Debug|Win32.Build.0 = Debug|Win32
 		{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}.Release|Win32.ActiveCfg = Release|Win32
 		{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}.Release|Win32.Build.0 = Release|Win32
+		{B8092A3A-6E34-451E-A2FB-951B24526992}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B8092A3A-6E34-451E-A2FB-951B24526992}.Debug|Win32.Build.0 = Debug|Win32
+		{B8092A3A-6E34-451E-A2FB-951B24526992}.Release|Win32.ActiveCfg = Release|Win32
+		{B8092A3A-6E34-451E-A2FB-951B24526992}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
