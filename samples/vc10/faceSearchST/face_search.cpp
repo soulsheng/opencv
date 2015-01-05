@@ -22,6 +22,15 @@ char  dataFileList[][50]={
 	"data/verify_nets.model"
 	};
 
+
+ImageHelper *helper;
+FILE *flist, *of;
+mcv_handle_t hDetect;
+mcv_handle_t vinst;
+vector<db_item> items;
+vector<string> names;
+mcv_handle_t hIndex = NULL;
+
 bool checkDataFile()
 {
 	FILE* file = NULL;
@@ -38,31 +47,63 @@ bool checkDataFile()
 	return true;
 }
 
-int main(int argc, char const *argv[])
+bool initialize()
 {
-	//assert(argc == 2);
-	ImageHelper *helper = new ImageHelperBackend();
-	mcv_handle_t hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 1);
-	assert(hDetect != 0);
+	helper = new ImageHelperBackend();
+	hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 1);
+	if ( NULL == hDetect)
+	{
+		printf( "failed to create detector \n" );
+		return false;
+	}
 
 	if ( !checkDataFile() )
 		return false;
-	
-	mcv_handle_t vinst = mcv_create_verify_instance();
-	assert(vinst != 0);
 
-	char line[1024];
-	FILE *flist = fopen(FILE_LIST_NAME, "r");
-	//assert(flist != 0);
+	vinst = mcv_create_verify_instance();
+	if ( NULL == vinst)
+	{
+		printf( "failed to create verify \n" );
+		return false;
+	}
+
+
+	flist = fopen(FILE_LIST_NAME, "r");
 	if ( NULL == flist )
 	{
 		printf( "failed to open file %s \n", FILE_LIST_NAME );
 		return false;
 	}
 
-	vector<db_item> items;
-	vector<string> names;
+	of = fopen( FILE_RESULT_NAME, "w" );
+	if ( NULL == of)
+	{
+		printf( "failed to open file %s \n", FILE_RESULT_NAME );
+		return false;
+	}
 
+}
+
+bool release()
+{
+	fclose(flist);
+	fclose(of);
+
+	mcv_verify_search_release_index(hIndex);
+	mcv_facesdk_destroy_multiview_instance(hDetect);
+	mcv_verify_release_instance(vinst);
+
+	delete helper;
+	return true;
+}
+
+int main(int argc, char const *argv[])
+{
+
+	if ( !initialize() )
+		return false;
+
+	char line[1024];
 	int db_id = 0;
 	/* generate feature database */
 	while(fgets(line, 1024, flist)){
@@ -101,25 +142,18 @@ int main(int argc, char const *argv[])
 		helper->FreeImage(img_color);
 	}
 
-	fclose(flist);
 	if(items.size() == 0){
 		fprintf(stderr, "No faces\n");
 		exit(1);
 	}
 
 	/* query */
-	mcv_handle_t hIndex = NULL;
+	
 	mcv_result_t ret = mcv_verify_search_build_index(vinst,
 		&items[0], items.size(), &hIndex);
 
 	assert(hIndex != 0 && ret == MCV_OK);
 
-	FILE* of = fopen( FILE_RESULT_NAME, "w" );
-	if ( NULL == of)
-	{
-		printf( "failed to open file %s \n", FILE_RESULT_NAME );
-		return false;
-	}
 
 	if(items.size() > 0){
 		mcv_face_search_result_t results[10];
@@ -143,13 +177,8 @@ int main(int argc, char const *argv[])
 		fflush(stdout);
 	}
 
-	fclose(flist);
+	release();
 
-	mcv_verify_search_release_index(hIndex);
-	mcv_facesdk_destroy_multiview_instance(hDetect);
-	mcv_verify_release_instance(vinst);
-
-	delete helper;
 	system( "pause" );
 	return 0;
 }
