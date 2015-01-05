@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "houghLineGPU", "houghLineGP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "houghLine", "houghLine\houghLine.vcxproj", "{F60E5336-4D54-4B0A-A2C5-075D80FB5112}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sampleST", "sampleSenseTime\sampleST.vcxproj", "{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "faceDetectST", "faceDetectST\faceDetectST.vcxproj", "{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

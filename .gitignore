@@ -95,3 +95,4 @@ tags
 /build/3rdparty/libpng/Debug/*.cache
 /samples/vc10/faceDetectSenseTime/Debug
 /samples/vc10/sampleSenseTime/Debug
+/samples/vc10/faceDetectST/Debug
