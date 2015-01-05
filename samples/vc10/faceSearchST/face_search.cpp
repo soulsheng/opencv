@@ -56,7 +56,7 @@ int main(int argc, char const *argv[])
 			item.idx = db_id++;
 			items.push_back(item);
 			char buf[1024];
-			snprintf(buf,1024, "%s:%d", line, i);
+			_snprintf(buf,1024, "%s:%d", line, i);
 			names.push_back(buf);
 		}
 
@@ -83,7 +83,7 @@ int main(int argc, char const *argv[])
 		unsigned int result_cnt = 0;
 		/* use a db_item as query */
 		const struct db_item *query = &items[0];
-		ret = mcv_verify_search_face(vinst, &items[0], 
+		ret = mcv_verify_search_face(vinst, 
 				hIndex, query,
 				results, 10, &result_cnt);
 		assert(ret == MCV_OK);
