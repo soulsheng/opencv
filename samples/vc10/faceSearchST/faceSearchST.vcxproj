@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="faceRecognizeST.cpp" />
     <ClCompile Include="face_search.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="faceRecognizeST.h" />
     <ClInclude Include="imagehelper.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

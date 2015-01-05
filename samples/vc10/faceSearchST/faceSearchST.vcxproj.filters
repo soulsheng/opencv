@@ -18,9 +18,15 @@
     <ClCompile Include="face_search.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="faceRecognizeST.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imagehelper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="faceRecognizeST.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
