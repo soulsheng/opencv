@@ -22,9 +22,10 @@ int main(int argc, char *argv[])
 	cv::imshow( "in", in );
 	cv::waitKey( );
 
-	detectST();
+	cv::Mat out(in);
 
-	cv::Mat out = cv::imread( IMAGE_OUT );
+	faceDetectST( in, out );
+
 	cv::imshow( "out", out );
 	cv::waitKey( );
 
