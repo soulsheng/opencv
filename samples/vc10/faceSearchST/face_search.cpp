@@ -54,7 +54,7 @@ bool checkDataFile()
 bool initialize()
 {
 	if( bInitialized )	
-		return;
+		return true;
 	
 	helper = new ImageHelperBackend();
 	hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 1);
@@ -277,16 +277,29 @@ bool load( std::string fileItems, std::string fileNames )
 	return true;
 }
 
+bool isTrained()
+{
+	if (bTrain)
+		return true;
+
+	FILE *file = fopen( FILE_DATABASE_ITEMS, "rb" );
+	if ( file )
+		return true;
+	else
+		return false;
+}
+
 int main(int argc, char const *argv[])
 {
 
-#if 0
-	/* train */
-	if ( !train() )
-		return false;
+	if( !isTrained() )
+	{
+		/* train */
+		if ( !train() )
+			return false;
 
-	save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
-#endif
+		save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
+	}
 
 	load( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
 
