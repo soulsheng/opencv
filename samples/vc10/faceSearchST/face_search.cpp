@@ -86,6 +86,8 @@ bool initialize()
 
 bool release()
 {
+	fflush(stdout);
+
 	fclose(flist);
 	fclose(of);
 
@@ -97,12 +99,8 @@ bool release()
 	return true;
 }
 
-int main(int argc, char const *argv[])
+bool train()
 {
-
-	if ( !initialize() )
-		return false;
-
 	char line[1024];
 	int db_id = 0;
 	/* generate feature database */
@@ -110,7 +108,7 @@ int main(int argc, char const *argv[])
 		size_t len = strlen(line);
 		if(line[len-1] == '\n')
 			line[len-1] = 0;
-		fprintf(stderr, "Reading %s\n", line);
+		fprintf(stderr, "Training %s\n", line);
 		Image *img_color=helper->LoadRGBAImage(line);
 		Image *img_gray=helper->LoadGrayImage(line);
 		if(!img_color || !img_gray){
@@ -144,23 +142,26 @@ int main(int argc, char const *argv[])
 
 	if(items.size() == 0){
 		fprintf(stderr, "No faces\n");
-		exit(1);
 	}
 
-	/* query */
-	
 	mcv_result_t ret = mcv_verify_search_build_index(vinst,
 		&items[0], items.size(), &hIndex);
 
 	assert(hIndex != 0 && ret == MCV_OK);
 
 
-	if(items.size() > 0){
+	return true;
+}
+
+
+bool predict()
+{
+
 		mcv_face_search_result_t results[10];
 		unsigned int result_cnt = 0;
 		/* use a db_item as query */
 		const struct db_item *query = &items[0];
-		ret = mcv_verify_search_face(vinst, 
+		mcv_result_t ret = mcv_verify_search_face(vinst, 
 				hIndex, query,
 				results, 10, &result_cnt);
 		assert(ret == MCV_OK);
@@ -173,9 +174,23 @@ int main(int argc, char const *argv[])
 		}
 
 		printf("done!search %d results and save to file %s \n", result_cnt, FILE_RESULT_NAME );		
-		
-		fflush(stdout);
-	}
+
+	return true;
+}
+
+int main(int argc, char const *argv[])
+{
+
+	if ( !initialize() )
+		return false;
+
+	/* train */
+	if ( !train() )
+		return false;
+
+	/* query */
+	if ( !predict() )
+		return false;
 
 	release();
 
