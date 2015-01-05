@@ -97,3 +97,5 @@ tags
 /samples/vc10/sampleSenseTime/Debug
 /samples/vc10/faceDetectST/Debug
 /samples/vc10/faceSearchST/Debug
+/samples/vc10/faceDetectST/Release
+/samples/vc10/faceSearchST/Release

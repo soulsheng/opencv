@@ -93,6 +93,7 @@ bool initialize()
 	}
 
 	bInitialized = true;
+	return true;
 }
 
 bool release()
