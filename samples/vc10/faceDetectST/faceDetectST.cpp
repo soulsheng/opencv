@@ -6,10 +6,8 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
-#include "imagehelper.hpp"
 
 using namespace std;
-using namespace sdktest;
 using namespace cv;
 
 /// \lib facesdk
@@ -19,15 +17,12 @@ using namespace cv;
 #define IMAGE_IN	"../data/bighero6.jpg"
 #define IMAGE_OUT	"../data/out.jpg"
 
-ImageHelper *helper;
 mcv_handle_t hDetect;
 PMCV_FACERECT pface=NULL;
 unsigned int countFace=0;
 
 bool initialize()
 {
-	helper = new ImageHelperBackend();
-
 	hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 2);
 
 	return true;
@@ -35,8 +30,6 @@ bool initialize()
 
 bool release()
 {
-	delete helper;
-
 	// release the memory of result
 	mcv_facesdk_release_multiview_result(pface,countFace);
 
@@ -53,9 +46,7 @@ bool faceDetectST(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& matimg)
 	cv::Mat *img = &gray;
 
 	// detect
-	__TIC__();
 	mcv_facesdk_multiview_detector(hDetect,img->data,img->cols,img->rows,img->cols,&pface,&countFace);
-	__TOC__();
 
 	// draw result
 	for ( int i=0;i<countFace;i++){
