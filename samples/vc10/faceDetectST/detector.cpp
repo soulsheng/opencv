@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cassert>
-#include <mcv_facesdk.h>
+#include <vector>
 
 #include "opencv2/highgui/highgui.hpp"
 
@@ -23,11 +23,21 @@ int main(int argc, char *argv[])
 	cv::waitKey( );
 
 	cv::Mat out(in);
+	std::vector<cv::Mat> faces;
 
-	faceDetectST( in, out );
+	faceDetectST( in, out, faces );
 
 	cv::imshow( "out", out );
 	cv::waitKey( );
+
+	for (int i=0; i<faces.size(); i++ )
+	{
+		char title[20];
+		sprintf( title, "face%d.jpg",i);
+		cv::imshow( title, faces[i] );
+		cv::waitKey( );
+		cv::imwrite( title, faces[i] );
+	}
 
 	release();
 

@@ -46,7 +46,7 @@ bool release()
 	return true;
 }
 
-bool faceDetectST(cv::Mat& imgIn, cv::Mat& imgOut)
+bool faceDetectST(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& matimg)
 {
 	cv::Mat gray;
 	cvtColor( imgIn, gray, CV_BGR2GRAY );
@@ -63,6 +63,13 @@ bool faceDetectST(cv::Mat& imgIn, cv::Mat& imgOut)
 		cvPoint( pface[i].Rect.left, pface[i].Rect.top ),
 		cvPoint( pface[i].Rect.right, pface[i].Rect.bottom ) ,
 		CV_RGB(0,0,255), 3, 8, 0);
+
+	cv::Mat imgROI( imgIn, Rect(
+		pface[i].Rect.left, pface[i].Rect.top ,
+		pface[i].Rect.right - pface[i].Rect.left, pface[i].Rect.bottom - pface[i].Rect.top ));
+	//printf("width = %d \n", pface[i].Rect.right - pface[i].Rect.left);
+	matimg.push_back(imgROI);
+
 	}
 
 	return true;
