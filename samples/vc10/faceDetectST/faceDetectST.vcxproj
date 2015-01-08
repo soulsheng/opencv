@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="faceDetectST.h" />
-    <ClInclude Include="imagehelper.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}</ProjectGuid>

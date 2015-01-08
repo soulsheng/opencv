@@ -8,10 +8,11 @@
 
 #include <vector>
 #include <string>
-#include "imagehelper.hpp"
+
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 
 using namespace std;
-using namespace sdktest;
 
 #define FILE_LIST_NAME	"at.txt"
 #define FILE_RESULT_NAME	"out.txt"
@@ -28,7 +29,6 @@ char  dataFileList[][50]={
 	};
 
 
-ImageHelper *helper;
 FILE *flist, *of;
 mcv_handle_t hDetect;
 mcv_handle_t vinst;
@@ -59,7 +59,6 @@ bool initialize()
 	if( bInitialized )	
 		return true;
 	
-	helper = new ImageHelperBackend();
 	hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 1);
 	if ( NULL == hDetect)
 	{
@@ -107,7 +106,6 @@ bool release()
 	mcv_facesdk_destroy_multiview_instance(hDetect);
 	mcv_verify_release_instance(vinst);
 
-	delete helper;
 	return true;
 }
 
@@ -122,30 +120,30 @@ bool train()
 
 	char line[1024];
 	int db_id = 0;
+
+	cv::Mat imgIn;
+	cv::Mat gray;
+
 	/* generate feature database */
 	while(fgets(line, 1024, flist)){
 		size_t len = strlen(line);
 		if(line[len-1] == '\n')
 			line[len-1] = 0;
 		fprintf(stderr, "Training %s\n", line);
-		Image *img_color=helper->LoadRGBAImage(line);
-		Image *img_gray=helper->LoadGrayImage(line);
-		if(!img_color || !img_gray){
-			fprintf(stderr, "Fail to read %s\n", line);
-			continue;
-		}
+		imgIn = cv::imread( line );
+		cvtColor( imgIn, gray, CV_BGR2GRAY );
 
 		PMCV_FACERECT pface=NULL;
 		unsigned int fcount = 0;
-		mcv_facesdk_multiview_detector(hDetect, img_gray->data, img_gray->cols, img_gray->rows, 
-			img_gray->cols,&pface,&fcount);
+		mcv_facesdk_multiview_detector(hDetect, gray.data, gray.cols, gray.rows, 
+			gray.cols,&pface,&fcount);
 
 
 		for(unsigned int i = 0; i < fcount; i++){
 			db_item item;
 			memset(&item, 0, sizeof(item));
-			mcv_result_t ret = mcv_verify_search_get_feature(vinst, img_color->data, img_color->cols,
-				img_color->rows,  pface[i].Rect, &item);
+			mcv_result_t ret = mcv_verify_search_get_feature(vinst, imgIn.data, imgIn.cols,
+				imgIn.rows,  pface[i].Rect, &item);
 			assert(ret == MCV_OK);
 			item.idx = db_id++;
 			items.push_back(item);
@@ -155,8 +153,6 @@ bool train()
 		}
 
 		mcv_facesdk_release_multiview_result(pface, fcount);
-		helper->FreeImage(img_gray);
-		helper->FreeImage(img_color);
 	}
 
 	if(items.size() == 0){

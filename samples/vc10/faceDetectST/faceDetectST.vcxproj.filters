@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="imagehelper.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="faceDetectST.h">
       <Filter>头文件</Filter>
     </ClInclude>
