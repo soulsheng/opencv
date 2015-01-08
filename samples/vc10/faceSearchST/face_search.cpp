@@ -6,8 +6,8 @@
 
 int main(int argc, char const *argv[])
 {
-
-	if( !checkTrained() )
+	SenseTimeSDK	st;
+	if( !st.checkTrained() )
 	{
 		printf( "failed to train \n" );
 		return false;
@@ -17,13 +17,13 @@ int main(int argc, char const *argv[])
 
 
 	/* query */
-	if ( !predict() )
+	if ( !st.predict() )
 		return false;
 
-	predict();
-	predict();
+	st.predict();
+	st.predict();
 
-	release();
+	st.release();
 
 	system( "pause" );
 	return 0;

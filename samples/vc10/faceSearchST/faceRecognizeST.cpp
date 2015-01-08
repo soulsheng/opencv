@@ -1,18 +1,10 @@
 
 #include "faceRecognizeST.h"
 
-#include <iostream>
-#include <cassert>
-#include <mcv_facesdk.h>
-#include <mcv_faceverify.h>
-
-#include <vector>
-#include <string>
 
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
-using namespace std;
 
 #define FILE_LIST_NAME	"at.txt"
 #define FILE_RESULT_NAME	"out.txt"
@@ -28,17 +20,20 @@ char  dataFileList[][50]={
 	"data/verify_nets.model"
 	};
 
+SenseTimeSDK::SenseTimeSDK()
+{
+	hIndex = NULL;
+	bTrain = false;
+	bInitialized = false;
+	bReleased = false;
+}
 
-FILE *flist, *of;
-mcv_handle_t hDetect;
-mcv_handle_t vinst;
-vector<db_item> items;
-vector<string> names;
-mcv_handle_t hIndex = NULL;
-bool bTrain = false;
-bool bInitialized = false;
+SenseTimeSDK::~SenseTimeSDK()
+{
+	release();
+}
 
-bool checkDataFile()
+bool SenseTimeSDK::checkDataFile()
 {
 	FILE* file = NULL;
 	for (int i=0;i<DATA_FILE_COUNT;i++)
@@ -54,7 +49,7 @@ bool checkDataFile()
 	return true;
 }
 
-bool initialize()
+bool SenseTimeSDK::initialize()
 {
 	if( bInitialized )	
 		return true;
@@ -95,8 +90,11 @@ bool initialize()
 	return true;
 }
 
-bool release()
+bool SenseTimeSDK::release()
 {
+	if (bReleased)
+		return true;
+
 	fflush(stdout);
 
 	fclose(flist);
@@ -106,10 +104,12 @@ bool release()
 	mcv_facesdk_destroy_multiview_instance(hDetect);
 	mcv_verify_release_instance(vinst);
 
+	bReleased = true;
+
 	return true;
 }
 
-bool train()
+bool SenseTimeSDK::train()
 {
 
 	if ( false == bInitialized )
@@ -170,7 +170,7 @@ bool train()
 }
 
 
-bool predict()
+bool SenseTimeSDK::predict()
 {
 
 	if ( false == bInitialized )
@@ -200,7 +200,7 @@ bool predict()
 	return true;
 }
 
-bool save( std::string fileItems, std::string fileNames )
+bool SenseTimeSDK::save( std::string fileItems, std::string fileNames )
 {
 	FILE *file = fopen( fileItems.c_str(), "wb" );
 
@@ -227,7 +227,7 @@ bool save( std::string fileItems, std::string fileNames )
 	return true;
 }
 
-bool load( std::string fileItems, std::string fileNames )
+bool SenseTimeSDK::load( std::string fileItems, std::string fileNames )
 {
 
 	if ( false == bInitialized )
@@ -277,7 +277,7 @@ bool load( std::string fileItems, std::string fileNames )
 	return true;
 }
 
-bool checkTrained()
+bool SenseTimeSDK::checkTrained()
 {
 	if (bTrain)
 		return true;
