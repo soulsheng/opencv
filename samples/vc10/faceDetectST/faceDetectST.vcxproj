@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\faceSearchST\faceRecognizeST.cpp" />
     <ClCompile Include="detector.cpp" />
     <ClCompile Include="faceDetectST.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\faceSearchST\faceRecognizeST.h" />
     <ClInclude Include="faceDetectST.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

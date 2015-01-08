@@ -4,7 +4,7 @@
 
 #include "opencv2/highgui/highgui.hpp"
 
-#include "faceDetectST.h"
+#include "../faceSearchST/faceRecognizeST.h"
 
 /// \lib facesdk
 /// \api mcv_facesdk_multiview_detector
@@ -16,7 +16,7 @@
 
 int main(int argc, char *argv[])
 {
-	initialize();
+	SenseTimeSDK st;
 
 	cv::Mat in = cv::imread( IMAGE_IN );
 	cv::imshow( "in", in );
@@ -24,8 +24,7 @@ int main(int argc, char *argv[])
 
 	cv::Mat out(in);
 	std::vector<cv::Mat> faces;
-
-	faceDetectST( in, out, faces );
+	st.faceDetect( in, out, faces );
 
 	cv::imshow( "out", out );
 	cv::waitKey( );
@@ -39,7 +38,7 @@ int main(int argc, char *argv[])
 		cv::imwrite( title, faces[i] );
 	}
 
-	release();
+	st.release();
 
 	return 0;
 }

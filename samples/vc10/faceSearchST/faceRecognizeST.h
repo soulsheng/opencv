@@ -10,12 +10,18 @@
 #include <string>
 using namespace std;
 
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+
+
 class SenseTimeSDK
 {
 public:
 	bool checkTrained();
 
 	bool predict();
+
+	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
 	bool release();
 
@@ -40,4 +46,8 @@ private:
 	bool bTrain;
 	bool bInitialized;
 	bool bReleased;
+
+	PMCV_FACERECT pface ;
+	unsigned int countFace ;
+
 };

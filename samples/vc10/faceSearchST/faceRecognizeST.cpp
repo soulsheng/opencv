@@ -2,8 +2,6 @@
 #include "faceRecognizeST.h"
 
 
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
 
 
 #define FILE_LIST_NAME	"at.txt"
@@ -26,6 +24,11 @@ SenseTimeSDK::SenseTimeSDK()
 	bTrain = false;
 	bInitialized = false;
 	bReleased = false;
+
+	pface=NULL;
+	countFace=0;
+
+	initialize();
 }
 
 SenseTimeSDK::~SenseTimeSDK()
@@ -97,12 +100,14 @@ bool SenseTimeSDK::release()
 
 	fflush(stdout);
 
-	fclose(flist);
-	fclose(of);
+	if(flist) fclose(flist);
+	if(of) fclose(of);
 
-	mcv_verify_search_release_index(hIndex);
-	mcv_facesdk_destroy_multiview_instance(hDetect);
-	mcv_verify_release_instance(vinst);
+	if(countFace) mcv_facesdk_release_multiview_result(pface,countFace);
+
+	if(hIndex) mcv_verify_search_release_index(hIndex);
+	if(hDetect) mcv_facesdk_destroy_multiview_instance(hDetect);
+	if(vinst) mcv_verify_release_instance(vinst);
 
 	bReleased = true;
 
@@ -295,4 +300,32 @@ bool SenseTimeSDK::checkTrained()
 
 		return save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );	
 	}
+}
+
+
+bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& matimg)
+{
+	cv::Mat gray;
+	cvtColor( imgIn, gray, CV_BGR2GRAY );
+	cv::Mat *img = &gray;
+
+	// detect
+	mcv_facesdk_multiview_detector(hDetect,img->data,img->cols,img->rows,img->cols,&pface,&countFace);
+
+	// draw result
+	for ( int i=0;i<countFace;i++){
+		rectangle( imgOut, 
+			cvPoint( pface[i].Rect.left, pface[i].Rect.top ),
+			cvPoint( pface[i].Rect.right, pface[i].Rect.bottom ) ,
+			CV_RGB(0,0,255), 3, 8, 0);
+
+		cv::Mat imgROI( imgIn, cv::Rect(
+			pface[i].Rect.left, pface[i].Rect.top ,
+			pface[i].Rect.right - pface[i].Rect.left, pface[i].Rect.bottom - pface[i].Rect.top ));
+		//printf("width = %d \n", pface[i].Rect.right - pface[i].Rect.left);
+		matimg.push_back(imgROI);
+
+	}
+
+	return true;
 }
