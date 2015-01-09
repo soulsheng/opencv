@@ -109,12 +109,14 @@ bool SenseTimeSDK::release()
 	if(hDetect) mcv_facesdk_destroy_multiview_instance(hDetect);
 	if(vinst) mcv_verify_release_instance(vinst);
 
+	imageSamples.clear();
+
 	bReleased = true;
 
 	return true;
 }
 
-bool SenseTimeSDK::train()
+bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 {
 
 	if ( false == bInitialized )
@@ -122,20 +124,18 @@ bool SenseTimeSDK::train()
 
 	if ( bTrain )
 		return true;
-
-	char line[1024];
+	
 	int db_id = 0;
 
 	cv::Mat imgIn, imgInBGRA;
 	cv::Mat gray;
 
 	/* generate feature database */
-	while(fgets(line, 1024, flist)){
-		size_t len = strlen(line);
-		if(line[len-1] == '\n')
-			line[len-1] = 0;
-		fprintf(stderr, "Training %s\n", line);
-		imgIn = cv::imread( line );
+	for( int i = 0; i< names.size(); i++ )
+	{
+		
+		fprintf(stderr, "Training %s\n", names[i]);
+		imgIn = imageSamples[i];
 		cvtColor( imgIn, gray, CV_BGR2GRAY );
 		cvtColor( imgIn, imgInBGRA, CV_BGR2BGRA );
 
@@ -153,9 +153,6 @@ bool SenseTimeSDK::train()
 			assert(ret == MCV_OK);
 			item.idx = db_id++;
 			items.push_back(item);
-			char buf[1024];
-			_snprintf(buf,1024, "%s:%d", line, i);
-			names.push_back(buf);
 		}
 
 		mcv_facesdk_release_multiview_result(pface, fcount);
@@ -183,7 +180,7 @@ bool SenseTimeSDK::predict()
 		initialize();
 
 	if ( false == bTrain )
-		train();
+		train( FILE_LIST_NAME );
 
 	mcv_face_search_result_t results[10];
 	unsigned int result_cnt = 0;
@@ -193,12 +190,13 @@ bool SenseTimeSDK::predict()
 			hIndex, query,
 			results, 10, &result_cnt);
 	assert(ret == MCV_OK);
-	fprintf( of, "%s\t%s\t%s\t\t\t\t\t%s\t\t%s\n", "i", "idx", "names", 
+	fprintf( of, "%s\t%s\t%s\t\t\t\t%s\t\t%s\n", "i", "idx", "names", 
 		"score", "rank_score");
 	for(unsigned int i = 0; i < result_cnt; i++){
 		int idx = results[i].item->idx;
-		fprintf( of, "%d\t%d\t%s\t%f\t%f\n", i, idx, names[idx].c_str(), 
-			results[i].score, results[i].rank_score);
+		if( idx < items.size() )
+			fprintf( of, "%d\t%d\t%s\t%f\t%f\n", i, idx, names[idx].c_str(), 
+				results[i].score, results[i].rank_score);
 	}
 
 	printf("done!search %d results and save to file %s \n", result_cnt, FILE_RESULT_NAME );		
@@ -224,8 +222,9 @@ bool SenseTimeSDK::save( std::string fileItems, std::string fileNames )
 	for ( int i=0; i<names.size(); i++ )
 	{
 		std::string& name = names[i];
-		fprintf(file, "%d \n", name.size() );
+		fprintf(file, "%d:", name.size() );
 		fwrite( (void*)name.c_str(), name.size(), 1, file );
+		fprintf(file, "\n" );
 	}
 
 	fclose( file );
@@ -262,7 +261,7 @@ bool SenseTimeSDK::load( std::string fileItems, std::string fileNames )
 	for ( int i=0; i<nSize; i++ )
 	{
 		int nLength = 0;
-		fscanf(file, "%d", &nLength );
+		fscanf(file, "%d:", &nLength );
 
 		char buf[1024];
 		fread( buf, nLength, 1, file );
@@ -296,7 +295,7 @@ bool SenseTimeSDK::checkTrained()
 	}
 	else
 	{
-		if ( !train() )
+		if ( !train( FILE_LIST_NAME ) )
 			return false;
 
 		return save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );	
@@ -329,4 +328,32 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	}
 
 	return true;
+}
+
+bool SenseTimeSDK::prepareSamples( std::string filelist )
+{
+	cv::Mat imgIn;
+	char line[1024];
+
+	while(fgets(line, 1024, flist))
+	{
+		size_t len = strlen(line);
+		if(line[len-1] == '\n')
+			line[len-1] = 0;
+		imgIn = cv::imread( line );
+
+		imageSamples.push_back( imgIn );
+		names.push_back( line );
+	}
+
+	fclose( flist );
+
+	return true;
+}
+
+bool SenseTimeSDK::train( std::string filelist )
+{
+	prepareSamples( filelist );
+
+	return train( imageSamples );
 }

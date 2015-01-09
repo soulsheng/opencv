@@ -19,6 +19,9 @@ class SenseTimeSDK
 public:
 	bool checkTrained();
 
+	bool train( std::string filelist );
+	bool train( vector<cv::Mat>&	imageSamples );
+
 	bool predict();
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
@@ -31,9 +34,11 @@ public:
 protected:
 	bool checkDataFile();
 	bool initialize();
-	bool train();
+
 	bool save( std::string fileItems, std::string fileNames );
 	bool load( std::string fileItems, std::string fileNames );
+
+	bool prepareSamples( std::string filelist );
 
 private:
 
@@ -50,4 +55,6 @@ private:
 	PMCV_FACERECT pface ;
 	unsigned int countFace ;
 
+	// train
+	vector<cv::Mat>	imageSamples;
 };
