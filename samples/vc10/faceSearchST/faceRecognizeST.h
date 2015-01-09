@@ -23,6 +23,7 @@ public:
 	bool train( vector<cv::Mat>&	imageSamples );
 
 	bool predict();
+	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, int n = 5);
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
@@ -39,6 +40,8 @@ protected:
 	bool load( std::string fileItems, std::string fileNames );
 
 	bool prepareSamples( std::string filelist );
+
+	db_item	getFeature( cv::Mat& imageIn );
 
 private:
 
@@ -58,4 +61,7 @@ private:
 	// train
 	vector<cv::Mat>	imageSamples;
 	vector<int>		labelSamples;
+
+	int db_id ;
+
 };

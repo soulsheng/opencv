@@ -29,6 +29,8 @@ SenseTimeSDK::SenseTimeSDK()
 	pface=NULL;
 	countFace=0;
 
+	db_id = 0;
+
 	initialize();
 }
 
@@ -126,37 +128,19 @@ bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 	if ( bTrain )
 		return true;
 	
-	int db_id = 0;
 
-	cv::Mat imgIn, imgInBGRA;
-	cv::Mat gray;
 
 	/* generate feature database */
 	for( int i = 0; i< names.size(); i++ )
 	{
 		
 		fprintf(stderr, "Training %s\n", names[i]);
-		imgIn = imageSamples[i];
-		cvtColor( imgIn, gray, CV_BGR2GRAY );
-		cvtColor( imgIn, imgInBGRA, CV_BGR2BGRA );
 
-		PMCV_FACERECT pface=NULL;
-		unsigned int fcount = 0;
-		mcv_facesdk_multiview_detector(hDetect, gray.data, gray.cols, gray.rows, 
-			gray.cols,&pface,&fcount);
+		db_item item = getFeature( imageSamples[i] );
 
-
-		if(fcount){
-			db_item item;
-			memset(&item, 0, sizeof(item));
-			mcv_result_t ret = mcv_verify_search_get_feature(vinst, imgInBGRA.data, imgInBGRA.cols,
-				imgInBGRA.rows,  pface[0].Rect, &item);
-			assert(ret == MCV_OK);
-			item.idx = db_id++;
+		if( item.idx != -1 )
 			items.push_back(item);
-		}
 
-		mcv_facesdk_release_multiview_result(pface, fcount);
 	}
 
 	if(items.size() == 0){
@@ -201,6 +185,38 @@ bool SenseTimeSDK::predict()
 	}
 
 	printf("done!search %d results and save to file %s \n", result_cnt, FILE_RESULT_NAME );		
+
+	return true;
+}
+
+bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, int n )
+{
+
+	if ( false == bInitialized )
+		initialize();
+
+	if ( false == bTrain )
+		train( FILE_LIST_NAME );
+
+	db_item item = getFeature( imageFace );
+
+	if( item.idx == -1 )
+		return false;
+
+	mcv_face_search_result_t results[10];
+	unsigned int result_cnt = 0;
+	/* use a db_item as query */
+	const struct db_item *query = &items[0];
+	mcv_result_t ret = mcv_verify_search_face(vinst, 
+		hIndex, query,
+		results, n, &result_cnt);
+
+	for ( int i = 0; i < n; i++ )
+	{
+		int idItem = results[i].item->idx;
+		int idLabel = labelSamples[ idItem ];
+		lableTop.push_back( idLabel );
+	}
 
 	return true;
 }
@@ -366,4 +382,32 @@ bool SenseTimeSDK::train( std::string filelist )
 	prepareSamples( filelist );
 
 	return train( imageSamples );
+}
+
+db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )
+{
+	cv::Mat gray, imgInBGRA;
+
+	cvtColor( imageIn, gray, CV_BGR2GRAY );
+	cvtColor( imageIn, imgInBGRA, CV_BGR2BGRA );
+
+	PMCV_FACERECT pface=NULL;
+	unsigned int fcount = 0;
+	mcv_facesdk_multiview_detector(hDetect, gray.data, gray.cols, gray.rows, 
+		gray.cols,&pface,&fcount);
+
+	db_item item;
+	item.idx = -1;
+
+	if(fcount){
+		memset(&item, 0, sizeof(item));
+		mcv_result_t ret = mcv_verify_search_get_feature(vinst, imgInBGRA.data, imgInBGRA.cols,
+			imgInBGRA.rows,  pface[0].Rect, &item);
+		assert(ret == MCV_OK);
+		item.idx = db_id++;
+	}
+
+	mcv_facesdk_release_multiview_result(pface, fcount);
+
+	return item;
 }
