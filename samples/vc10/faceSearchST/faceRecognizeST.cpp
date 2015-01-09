@@ -1,6 +1,7 @@
 
 #include "faceRecognizeST.h"
 
+#include <fstream>
 
 
 
@@ -145,11 +146,11 @@ bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 			gray.cols,&pface,&fcount);
 
 
-		for(unsigned int i = 0; i < fcount; i++){
+		if(fcount){
 			db_item item;
 			memset(&item, 0, sizeof(item));
 			mcv_result_t ret = mcv_verify_search_get_feature(vinst, imgInBGRA.data, imgInBGRA.cols,
-				imgInBGRA.rows,  pface[i].Rect, &item);
+				imgInBGRA.rows,  pface[0].Rect, &item);
 			assert(ret == MCV_OK);
 			item.idx = db_id++;
 			items.push_back(item);
@@ -333,20 +334,29 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 bool SenseTimeSDK::prepareSamples( std::string filelist )
 {
 	cv::Mat imgIn;
-	char line[1024];
-
-	while(fgets(line, 1024, flist))
-	{
-		size_t len = strlen(line);
-		if(line[len-1] == '\n')
-			line[len-1] = 0;
-		imgIn = cv::imread( line );
-
-		imageSamples.push_back( imgIn );
-		names.push_back( line );
+	
+	std::ifstream file(filelist.c_str(), ifstream::in);
+	if (!file) {
+		printf( "cannot to open %s \n", filelist.c_str() );
 	}
 
-	fclose( flist );
+	string line, path, classlabel;
+
+	while( getline(file, line) )
+	{
+		stringstream liness(line);
+		getline(liness, path, ';');
+
+		liness >> classlabel;
+
+		imgIn = cv::imread( path );
+
+		imageSamples.push_back( imgIn );
+		names.push_back( path );
+
+		labelSamples.push_back( atoi( classlabel.c_str() ) );
+	}
+
 
 	return true;
 }

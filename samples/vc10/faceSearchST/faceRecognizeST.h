@@ -57,4 +57,5 @@ private:
 
 	// train
 	vector<cv::Mat>	imageSamples;
+	vector<int>		labelSamples;
 };
