@@ -126,7 +126,7 @@ bool SenseTimeSDK::train()
 	char line[1024];
 	int db_id = 0;
 
-	cv::Mat imgIn;
+	cv::Mat imgIn, imgInBGRA;
 	cv::Mat gray;
 
 	/* generate feature database */
@@ -137,6 +137,7 @@ bool SenseTimeSDK::train()
 		fprintf(stderr, "Training %s\n", line);
 		imgIn = cv::imread( line );
 		cvtColor( imgIn, gray, CV_BGR2GRAY );
+		cvtColor( imgIn, imgInBGRA, CV_BGR2BGRA );
 
 		PMCV_FACERECT pface=NULL;
 		unsigned int fcount = 0;
@@ -147,8 +148,8 @@ bool SenseTimeSDK::train()
 		for(unsigned int i = 0; i < fcount; i++){
 			db_item item;
 			memset(&item, 0, sizeof(item));
-			mcv_result_t ret = mcv_verify_search_get_feature(vinst, imgIn.data, imgIn.cols,
-				imgIn.rows,  pface[i].Rect, &item);
+			mcv_result_t ret = mcv_verify_search_get_feature(vinst, imgInBGRA.data, imgInBGRA.cols,
+				imgInBGRA.rows,  pface[i].Rect, &item);
 			assert(ret == MCV_OK);
 			item.idx = db_id++;
 			items.push_back(item);
