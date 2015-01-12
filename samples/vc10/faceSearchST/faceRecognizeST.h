@@ -45,7 +45,7 @@ protected:
 
 private:
 
-	FILE *flist, *of;
+	FILE *flist;
 	mcv_handle_t hDetect;
 	mcv_handle_t vinst;
 	vector<db_item> items;

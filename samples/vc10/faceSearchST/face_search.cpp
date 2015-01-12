@@ -20,9 +20,6 @@ int main(int argc, char const *argv[])
 
 
 	/* query */
-	if ( !st.predict() )
-		return false;
-
 	vector<int>	labelResult;
 	cv::Mat faceTest = cv::imread( IMAGE_FACE_TEST );
 

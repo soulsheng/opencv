@@ -85,13 +85,6 @@ bool SenseTimeSDK::initialize()
 		return false;
 	}
 
-	of = fopen( FILE_RESULT_NAME, "w" );
-	if ( NULL == of)
-	{
-		printf( "failed to open file %s \n", FILE_RESULT_NAME );
-		return false;
-	}
-
 	bInitialized = true;
 	return true;
 }
@@ -104,7 +97,6 @@ bool SenseTimeSDK::release()
 	fflush(stdout);
 
 	if(flist) fclose(flist);
-	if(of) fclose(of);
 
 	if(countFace) mcv_facesdk_release_multiview_result(pface,countFace);
 
@@ -153,38 +145,6 @@ bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 	assert(hIndex != 0 && ret == MCV_OK);
 
 	bTrain = true;
-
-	return true;
-}
-
-
-bool SenseTimeSDK::predict()
-{
-
-	if ( false == bInitialized )
-		initialize();
-
-	if ( false == bTrain )
-		train( FILE_LIST_NAME );
-
-	mcv_face_search_result_t results[10];
-	unsigned int result_cnt = 0;
-	/* use a db_item as query */
-	const struct db_item *query = &items[0];
-	mcv_result_t ret = mcv_verify_search_face(vinst, 
-			hIndex, query,
-			results, 10, &result_cnt);
-	assert(ret == MCV_OK);
-	fprintf( of, "%s\t%s\t%s\t\t\t\t%s\t\t%s\n", "i", "idx", "names", 
-		"score", "rank_score");
-	for(unsigned int i = 0; i < result_cnt; i++){
-		int idx = results[i].item->idx;
-		if( idx < items.size() )
-			fprintf( of, "%d\t%d\t%s\t%f\t%f\n", i, idx, names[idx].c_str(), 
-				results[i].score, results[i].rank_score);
-	}
-
-	printf("done!search %d results and save to file %s \n", result_cnt, FILE_RESULT_NAME );		
 
 	return true;
 }
