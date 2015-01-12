@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define IMAGE_FACE_TEST		"f:\\faces\\s1\\15.bmp"
+#define IMAGE_FACE_TEST		"f:\\faces\\s1\\18.bmp"
+//#define IMAGE_FACE_TEST		"f:\\faces\\s2\\0018.jpg"
 #define LABLE_COUNT			5
 
 int main(int argc, char const *argv[])
