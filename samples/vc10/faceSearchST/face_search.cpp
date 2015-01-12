@@ -27,6 +27,8 @@ int main(int argc, char const *argv[])
 	cv::Mat faceTest = cv::imread( IMAGE_FACE_TEST );
 
 	st.predict( faceTest, labelResult, LABLE_COUNT );
+	
+	cout << "predict " << IMAGE_FACE_TEST << endl;
 
 	for ( int i = 0; i< labelResult.size(); i++ )
 	{

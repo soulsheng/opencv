@@ -209,14 +209,19 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, int 
 	const struct db_item *query = &item;
 	mcv_result_t ret = mcv_verify_search_face(vinst, 
 		hIndex, query,
-		results, 10, &result_cnt);
+		results, n, &result_cnt);
 
-	if( result_cnt < n )
-		n = result_cnt;
+	//if( result_cnt < n )
+	//	n = result_cnt;
 
-	for ( int i = 0; i < n; i++ )
+	for ( int i = 0; i < result_cnt; i++ )
 	{
 		int idItem = results[i].item->idx;
+		if( idItem < 0 || idItem >= items.size() )
+		{
+			cout << "invalid id of item " << idItem << endl;
+			continue;
+		}
 		int idLabel = labelSamples[ idItem ];
 		lableTop.push_back( idLabel );
 	}
