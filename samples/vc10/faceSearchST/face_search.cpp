@@ -22,6 +22,8 @@ int main(int argc, char const *argv[])
 	/* query */
 	vector<int>	labelResult;
 	cv::Mat faceTest = cv::imread( IMAGE_FACE_TEST );
+	cv::imshow( "in", faceTest );
+	cv::waitKey(5);
 
 	st.predict( faceTest, labelResult, LABLE_COUNT );
 	
@@ -31,6 +33,9 @@ int main(int argc, char const *argv[])
 	{
 		printf( "id = %d, ", labelResult[i] );
 	}
+
+	cv::imshow( "out", *st.getImage(labelResult[0]) );
+	cv::waitKey();
 
 	st.release();
 

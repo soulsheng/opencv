@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 using namespace std;
 
 #include "opencv2/highgui/highgui.hpp"
@@ -26,6 +27,8 @@ public:
 	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, int n = 5);
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
+
+	cv::Mat*	getImage( int nLabel );
 
 	bool release();
 
@@ -61,6 +64,8 @@ private:
 	// train
 	vector<cv::Mat>	imageSamples;
 	vector<int>		labelSamples;
+
+	map<int, cv::Mat>	imageShow;
 
 	int db_id ;
 

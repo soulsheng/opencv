@@ -105,7 +105,7 @@ bool SenseTimeSDK::release()
 	if(vinst) mcv_verify_release_instance(vinst);
 
 	imageSamples.clear();
-
+	imageShow.clear();
 	bReleased = true;
 
 	return true;
@@ -181,6 +181,10 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, int 
 		{
 			cout << "invalid id of item " << idItem << endl;
 			continue;
+		}
+		else
+		{
+			cout << "match item " << idItem << endl;
 		}
 		int idLabel = labelSamples[ idItem ];
 		lableTop.push_back( idLabel );
@@ -345,7 +349,10 @@ bool SenseTimeSDK::prepareSamples( std::string filelist )
 		imageSamples.push_back( imgIn );
 		names.push_back( path );
 
-		labelSamples.push_back( atoi( classlabel.c_str() ) );
+		int idLabel = atoi( classlabel.c_str() );
+		labelSamples.push_back( idLabel );
+		cout << "label = " << idLabel << endl;
+		imageShow.insert( std::pair<int, cv::Mat>(idLabel, imgIn) );
 	}
 	file.close();
 
@@ -386,4 +393,12 @@ db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )
 	mcv_facesdk_release_multiview_result(pface, fcount);
 
 	return item;
+}
+
+cv::Mat* SenseTimeSDK::getImage( int nLabel )
+{
+	if (nLabel < 0 || nLabel > imageShow.size() )
+		return NULL;
+
+	return	&imageShow[ nLabel ];
 }
