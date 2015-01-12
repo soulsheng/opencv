@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define IMAGE_FACE_TEST		"f:\\faces\\s1\\15.bmp"
+#define LABLE_COUNT			5
+
 int main(int argc, char const *argv[])
 {
 	SenseTimeSDK	st;
@@ -20,8 +23,15 @@ int main(int argc, char const *argv[])
 	if ( !st.predict() )
 		return false;
 
-	st.predict();
-	st.predict();
+	vector<int>	labelResult;
+	cv::Mat faceTest = cv::imread( IMAGE_FACE_TEST );
+
+	st.predict( faceTest, labelResult, LABLE_COUNT );
+
+	for ( int i = 0; i< labelResult.size(); i++ )
+	{
+		printf( "id = %d, ", labelResult[i] );
+	}
 
 	st.release();
 

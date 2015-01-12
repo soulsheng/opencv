@@ -36,8 +36,8 @@ protected:
 	bool checkDataFile();
 	bool initialize();
 
-	bool save( std::string fileItems, std::string fileNames );
-	bool load( std::string fileItems, std::string fileNames );
+	bool save( std::string fileImageFetures );
+	bool load( std::string fileImageFetures );
 
 	bool prepareSamples( std::string filelist );
 

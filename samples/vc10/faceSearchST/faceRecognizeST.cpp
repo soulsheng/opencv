@@ -206,10 +206,13 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, int 
 	mcv_face_search_result_t results[10];
 	unsigned int result_cnt = 0;
 	/* use a db_item as query */
-	const struct db_item *query = &items[0];
+	const struct db_item *query = &item;
 	mcv_result_t ret = mcv_verify_search_face(vinst, 
 		hIndex, query,
-		results, n, &result_cnt);
+		results, 10, &result_cnt);
+
+	if( result_cnt < n )
+		n = result_cnt;
 
 	for ( int i = 0; i < n; i++ )
 	{
@@ -221,9 +224,9 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, int 
 	return true;
 }
 
-bool SenseTimeSDK::save( std::string fileItems, std::string fileNames )
+bool SenseTimeSDK::save( std::string fileImageFetures )
 {
-	FILE *file = fopen( fileItems.c_str(), "wb" );
+	FILE *file = fopen( fileImageFetures.c_str(), "wb" );
 
 	fprintf(file, "%d \n", items.size() );
 	for ( int i=0; i<items.size(); i++ )
@@ -232,7 +235,7 @@ bool SenseTimeSDK::save( std::string fileItems, std::string fileNames )
 	}
 
 	fclose( file );
-
+#if 0
 	file = fopen( fileNames.c_str(), "wb" );
 
 	fprintf(file, "%d \n", names.size() );
@@ -245,11 +248,11 @@ bool SenseTimeSDK::save( std::string fileItems, std::string fileNames )
 	}
 
 	fclose( file );
-
+#endif
 	return true;
 }
 
-bool SenseTimeSDK::load( std::string fileItems, std::string fileNames )
+bool SenseTimeSDK::load( std::string fileImageFetures )
 {
 
 	if ( false == bInitialized )
@@ -258,7 +261,7 @@ bool SenseTimeSDK::load( std::string fileItems, std::string fileNames )
 	items.clear();
 	names.clear();
 
-	FILE *file = fopen( fileItems.c_str(), "rb" );
+	FILE *file = fopen( fileImageFetures.c_str(), "rb" );
 
 	int nSize = 0;
 
@@ -271,7 +274,7 @@ bool SenseTimeSDK::load( std::string fileItems, std::string fileNames )
 	}
 
 	fclose( file );
-
+#if 0
 	file = fopen( fileNames.c_str(), "rb" );
 
 	fscanf(file, "%d \n", &nSize );
@@ -288,6 +291,9 @@ bool SenseTimeSDK::load( std::string fileItems, std::string fileNames )
 	}
 
 	fclose( file );
+#endif
+
+	prepareSamples( FILE_LIST_NAME );
 
 	mcv_result_t ret = mcv_verify_search_build_index(vinst,
 		&items[0], items.size(), &hIndex);
@@ -308,14 +314,14 @@ bool SenseTimeSDK::checkTrained()
 	if ( file )
 	{
 		fclose( file );
-		return load( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );
+		return load( FILE_DATABASE_ITEMS );
 	}
 	else
 	{
 		if ( !train( FILE_LIST_NAME ) )
 			return false;
 
-		return save( FILE_DATABASE_ITEMS, FILE_DATABASE_NAMES );	
+		return save( FILE_DATABASE_ITEMS );	
 	}
 }
 
@@ -349,6 +355,10 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 
 bool SenseTimeSDK::prepareSamples( std::string filelist )
 {
+	imageSamples.clear();
+	names.clear();
+	labelSamples.clear();
+
 	cv::Mat imgIn;
 	
 	std::ifstream file(filelist.c_str(), ifstream::in);
@@ -372,6 +382,7 @@ bool SenseTimeSDK::prepareSamples( std::string filelist )
 
 		labelSamples.push_back( atoi( classlabel.c_str() ) );
 	}
+	file.close();
 
 
 	return true;
