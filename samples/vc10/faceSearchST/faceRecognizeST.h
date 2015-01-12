@@ -24,11 +24,11 @@ public:
 	bool train( vector<cv::Mat>&	imageSamples );
 
 	bool predict();
-	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, int n = 5);
+	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel = true, int n = 5);
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
-	cv::Mat*	getImage( int nLabel );
+	cv::Mat*	getImage( int nID, bool bLabel = true );
 
 	bool release();
 
@@ -65,7 +65,8 @@ private:
 	vector<cv::Mat>	imageSamples;
 	vector<int>		labelSamples;
 
-	map<int, cv::Mat>	imageShow;
+	map<int, cv::Mat*>	imageShow;
+	map<int, cv::Mat*>	imageItems;
 
 	int db_id ;
 

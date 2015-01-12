@@ -20,21 +20,22 @@ int main(int argc, char const *argv[])
 
 
 	/* query */
-	vector<int>	labelResult;
+	vector<int>	idResult;
 	cv::Mat faceTest = cv::imread( IMAGE_FACE_TEST );
 	cv::imshow( "in", faceTest );
-	cv::waitKey(5);
+	cv::waitKey();
 
-	st.predict( faceTest, labelResult, LABLE_COUNT );
+	bool bLabel = false;
+	st.predict( faceTest, idResult, bLabel, LABLE_COUNT );
 	
 	cout << "predict " << IMAGE_FACE_TEST << endl;
 
-	for ( int i = 0; i< labelResult.size(); i++ )
+	for ( int i = 0; i< idResult.size(); i++ )
 	{
-		printf( "id = %d, ", labelResult[i] );
+		printf( "id = %d, ", idResult[i] );
 	}
 
-	cv::imshow( "out", *st.getImage(labelResult[0]) );
+	cv::imshow( "out", *st.getImage(idResult[0], bLabel) );
 	cv::waitKey();
 
 	st.release();

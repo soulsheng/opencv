@@ -106,6 +106,8 @@ bool SenseTimeSDK::release()
 
 	imageSamples.clear();
 	imageShow.clear();
+	imageItems.clear();
+
 	bReleased = true;
 
 	return true;
@@ -131,7 +133,11 @@ bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 		db_item item = getFeature( imageSamples[i] );
 
 		if( item.idx != -1 )
+		{
 			items.push_back(item);
+
+			imageItems.insert( std::pair<int, cv::Mat*>( item.idx, &imageSamples[i]) );
+		}
 
 	}
 
@@ -149,7 +155,7 @@ bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 	return true;
 }
 
-bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, int n )
+bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel, int n )
 {
 
 	if ( false == bInitialized )
@@ -184,10 +190,10 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, int 
 		}
 		else
 		{
-			cout << "match item " << idItem << endl;
+			;//cout << "match item " << idItem << endl;
 		}
 		int idLabel = labelSamples[ idItem ];
-		lableTop.push_back( idLabel );
+		lableTop.push_back( idItem );
 	}
 
 	return true;
@@ -263,6 +269,11 @@ bool SenseTimeSDK::load( std::string fileImageFetures )
 #endif
 
 	prepareSamples( FILE_LIST_NAME );
+
+	for ( int i=0; i<nSize; i++ )
+	{
+		imageItems.insert( std::pair<int, cv::Mat*>( items[i].idx, &imageSamples[i]) );
+	}
 
 	mcv_result_t ret = mcv_verify_search_build_index(vinst,
 		&items[0], items.size(), &hIndex);
@@ -351,8 +362,8 @@ bool SenseTimeSDK::prepareSamples( std::string filelist )
 
 		int idLabel = atoi( classlabel.c_str() );
 		labelSamples.push_back( idLabel );
-		cout << "label = " << idLabel << endl;
-		imageShow.insert( std::pair<int, cv::Mat>(idLabel, imgIn) );
+		//cout << "label = " << idLabel << endl;
+		imageShow.insert( std::pair<int, cv::Mat*>(idLabel, &imgIn) );
 	}
 	file.close();
 
@@ -395,10 +406,28 @@ db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )
 	return item;
 }
 
-cv::Mat* SenseTimeSDK::getImage( int nLabel )
+cv::Mat* SenseTimeSDK::getImage( int nID, bool bLabel )
 {
-	if (nLabel < 0 || nLabel > imageShow.size() )
-		return NULL;
+	cv::Mat* pImg = NULL;
 
-	return	&imageShow[ nLabel ];
+	if( bLabel )
+	{
+		if ( nID < 0 || nID > imageShow.size() )
+		{
+			cout << "nID " << nID << " not in (0, " << imageShow.size()-1 << endl;
+			return NULL;
+		}
+		pImg = imageShow[ nID ];
+	}
+	else
+	{
+		if ( nID < 0 || nID > imageItems.size() )
+		{
+			cout << "nID " << nID << " not in (0, " << imageItems.size()-1 << endl;
+			return NULL;
+		}
+		pImg = imageItems[ nID ];
+	}
+	cout << "getImage " << nID << " of " << imageItems.size() << endl;
+	return	pImg;
 }
