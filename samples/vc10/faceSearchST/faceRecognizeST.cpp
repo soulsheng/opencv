@@ -406,7 +406,7 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 
 				labelSamples.push_back( i+1 );
 				//cout << "label = " << idLabel << endl;
-				imageShow.insert( std::pair<int, cv::Mat*>(i, &imageSamples[id]) );
+				imageShow.insert( std::pair<int, cv::Mat*>(i+1, &imageSamples[id]) );
 			}
 		}
 	}
