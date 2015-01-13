@@ -5,9 +5,9 @@
 #include <stdlib.h>
 
 //#define IMAGE_FACE_TEST		"f:\\faces\\s1\\01.bmp"
-//#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s1-gray\\23.bmp"
+#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s1\\03.bmp"
 //#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s2-gray\\0020.bmp"
-#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s3-gray\\07.bmp"
+//#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s3\\07.bmp"
 
 //#define IMAGE_FACE_TEST		"f:\\faces\\s2\\0018.jpg"
 #define LABLE_COUNT			5
@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
 	cv::waitKey();
 
 	bool bLabel = true;
-	st.predict( faceTest, idResult, bLabel, LABLE_COUNT );
+	st.predict( faceTest, idResult, bLabel, true, LABLE_COUNT );
 	
 	cout << "predict " << IMAGE_FACE_TEST << endl;
 

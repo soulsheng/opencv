@@ -24,7 +24,7 @@ public:
 	bool train( vector<cv::Mat>&	imageSamples );
 
 	bool predict();
-	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel = true, int n = 5);
+	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel = true, bool bForceGray = false, int n = 5);
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
@@ -69,4 +69,5 @@ private:
 
 	int db_id ;
 
+	bool bForceGray;
 };

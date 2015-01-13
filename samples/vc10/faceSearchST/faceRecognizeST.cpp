@@ -32,6 +32,7 @@ SenseTimeSDK::SenseTimeSDK()
 	countFace=0;
 
 	db_id = 0;
+	bForceGray = false;
 
 	initialize();
 }
@@ -156,7 +157,7 @@ bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 	return true;
 }
 
-bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel, int n )
+bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel, bool bForceGray, int n )
 {
 
 	if ( false == bInitialized )
@@ -164,6 +165,8 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 
 	if ( false == bTrain )
 		train( FILE_LIST_NAME );
+
+	this->bForceGray = bForceGray;
 
 	db_item item = getFeature( imageFace );
 
@@ -422,7 +425,14 @@ db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )
 	cv::Mat gray, imgInBGRA;
 
 	cvtColor( imageIn, gray, CV_BGR2GRAY );
-	cvtColor( imageIn, imgInBGRA, CV_BGR2BGRA );
+	if ( bForceGray )
+	{
+		cvtColor( gray, imgInBGRA, CV_GRAY2BGRA );
+	} 
+	else
+	{
+		cvtColor( imageIn, imgInBGRA, CV_BGR2BGRA );
+	}
 
 	PMCV_FACERECT pface=NULL;
 	unsigned int fcount = 0;
