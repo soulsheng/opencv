@@ -11,13 +11,6 @@
 int main(int argc, char const *argv[])
 {
 	SenseTimeSDK	st;
-	if( !st.checkTrained() )
-	{
-		printf( "failed to train \n" );
-		return false;
-	}
-	else
-		printf( "success to train \n" );
 
 
 	/* query */

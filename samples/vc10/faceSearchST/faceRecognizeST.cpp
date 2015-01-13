@@ -86,6 +86,15 @@ bool SenseTimeSDK::initialize()
 	}
 
 	bInitialized = true;
+
+	if( !checkTrained() )
+	{
+		printf( "failed to train \n" );
+		return false;
+	}
+	else
+		printf( "success to train \n" );
+
 	return true;
 }
 
