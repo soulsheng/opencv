@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
 	cout << "samples.size() = " << samples.size() << endl;
 	cout << "labels.size() = " << labels.size() << endl;
 
-	st.train( samples, labels, true );
+	st.train( samples, labels, true ); // cost 1.4s for each face image(144*144) to get feature(training)
 
 	/* query */
 	vector<int>	idResult;
