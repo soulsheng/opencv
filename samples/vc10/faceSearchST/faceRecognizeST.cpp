@@ -82,6 +82,7 @@ bool SenseTimeSDK::initialize()
 
 	bInitialized = true;
 
+
 	if( !checkTrained() )
 	{
 		printf( "failed to train \n" );
@@ -187,9 +188,9 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 	for ( int i = 0; i < result_cnt; i++ )
 	{
 		int idItem = results[i].item->idx;
-		if( idItem < 0 || idItem >= items.size() )
+		if( idItem < 0 || idItem >= items.size() || results[i].score<-25 )
 		{
-			cout << "invalid id of item " << idItem << endl;
+			cout << "invalid id of item " << idItem << ", score = " << results[i].score << endl;
 			continue;
 		}
 		else
@@ -403,7 +404,7 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 				imageSamples[id] = imgIn.clone();
 				names.push_back( pathEach.str() );
 
-				labelSamples.push_back( i );
+				labelSamples.push_back( i+1 );
 				//cout << "label = " << idLabel << endl;
 				imageShow.insert( std::pair<int, cv::Mat*>(i, &imageSamples[id]) );
 			}
