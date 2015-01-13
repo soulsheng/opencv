@@ -194,7 +194,10 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 			cout << "match item " << idItem << ", score = " << results[i].score << endl;
 		}
 		int idLabel = labelSamples[ idItem ];
-		lableTop.push_back( idItem );
+		if( bLabel )
+			lableTop.push_back( idLabel );
+		else
+			lableTop.push_back( idItem );
 	}
 
 	return true;
@@ -380,6 +383,7 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 
 		int nCountEach = 30;
 		int nCountMember = 11;
+		imageSamples.assign( nCountEach * nCountMember, cv::Mat() );
 		for ( int i = 0; i < nCountMember; i++ )
 		{
 			for ( int j = 0; j < nCountEach; j++ )
@@ -393,12 +397,12 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 
 				imgIn = cv::imread( pathEach.str() );
 
-				imageSamples.push_back( imgIn );
+				imageSamples[id] = imgIn.clone();
 				names.push_back( pathEach.str() );
 
 				labelSamples.push_back( i );
 				//cout << "label = " << idLabel << endl;
-				imageShow.insert( std::pair<int, cv::Mat*>(i, &imgIn) );
+				imageShow.insert( std::pair<int, cv::Mat*>(i, &imageSamples[id]) );
 			}
 		}
 	}
@@ -445,6 +449,8 @@ cv::Mat* SenseTimeSDK::getImage( int nID, bool bLabel )
 {
 	cv::Mat* pImg = NULL;
 
+	cout << "calling getImage " << nID << endl;
+
 	if( bLabel )
 	{
 		if ( nID < 0 || nID > imageShow.size() )
@@ -453,6 +459,7 @@ cv::Mat* SenseTimeSDK::getImage( int nID, bool bLabel )
 			return NULL;
 		}
 		pImg = imageShow[ nID ];
+		cout << "getImage " << nID << " of " << imageShow.size() << endl;
 	}
 	else
 	{
@@ -462,7 +469,7 @@ cv::Mat* SenseTimeSDK::getImage( int nID, bool bLabel )
 			return NULL;
 		}
 		pImg = imageItems[ nID ];
+		cout << "getImage " << nID << " of " << imageItems.size() << endl;
 	}
-	cout << "getImage " << nID << " of " << imageItems.size() << endl;
 	return	pImg;
 }

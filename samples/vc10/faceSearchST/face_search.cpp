@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
 	cv::imshow( "in", faceTest );
 	cv::waitKey();
 
-	bool bLabel = false;
+	bool bLabel = true;
 	st.predict( faceTest, idResult, bLabel, LABLE_COUNT );
 	
 	cout << "predict " << IMAGE_FACE_TEST << endl;
@@ -33,8 +33,12 @@ int main(int argc, char const *argv[])
 		printf( "id = %d, ", idResult[i] );
 	}
 
-	cv::imshow( "out", *st.getImage(idResult[0], bLabel) );
-	cv::waitKey();
+	cv::Mat*pImg  = st.getImage(idResult[0], bLabel);
+	if( pImg )
+	{
+		cv::imshow( "out", *pImg );
+		cv::waitKey();
+	}
 
 	st.release();
 
