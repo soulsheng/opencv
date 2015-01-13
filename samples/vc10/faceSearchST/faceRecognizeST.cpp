@@ -434,11 +434,11 @@ bool SenseTimeSDK::train( std::string filelist )
 	return train( imageSamples );
 }
 
-bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels )
+bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bForce )
 {
 	cout << "bTrain = " << bTrain << endl;
 
-	if (bTrain)
+	if (bTrain && !bForce)
 		return true;
 
 	imageSamples.clear();

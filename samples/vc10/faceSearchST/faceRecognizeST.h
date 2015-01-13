@@ -25,7 +25,7 @@ public:
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
-	bool train( vector<cv::Mat>& samples, vector<int>& labels );
+	bool train( vector<cv::Mat>& samples, vector<int>& labels, bool bForce = false );
 
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );

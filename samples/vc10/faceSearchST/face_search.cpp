@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
 	cout << "samples.size() = " << samples.size() << endl;
 	cout << "labels.size() = " << labels.size() << endl;
 
-	st.train( samples, labels );
+	st.train( samples, labels, true );
 
 	/* query */
 	vector<int>	idResult;
