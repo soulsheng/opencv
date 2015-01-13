@@ -5,7 +5,9 @@
 
 
 
-#define FILE_LIST_NAME	"at.txt"
+//#define FILE_LIST_NAME	"at.txt"
+#define FILE_LIST_NAME	"D:\\file\\data\\face\\11faces\\"
+
 #define FILE_RESULT_NAME	"out.txt"
 #define FILE_DATABASE_ITEMS	"st_items.bin"
 #define FILE_DATABASE_NAMES	"st_names.bin"
@@ -77,14 +79,6 @@ bool SenseTimeSDK::initialize()
 		return false;
 	}
 
-
-	flist = fopen(FILE_LIST_NAME, "r");
-	if ( NULL == flist )
-	{
-		printf( "failed to open file %s \n", FILE_LIST_NAME );
-		return false;
-	}
-
 	bInitialized = true;
 
 	if( !checkTrained() )
@@ -104,8 +98,6 @@ bool SenseTimeSDK::release()
 		return true;
 
 	fflush(stdout);
-
-	if(flist) fclose(flist);
 
 	if(countFace) mcv_facesdk_release_multiview_result(pface,countFace);
 
@@ -199,7 +191,7 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 		}
 		else
 		{
-			;//cout << "match item " << idItem << endl;
+			cout << "match item " << idItem << ", score = " << results[i].score << endl;
 		}
 		int idLabel = labelSamples[ idItem ];
 		lableTop.push_back( idItem );
@@ -277,7 +269,7 @@ bool SenseTimeSDK::load( std::string fileImageFetures )
 	fclose( file );
 #endif
 
-	prepareSamples( FILE_LIST_NAME );
+	prepareSamples( FILE_LIST_NAME, true );
 
 	for ( int i=0; i<nSize; i++ )
 	{
@@ -342,14 +334,19 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	return true;
 }
 
-bool SenseTimeSDK::prepareSamples( std::string filelist )
+bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 {
+	cout << "prepareSamples" << endl;
+
 	imageSamples.clear();
 	names.clear();
 	labelSamples.clear();
 
 	cv::Mat imgIn;
-	
+
+	if( bPath == false )
+	{
+
 	std::ifstream file(filelist.c_str(), ifstream::in);
 	if (!file) {
 		printf( "cannot to open %s \n", filelist.c_str() );
@@ -376,13 +373,42 @@ bool SenseTimeSDK::prepareSamples( std::string filelist )
 	}
 	file.close();
 
+	}
+	else	// bPath = true
+	{
+		stringstream pathEach;
+
+		int nCountEach = 30;
+		int nCountMember = 11;
+		for ( int i = 0; i < nCountMember; i++ )
+		{
+			for ( int j = 0; j < nCountEach; j++ )
+			{
+				int id = i * nCountEach + j;
+
+				pathEach.str("");
+				pathEach << filelist << id << ".bmp";
+
+				//cout << pathEach.str() << endl;
+
+				imgIn = cv::imread( pathEach.str() );
+
+				imageSamples.push_back( imgIn );
+				names.push_back( pathEach.str() );
+
+				labelSamples.push_back( i );
+				//cout << "label = " << idLabel << endl;
+				imageShow.insert( std::pair<int, cv::Mat*>(i, &imgIn) );
+			}
+		}
+	}
 
 	return true;
 }
 
 bool SenseTimeSDK::train( std::string filelist )
 {
-	prepareSamples( filelist );
+	prepareSamples( filelist, true );
 
 	return train( imageSamples );
 }

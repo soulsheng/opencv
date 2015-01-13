@@ -42,13 +42,12 @@ protected:
 	bool save( std::string fileImageFetures );
 	bool load( std::string fileImageFetures );
 
-	bool prepareSamples( std::string filelist );
+	bool prepareSamples( std::string filelist, bool bPath = false );
 
 	db_item	getFeature( cv::Mat& imageIn );
 
 private:
 
-	FILE *flist;
 	mcv_handle_t hDetect;
 	mcv_handle_t vinst;
 	vector<db_item> items;

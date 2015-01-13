@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define IMAGE_FACE_TEST		"f:\\faces\\s1\\18.bmp"
+//#define IMAGE_FACE_TEST		"f:\\faces\\s1\\01.bmp"
+//#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s1-gray\\23.bmp"
+//#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s2-gray\\0020.bmp"
+#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s3-gray\\07.bmp"
+
 //#define IMAGE_FACE_TEST		"f:\\faces\\s2\\0018.jpg"
 #define LABLE_COUNT			5
 
