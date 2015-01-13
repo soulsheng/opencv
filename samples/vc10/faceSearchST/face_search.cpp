@@ -32,12 +32,15 @@ int main(int argc, char const *argv[])
 	{
 		printf( "id = %d, ", idResult[i] );
 	}
-
-	cv::Mat*pImg  = st.getImage(idResult[0], bLabel);
-	if( pImg )
+	cv::Mat*pImg = NULL;
+	if( idResult.size() )
 	{
-		cv::imshow( "out", *pImg );
-		cv::waitKey();
+		pImg  = st.getImage(idResult[0], bLabel);
+		if( pImg )
+		{
+			cv::imshow( "out", *pImg );
+			cv::waitKey();
+		}
 	}
 
 	system( "pause" );

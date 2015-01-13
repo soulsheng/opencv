@@ -3,6 +3,7 @@
 
 #include <fstream>
 
+#define	AUTO_TRAIN		0
 
 
 //#define FILE_LIST_NAME	"at.txt"
@@ -165,7 +166,14 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 		initialize();
 
 	if ( false == bTrain )
+#if AUTO_TRAIN
 		train( FILE_LIST_NAME );
+#else
+	{
+		cout << "not yet trained, please train face samples first!" << endl;
+		return false;
+	}
+#endif
 
 	this->bForceGray = bForceGray;
 
@@ -306,10 +314,14 @@ bool SenseTimeSDK::checkTrained()
 	}
 	else
 	{
+#if AUTO_TRAIN
 		if ( !train( FILE_LIST_NAME ) )
 			return false;
 
 		return save( FILE_DATABASE_ITEMS );	
+#else
+		return false;
+#endif
 	}
 }
 
