@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
 	cv::waitKey();
 
 	bool bLabel = true;
-	st.predict( faceTest, idResult, bLabel, true, LABLE_COUNT );
+	st.predict( faceTest, idResult, bLabel );
 	
 	cout << "predict " << IMAGE_FACE_TEST << endl;
 

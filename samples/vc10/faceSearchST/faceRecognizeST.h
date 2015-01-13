@@ -21,7 +21,7 @@ class SenseTimeSDK
 public:
 
 	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop
-		, bool bLabel = true, bool bForceGray = false, int n = 5);
+		, bool bLabel = true, bool bForceGray = true, int n = 5);
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
