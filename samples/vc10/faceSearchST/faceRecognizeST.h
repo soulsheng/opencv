@@ -18,16 +18,13 @@ using namespace std;
 class SenseTimeSDK
 {
 public:
-	bool checkTrained();
 
-	bool train( std::string filelist );
-	bool train( vector<cv::Mat>&	imageSamples );
-
-	//bool predict();
-	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel = true, bool bForceGray = false, int n = 5);
+	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop
+		, bool bLabel = true, bool bForceGray = false, int n = 5);
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
+public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
 
 	SenseTimeSDK();
@@ -36,6 +33,10 @@ public:
 protected:
 	bool checkDataFile();
 	bool initialize();
+	bool checkTrained();
+
+	bool train( std::string filelist );
+	bool train( vector<cv::Mat>&	imageSamples );
 
 	bool release();
 
