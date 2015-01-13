@@ -38,8 +38,6 @@ int main(int argc, char *argv[])
 		cv::imwrite( title, faces[i] );
 	}
 
-	st.release();
-
 	return 0;
 }
 

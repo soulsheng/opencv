@@ -40,8 +40,6 @@ int main(int argc, char const *argv[])
 		cv::waitKey();
 	}
 
-	st.release();
-
 	system( "pause" );
 	return 0;
 }

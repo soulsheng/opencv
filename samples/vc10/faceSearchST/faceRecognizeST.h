@@ -23,14 +23,12 @@ public:
 	bool train( std::string filelist );
 	bool train( vector<cv::Mat>&	imageSamples );
 
-	bool predict();
+	//bool predict();
 	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel = true, bool bForceGray = false, int n = 5);
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
 	cv::Mat*	getImage( int nID, bool bLabel = true );
-
-	bool release();
 
 	SenseTimeSDK();
 	~SenseTimeSDK();
@@ -38,6 +36,8 @@ public:
 protected:
 	bool checkDataFile();
 	bool initialize();
+
+	bool release();
 
 	bool save( std::string fileImageFetures );
 	bool load( std::string fileImageFetures );
