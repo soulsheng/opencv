@@ -7,7 +7,6 @@
 
 
 //#define FILE_LIST_NAME	"at.txt"
-#define FILE_LIST_NAME	"D:\\file\\data\\face\\11faces\\"
 
 #define FILE_RESULT_NAME	"out.txt"
 #define FILE_DATABASE_ITEMS	"st_items.bin"
@@ -310,6 +309,7 @@ bool SenseTimeSDK::checkTrained()
 	if ( file )
 	{
 		fclose( file );
+		cout << "opening " << FILE_DATABASE_ITEMS << endl;
 		return load( FILE_DATABASE_ITEMS );
 	}
 	else
@@ -320,6 +320,7 @@ bool SenseTimeSDK::checkTrained()
 
 		return save( FILE_DATABASE_ITEMS );	
 #else
+		cout << "cannot open " << FILE_DATABASE_ITEMS << endl;
 		return false;
 #endif
 	}
@@ -431,6 +432,59 @@ bool SenseTimeSDK::train( std::string filelist )
 	prepareSamples( filelist, true );
 
 	return train( imageSamples );
+}
+
+bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels )
+{
+	cout << "bTrain = " << bTrain << endl;
+
+	if (bTrain)
+		return true;
+
+	imageSamples.clear();
+	labelSamples.clear();
+	imageShow.clear();
+
+	imageSamples.assign( samples.size(), cv::Mat() );
+	labelSamples.assign( labels.size(), 0 );
+
+	for ( int i = 0; i < samples.size(); i++ )
+	{
+		imageSamples[i] = samples[i].clone();
+
+		labelSamples[i] = labels[i];
+
+		imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], &imageSamples[i]) );
+	}
+
+	for ( int i = 0; i < samples.size(); i++ )
+	{
+		fprintf(stderr, "Training %s\n", names[i]);
+
+		db_item item = getFeature( imageSamples[i] );
+
+		if( item.idx != -1 )
+		{
+			items.push_back(item);
+
+			imageItems.insert( std::pair<int, cv::Mat*>( item.idx, &imageSamples[i]) );
+		}
+	}
+
+	if(items.size() == 0){
+		fprintf(stderr, "No faces\n");
+	}
+
+	mcv_result_t ret = mcv_verify_search_build_index(vinst,
+		&items[0], items.size(), &hIndex);
+
+	assert(hIndex != 0 && ret == MCV_OK);
+
+	bTrain = true;
+
+	save( FILE_DATABASE_ITEMS );
+
+	return true;
 }
 
 db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )

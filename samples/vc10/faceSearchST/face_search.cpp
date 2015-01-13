@@ -16,6 +16,13 @@ int main(int argc, char const *argv[])
 {
 	SenseTimeSDK	st;
 
+	st.prepareSamples( FILE_LIST_NAME, true );
+	vector<cv::Mat> samples = st.getSamples();
+	vector<int> labels = st.getLabels();
+	cout << "samples.size() = " << samples.size() << endl;
+	cout << "labels.size() = " << labels.size() << endl;
+
+	st.train( samples, labels );
 
 	/* query */
 	vector<int>	idResult;

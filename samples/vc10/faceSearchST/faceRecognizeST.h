@@ -14,6 +14,7 @@ using namespace std;
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
+#define FILE_LIST_NAME	"D:\\file\\data\\face\\11faces\\"
 
 class SenseTimeSDK
 {
@@ -24,8 +25,14 @@ public:
 
 	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
 
+	bool train( vector<cv::Mat>& samples, vector<int>& labels );
+
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
+	bool prepareSamples( std::string filelist, bool bPath = false );
+
+	vector<cv::Mat>& getSamples() { return imageSamples;	}
+	vector<int>& getLabels() { return labelSamples;	}
 
 	SenseTimeSDK();
 	~SenseTimeSDK();
@@ -43,7 +50,6 @@ protected:
 	bool save( std::string fileImageFetures );
 	bool load( std::string fileImageFetures );
 
-	bool prepareSamples( std::string filelist, bool bPath = false );
 
 	db_item	getFeature( cv::Mat& imageIn );
 
