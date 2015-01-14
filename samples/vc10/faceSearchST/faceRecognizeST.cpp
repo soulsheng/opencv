@@ -444,6 +444,8 @@ bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bF
 	imageSamples.clear();
 	labelSamples.clear();
 	imageShow.clear();
+	items.clear();
+	imageItems.clear();
 
 	imageSamples.assign( samples.size(), cv::Mat() );
 	labelSamples.assign( labels.size(), 0 );
@@ -454,6 +456,8 @@ bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bF
 
 		labelSamples[i] = labels[i];
 
+		cout << "labelSamples[" << i << "] = " << labelSamples[i] << endl;
+ 
 		imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], &imageSamples[i]) );
 	}
 
@@ -474,6 +478,8 @@ bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bF
 	if(items.size() == 0){
 		fprintf(stderr, "No faces\n");
 	}
+	else
+		cout << "items.size = " << items.size() << endl;
 
 	mcv_result_t ret = mcv_verify_search_build_index(vinst,
 		&items[0], items.size(), &hIndex);
