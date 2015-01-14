@@ -27,6 +27,8 @@ public:
 
 	bool train( vector<cv::Mat>& samples, vector<int>& labels, bool bForce = false );
 
+	bool trainAdd( vector<cv::Mat>& samples, vector<int>& labels );
+
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
 	bool prepareSamples( std::string filelist, bool bPath = false );

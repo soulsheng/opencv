@@ -572,3 +572,53 @@ cv::Mat* SenseTimeSDK::getImage( int nID, bool bLabel )
 	}
 	return	pImg;
 }
+
+bool SenseTimeSDK::trainAdd( vector<cv::Mat>& samples, vector<int>& labels )
+{
+	
+	cv::Mat* pImgIn;
+
+	for ( int i = 0; i < samples.size(); i++ )
+	{
+		pImgIn = new cv::Mat;
+		*pImgIn = samples[i].clone();
+		imageSamples.push_back( pImgIn );
+
+		labelSamples[i] = labels[i];
+
+		cout << "labelSamples[" << i << "] = " << labelSamples[i] << endl;
+
+		imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], pImgIn ) );
+	}
+
+	for ( int i = 0; i < samples.size(); i++ )
+	{
+		fprintf(stderr, "Training %s\n", names[i]);
+
+		db_item item = getFeature( *(imageSamples[i]) );
+
+		if( item.idx != -1 )
+		{
+			items.push_back(item);
+
+			imageItems.insert( std::pair<int, cv::Mat*>( item.idx, imageSamples[i]) );
+		}
+	}
+
+	if(items.size() == 0){
+		fprintf(stderr, "No faces\n");
+	}
+	else
+		cout << "items.size = " << items.size() << endl;
+
+	mcv_result_t ret = mcv_verify_search_build_index(vinst,
+		&items[0], items.size(), &hIndex);
+
+	assert(hIndex != 0 && ret == MCV_OK);
+
+	bTrain = true;
+
+	save( FILE_DATABASE_ITEMS );
+
+	return true;
+}

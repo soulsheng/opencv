@@ -15,7 +15,7 @@
 int main(int argc, char const *argv[])
 {
 	SenseTimeSDK	st;
-#if 1
+#if 0
 	st.prepareSamples( FILE_LIST_NAME, true );
 	vector<cv::Mat*> pSamples = st.getSamples();
 	vector<cv::Mat> samples;
@@ -27,6 +27,16 @@ int main(int argc, char const *argv[])
 	cout << "labels.size() = " << labels.size() << endl;
 
 	st.train( samples, labels, true ); // cost 1.4s for each face image(144*144) to get feature(training)
+#elif 1
+	cv::Mat faceTrain = cv::imread( IMAGE_FACE_TEST );
+	vector<cv::Mat> samples;
+	samples.push_back( faceTrain );
+	vector<int> labels;
+	labels.push_back( 12 );
+
+	st.trainAdd( samples, labels );
+#else
+	;
 #endif
 	/* query */
 	vector<int>	idResult;
