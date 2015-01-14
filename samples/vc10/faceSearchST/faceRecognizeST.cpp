@@ -107,6 +107,8 @@ bool SenseTimeSDK::release()
 	if(hDetect) mcv_facesdk_destroy_multiview_instance(hDetect);
 	if(vinst) mcv_verify_release_instance(vinst);
 
+	for (int i=0;i<imageSamples.size();i++)
+		delete imageSamples[i];
 	imageSamples.clear();
 	imageShow.clear();
 	imageItems.clear();
@@ -115,7 +117,7 @@ bool SenseTimeSDK::release()
 
 	return true;
 }
-
+#if 0
 bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 {
 
@@ -157,7 +159,7 @@ bool SenseTimeSDK::train( vector<cv::Mat>&	imageSamples )
 
 	return true;
 }
-
+#endif
 bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel, bool bForceGray, int n )
 {
 
@@ -287,7 +289,7 @@ bool SenseTimeSDK::load( std::string fileImageFetures )
 
 	for ( int i=0; i<nSize; i++ )
 	{
-		imageItems.insert( std::pair<int, cv::Mat*>( items[i].idx, &imageSamples[i]) );
+		imageItems.insert( std::pair<int, cv::Mat*>( items[i].idx, imageSamples[i]) );
 	}
 
 	mcv_result_t ret = mcv_verify_search_build_index(vinst,
@@ -358,10 +360,13 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 {
 	cout << "prepareSamples" << endl;
 
+	for (int i=0;i<imageSamples.size();i++)
+		delete imageSamples[i];
 	imageSamples.clear();
 	names.clear();
 	labelSamples.clear();
 
+	cv::Mat* pImgIn;
 	cv::Mat imgIn;
 
 	if( bPath == false )
@@ -383,13 +388,15 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 
 		imgIn = cv::imread( path );
 
-		imageSamples.push_back( imgIn );
+		pImgIn = new cv::Mat;
+		*pImgIn = imgIn.clone();
+		imageSamples.push_back( pImgIn );
 		names.push_back( path );
 
 		int idLabel = atoi( classlabel.c_str() );
 		labelSamples.push_back( idLabel );
 		//cout << "label = " << idLabel << endl;
-		imageShow.insert( std::pair<int, cv::Mat*>(idLabel, &imgIn) );
+		imageShow.insert( std::pair<int, cv::Mat*>(idLabel, pImgIn) );
 	}
 	file.close();
 
@@ -400,7 +407,7 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 
 		int nCountEach = 30;
 		int nCountMember = 11;
-		imageSamples.assign( nCountEach * nCountMember, cv::Mat() );
+		//imageSamples.assign( nCountEach * nCountMember, cv::Mat() );
 		for ( int i = 0; i < nCountMember; i++ )
 		{
 			for ( int j = 0; j < nCountEach; j++ )
@@ -414,26 +421,29 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, bool bPath )
 
 				imgIn = cv::imread( pathEach.str() );
 
-				imageSamples[id] = imgIn.clone();
+				pImgIn = new cv::Mat;
+				*pImgIn = imgIn.clone();
+				imageSamples.push_back( pImgIn );
+
 				names.push_back( pathEach.str() );
 
 				labelSamples.push_back( i+1 );
 				//cout << "label = " << idLabel << endl;
-				imageShow.insert( std::pair<int, cv::Mat*>(i+1, &imageSamples[id]) );
+				imageShow.insert( std::pair<int, cv::Mat*>(i+1, pImgIn) );
 			}
 		}
 	}
 
 	return true;
 }
-
+#if 0
 bool SenseTimeSDK::train( std::string filelist )
 {
 	prepareSamples( filelist, true );
 
 	return train( imageSamples );
 }
-
+#endif
 bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bForce )
 {
 	cout << "bTrain = " << bTrain << endl;
@@ -441,37 +451,43 @@ bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bF
 	if (bTrain && !bForce)
 		return true;
 
+	for (int i=0;i<imageSamples.size();i++)
+		delete imageSamples[i];
 	imageSamples.clear();
 	labelSamples.clear();
 	imageShow.clear();
 	items.clear();
 	imageItems.clear();
 
-	imageSamples.assign( samples.size(), cv::Mat() );
+	imageSamples.assign( samples.size(), NULL );
 	labelSamples.assign( labels.size(), 0 );
+
+	cv::Mat* pImgIn;
 
 	for ( int i = 0; i < samples.size(); i++ )
 	{
-		imageSamples[i] = samples[i].clone();
+		pImgIn = new cv::Mat;
+		*pImgIn = samples[i].clone();
+		imageSamples[i] = pImgIn;
 
 		labelSamples[i] = labels[i];
 
 		cout << "labelSamples[" << i << "] = " << labelSamples[i] << endl;
  
-		imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], &imageSamples[i]) );
+		imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], pImgIn ) );
 	}
 
 	for ( int i = 0; i < samples.size(); i++ )
 	{
 		fprintf(stderr, "Training %s\n", names[i]);
 
-		db_item item = getFeature( imageSamples[i] );
+		db_item item = getFeature( *(imageSamples[i]) );
 
 		if( item.idx != -1 )
 		{
 			items.push_back(item);
 
-			imageItems.insert( std::pair<int, cv::Mat*>( item.idx, &imageSamples[i]) );
+			imageItems.insert( std::pair<int, cv::Mat*>( item.idx, imageSamples[i]) );
 		}
 	}
 

@@ -31,7 +31,7 @@ public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
 	bool prepareSamples( std::string filelist, bool bPath = false );
 
-	vector<cv::Mat>& getSamples() { return imageSamples;	}
+	vector<cv::Mat*>& getSamples() { return imageSamples;	}
 	vector<int>& getLabels() { return labelSamples;	}
 
 	SenseTimeSDK();
@@ -41,10 +41,10 @@ protected:
 	bool checkDataFile();
 	bool initialize();
 	bool checkTrained();
-
+#if 0
 	bool train( std::string filelist );
 	bool train( vector<cv::Mat>&	imageSamples );
-
+#endif
 	bool release();
 
 	bool save( std::string fileImageFetures );
@@ -68,7 +68,7 @@ private:
 	unsigned int countFace ;
 
 	// train
-	vector<cv::Mat>	imageSamples;
+	vector<cv::Mat*>	imageSamples;
 	vector<int>		labelSamples;
 
 	map<int, cv::Mat*>	imageShow;
