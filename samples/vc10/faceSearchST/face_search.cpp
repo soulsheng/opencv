@@ -9,7 +9,7 @@
 //#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s2-gray\\0020.bmp"
 //#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\5person\\s3\\07.bmp"
 
-#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\11faces\\158.bmp"
+#define IMAGE_FACE_TEST		"D:\\file\\data\\face\\11faces\\18.bmp"
 //#define IMAGE_FACE_TEST		"f:\\faces\\s2\\0018.jpg"
 #define LABLE_COUNT			5
 
@@ -29,14 +29,14 @@ int main(int argc, char const *argv[])
 	vector<cv::Mat> samples;
 	vector<int> labels;
 
-	st.prepareSamples( FILE_LIST_NAME, samples, labels, 1, 20 );
+	st->prepareSamples( FILE_LIST_NAME, samples, labels, 1, 30 );
 
 	cout << "samples.size() = " << samples.size() << endl;
 	cout << "labels.size() = " << labels.size() << endl;
 
 	cv::waitKey();
 
-	st.train( samples, labels, true ); // cost 1.4s for each face image(144*144) to get feature(training)
+	st->train( samples, labels, true ); // cost 1.4s for each face image(144*144) to get feature(training)
 #elif 1
 
 	for (int i=1;i<=11;i++)
@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
 	vector<cv::Mat> samples;
 	vector<int> labels;
 
-	st->prepareSamples( FILE_LIST_NAME, samples, labels, i, 10 );
+	st->prepareSamples( FILE_LIST_NAME, samples, labels, i, 30 );
 
 	cout << "samples.size() = " << samples.size() << endl;
 	cout << "labels.size() = " << labels.size() << endl;
