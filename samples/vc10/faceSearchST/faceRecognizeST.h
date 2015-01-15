@@ -14,11 +14,15 @@ using namespace std;
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
+#include "singleton.h"
+
 #define FILE_LIST_NAME	"D:\\file\\data\\face\\11faces\\"
 
-class SenseTimeSDK
+class SenseTimeSDK : public Singleton<SenseTimeSDK>
 {
 public:
+	static SenseTimeSDK& getSingleton(void);
+	static SenseTimeSDK* getSingletonPtr(void);
 
 	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop
 		, bool bLabel = true, bool bForceGray = true, int n = 5);

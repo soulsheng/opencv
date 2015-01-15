@@ -13,9 +13,11 @@
   <ItemGroup>
     <ClCompile Include="faceRecognizeST.cpp" />
     <ClCompile Include="face_search.cpp" />
+    <ClCompile Include="singleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="faceRecognizeST.h" />
+    <ClInclude Include="singleton.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B8092A3A-6E34-451E-A2FB-951B24526992}</ProjectGuid>

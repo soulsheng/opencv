@@ -15,7 +15,16 @@
 
 int main(int argc, char const *argv[])
 {
-	SenseTimeSDK	st;
+	SenseTimeSDK*	st = NULL;
+	if( SenseTimeSDK::getSingletonPtr() == 0 )
+	{
+		st = new SenseTimeSDK();
+	}
+	else 
+	{
+		assert( 0 && "SenseTimeSDK已被创建! " );
+	}
+
 #if 0
 	vector<cv::Mat> samples;
 	vector<int> labels;
@@ -35,14 +44,14 @@ int main(int argc, char const *argv[])
 	vector<cv::Mat> samples;
 	vector<int> labels;
 
-	st.prepareSamples( FILE_LIST_NAME, samples, labels, i, 30 );
+	st->prepareSamples( FILE_LIST_NAME, samples, labels, i, 10 );
 
 	cout << "samples.size() = " << samples.size() << endl;
 	cout << "labels.size() = " << labels.size() << endl;
 
 	cv::waitKey();
 
-	st.trainAdd( samples, labels );
+	st->trainAdd( samples, labels );
 	}
 
 #else
@@ -55,7 +64,7 @@ int main(int argc, char const *argv[])
 	cv::waitKey();
 
 	bool bLabel = true;
-	st.predict( faceTest, idResult, bLabel );
+	st->predict( faceTest, idResult, bLabel );
 	
 	cout << "predict " << IMAGE_FACE_TEST << endl;
 
@@ -81,5 +90,11 @@ int main(int argc, char const *argv[])
 	}
 #endif
 	system( "pause" );
+
+	if ( st != NULL )
+	{
+		delete st;
+	}
+
 	return 0;
 }

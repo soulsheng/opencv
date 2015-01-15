@@ -21,6 +21,20 @@ char  dataFileList[][50]={
 	"data/verify_nets.model"
 	};
 
+template <> 
+SenseTimeSDK* Singleton<SenseTimeSDK>::ms_pSingleton = 0;
+
+SenseTimeSDK& SenseTimeSDK::getSingleton( void )
+{
+	assert( ms_pSingleton );  
+	return ( *ms_pSingleton );  
+}
+
+SenseTimeSDK* SenseTimeSDK::getSingletonPtr( void )
+{
+	return ms_pSingleton;
+}
+
 SenseTimeSDK::SenseTimeSDK()
 {
 	hIndex = NULL;
