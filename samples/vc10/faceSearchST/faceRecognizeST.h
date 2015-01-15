@@ -31,10 +31,10 @@ public:
 
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
-	bool prepareSamples( std::string filelist, bool bPath = false );
+	bool prepareSamples( std::string filelist, vector<cv::Mat>& samples, vector<int>& labels,
+		int nIDMember=1, int nCountEach=10);
 
-	vector<cv::Mat*>& getSamples() { return imageSamples;	}
-	vector<int>& getLabels() { return labelSamples;	}
+	int findLabelByItemIdx( int idx );
 
 	SenseTimeSDK();
 	~SenseTimeSDK();
@@ -60,7 +60,7 @@ private:
 	mcv_handle_t hDetect;
 	mcv_handle_t vinst;
 	vector<db_item> items;
-	vector<string> names;
+	//vector<string> names;
 	mcv_handle_t hIndex;
 	bool bTrain;
 	bool bInitialized;
@@ -74,7 +74,7 @@ private:
 	vector<int>		labelSamples;
 
 	map<int, cv::Mat*>	imageShow;
-	map<int, cv::Mat*>	imageItems;
+	//map<int, cv::Mat*>	imageItems;
 
 	int db_id ;
 
