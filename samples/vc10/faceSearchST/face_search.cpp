@@ -29,10 +29,13 @@ int main(int argc, char const *argv[])
 
 	st.train( samples, labels, true ); // cost 1.4s for each face image(144*144) to get feature(training)
 #elif 1
+
+	for (int i=1;i<=11;i++)
+	{
 	vector<cv::Mat> samples;
 	vector<int> labels;
 
-	st.prepareSamples( FILE_LIST_NAME, samples, labels, 6, 20 );
+	st.prepareSamples( FILE_LIST_NAME, samples, labels, i, 30 );
 
 	cout << "samples.size() = " << samples.size() << endl;
 	cout << "labels.size() = " << labels.size() << endl;
@@ -40,6 +43,8 @@ int main(int argc, char const *argv[])
 	cv::waitKey();
 
 	st.trainAdd( samples, labels );
+	}
+
 #else
 	;
 #endif

@@ -532,6 +532,7 @@ bool SenseTimeSDK::trainAdd( vector<cv::Mat>& samples, vector<int>& labels )
 {
 	cv::Mat* pImgIn;
 
+	int nSizeOld = items.size();
 	for ( int i = 0; i < samples.size(); i++ )
 	{
 		//pImgIn = new cv::Mat;
@@ -540,15 +541,14 @@ bool SenseTimeSDK::trainAdd( vector<cv::Mat>& samples, vector<int>& labels )
 
 		labelSamples.push_back( labels[i] );
 
-		cout << "labelSamples[" << i << "] = " << labelSamples[i] << endl;
+		cout << "labels[" << i+nSizeOld << "] = " << labels[i] << endl;
 
 		//imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], pImgIn ) );
 	}
 
-	int nSizeOld = items.size();
 	for ( int i = 0; i < samples.size(); i++ )
 	{
-		fprintf(stderr, "Training %d\n", i);
+		fprintf(stderr, "Training %d\n", i+nSizeOld);
 
 		db_item item = getFeature( samples[i] );
 
