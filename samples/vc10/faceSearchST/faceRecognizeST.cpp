@@ -211,7 +211,7 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 	for ( int i = 0; i < result_cnt; i++ )
 	{
 		int idItem = results[i].item->idx;
-		if( results[i].score<25 )
+		if( results[i].score<0 )
 		{
 			cout << "invalid id of item " << idItem << ", score = " << results[i].score << endl;
 			continue;
@@ -227,6 +227,7 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 		else
 			cout << "invalid id of item " << idItem << endl;
 	}
+	cout << "items.size = " << items.size() << endl;
 
 	return true;
 }
@@ -420,42 +421,44 @@ bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bF
 	if (bTrain && !bForce)
 		return true;
 
-	for (int i=0;i<imageSamples.size();i++)
-		delete imageSamples[i];
-	imageSamples.clear();
+	//for (int i=0;i<imageSamples.size();i++)
+	//	delete imageSamples[i];
+	//imageSamples.clear();
 	labelSamples.clear();
-	imageShow.clear();
+	//imageShow.clear();
 	items.clear();
 	//imageItems.clear();
 
-	imageSamples.assign( samples.size(), NULL );
+	//imageSamples.assign( samples.size(), NULL );
 	labelSamples.assign( labels.size(), 0 );
 
-	cv::Mat* pImgIn;
+	//cv::Mat* pImgIn;
 
 	for ( int i = 0; i < samples.size(); i++ )
 	{
-		pImgIn = new cv::Mat;
-		*pImgIn = samples[i].clone();
-		imageSamples[i] = pImgIn;
+		//pImgIn = new cv::Mat;
+		//*pImgIn = samples[i].clone();
+		//imageSamples[i] = pImgIn;
 
 		labelSamples[i] = labels[i];
 
 		cout << "labelSamples[" << i << "] = " << labelSamples[i] << endl;
  
-		imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], pImgIn ) );
+		//imageShow.insert( std::pair<int, cv::Mat*>(labelSamples[i], pImgIn ) );
 	}
 
+	cout << "samples.size = " << samples.size() << endl;
 	for ( int i = 0; i < samples.size(); i++ )
 	{
 		fprintf(stderr, "Training %d\n", i);
 
-		db_item item = getFeature( *(imageSamples[i]) );
+		db_item item = getFeature( samples[i] );
 
 		if( item.idx != -1 )
 		{
 			items.push_back(item);
 
+			cout << "new item.idx = " << item.idx << endl;
 			//imageItems.insert( std::pair<int, cv::Mat*>( item.idx, imageSamples[i]) );
 		}
 		else
@@ -484,7 +487,17 @@ db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )
 {
 	cv::Mat gray, imgInBGRA;
 
-	cvtColor( imageIn, gray, CV_BGR2GRAY );
+	//cout << "image cols = " << imageIn.cols << ", rows = " << imageIn.rows << endl;
+
+	if ( imageIn.type() == CV_8UC3 )
+	{
+		cvtColor( imageIn, gray, CV_BGR2GRAY );
+	}
+	else
+		gray = imageIn;
+
+	//cout << "image cols = " << gray.cols << ", rows = " << gray.rows << endl;
+
 	if ( bForceGray )
 	{
 		cvtColor( gray, imgInBGRA, CV_GRAY2BGRA );
