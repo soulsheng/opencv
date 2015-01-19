@@ -47,10 +47,7 @@ protected:
 	bool checkDataFile();
 	bool initialize();
 	bool checkTrained();
-#if 0
-	bool train( std::string filelist );
-	bool train( vector<cv::Mat>&	imageSamples );
-#endif
+
 	bool release();
 
 	bool save( std::string fileImageFetures );
@@ -64,7 +61,7 @@ private:
 	mcv_handle_t hDetect;
 	mcv_handle_t vinst;
 	vector<db_item> items;
-	//vector<string> names;
+	
 	mcv_handle_t hIndex;
 	bool bTrain;
 	bool bInitialized;
@@ -78,7 +75,7 @@ private:
 	vector<int>		labelSamples;
 
 	map<int, cv::Mat*>	imageShow;
-	//map<int, cv::Mat*>	imageItems;
+	
 
 	int db_id ;
 
