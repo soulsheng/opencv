@@ -204,6 +204,8 @@ bool SenseTimeSDK::save( std::string fileImageFetures )
 
 	fclose( file );
 
+	mcv_verify_save_db( hIndex, "db.dat" );
+
 	return true;
 }
 
@@ -214,7 +216,7 @@ bool SenseTimeSDK::load( std::string fileImageFetures )
 		initialize();
 
 	items.clear();
-
+#if 1
 	FILE *file = fopen( fileImageFetures.c_str(), "rb" );
 
 	int nSize = 0;
@@ -238,11 +240,16 @@ bool SenseTimeSDK::load( std::string fileImageFetures )
 
 	fclose( file );
 
+#endif
 	
 	mcv_result_t ret = mcv_verify_search_build_index(vinst,
 		&items[0], items.size(), &hIndex);
 
 	assert(hIndex != 0 && ret == MCV_OK);
+
+	//mcv_verify_load_db( hIndex, "db.dat" );
+
+	cout << "load items " << items.size() << endl;
 
 	bTrain = true;
 
