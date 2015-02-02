@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
 		assert( 0 && "SenseTimeSDK已被创建! " );
 	}
 
-#if 0
+#if 1
 	vector<cv::Mat> samples;
 	vector<int> labels;
 
