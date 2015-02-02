@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="faceRecognizeST.h" />
+    <ClInclude Include="helper_timer.h" />
     <ClInclude Include="singleton.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

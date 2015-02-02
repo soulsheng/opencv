@@ -20,6 +20,16 @@ char  dataFileList[][50]={
 	"data/verify_nets.model"
 	};
 
+
+enum	TIMER_STEP
+{
+	TIMER_doWork_Cap,
+	TIMER_faceDetect,
+	TIMER_faceSearch,
+	TIMER_COUNT
+};
+
+
 template <> 
 SenseTimeSDK* Singleton<SenseTimeSDK>::ms_pSingleton = 0;
 
@@ -47,11 +57,21 @@ SenseTimeSDK::SenseTimeSDK()
 	db_id = 0;
 	bForceGray = false;
 
+
+	timer.assign( TIMER_COUNT, NULL );
+	for ( TimeItr itr=timer.begin(); itr != timer.end(); itr ++ )
+		sdkCreateTimer( &(*itr) );
+
 	initialize();
 }
 
 SenseTimeSDK::~SenseTimeSDK()
 {
+	for ( TimeItr itr=timer.begin(); itr != timer.end(); itr ++ )
+		sdkDeleteTimer( &(*itr) );
+
+	timer.clear();
+
 	release();
 }
 

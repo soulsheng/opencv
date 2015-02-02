@@ -17,6 +17,7 @@ using namespace std;
 #include "singleton.h"
 
 #define FILE_LIST_NAME	"D:\\file\\data\\face\\11faces\\"
+#include "helper_timer.h"
 
 class SenseTimeSDK : public Singleton<SenseTimeSDK>
 {
@@ -80,4 +81,9 @@ private:
 	int db_id ;
 
 	bool bForceGray;
+
+	StopWatchInterface*				timerCurrent;
+	vector<StopWatchInterface *>	timer;
+	typedef vector<StopWatchInterface *>::iterator TimeItr;
+
 };

@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
 	cv::waitKey();
 
 	st->train( samples, labels, true ); // cost 1.4s for each face image(144*144) to get feature(training)
-#elif 1
+#elif 0
 
 	for (int i=1;i<=11;i++)
 	{
