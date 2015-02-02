@@ -118,7 +118,7 @@ bool SenseTimeSDK::initialize()
 
 	if( !checkTrained() )
 	{
-		printf( "failed to train \n" );
+		printf( "first time to train \n" );
 		return false;
 	}
 	else
@@ -262,11 +262,13 @@ bool SenseTimeSDK::load( std::string fileImageFetures )
 
 #endif
 	
-	mcv_result_t ret = mcv_verify_search_build_index(vinst,
-		&items[0], items.size(), &hIndex);
+	if ( !items.empty() )
+	{
+		mcv_result_t ret = mcv_verify_search_build_index(vinst,
+			&items[0], items.size(), &hIndex);
 
-	assert(hIndex != 0 && ret == MCV_OK);
-
+		assert(hIndex != 0 && ret == MCV_OK);
+	}
 	//mcv_verify_load_db( hIndex, "db.dat" );
 
 	cout << "load items " << items.size() << endl;
@@ -296,7 +298,15 @@ bool SenseTimeSDK::checkTrained()
 
 		return save( FILE_DATABASE_ITEMS );	
 #else
-		cout << "cannot open " << FILE_DATABASE_ITEMS << endl;
+		cout << "create " << FILE_DATABASE_ITEMS << endl;
+		file = fopen( FILE_DATABASE_ITEMS, "wb" );
+		int nSize = 0;
+		fprintf(file, "%d \n", nSize );
+		fprintf(file, "%d \n", nSize );
+		fclose( file );
+
+		load( FILE_DATABASE_ITEMS );
+
 		return false;
 #endif
 	}
