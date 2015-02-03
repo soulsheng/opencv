@@ -408,10 +408,13 @@ bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bF
 	else
 		cout << "items.size = " << items.size() << endl;
 
-	mcv_result_t ret = mcv_verify_search_build_index(vinst,
-		&items[0], items.size(), &hIndex);
+	if( ! items.empty() )
+	{
+		mcv_result_t ret = mcv_verify_search_build_index(vinst,
+			&items[0], items.size(), &hIndex);
 
-	assert(hIndex != 0 && ret == MCV_OK);
+		assert(hIndex != 0 && ret == MCV_OK);
+	}
 
 	bTrain = true;
 
@@ -514,10 +517,13 @@ bool SenseTimeSDK::trainAdd( vector<cv::Mat>& samples, vector<int>& labels )
 	else
 		cout << "items.size = " << items.size() << endl;
 
-	mcv_result_t ret = mcv_verify_search_build_index(vinst,
-		&items[0], items.size(), &hIndex);
+	if( ! items.empty() )
+	{
+		mcv_result_t ret = mcv_verify_search_build_index(vinst,
+			&items[0], items.size(), &hIndex);
 
-	assert(hIndex != 0 && ret == MCV_OK);
+		assert(hIndex != 0 && ret == MCV_OK);
+	}
 
 	bTrain = true;
 
