@@ -184,7 +184,7 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 
 	for ( int i = 0; i < result_cnt; i++ )
 	{
-		int idItem = results[i].item->idx;
+		int idItem = results[i].item.idx;
 		if( results[i].score<0 )
 		{
 			cout << "invalid id of item " << idItem << ", score = " << results[i].score << endl;
