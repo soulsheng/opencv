@@ -35,6 +35,7 @@ public:
 	bool trainAdd( vector<cv::Mat>& samples, vector<int>& labels );
 
 	void setScoreLine( int score );
+	void setRatioThreshold( float ratio );
 
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
@@ -88,5 +89,6 @@ private:
 	vector<StopWatchInterface *>	timer;
 	typedef vector<StopWatchInterface *>::iterator TimeItr;
 
-	int	nScoreLine;
+	int	nScoreLine;			// minimum score of match
+	float fRatioThreshold;	// minimum ratio of face area and full image area, unit %
 };

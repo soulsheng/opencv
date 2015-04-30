@@ -57,6 +57,7 @@ SenseTimeSDK::SenseTimeSDK()
 	db_id = 0;
 	bForceGray = false;
 	nScoreLine = 0;
+	fRatioThreshold = 0.25f;	// 0.25% = 0.0025
 
 
 	timer.assign( TIMER_COUNT, NULL );
@@ -325,6 +326,15 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 
 	// draw result
 	for ( int i=0;i<countFace;i++){
+
+		float areaFace = (pface[i].Rect.right - pface[i].Rect.left) * 
+			(pface[i].Rect.bottom - pface[i].Rect.top) ;
+		
+		float areaImage = imgIn.rows * imgIn.cols ;
+		
+		if( areaFace/areaImage < fRatioThreshold*0.01 )
+			continue;
+
 		rectangle( imgOut, 
 			cvPoint( pface[i].Rect.left, pface[i].Rect.top ),
 			cvPoint( pface[i].Rect.right, pface[i].Rect.bottom ) ,
@@ -556,4 +566,9 @@ int SenseTimeSDK::findLabelByItemIdx( int idx )
 void SenseTimeSDK::setScoreLine( int score )
 {
 	nScoreLine = score;
+}
+
+void SenseTimeSDK::setRatioThreshold( float ratio )
+{
+	fRatioThreshold = ratio;
 }
