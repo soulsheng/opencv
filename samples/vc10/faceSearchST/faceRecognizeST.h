@@ -34,6 +34,8 @@ public:
 
 	bool trainAdd( vector<cv::Mat>& samples, vector<int>& labels );
 
+	void setScoreLine( int score );
+
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
 	bool prepareSamples( std::string filelist, vector<cv::Mat>& samples, vector<int>& labels,
@@ -86,4 +88,5 @@ private:
 	vector<StopWatchInterface *>	timer;
 	typedef vector<StopWatchInterface *>::iterator TimeItr;
 
+	int	nScoreLine;
 };

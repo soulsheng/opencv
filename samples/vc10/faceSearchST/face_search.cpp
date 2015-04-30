@@ -63,6 +63,7 @@ int main(int argc, char const *argv[])
 	cv::imshow( "in", faceTest );
 	cv::waitKey();
 
+	st->setScoreLine( 50 );
 	bool bLabel = true;
 	st->predict( faceTest, idResult, bLabel );
 	

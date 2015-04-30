@@ -56,6 +56,7 @@ SenseTimeSDK::SenseTimeSDK()
 
 	db_id = 0;
 	bForceGray = false;
+	nScoreLine = 0;
 
 
 	timer.assign( TIMER_COUNT, NULL );
@@ -185,7 +186,7 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 	for ( int i = 0; i < result_cnt; i++ )
 	{
 		int idItem = results[i].item.idx;
-		if( results[i].score<0 )
+		if( results[i].score<nScoreLine )
 		{
 			cout << "invalid id of item " << idItem << ", score = " << results[i].score << endl;
 			continue;
@@ -550,4 +551,9 @@ int SenseTimeSDK::findLabelByItemIdx( int idx )
 		return labelSamples[i];
 	else
 		return -1;
+}
+
+void SenseTimeSDK::setScoreLine( int score )
+{
+	nScoreLine = score;
 }
