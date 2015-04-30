@@ -98,7 +98,7 @@ bool SenseTimeSDK::initialize()
 	if( bInitialized )	
 		return true;
 	
-	hDetect = mcv_facesdk_create_multiview_detector_instance_from_resource(true, 1);
+	hDetect = mcv_facesdk_create_frontal_detector_instance_from_resource(/*true,*/1);
 	if ( NULL == hDetect)
 	{
 		printf( "failed to create detector \n" );
@@ -136,10 +136,10 @@ bool SenseTimeSDK::release()
 
 	fflush(stdout);
 
-	if(countFace) mcv_facesdk_release_multiview_result(pface,countFace);
+	if(countFace) mcv_facesdk_release_frontal_result(pface,countFace);
 
 	if(hIndex) mcv_verify_search_release_index(hIndex);
-	if(hDetect) mcv_facesdk_destroy_multiview_instance(hDetect);
+	if(hDetect) mcv_facesdk_destroy_frontal_instance(hDetect);
 	if(vinst) mcv_verify_release_instance(vinst);
 
 	for (int i=0;i<imageSamples.size();i++)
@@ -322,7 +322,7 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	cv::Mat *img = &gray;
 
 	// detect
-	mcv_facesdk_multiview_detector(hDetect,img->data,img->cols,img->rows,img->cols,&pface,&countFace);
+	mcv_facesdk_frontal_detector(hDetect,img->data,img->cols,img->rows,img->cols,&pface,&countFace);
 
 	// draw result
 	for ( int i=0;i<countFace;i++){
