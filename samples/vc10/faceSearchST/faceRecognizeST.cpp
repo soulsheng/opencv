@@ -26,9 +26,11 @@ enum	TIMER_STEP
 	TIMER_doWork_Cap,
 	TIMER_faceDetect,
 	TIMER_faceSearch,
+	TIMER_faceTrain,
 	TIMER_COUNT
 };
 
+#define	TIME_ENABLE		1
 
 template <> 
 SenseTimeSDK* Singleton<SenseTimeSDK>::ms_pSingleton = 0;
@@ -154,6 +156,10 @@ bool SenseTimeSDK::release()
 
 bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool bLabel, bool bForceGray, int n )
 {
+#if TIME_ENABLE
+	sdkResetTimer( &timer[TIMER_faceSearch] );
+	sdkStartTimer( &timer[TIMER_faceSearch]  );
+#endif
 
 	if ( false == bInitialized )
 		initialize();
@@ -204,6 +210,11 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 			cout << "invalid id of item " << idItem << endl;
 	}
 	cout << "items.size = " << items.size() << endl;
+
+#if TIME_ENABLE
+	sdkStopTimer( &timer[TIMER_faceSearch] );
+	cout << "time of face search is: " << sdkGetTimerValue( &timer[TIMER_faceSearch] ) << endl;
+#endif
 
 	return true;
 }
@@ -317,6 +328,11 @@ bool SenseTimeSDK::checkTrained()
 
 bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& matimg)
 {
+#if TIME_ENABLE
+	sdkResetTimer( &timer[TIMER_faceDetect] );
+	sdkStartTimer( &timer[TIMER_faceDetect]  );
+#endif
+
 	cv::Mat gray;
 	cvtColor( imgIn, gray, CV_BGR2GRAY );
 	cv::Mat *img = &gray;
@@ -347,6 +363,11 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 		matimg.push_back(imgROI);
 
 	}
+
+#if TIME_ENABLE
+	sdkStopTimer( &timer[TIMER_faceDetect] );
+	cout << "time of face detection is: " << sdkGetTimerValue( &timer[TIMER_faceDetect] ) << endl;
+#endif
 
 	return true;
 }
@@ -380,6 +401,11 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, vector<cv::Mat>& sample
 
 bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bForce )
 {
+#if TIME_ENABLE
+	sdkResetTimer( &timer[TIMER_faceTrain] );
+	sdkStartTimer( &timer[TIMER_faceTrain]  );
+#endif
+
 	cout << "bTrain = " << bTrain << endl;
 
 	if (bTrain && !bForce)
@@ -430,6 +456,11 @@ bool SenseTimeSDK::train( vector<cv::Mat>& samples, vector<int>& labels, bool bF
 	bTrain = true;
 
 	save( FILE_DATABASE_ITEMS );
+
+#if TIME_ENABLE
+	sdkStopTimer( &timer[TIMER_faceTrain] );
+	cout << "time to train " << samples.size() << " faces is: " << sdkGetTimerValue( &timer[TIMER_faceTrain] ) << endl;
+#endif
 
 	return true;
 }
@@ -501,6 +532,11 @@ cv::Mat* SenseTimeSDK::getImage( int nID, bool bLabel )
 
 bool SenseTimeSDK::trainAdd( vector<cv::Mat>& samples, vector<int>& labels )
 {
+#if TIME_ENABLE
+	sdkResetTimer( &timer[TIMER_faceTrain] );
+	sdkStartTimer( &timer[TIMER_faceTrain]  );
+#endif
+
 	cv::Mat* pImgIn;
 
 	int nSizeOld = items.size();
@@ -539,6 +575,11 @@ bool SenseTimeSDK::trainAdd( vector<cv::Mat>& samples, vector<int>& labels )
 	bTrain = true;
 
 	save( FILE_DATABASE_ITEMS );
+
+#if TIME_ENABLE
+	sdkStopTimer( &timer[TIMER_faceTrain] );
+	cout << "time of face detection is: " << sdkGetTimerValue( &timer[TIMER_faceTrain] ) << endl;
+#endif
 
 	return true;
 }
