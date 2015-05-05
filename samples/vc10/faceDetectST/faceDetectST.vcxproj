@@ -13,11 +13,9 @@
   <ItemGroup>
     <ClCompile Include="..\faceSearchST\faceRecognizeST.cpp" />
     <ClCompile Include="detector.cpp" />
-    <ClCompile Include="faceDetectST.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\faceSearchST\faceRecognizeST.h" />
-    <ClInclude Include="faceDetectST.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BD5FD8E0-6B35-44CB-9FEB-D535CE258D3E}</ProjectGuid>

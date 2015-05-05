@@ -18,17 +18,11 @@
     <ClCompile Include="detector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="faceDetectST.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\faceSearchST\faceRecognizeST.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="faceDetectST.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\faceSearchST\faceRecognizeST.h">
       <Filter>头文件</Filter>
     </ClInclude>
