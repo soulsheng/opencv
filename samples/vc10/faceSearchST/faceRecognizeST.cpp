@@ -60,6 +60,7 @@ SenseTimeSDK::SenseTimeSDK()
 	bForceGray = false;
 	nScoreLine = 0;
 	fRatioThreshold = 0.25f;	// 0.25% = 0.0025
+	s = 2.0f;
 
 
 	timer.assign( TIMER_COUNT, NULL );
@@ -325,6 +326,46 @@ bool SenseTimeSDK::checkTrained()
 	}
 }
 
+void SenseTimeSDK::scale( mcv_rect_t& rect, float s, cv::Mat& imgIn )
+{
+	float left, right, top, bottom;
+	float xCenter, yCenter, width, height;
+
+	left  = rect.left ; 
+	right = rect.right ;
+	top  = rect.top ;
+	bottom = rect.bottom ;
+
+	width	= right - left;
+	height	= bottom - top;
+	xCenter = left	+ width*0.5f ;
+	yCenter = top	+ height*0.5f ;
+
+	width	*= s;
+	height	*= s;
+
+	left	= xCenter - width*0.5f ;
+	right	= xCenter + width*0.5f ;
+	top		= yCenter - height*0.5f ;
+	bottom	= yCenter + height*0.5f ;
+
+	if( left < 0 ) left = 0;
+	if( right > imgIn.cols ) right = imgIn.cols;
+	if( top < 0 ) top = 0;
+	if( bottom > imgIn.rows ) bottom = imgIn.rows;
+
+	cout << "image(col, row)" << imgIn.cols << ", " << imgIn.rows << endl;
+
+	cout << "Rect(l,r,t,b) = " 
+		<< left	<< ", " << right << ", " 
+		<< top	<< ", " << bottom << endl;
+
+	rect.left = int(left + 0.5f);
+	rect.right = int(right + 0.5f);
+	rect.top = int(top + 0.5f);
+	rect.bottom = int(bottom + 0.5f);
+
+}
 
 bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& matimg)
 {
@@ -345,16 +386,12 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	// draw result
 	for ( int i=0;i<countFace;i++){
 
-		left  = pface[i].Rect.left > 0 ? pface[i].Rect.left : 0;
-		right = pface[i].Rect.right < imgIn.cols ? pface[i].Rect.right : imgIn.cols;
-		top  = pface[i].Rect.top > 0 ? pface[i].Rect.top : 0;
-		bottom = pface[i].Rect.bottom < imgIn.rows ? pface[i].Rect.bottom : imgIn.rows;
+		scale( pface[i].Rect, s, imgIn );
 
-		cout << "image(col, row)" << imgIn.cols << ", " << imgIn.rows << endl;
-
-		cout << "Rect(l,r,t,b) = " 
-			<< left	<< ", " << right << ", " 
-			<< top	<< ", " << bottom << endl;
+		left  = pface[i].Rect.left ; 
+		right = pface[i].Rect.right ;
+		top  = pface[i].Rect.top ;
+		bottom = pface[i].Rect.bottom ;
 
 		float areaFace = (right - left) * (bottom - top) ;
 

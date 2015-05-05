@@ -59,7 +59,7 @@ protected:
 
 
 	db_item	getFeature( cv::Mat& imageIn );
-
+	void scale( mcv_rect_t& rect, float s, cv::Mat& imgIn );
 private:
 
 	mcv_handle_t hDetect;
@@ -91,4 +91,5 @@ private:
 
 	int	nScoreLine;			// minimum score of match
 	float fRatioThreshold;	// minimum ratio of face area and full image area, unit %
+	float s;				// scale time
 };
