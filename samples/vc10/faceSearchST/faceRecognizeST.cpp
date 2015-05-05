@@ -340,25 +340,35 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	// detect
 	mcv_facesdk_frontal_detector(hDetect,img->data,img->cols,img->rows,img->cols,&pface,&countFace);
 
+	float left, right, top, bottom;
+
 	// draw result
 	for ( int i=0;i<countFace;i++){
 
-		float areaFace = (pface[i].Rect.right - pface[i].Rect.left) * 
-			(pface[i].Rect.bottom - pface[i].Rect.top) ;
-		
+		left  = pface[i].Rect.left > 0 ? pface[i].Rect.left : 0;
+		right = pface[i].Rect.right < imgIn.cols ? pface[i].Rect.right : imgIn.cols;
+		top  = pface[i].Rect.top > 0 ? pface[i].Rect.top : 0;
+		bottom = pface[i].Rect.bottom < imgIn.rows ? pface[i].Rect.bottom : imgIn.rows;
+
+		cout << "image(col, row)" << imgIn.cols << ", " << imgIn.rows << endl;
+
+		cout << "Rect(l,r,t,b) = " 
+			<< left	<< ", " << right << ", " 
+			<< top	<< ", " << bottom << endl;
+
+		float areaFace = (right - left) * (bottom - top) ;
+
 		float areaImage = imgIn.rows * imgIn.cols ;
 		
 		if( areaFace/areaImage < fRatioThreshold*0.01 )
 			continue;
 
 		rectangle( imgOut, 
-			cvPoint( pface[i].Rect.left, pface[i].Rect.top ),
-			cvPoint( pface[i].Rect.right, pface[i].Rect.bottom ) ,
+			cvPoint( left, top ),
+			cvPoint( right, bottom ) ,
 			CV_RGB(0,0,255), 3, 8, 0);
 
-		cv::Mat imgROI( imgIn, cv::Rect(
-			pface[i].Rect.left, pface[i].Rect.top ,
-			pface[i].Rect.right - pface[i].Rect.left, pface[i].Rect.bottom - pface[i].Rect.top ));
+		cv::Mat imgROI( imgIn, cv::Rect(left, top ,right - left, bottom - top ));
 		//printf("width = %d \n", pface[i].Rect.right - pface[i].Rect.left);
 		matimg.push_back(imgROI);
 
