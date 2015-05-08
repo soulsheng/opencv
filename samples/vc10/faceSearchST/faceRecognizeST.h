@@ -36,6 +36,7 @@ public:
 
 	void setScoreLine( int score );
 	void setRatioThreshold( float ratio );
+	void setAngleMax( float angle );
 
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
@@ -62,8 +63,11 @@ protected:
 
 	db_item	getFeature( cv::Mat& imageIn );
 	void scale( mcv_rect_t& rect, float s, cv::Mat& imgIn );
-private:
 
+	bool testFrontal( cv::Mat& mat, mcv_rect_t& rect );
+
+private:
+	mcv_handle_t hAlignmentor;
 	mcv_handle_t hDetect;
 	mcv_handle_t vinst;
 	vector<db_item> items;
@@ -94,4 +98,8 @@ private:
 	int	nScoreLine;			// minimum score of match
 	float fRatioThreshold;	// minimum ratio of face area and full image area, unit %
 	float s;				// scale time
+
+	int npoint;
+	mcv_pointf_t* points;
+	float angleThreshold;	// angle max as frontal
 };

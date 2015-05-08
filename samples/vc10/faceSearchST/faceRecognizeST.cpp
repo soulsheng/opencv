@@ -11,11 +11,10 @@
 #define FILE_DATABASE_ITEMS	"st_items.bin"
 #define FILE_DATABASE_NAMES	"st_names.bin"
 
-#define DATA_FILE_COUNT	5
+#define DATA_FILE_COUNT	4
 char  dataFileList[][50]={
-	"data/align_init.model",
-	"data/align_transfer.bin",
-	"data/model_verif.bin",
+	"data/attribute.pack",
+	"data/model_verif.pack",
 	"data/params.txt",
 	"data/verify_nets.model"
 	};
@@ -61,7 +60,10 @@ SenseTimeSDK::SenseTimeSDK()
 	nScoreLine = 0;
 	fRatioThreshold = 0.25f;	// 0.25% = 0.0025
 	s = 2.0f;
+	npoint = 21;
+	angleThreshold = 15;
 
+	points = new mcv_pointf_t[npoint];
 
 	timer.assign( TIMER_COUNT, NULL );
 	for ( TimeItr itr=timer.begin(); itr != timer.end(); itr ++ )
@@ -76,6 +78,8 @@ SenseTimeSDK::~SenseTimeSDK()
 		sdkDeleteTimer( &(*itr) );
 
 	timer.clear();
+
+	delete[]	points;
 
 	release();
 }
@@ -118,6 +122,8 @@ bool SenseTimeSDK::initialize()
 		return false;
 	}
 
+	hAlignmentor = mcv_facesdk_create_LRAlignmentor_instance_from_resource(npoint);
+
 	bInitialized = true;
 
 
@@ -144,6 +150,7 @@ bool SenseTimeSDK::release()
 	if(hIndex) mcv_verify_search_release_index(hIndex);
 	if(hDetect) mcv_facesdk_destroy_frontal_instance(hDetect);
 	if(vinst) mcv_verify_release_instance(vinst);
+	if(hAlignmentor) mcv_facesdk_destroy_LRAlignmentor_instance(hAlignmentor);
 
 	for (int i=0;i<imageSamples.size();i++)
 		delete imageSamples[i];
@@ -398,6 +405,9 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 		float areaImage = imgIn.rows * imgIn.cols ;
 		
 		if( areaFace/areaImage < fRatioThreshold*0.01 )
+			continue;
+
+		if ( !testFrontal(imgIn, pface[i].Rect ))
 			continue;
 
 		rectangle( imgOut, 
@@ -681,4 +691,37 @@ void SenseTimeSDK::setScoreLine( int score )
 void SenseTimeSDK::setRatioThreshold( float ratio )
 {
 	fRatioThreshold = ratio;
+}
+
+bool SenseTimeSDK::testFrontal( cv::Mat& mat, mcv_rect_t& rect )
+{
+	
+	mcv_facesdk_LRAlign(
+		hAlignmentor,
+		mat.data,
+		mat.cols,
+		mat.rows,
+		mat.step,
+		rect,
+		MCV_StrictFrontal,
+		npoint,
+		points
+		);
+
+	float angleYaw, anglePitch, angleRoll, dist;
+	mcv_facesdk_get_pose(
+		points, npoint, &angleYaw, &anglePitch, &angleRoll, &dist );
+
+	if (  abs(angleYaw) < angleThreshold 
+		&&abs(anglePitch) < angleThreshold 
+		&&abs(angleRoll) < angleThreshold )
+		return true;
+	else
+		return false;
+	
+}
+
+void SenseTimeSDK::setAngleMax( float angle )
+{
+	angleThreshold  = angle;
 }

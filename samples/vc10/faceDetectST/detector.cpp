@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 {
 	SenseTimeSDK st;
 	st.setRatioThreshold( 0.25 );
+	st.setAngleMax( 15 );
 
 	cv::Mat in = cv::imread( IMAGE_IN );
 	cv::imshow( "in", in );
