@@ -419,7 +419,7 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	return true;
 }
 
-bool SenseTimeSDK::prepareSamples( std::string filelist, vector<cv::Mat>& samples, vector<int>& labels,
+bool SenseTimeSDK::prepareSamples( std::string filePath, vector<cv::Mat>& samples, vector<int>& labels,
 	int	nIDMember, int nCountEach )
 {
 	cout << "prepareSamples" << endl;
@@ -432,7 +432,7 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, vector<cv::Mat>& sample
 		int id = (nIDMember-1) * 30 + j;
 
 		pathEach.str("");
-		pathEach << filelist << id << ".bmp";
+		pathEach << filePath << id << ".bmp";
 
 		cout << pathEach.str() << endl;
 
@@ -443,6 +443,28 @@ bool SenseTimeSDK::prepareSamples( std::string filelist, vector<cv::Mat>& sample
 	}
 
 
+	return true;
+}
+
+bool SenseTimeSDK::prepareSamples( std::string fileList, vector<cv::Mat>& samples, vector<int>& labels )
+{
+	string filePath, fileName;
+	vector<string> fileNames;
+	ifstream	inputFile(fileList);
+	inputFile >> filePath;
+	
+	while( !inputFile.eof() )
+	{
+		inputFile >> fileName;
+		fileNames.push_back( filePath + fileName);
+	}
+
+	for (int i = 0;i<fileNames.size();i++)
+	{
+		cv::Mat imgIn = cv::imread( fileNames[i] );
+		samples.push_back( imgIn );
+		labels.push_back( i );
+	}
 	return true;
 }
 

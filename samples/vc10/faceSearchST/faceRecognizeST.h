@@ -39,8 +39,10 @@ public:
 
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
-	bool prepareSamples( std::string filelist, vector<cv::Mat>& samples, vector<int>& labels,
-		int nIDMember=1, int nCountEach=10);
+	bool prepareSamples( std::string filePath, vector<cv::Mat>& samples, vector<int>& labels,
+		int nIDMember, int nCountEach=10);
+
+	bool prepareSamples( std::string fileList, vector<cv::Mat>& samples, vector<int>& labels );
 
 	int findLabelByItemIdx( int idx );
 
