@@ -52,9 +52,6 @@ SenseTimeSDK::SenseTimeSDK()
 	bInitialized = false;
 	bReleased = false;
 
-	pface=NULL;
-	countFace=0;
-
 	db_id = 0;
 	bForceGray = false;
 	nScoreLine = 0;
@@ -144,8 +141,6 @@ bool SenseTimeSDK::release()
 		return true;
 
 	fflush(stdout);
-
-	if(countFace) mcv_facesdk_release_frontal_result(pface,countFace);
 
 	if(hIndex) mcv_verify_search_release_index(hIndex);
 	if(hDetect) mcv_facesdk_destroy_frontal_instance(hDetect);
@@ -385,6 +380,9 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	cvtColor( imgIn, gray, CV_BGR2GRAY );
 	cv::Mat *img = &gray;
 
+	PMCV_FACERECT pface ;
+	unsigned int countFace ;
+
 	// detect
 	mcv_facesdk_frontal_detector(hDetect,img->data,img->cols,img->rows,img->cols,&pface,&countFace);
 
@@ -420,6 +418,8 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 		matimg.push_back(imgROI);
 
 	}
+
+	if(countFace) mcv_facesdk_release_frontal_result(pface,countFace);
 
 #if TIME_ENABLE
 	sdkStopTimer( &timer[TIMER_faceDetect] );

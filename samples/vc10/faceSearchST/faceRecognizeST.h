@@ -77,8 +77,6 @@ private:
 	bool bInitialized;
 	bool bReleased;
 
-	PMCV_FACERECT pface ;
-	unsigned int countFace ;
 
 	// train
 	vector<cv::Mat*>	imageSamples;
