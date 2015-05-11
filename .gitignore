@@ -104,3 +104,7 @@ tags
 /samples/vc10/faceSearchST/data
 /samples/vc10/faceSearchST/*.dat
 /samples/vc10/faceSearchST/*.zip
+/samples/vc10/faceDetectST/data/*.pack
+/samples/vc10/faceDetectST/*.bin
+/samples/vc10/faceDetectST/data/*.model
+/samples/vc10/faceDetectST/data/*.txt
