@@ -28,7 +28,7 @@ public:
 	bool predict( cv::Mat& imageFace, std::vector<int>& lableTop
 		, bool bLabel = true, bool bForceGray = true, int n = 5);
 
-	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg);
+	bool faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, std::vector<cv::Mat>& matimg, int nInstance);
 
 	bool train( vector<cv::Mat>& samples, vector<int>& labels, bool bForce = false );
 
@@ -40,14 +40,14 @@ public:
 
 public:
 	cv::Mat*	getImage( int nID, bool bLabel = true );
-	bool prepareSamples( std::string filePath, vector<cv::Mat>& samples, vector<int>& labels,
+	bool prepareSamples( std::string filelist, vector<cv::Mat>& samples, vector<int>& labels,
 		int nIDMember, int nCountEach=10);
 
 	bool prepareSamples( std::string fileList, vector<cv::Mat>& samples, vector<int>& labels );
 
 	int findLabelByItemIdx( int idx );
 
-	SenseTimeSDK();
+	SenseTimeSDK(int nInstanceCount=2);
 	~SenseTimeSDK();
 
 protected:
@@ -68,7 +68,7 @@ protected:
 
 private:
 	mcv_handle_t hAlignmentor;
-	mcv_handle_t hDetect;
+
 	mcv_handle_t vinst;
 	vector<db_item> items;
 	
@@ -93,6 +93,7 @@ private:
 	vector<StopWatchInterface *>	timer;
 	typedef vector<StopWatchInterface *>::iterator TimeItr;
 
+	vector<mcv_handle_t>		m_nInstance;
 	int	nScoreLine;			// minimum score of match
 	float fRatioThreshold;	// minimum ratio of face area and full image area, unit %
 	float s;				// scale time

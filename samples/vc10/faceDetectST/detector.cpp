@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
 	cv::Mat out(in);
 	std::vector<cv::Mat> faces;
-	st.faceDetect( in, out, faces );
+	st.faceDetect( in, out, faces, 1 );
 
 	cv::imshow( "out", out );
 	cv::waitKey( );

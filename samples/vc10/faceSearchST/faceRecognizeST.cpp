@@ -45,7 +45,7 @@ SenseTimeSDK* SenseTimeSDK::getSingletonPtr( void )
 	return ms_pSingleton;
 }
 
-SenseTimeSDK::SenseTimeSDK()
+SenseTimeSDK::SenseTimeSDK(int nInstanceCount)
 {
 	hIndex = NULL;
 	bTrain = false;
@@ -62,6 +62,7 @@ SenseTimeSDK::SenseTimeSDK()
 
 	points = new mcv_pointf_t[npoint];
 
+	m_nInstance.assign( nInstanceCount, -1 );
 	timer.assign( TIMER_COUNT, NULL );
 	for ( TimeItr itr=timer.begin(); itr != timer.end(); itr ++ )
 		sdkCreateTimer( &(*itr) );
@@ -102,11 +103,15 @@ bool SenseTimeSDK::initialize()
 	if( bInitialized )	
 		return true;
 	
-	hDetect = mcv_facesdk_create_frontal_detector_instance_from_resource(/*true,*/1);
-	if ( NULL == hDetect)
+	for (int i=0; i< m_nInstance.size(); i++)
 	{
-		printf( "failed to create detector \n" );
-		return false;
+		mcv_handle_t hDetect = mcv_facesdk_create_frontal_detector_instance_from_resource(2);
+		if ( NULL == hDetect)
+		{
+			printf( "failed to create detector \n" );
+			return false;
+		}
+		m_nInstance[i] = hDetect;
 	}
 
 	if ( !checkDataFile() )
@@ -126,7 +131,7 @@ bool SenseTimeSDK::initialize()
 
 	if( !checkTrained() )
 	{
-		printf( "first time to train \n" );
+		printf( "failed to train \n" );
 		return false;
 	}
 	else
@@ -143,7 +148,9 @@ bool SenseTimeSDK::release()
 	fflush(stdout);
 
 	if(hIndex) mcv_verify_search_release_index(hIndex);
-	if(hDetect) mcv_facesdk_destroy_frontal_instance(hDetect);
+	for (int i=0; i< m_nInstance.size(); i++)
+		if( m_nInstance[i] ) mcv_facesdk_destroy_frontal_instance( m_nInstance[i] );
+
 	if(vinst) mcv_verify_release_instance(vinst);
 	if(hAlignmentor) mcv_facesdk_destroy_LRAlignmentor_instance(hAlignmentor);
 
@@ -196,6 +203,7 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 	for ( int i = 0; i < result_cnt; i++ )
 	{
 		int idItem = results[i].item.idx;
+		cout<<nScoreLine<<endl;
 		if( results[i].score<nScoreLine )
 		{
 			cout << "invalid id of item " << idItem << ", score = " << results[i].score << endl;
@@ -207,6 +215,7 @@ bool SenseTimeSDK::predict( cv::Mat& imageFace, std::vector<int>& lableTop, bool
 		}
 
 		int idLabel = findLabelByItemIdx( idItem );
+		cout<<idLabel<<endl;
 		if( idLabel != -1)
 			lableTop.push_back( idLabel );		
 		else
@@ -265,6 +274,7 @@ bool SenseTimeSDK::load( std::string fileImageFetures )
 		items.push_back(item);
 	}
 
+	cout << "load p 1" << endl;
 
 	fscanf(file, "%d \n", &nSize );
 	labelSamples.assign( nSize, -1 );
@@ -314,15 +324,7 @@ bool SenseTimeSDK::checkTrained()
 
 		return save( FILE_DATABASE_ITEMS );	
 #else
-		cout << "create " << FILE_DATABASE_ITEMS << endl;
-		file = fopen( FILE_DATABASE_ITEMS, "wb" );
-		int nSize = 0;
-		fprintf(file, "%d \n", nSize );
-		fprintf(file, "%d \n", nSize );
-		fclose( file );
-
-		load( FILE_DATABASE_ITEMS );
-
+		cout << "cannot open " << FILE_DATABASE_ITEMS << endl;
 		return false;
 #endif
 	}
@@ -369,7 +371,7 @@ void SenseTimeSDK::scale( mcv_rect_t& rect, float s, cv::Mat& imgIn )
 
 }
 
-bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& matimg)
+bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& matimg, int nInstance)
 {
 #if TIME_ENABLE
 	sdkResetTimer( &timer[TIMER_faceDetect] );
@@ -380,11 +382,11 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	cvtColor( imgIn, gray, CV_BGR2GRAY );
 	cv::Mat *img = &gray;
 
-	PMCV_FACERECT pface ;
-	unsigned int countFace ;
+	PMCV_FACERECT pface=NULL ;
+	unsigned int countFace=0 ;
 
 	// detect
-	mcv_facesdk_frontal_detector(hDetect,img->data,img->cols,img->rows,img->cols,&pface,&countFace);
+	mcv_facesdk_frontal_detector(m_nInstance[nInstance],img->data,img->cols,img->rows,img->cols,&pface,&countFace);
 
 	float left, right, top, bottom;
 
@@ -429,7 +431,7 @@ bool SenseTimeSDK::faceDetect(cv::Mat& imgIn, cv::Mat& imgOut, vector<cv::Mat>& 
 	return true;
 }
 
-bool SenseTimeSDK::prepareSamples( std::string filePath, vector<cv::Mat>& samples, vector<int>& labels,
+bool SenseTimeSDK::prepareSamples( std::string filelist, vector<cv::Mat>& samples, vector<int>& labels,
 	int	nIDMember, int nCountEach )
 {
 	cout << "prepareSamples" << endl;
@@ -442,7 +444,7 @@ bool SenseTimeSDK::prepareSamples( std::string filePath, vector<cv::Mat>& sample
 		int id = (nIDMember-1) * 30 + j;
 
 		pathEach.str("");
-		pathEach << filePath << id << ".bmp";
+		pathEach << filelist << id << ".bmp";
 
 		cout << pathEach.str() << endl;
 
@@ -550,6 +552,7 @@ db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )
 
 	//cout << "image cols = " << imageIn.cols << ", rows = " << imageIn.rows << endl;
 
+#if 0
 	if ( imageIn.type() == CV_8UC3 )
 	{
 		cvtColor( imageIn, gray, CV_BGR2GRAY );
@@ -567,6 +570,11 @@ db_item SenseTimeSDK::getFeature( cv::Mat& imageIn )
 	{
 		cvtColor( imageIn, imgInBGRA, CV_BGR2BGRA );
 	}
+
+#endif
+
+	cvtColor( imageIn, imgInBGRA, CV_BGR2BGRA );
+
 
 	db_item item;
 	item.idx = -1;
