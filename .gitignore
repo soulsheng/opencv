@@ -108,3 +108,6 @@ tags
 /samples/vc10/faceDetectST/*.bin
 /samples/vc10/faceDetectST/data/*.model
 /samples/vc10/faceDetectST/data/*.txt
+/samples/vc10/data/*.jpg
+/samples/vc10/obj
+/samples/vc10/stereoBM/*.png

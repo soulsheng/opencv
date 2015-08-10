@@ -12,6 +12,9 @@
 
 using namespace cv;
 
+#define IMAGE_L	"../data/21_L.jpg"
+#define IMAGE_R	"../data/21_R.jpg"
+
 const char *windowDisparity = "Disparity";
 
 void readme();
@@ -22,12 +25,12 @@ void readme();
  */
 int main( int argc, char** argv )
 {
-  if( argc != 3 )
-  { readme(); return -1; }
+  //if( argc != 3 )
+  //{ readme(); return -1; }
 
   //-- 1. Read the images
-  Mat imgLeft = imread( argv[1], CV_LOAD_IMAGE_GRAYSCALE );
-  Mat imgRight = imread( argv[2], CV_LOAD_IMAGE_GRAYSCALE );
+  Mat imgLeft = imread( IMAGE_L, CV_LOAD_IMAGE_GRAYSCALE );
+  Mat imgRight = imread( IMAGE_R, CV_LOAD_IMAGE_GRAYSCALE );
   //-- And create the image in which we will save our disparities
   Mat imgDisparity16S = Mat( imgLeft.rows, imgLeft.cols, CV_16S );
   Mat imgDisparity8U = Mat( imgLeft.rows, imgLeft.cols, CV_8UC1 );
