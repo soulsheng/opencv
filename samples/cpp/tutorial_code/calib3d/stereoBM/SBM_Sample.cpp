@@ -12,6 +12,8 @@
 
 using namespace cv;
 
+#include "helper_timer.h"
+
 #define IMAGE_L	"../data/21_L.jpg"
 #define IMAGE_R	"../data/21_R.jpg"
 
@@ -46,8 +48,15 @@ int main( int argc, char** argv )
                                 ndisparities,
                 SADWindowSize );
 
+  StopWatchInterface* timer;
+  sdkCreateTimer( &timer );
+  sdkStartTimer( &timer );
+
   //-- 3. Calculate the disparity image
   sbm( imgLeft, imgRight, imgDisparity16S, CV_16S );
+
+  sdkStopTimer( &timer );
+  printf( "sbm time : %.1f ms \n ", sdkGetTimerValue( &timer ) );
 
   //-- Check its extreme values
   double minVal; double maxVal;
