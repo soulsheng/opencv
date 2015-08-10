@@ -114,8 +114,7 @@ int main( int argc, const char** argv )
     }
     else
     {
-		image = imread( "../../images/151.bmp", 1 );
-        //image = imread( "../../images/lena.jpg", 1 );
+        image = imread( "../../images/lena.jpg", 1 );
         if(image.empty()) cout << "Couldn't read lena.jpg" << endl;
     }
 
