@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "houghLineGPU", "houghLineGP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "houghLine", "houghLine\houghLine.vcxproj", "{F60E5336-4D54-4B0A-A2C5-075D80FB5112}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opticalFlow", "opticalFlow\opticalFlow.vcxproj", "{0BB38895-93FE-4081-8B9B-7A017AB0F82E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{F60E5336-4D54-4B0A-A2C5-075D80FB5112}.Debug|Win32.Build.0 = Debug|Win32
 		{F60E5336-4D54-4B0A-A2C5-075D80FB5112}.Release|Win32.ActiveCfg = Release|Win32
 		{F60E5336-4D54-4B0A-A2C5-075D80FB5112}.Release|Win32.Build.0 = Release|Win32
+		{0BB38895-93FE-4081-8B9B-7A017AB0F82E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0BB38895-93FE-4081-8B9B-7A017AB0F82E}.Debug|Win32.Build.0 = Debug|Win32
+		{0BB38895-93FE-4081-8B9B-7A017AB0F82E}.Release|Win32.ActiveCfg = Release|Win32
+		{0BB38895-93FE-4081-8B9B-7A017AB0F82E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
