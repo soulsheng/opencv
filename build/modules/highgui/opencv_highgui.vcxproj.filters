@@ -134,9 +134,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\modules\highgui\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Src\grfmts">
       <UniqueIdentifier>{D2C463A8-5F14-43C0-8F7A-60FE776B3208}</UniqueIdentifier>
     </Filter>

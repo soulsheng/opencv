@@ -164,7 +164,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\modules\ocl\CMakeLists.txt" />
     <CustomBuild Include="..\..\CMakeFiles\5d834cf61f3e6d1612c77a7c87ddca6f\opencl_kernels.cpp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>

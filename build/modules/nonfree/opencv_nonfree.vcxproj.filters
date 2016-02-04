@@ -53,7 +53,6 @@
     <CustomBuild Include="..\..\..\modules\nonfree\src\cuda\surf.cu">
       <Filter>Src\Cuda</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\modules\nonfree\CMakeLists.txt" />
     <CustomBuild Include="..\..\CMakeFiles\30b8dd231ba77ff091a87ab6fc87630f\opencl_kernels.cpp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
