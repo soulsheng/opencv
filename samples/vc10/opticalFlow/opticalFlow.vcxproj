@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\c\fback_c.c" />
+    <ClCompile Include="..\..\c\fback_c.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0BB38895-93FE-4081-8B9B-7A017AB0F82E}</ProjectGuid>
