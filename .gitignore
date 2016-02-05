@@ -88,3 +88,5 @@ tags
 /build/samples/cpp/ipch
 /build/samples/cpp/Win32
  
+/samples/vc10/opticalFlow/Release
+/samples/vc10/opticalFlow/Debug
