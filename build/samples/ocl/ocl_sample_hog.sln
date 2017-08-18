@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "(EXAMPLE_OCL) hog", "example_ocl_hog.vcxproj", "{CC246C71-CAC0-4DB6-903F-E8916B8B177A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{B1EDFD67-3073-4D11-96FA-743F4A2F5D85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ocl", "ocl", "{D31D88DD-F81C-4733-A801-DBAE39565701}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC246C71-CAC0-4DB6-903F-E8916B8B177A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CC246C71-CAC0-4DB6-903F-E8916B8B177A}.Debug|Win32.Build.0 = Debug|Win32
+		{CC246C71-CAC0-4DB6-903F-E8916B8B177A}.Release|Win32.ActiveCfg = Release|Win32
+		{CC246C71-CAC0-4DB6-903F-E8916B8B177A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D31D88DD-F81C-4733-A801-DBAE39565701} = {B1EDFD67-3073-4D11-96FA-743F4A2F5D85}
+		{CC246C71-CAC0-4DB6-903F-E8916B8B177A} = {D31D88DD-F81C-4733-A801-DBAE39565701}
+	EndGlobalSection
+EndGlobal
