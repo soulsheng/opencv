@@ -112,11 +112,11 @@ int main(int argc, const char *argv[])
     cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	string cascadeName = "../../../data/haarcascades/haarcascade_frontalface_alt.xml";
-	//string inputName = "../../images/lena.jpg";//"../../images/151.bmp";
-	string inputName = "rtsp://192.168.1.11:554/user=admin&password=admin&channel=1&stream=0.sdp";//"../../images/151.bmp";
-	bool isInputImage = false;
+	string inputName = "../../images/lena.jpg";//"../../images/151.bmp";
+	//string inputName = "rtsp://192.168.1.11:554/user=admin&password=admin&channel=1&stream=0.sdp";//"../../images/151.bmp";
+	bool isInputImage = true;
     bool isInputVideo = false;
-    bool isInputCamera = true;
+    bool isInputCamera = false;
 
     for (int i = 1; i < argc; ++i)
     {
@@ -213,7 +213,7 @@ int main(int argc, const char *argv[])
 
         convertAndResize(frame_gpu, gray_gpu, resized_gpu, scaleFactor);
         convertAndResize(frame_cpu, gray_cpu, resized_cpu, scaleFactor);
-#if 0
+#if 1
         TickMeter tm;
         tm.start();
 

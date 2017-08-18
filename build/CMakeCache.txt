@@ -7,7 +7,7 @@
 # The syntax for the file is as follows:
 # KEY:TYPE=VALUE
 # KEY is the name of a variable in the cache.
-# TYPE is a hint to GUIs for the type of VALUE, DO NOT EDIT TYPE!.
+# TYPE is a hint to GUI's for the type of VALUE, DO NOT EDIT TYPE!.
 # VALUE is the current value for the KEY.
 
 ########################
@@ -285,7 +285,7 @@ CUDA_64_BIT_DEVICE_CODE:BOOL=OFF
 //Specify 'real' GPU architectures to build binaries for, BIN(PTX)
 // format is supported
 CUDA_ARCH_BIN:STRING=   正在创建库 a.lib 和对象 a.exp
-3.5
+1.1
 
 //Specify 'virtual' PTX architectures to build PTX intermediate
 // code for
@@ -903,9 +903,11 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=2
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=8
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=12
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=11
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=C:/Program Files (x86)/CMake 2.8/bin/cmake.exe
+//ADVANCED property for variable: CMAKE_CONFIGURATION_TYPES
+CMAKE_CONFIGURATION_TYPES-ADVANCED:INTERNAL=1
 //Path to cpack program executable.
 CMAKE_CPACK_COMMAND:INTERNAL=C:/Program Files (x86)/CMake 2.8/bin/cpack.exe
 //Path to ctest program executable.
